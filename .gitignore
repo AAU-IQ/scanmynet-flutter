@@ -31,3 +31,30 @@ migrate_working_dir/
 .flutter-plugins-dependencies
 /build/
 /coverage/
+
+# Node / JS
+node_modules/
+dist/
+
+# Java / Maven
+*.jar
+target/
+
+# Reports
+TEST*.xml
+
+# OS files
+Thumbs.db
+
+# Applications / archives
+*.app
+*.exe
+*.war
+
+# Large media files
+*.mp4
+*.tiff
+*.avi
+*.flv
+*.mov
+*.wmv
