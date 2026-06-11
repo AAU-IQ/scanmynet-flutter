@@ -18,6 +18,11 @@ allprojects {
     repositories {
         google()
         mavenCentral()
+        // RouteThis ScanMyNet `tools` AAR is published here via
+        // `./gradlew :tools:publishToMavenLocal` from the scanmynet-android repo.
+        // TODO(distribution): replace with the private Maven/Artifactory repo
+        // once one exists, so consumers don't need a local publish.
+        mavenLocal()
     }
 }
 
@@ -72,6 +77,14 @@ kotlin {
 }
 
 dependencies {
+    // RouteThis ScanMyNet native SDK (the `tools` AAR). Pulls retrofit/okhttp
+    // transitively (compile scope) and rxjava/rxandroid (runtime scope).
+    implementation("org.bitbucket.creativeadvtech:tools:1.0")
+    // `tools` exposes RxJava only as a runtime transitive dep, but its public
+    // `scan()` returns `Single<ReportResponseDto>`, so we need RxJava at compile
+    // time to subscribe to it.
+    implementation("io.reactivex.rxjava3:rxjava:3.1.12")
+
     testImplementation("org.jetbrains.kotlin:kotlin-test")
     testImplementation("org.mockito:mockito-core:5.0.0")
 }
