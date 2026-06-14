@@ -44,12 +44,10 @@ class ScanViewModel extends ChangeNotifier {
   /// SDK's event stream.
   Future<void> start({required String customerKey}) async {
     if (_state.isRunning) return;
-    _emit(
-      const ScanUiState(phase: ScanPhase.running, stepLabel: 'starting…'),
-    );
 
-    // WiFi/router/GPS details require location permission at runtime — without
-    // it Android anonymizes the data (Unknown SSID/make/model, masked BSSID).
+    // Request permission before changing UI state so the system dialog appears
+    // on the idle screen, not mid-scan. WiFi/router/GPS details require location
+    // at runtime — without it Android anonymizes SSID/BSSID/make/model.
     final status = await Permission.location.request();
     if (!status.isGranted) {
       _emit(
@@ -61,6 +59,10 @@ class ScanViewModel extends ChangeNotifier {
       );
       return;
     }
+
+    _emit(
+      const ScanUiState(phase: ScanPhase.running, stepLabel: 'starting…'),
+    );
 
     try {
       await _sdk.configure(
