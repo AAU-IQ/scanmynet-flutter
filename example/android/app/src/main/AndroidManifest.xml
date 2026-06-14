@@ -1,4 +1,8 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android">
+    <!-- Required so Android returns real WiFi data (SSID, BSSID, scan results)
+         instead of anonymized placeholders. Must also be granted at runtime. -->
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION"/>
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION"/>
     <application
         android:label="SMN"
         android:name="${applicationName}"

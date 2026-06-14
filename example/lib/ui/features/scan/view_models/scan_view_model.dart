@@ -1,6 +1,7 @@
 import 'dart:async';
 
 import 'package:flutter/foundation.dart';
+import 'package:permission_handler/permission_handler.dart';
 import 'package:scanmynet_sdk/scanmynet_sdk.dart';
 import 'package:scanmynet_sdk_example/config/environment.dart';
 import 'package:scanmynet_sdk_example/config/scan_credentials.dart';
@@ -46,6 +47,21 @@ class ScanViewModel extends ChangeNotifier {
     _emit(
       const ScanUiState(phase: ScanPhase.running, stepLabel: 'starting…'),
     );
+
+    // WiFi/router/GPS details require location permission at runtime — without
+    // it Android anonymizes the data (Unknown SSID/make/model, masked BSSID).
+    final status = await Permission.location.request();
+    if (!status.isGranted) {
+      _emit(
+        const ScanUiState(
+          phase: ScanPhase.failed,
+          errorMessage:
+              'Location permission is required to read WiFi and router details.',
+        ),
+      );
+      return;
+    }
+
     try {
       await _sdk.configure(
         ScanConfig(

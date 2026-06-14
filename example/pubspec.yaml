@@ -29,6 +29,10 @@ dependencies:
   # Use with the CupertinoIcons class for iOS style icons.
   cupertino_icons: ^1.0.8
   url_launcher: ^6.3.2
+  # Location permission must be granted at runtime, otherwise Android anonymizes
+  # WiFi data (SSID hidden, BSSID 02:00:00:00:00:00, empty scan results) and the
+  # report comes back with Unknown router make/model/encryption.
+  permission_handler: ^11.3.0
 
 dev_dependencies:
   integration_test:
