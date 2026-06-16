@@ -1,0 +1,278 @@
+{
+  "formatVersion": "1.1",
+  "component": {
+    "group": "org.bitbucket.creativeadvtech",
+    "module": "tools",
+    "version": "1.0",
+    "attributes": {
+      "org.gradle.status": "release"
+    }
+  },
+  "createdBy": {
+    "gradle": {
+      "version": "9.3.1"
+    }
+  },
+  "variants": [
+    {
+      "name": "releaseVariantReleaseApiPublication",
+      "attributes": {
+        "org.gradle.category": "library",
+        "org.gradle.dependency.bundling": "external",
+        "org.gradle.libraryelements": "aar",
+        "org.gradle.usage": "java-api"
+      },
+      "dependencies": [
+        {
+          "group": "com.squareup.retrofit2",
+          "module": "converter-gson",
+          "version": {
+            "requires": "3.0.0"
+          }
+        },
+        {
+          "group": "com.squareup.okhttp3",
+          "module": "logging-interceptor",
+          "version": {
+            "requires": "5.3.2"
+          }
+        },
+        {
+          "group": "com.squareup.retrofit2",
+          "module": "retrofit",
+          "version": {
+            "requires": "3.0.0"
+          }
+        },
+        {
+          "group": "com.squareup.retrofit2",
+          "module": "adapter-rxjava3",
+          "version": {
+            "requires": "3.0.0"
+          }
+        },
+        {
+          "group": "com.squareup.retrofit2",
+          "module": "converter-scalars",
+          "version": {
+            "requires": "3.0.0"
+          }
+        },
+        {
+          "group": "com.squareup.retrofit2",
+          "module": "converter-jaxb",
+          "version": {
+            "requires": "3.0.0"
+          }
+        },
+        {
+          "group": "org.jetbrains.kotlin",
+          "module": "kotlin-stdlib",
+          "version": {
+            "requires": "2.2.10"
+          }
+        }
+      ],
+      "files": [
+        {
+          "name": "tools-1.0.aar",
+          "url": "tools-1.0.aar",
+          "size": 218048,
+          "sha512": "3e5dc9c5314c58d416d1ef69b581f21ea3052baa0e5e304335cb5248c1f31db93e77e7c38e8880f015e9dc229a311b50241e000da930f638f69299a41348f8c4",
+          "sha256": "d3e0d17ab525b9cd6d37aea28209e6c0c37e2e043af7ddb0d06b9c46cf1ecb2e",
+          "sha1": "2cdd5b27a043b9bebcdd591e1df80d6a56b335f0",
+          "md5": "4f62b672188f2b45b3648af9248813b7"
+        }
+      ]
+    },
+    {
+      "name": "releaseVariantReleaseRuntimePublication",
+      "attributes": {
+        "org.gradle.category": "library",
+        "org.gradle.dependency.bundling": "external",
+        "org.gradle.libraryelements": "aar",
+        "org.gradle.usage": "java-runtime"
+      },
+      "dependencies": [
+        {
+          "group": "androidx.core",
+          "module": "core-ktx",
+          "version": {
+            "requires": "1.18.0"
+          }
+        },
+        {
+          "group": "androidx.appcompat",
+          "module": "appcompat",
+          "version": {
+            "requires": "1.7.1"
+          }
+        },
+        {
+          "group": "com.google.android.material",
+          "module": "material",
+          "version": {
+            "requires": "1.13.0"
+          }
+        },
+        {
+          "group": "com.android.volley",
+          "module": "volley",
+          "version": {
+            "requires": "1.2.1"
+          }
+        },
+        {
+          "group": "com.stanfy",
+          "module": "gson-xml-java",
+          "version": {
+            "requires": "0.1.7"
+          }
+        },
+        {
+          "group": "io.reactivex.rxjava3",
+          "module": "rxkotlin",
+          "version": {
+            "requires": "3.0.1"
+          }
+        },
+        {
+          "group": "io.reactivex.rxjava3",
+          "module": "rxandroid",
+          "version": {
+            "requires": "3.0.2"
+          }
+        },
+        {
+          "group": "io.reactivex.rxjava3",
+          "module": "rxjava",
+          "version": {
+            "requires": "3.1.12"
+          }
+        },
+        {
+          "group": "fr.bmartel",
+          "module": "jspeedtest",
+          "version": {
+            "requires": "1.32.1"
+          }
+        },
+        {
+          "group": "com.google.firebase",
+          "module": "firebase-crashlytics-buildtools",
+          "version": {
+            "requires": "3.0.6"
+          }
+        },
+        {
+          "group": "com.google.android.gms",
+          "module": "play-services-location",
+          "version": {
+            "requires": "21.3.0"
+          }
+        },
+        {
+          "group": "com.synaptic-tools",
+          "module": "traceroute",
+          "version": {
+            "requires": "1.0.0"
+          }
+        },
+        {
+          "group": "androidx.work",
+          "module": "work-runtime-ktx",
+          "version": {
+            "requires": "2.11.1"
+          }
+        },
+        {
+          "group": "com.github.stealthcopter",
+          "module": "AndroidNetworkTools",
+          "version": {
+            "requires": "0.4.5.3"
+          }
+        },
+        {
+          "group": "com.squareup.retrofit2",
+          "module": "converter-gson",
+          "version": {
+            "requires": "3.0.0"
+          }
+        },
+        {
+          "group": "com.squareup.okhttp3",
+          "module": "logging-interceptor",
+          "version": {
+            "requires": "5.3.2"
+          }
+        },
+        {
+          "group": "com.squareup.retrofit2",
+          "module": "retrofit",
+          "version": {
+            "requires": "3.0.0"
+          }
+        },
+        {
+          "group": "com.squareup.retrofit2",
+          "module": "adapter-rxjava3",
+          "version": {
+            "requires": "3.0.0"
+          }
+        },
+        {
+          "group": "com.squareup.retrofit2",
+          "module": "converter-scalars",
+          "version": {
+            "requires": "3.0.0"
+          }
+        },
+        {
+          "group": "com.squareup.retrofit2",
+          "module": "converter-jaxb",
+          "version": {
+            "requires": "3.0.0"
+          }
+        },
+        {
+          "group": "org.jetbrains.kotlin",
+          "module": "kotlin-stdlib",
+          "version": {
+            "requires": "2.2.10"
+          }
+        }
+      ],
+      "files": [
+        {
+          "name": "tools-1.0.aar",
+          "url": "tools-1.0.aar",
+          "size": 218048,
+          "sha512": "3e5dc9c5314c58d416d1ef69b581f21ea3052baa0e5e304335cb5248c1f31db93e77e7c38e8880f015e9dc229a311b50241e000da930f638f69299a41348f8c4",
+          "sha256": "d3e0d17ab525b9cd6d37aea28209e6c0c37e2e043af7ddb0d06b9c46cf1ecb2e",
+          "sha1": "2cdd5b27a043b9bebcdd591e1df80d6a56b335f0",
+          "md5": "4f62b672188f2b45b3648af9248813b7"
+        }
+      ]
+    },
+    {
+      "name": "releaseVariantReleaseSourcePublication",
+      "attributes": {
+        "org.gradle.category": "documentation",
+        "org.gradle.dependency.bundling": "external",
+        "org.gradle.docstype": "sources",
+        "org.gradle.usage": "java-runtime"
+      },
+      "files": [
+        {
+          "name": "tools-1.0-sources.jar",
+          "url": "tools-1.0-sources.jar",
+          "size": 54865,
+          "sha512": "c2738cab45d3309479622de3e0e294e086606e828d6bcb290602001c0021db8d3f3f13c544bfcc0c99c2d1d3f4fc0269fd9475bb926be7e0e91a7a8de711427d",
+          "sha256": "84800dcccc75011d36658bc11db725f15b1596abb04fb4630945d5642b91d516",
+          "sha1": "3476bdfc0fdd7564c3d5627fa11b6a0f73f2f1e6",
+          "md5": "b76136a4c2a38857e9e770ff88551aa1"
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,8 @@
+# Copy this file to local.properties and fill in your machine paths.
+# local.properties is gitignored — never commit it.
+
+# Android SDK path (Android Studio sets this automatically)
+sdk.dir=/Users/you/Library/Android/sdk
+
+# Flutter SDK path (set by FVM or your Flutter installation)
+flutter.sdk=/Users/you/fvm/default
