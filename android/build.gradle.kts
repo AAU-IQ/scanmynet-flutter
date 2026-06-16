@@ -18,11 +18,8 @@ allprojects {
     repositories {
         google()
         mavenCentral()
-        // RouteThis ScanMyNet `tools` AAR is published here via
-        // `./gradlew :tools:publishToMavenLocal` from the scanmynet-android repo.
-        // TODO(distribution): replace with the private Maven/Artifactory repo
-        // once one exists, so consumers don't need a local publish.
-        mavenLocal()
+        // Required for com.github.stealthcopter:AndroidNetworkTools (transitive dep of tools).
+        maven { url = uri("https://jitpack.io") }
     }
 }
 
@@ -78,13 +75,33 @@ kotlin {
 }
 
 dependencies {
-    // RouteThis ScanMyNet native SDK (the `tools` AAR). Pulls retrofit/okhttp
-    // transitively (compile scope) and rxjava/rxandroid (runtime scope).
-    implementation("org.bitbucket.creativeadvtech:tools:1.0")
-    // `tools` exposes RxJava only as a runtime transitive dep, but its public
-    // `scan()` returns `Single<ReportResponseDto>`, so we need RxJava at compile
-    // time to subscribe to it.
+    // Private AARs bundled in android/libs/ — no local Maven publish or external repo needed.
+    // Update these files when a new version of tools/traceroute is released.
+    implementation(files("libs/tools-1.0.aar"))
+    implementation(files("libs/traceroute-1.0.0.aar"))
+
+    // Public transitive deps declared in the tools POM (compile scope — needed at compile time).
+    implementation("com.squareup.retrofit2:converter-gson:3.0.0")
+    implementation("com.squareup.okhttp3:logging-interceptor:5.3.2")
+    implementation("com.squareup.retrofit2:retrofit:3.0.0")
+    implementation("com.squareup.retrofit2:adapter-rxjava3:3.0.0")
+    implementation("com.squareup.retrofit2:converter-scalars:3.0.0")
+    implementation("com.squareup.retrofit2:converter-jaxb:3.0.0")
+
+    // Public transitive deps declared in the tools POM (runtime scope).
+    implementation("androidx.core:core-ktx:1.18.0")
+    implementation("androidx.appcompat:appcompat:1.7.1")
+    implementation("com.google.android.material:material:1.13.0")
+    implementation("com.android.volley:volley:1.2.1")
+    implementation("com.stanfy:gson-xml-java:0.1.7")
+    implementation("io.reactivex.rxjava3:rxkotlin:3.0.1")
+    implementation("io.reactivex.rxjava3:rxandroid:3.0.2")
     implementation("io.reactivex.rxjava3:rxjava:3.1.12")
+    implementation("fr.bmartel:jspeedtest:1.32.1")
+    implementation("com.google.firebase:firebase-crashlytics-buildtools:3.0.6")
+    implementation("com.google.android.gms:play-services-location:21.3.0")
+    implementation("androidx.work:work-runtime-ktx:2.11.1")
+    implementation("com.github.stealthcopter:AndroidNetworkTools:0.4.5.3") // via JitPack
 
     testImplementation("org.jetbrains.kotlin:kotlin-test")
     testImplementation("org.mockito:mockito-core:5.0.0")
