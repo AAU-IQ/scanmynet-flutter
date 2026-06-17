@@ -3,7 +3,7 @@ allprojects {
         google()
         mavenCentral()
         // Private AARs bundled in the SDK repo — no local Maven install needed.
-        maven { url = uri("../../android/local-maven-repo") }
+        maven { url = uri("${rootProject.projectDir}/../../android/local-maven-repo") }
         // `tools` pulls JitPack-hosted transitive deps (AndroidNetworkTools,
         // traceroute) — mirror the repos the scanmynet-android build uses.
         maven { url = uri("https://jitpack.io") }
