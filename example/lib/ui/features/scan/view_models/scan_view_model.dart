@@ -4,7 +4,6 @@ import 'package:flutter/foundation.dart';
 import 'package:permission_handler/permission_handler.dart';
 import 'package:scanmynet_sdk/scanmynet_sdk.dart';
 import 'package:scanmynet_sdk_example/domain/models/scan_ui_state.dart';
-import 'package:scanmynet_sdk_example/domain/report_url.dart';
 
 /// Owns scan state and orchestrates the [ScanmynetSdk].
 ///
@@ -14,23 +13,20 @@ import 'package:scanmynet_sdk_example/domain/report_url.dart';
 class ScanViewModel extends ChangeNotifier {
   ScanViewModel({
     required String apiKey,
-    required String appName,
-    required String baseUrl,
-    required String reportBaseUrl,
+    required String requestKey,
+    required ScanEnvironment environment,
     ScanmynetSdk? sdk,
   })  : _apiKey = apiKey,
-        _appName = appName,
-        _baseUrl = baseUrl,
-        _reportBaseUrl = reportBaseUrl,
+        _requestKey = requestKey,
+        _environment = environment,
         _sdk = sdk ?? ScanmynetSdk() {
     _subscription = _sdk.events.listen(_onEvent);
   }
 
   final ScanmynetSdk _sdk;
   final String _apiKey;
-  final String _appName;
-  final String _baseUrl;
-  final String _reportBaseUrl;
+  final String _requestKey;
+  final ScanEnvironment _environment;
   late final StreamSubscription<ScanEvent> _subscription;
 
   ScanUiState _state = ScanUiState.idle;
@@ -70,9 +66,9 @@ class ScanViewModel extends ChangeNotifier {
       await _sdk.configure(
         ScanConfig(
           apiKey: _apiKey,
+          requestKey: _requestKey,
           userKey: customerKey,
-          appName: _appName,
-          baseUrl: _baseUrl,
+          environment: _environment,
         ),
       );
       await _sdk.startScan();
@@ -100,9 +96,7 @@ class ScanViewModel extends ChangeNotifier {
           ScanUiState(
             phase: ScanPhase.finished,
             percent: 100,
-            reportUrl: raw.isEmpty
-                ? null
-                : buildReportUrl(frontendBaseUrl: _reportBaseUrl, rawData: raw),
+            reportUrl: raw.isEmpty ? null : raw,
           ),
         );
       case ScanFailed(:final error):

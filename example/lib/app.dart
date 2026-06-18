@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:scanmynet_sdk/scanmynet_sdk.dart';
 import 'package:scanmynet_sdk_example/ui/core/theme.dart';
 import 'package:scanmynet_sdk_example/ui/features/scan/view_models/scan_view_model.dart';
 import 'package:scanmynet_sdk_example/ui/features/scan/views/scan_page.dart';
@@ -13,12 +14,11 @@ class ScanMyNetApp extends StatefulWidget {
 }
 
 class _ScanMyNetAppState extends State<ScanMyNetApp> {
-  // Supply your own credentials and URLs here — never commit real values.
+  // Credentials provided by ScanMyNet — supply your own values here.
   late final ScanViewModel _viewModel = ScanViewModel(
     apiKey: 'YOUR_API_KEY',
-    appName: 'YourAppName',
-    baseUrl: 'YOUR_BACKEND_URL',
-    reportBaseUrl: 'YOUR_REPORT_URL',
+    requestKey: 'YOUR_REQUEST_KEY',
+    environment: ScanEnvironment.dev,
   );
 
   @override

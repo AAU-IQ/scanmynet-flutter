@@ -205,7 +205,7 @@ class FlutterError (
 enum class ScanEnvironment(val raw: Int) {
   STAGING(0),
   PRODUCTION(1),
-  TESTING(2);
+  DEV(2);
 
   companion object {
     fun ofRaw(raw: Int): ScanEnvironment? {

@@ -186,7 +186,7 @@ func deepHashMessages(value: Any?, hasher: inout Hasher) {
 enum ScanEnvironment: Int {
   case staging = 0
   case production = 1
-  case testing = 2
+  case dev = 2
 }
 
 /// Android `NetworkScanStep` — 13 values in source declaration order.
