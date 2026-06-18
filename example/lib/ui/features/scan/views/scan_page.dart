@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:scanmynet_sdk_example/config/environment.dart';
 import 'package:scanmynet_sdk_example/domain/models/scan_ui_state.dart';
 import 'package:scanmynet_sdk_example/ui/features/scan/view_models/scan_view_model.dart';
 import 'package:scanmynet_sdk_example/ui/features/scan/views/widgets/customer_key_field.dart';
@@ -60,12 +59,6 @@ class _ScanPageState extends State<ScanPage> {
                         ?.copyWith(color: theme.colorScheme.onSurfaceVariant),
                   ),
                   const SizedBox(height: 24),
-                  _EnvironmentSelector(
-                    selected: widget.viewModel.environment,
-                    enabled: !state.isRunning,
-                    onChanged: widget.viewModel.selectEnvironment,
-                  ),
-                  const SizedBox(height: 20),
                   CustomerKeyField(
                     controller: _keyController,
                     enabled: !state.isRunning,
@@ -143,65 +136,6 @@ class _ErrorCard extends StatelessWidget {
           ],
         ),
       ),
-    );
-  }
-}
-
-/// Dev / Staging / Prod picker. Disabled while a scan is running.
-class _EnvironmentSelector extends StatelessWidget {
-  const _EnvironmentSelector({
-    required this.selected,
-    required this.enabled,
-    required this.onChanged,
-  });
-
-  final AppEnvironment selected;
-  final bool enabled;
-  final ValueChanged<AppEnvironment> onChanged;
-
-  @override
-  Widget build(BuildContext context) {
-    final theme = Theme.of(context);
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        Text(
-          'Environment',
-          style: theme.textTheme.labelLarge
-              ?.copyWith(color: theme.colorScheme.onSurfaceVariant),
-        ),
-        const SizedBox(height: 8),
-        SizedBox(
-          width: double.infinity,
-          child: SegmentedButton<AppEnvironment>(
-            segments: [
-              for (final env in AppEnvironment.values)
-                ButtonSegment(value: env, label: Text(env.label)),
-            ],
-            selected: {selected},
-            showSelectedIcon: false,
-            onSelectionChanged:
-                enabled ? (selection) => onChanged(selection.first) : null,
-          ),
-        ),
-        if (selected.isPlaceholder) ...[
-          const SizedBox(height: 8),
-          Row(
-            children: [
-              Icon(Icons.info_outline,
-                  size: 16, color: theme.colorScheme.tertiary),
-              const SizedBox(width: 6),
-              Expanded(
-                child: Text(
-                  'Production report URL is a placeholder — not yet confirmed.',
-                  style: theme.textTheme.bodySmall
-                      ?.copyWith(color: theme.colorScheme.tertiary),
-                ),
-              ),
-            ],
-          ),
-        ],
-      ],
     );
   }
 }

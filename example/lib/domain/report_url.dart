@@ -1,26 +1,23 @@
-import 'package:scanmynet_sdk_example/config/environment.dart';
-
 /// Builds the shareable dashboard URL for a finished scan.
 ///
-/// The backend returns a link in its `data` field, but the host is
-/// environment‑specific and, in some deployments, malformed (it can glue the
-/// host directly to the path when `SCAN_MY_NET_UI_URL` lacks a trailing slash).
-/// Rather than trust it, we pull out the `verification_token` and rebuild the
-/// URL against the selected environment's dashboard — mirroring what the native
-/// app does:
+/// The backend returns a link in its `data` field, but the host can be
+/// malformed (it may glue the host directly to the path when
+/// `SCAN_MY_NET_UI_URL` lacks a trailing slash). Rather than trust it, we
+/// pull out the `verification_token` and rebuild the URL against the
+/// caller-supplied [frontendBaseUrl] — mirroring what the native app does:
 ///
 ///   `{frontendBaseUrl}#/view-report?verification_token={token}`
 ///
 /// Falls back to the raw value if no token can be found.
 String buildReportUrl({
-  required AppEnvironment environment,
+  required String frontendBaseUrl,
   required String rawData,
 }) {
   final token = _extractVerificationToken(rawData);
   if (token == null) return rawData;
 
-  final base = environment.frontendBaseUrl;
-  final normalized = base.endsWith('/') ? base : '$base/';
+  final normalized =
+      frontendBaseUrl.endsWith('/') ? frontendBaseUrl : '$frontendBaseUrl/';
   return '$normalized#/view-report?verification_token=$token';
 }
 

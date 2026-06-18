@@ -3,7 +3,6 @@ import 'dart:async';
 import 'package:flutter/foundation.dart';
 import 'package:permission_handler/permission_handler.dart';
 import 'package:scanmynet_sdk/scanmynet_sdk.dart';
-import 'package:scanmynet_sdk_example/config/environment.dart';
 import 'package:scanmynet_sdk_example/domain/models/scan_ui_state.dart';
 import 'package:scanmynet_sdk_example/domain/report_url.dart';
 
@@ -16,9 +15,13 @@ class ScanViewModel extends ChangeNotifier {
   ScanViewModel({
     required String apiKey,
     required String appName,
+    required String baseUrl,
+    required String reportBaseUrl,
     ScanmynetSdk? sdk,
   })  : _apiKey = apiKey,
         _appName = appName,
+        _baseUrl = baseUrl,
+        _reportBaseUrl = reportBaseUrl,
         _sdk = sdk ?? ScanmynetSdk() {
     _subscription = _sdk.events.listen(_onEvent);
   }
@@ -26,20 +29,12 @@ class ScanViewModel extends ChangeNotifier {
   final ScanmynetSdk _sdk;
   final String _apiKey;
   final String _appName;
+  final String _baseUrl;
+  final String _reportBaseUrl;
   late final StreamSubscription<ScanEvent> _subscription;
 
   ScanUiState _state = ScanUiState.idle;
   ScanUiState get state => _state;
-
-  AppEnvironment _environment = kDefaultEnvironment;
-  AppEnvironment get environment => _environment;
-
-  /// Switches the target environment (ignored mid-scan).
-  void selectEnvironment(AppEnvironment env) {
-    if (_state.isRunning || env == _environment) return;
-    _environment = env;
-    notifyListeners();
-  }
 
   void _emit(ScanUiState next) {
     _state = next;
@@ -77,7 +72,7 @@ class ScanViewModel extends ChangeNotifier {
           apiKey: _apiKey,
           userKey: customerKey,
           appName: _appName,
-          baseUrl: _environment.backendBaseUrl,
+          baseUrl: _baseUrl,
         ),
       );
       await _sdk.startScan();
@@ -107,7 +102,7 @@ class ScanViewModel extends ChangeNotifier {
             percent: 100,
             reportUrl: raw.isEmpty
                 ? null
-                : buildReportUrl(environment: _environment, rawData: raw),
+                : buildReportUrl(frontendBaseUrl: _reportBaseUrl, rawData: raw),
           ),
         );
       case ScanFailed(:final error):
