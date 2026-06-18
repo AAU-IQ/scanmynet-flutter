@@ -13,7 +13,11 @@ class ScanMyNetApp extends StatefulWidget {
 }
 
 class _ScanMyNetAppState extends State<ScanMyNetApp> {
-  late final ScanViewModel _viewModel = ScanViewModel();
+  // Supply your own credentials here — never commit real keys.
+  late final ScanViewModel _viewModel = ScanViewModel(
+    apiKey: 'YOUR_API_KEY',
+    appName: 'YourAppName',
+  );
 
   @override
   void dispose() {

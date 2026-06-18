@@ -4,7 +4,6 @@ import 'package:flutter/foundation.dart';
 import 'package:permission_handler/permission_handler.dart';
 import 'package:scanmynet_sdk/scanmynet_sdk.dart';
 import 'package:scanmynet_sdk_example/config/environment.dart';
-import 'package:scanmynet_sdk_example/config/scan_credentials.dart';
 import 'package:scanmynet_sdk_example/domain/models/scan_ui_state.dart';
 import 'package:scanmynet_sdk_example/domain/report_url.dart';
 
@@ -14,11 +13,19 @@ import 'package:scanmynet_sdk_example/domain/report_url.dart';
 /// immutable [ScanUiState] snapshot for the view. The view never touches the
 /// SDK directly.
 class ScanViewModel extends ChangeNotifier {
-  ScanViewModel({ScanmynetSdk? sdk}) : _sdk = sdk ?? ScanmynetSdk() {
+  ScanViewModel({
+    required String apiKey,
+    required String appName,
+    ScanmynetSdk? sdk,
+  })  : _apiKey = apiKey,
+        _appName = appName,
+        _sdk = sdk ?? ScanmynetSdk() {
     _subscription = _sdk.events.listen(_onEvent);
   }
 
   final ScanmynetSdk _sdk;
+  final String _apiKey;
+  final String _appName;
   late final StreamSubscription<ScanEvent> _subscription;
 
   ScanUiState _state = ScanUiState.idle;
@@ -67,9 +74,9 @@ class ScanViewModel extends ChangeNotifier {
     try {
       await _sdk.configure(
         ScanConfig(
-          apiKey: ScanCredentials.apiKey,
+          apiKey: _apiKey,
           userKey: customerKey,
-          appName: ScanCredentials.appName,
+          appName: _appName,
           baseUrl: _environment.backendBaseUrl,
         ),
       );
