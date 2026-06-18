@@ -3,10 +3,7 @@ import 'dart:async';
 import 'package:flutter/foundation.dart';
 import 'package:permission_handler/permission_handler.dart';
 import 'package:scanmynet_sdk/scanmynet_sdk.dart';
-import 'package:scanmynet_sdk_example/config/environment.dart';
-import 'package:scanmynet_sdk_example/config/scan_credentials.dart';
 import 'package:scanmynet_sdk_example/domain/models/scan_ui_state.dart';
-import 'package:scanmynet_sdk_example/domain/report_url.dart';
 
 /// Owns scan state and orchestrates the [ScanmynetSdk].
 ///
@@ -14,11 +11,22 @@ import 'package:scanmynet_sdk_example/domain/report_url.dart';
 /// immutable [ScanUiState] snapshot for the view. The view never touches the
 /// SDK directly.
 class ScanViewModel extends ChangeNotifier {
-  ScanViewModel({ScanmynetSdk? sdk}) : _sdk = sdk ?? ScanmynetSdk() {
+  ScanViewModel({
+    required String apiKey,
+    required String requestKey,
+    required ScanEnvironment environment,
+    ScanmynetSdk? sdk,
+  })  : _apiKey = apiKey,
+        _requestKey = requestKey,
+        _environment = environment,
+        _sdk = sdk ?? ScanmynetSdk() {
     _subscription = _sdk.events.listen(_onEvent);
   }
 
   final ScanmynetSdk _sdk;
+  final String _apiKey;
+  final String _requestKey;
+  final ScanEnvironment _environment;
   late final StreamSubscription<ScanEvent> _subscription;
 
   ScanUiState _state = ScanUiState.idle;
@@ -88,10 +96,10 @@ class ScanViewModel extends ChangeNotifier {
       _log('configure (env: ${_environment.label})');
       await _sdk.configure(
         ScanConfig(
-          apiKey: ScanCredentials.apiKey,
+          apiKey: _apiKey,
+          requestKey: _requestKey,
           userKey: customerKey,
-          appName: ScanCredentials.appName,
-          baseUrl: _environment.backendBaseUrl,
+          environment: _environment,
         ),
       );
       _log('startScan()');
@@ -135,9 +143,7 @@ class ScanViewModel extends ChangeNotifier {
           ScanUiState(
             phase: ScanPhase.finished,
             percent: 100,
-            reportUrl: raw.isEmpty
-                ? null
-                : buildReportUrl(environment: _environment, rawData: raw),
+            reportUrl: raw.isEmpty ? null : raw,
           ),
         );
       case ScanFailed(:final error):

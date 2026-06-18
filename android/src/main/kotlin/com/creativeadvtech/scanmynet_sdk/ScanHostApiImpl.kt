@@ -29,6 +29,7 @@ class ScanHostApiImpl(
     private val flutterApi: ScanFlutterApi,
 ) : ScanHostApi {
 
+
     private val mainHandler = Handler(Looper.getMainLooper())
     private val disposables = CompositeDisposable()
     private var networkScan: NetworkScan? = null
@@ -42,12 +43,18 @@ class ScanHostApiImpl(
             .userKey(config.userKey.orEmpty())
             .apiKey(config.apiKey)
             .appName(config.appName.orEmpty())
-            .baseUrl(config.baseUrl.orEmpty())
+            .baseUrl(config.environment.toBaseUrl())
             .progressCallback { progress -> onMain { flutterApi.onProgress(progress.toPigeon()) {} } }
             .resultCallback { result -> lastResult = result }
             .debugCallback { report -> onMain { flutterApi.onDataPersisted(ScanReport(report.toJson())) {} } }
             .errorCallback { error -> onMain { flutterApi.onError(error.toPigeon()) {} } }
             .build()
+    }
+
+    private fun ScanEnvironment?.toBaseUrl(): String = when (this) {
+        ScanEnvironment.DEV -> "https://scanmynet-backend.dev.kvm.creativeadvtech.ml/"
+        ScanEnvironment.STAGING -> "https://scanmynet-backend.stg.kvm.creativeadvtech.ml/"
+        ScanEnvironment.PRODUCTION, null -> "https://scanmynet.earthlink.iq/"
     }
 
     override fun startScan() {

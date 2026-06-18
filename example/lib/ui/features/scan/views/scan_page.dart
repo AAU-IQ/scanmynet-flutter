@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:scanmynet_sdk_example/config/environment.dart';
 import 'package:scanmynet_sdk_example/domain/models/scan_ui_state.dart';
 import 'package:scanmynet_sdk_example/ui/features/scan/view_models/scan_view_model.dart';
 import 'package:scanmynet_sdk_example/ui/features/scan/views/widgets/customer_key_field.dart';
@@ -60,12 +59,6 @@ class _ScanPageState extends State<ScanPage> {
                         ?.copyWith(color: theme.colorScheme.onSurfaceVariant),
                   ),
                   const SizedBox(height: 24),
-                  _EnvironmentSelector(
-                    selected: widget.viewModel.environment,
-                    enabled: !state.isRunning,
-                    onChanged: widget.viewModel.selectEnvironment,
-                  ),
-                  const SizedBox(height: 20),
                   CustomerKeyField(
                     controller: _keyController,
                     enabled: !state.isRunning,

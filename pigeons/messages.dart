@@ -44,7 +44,7 @@ import 'package:pigeon/pigeon.dart';
 enum ScanEnvironment {
   staging,
   production,
-  testing,
+  dev,
 }
 
 /// Android `NetworkScanStep` — 13 values in source declaration order.
