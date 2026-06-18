@@ -24,6 +24,22 @@ class ScanViewModel extends ChangeNotifier {
   ScanUiState _state = ScanUiState.idle;
   ScanUiState get state => _state;
 
+  /// Rolling, timestamped feed of native scan events — useful for diagnosing
+  /// where a scan stalls (e.g. the SDK pausing on the traceroute step). Capped
+  /// so it can't grow unbounded during a long scan.
+  static const _maxLogLines = 300;
+  final List<String> _logs = <String>[];
+  List<String> get logs => List.unmodifiable(_logs);
+
+  void _log(String message) {
+    final now = DateTime.now();
+    String two(int n) => n.toString().padLeft(2, '0');
+    final stamp = '${two(now.hour)}:${two(now.minute)}:${two(now.second)}';
+    _logs.add('$stamp  $message');
+    if (_logs.length > _maxLogLines) _logs.removeAt(0);
+    notifyListeners();
+  }
+
   AppEnvironment _environment = kDefaultEnvironment;
   AppEnvironment get environment => _environment;
 
@@ -45,10 +61,14 @@ class ScanViewModel extends ChangeNotifier {
   Future<void> start({required String customerKey}) async {
     if (_state.isRunning) return;
 
+    _logs.clear();
+    _log('requesting location permission…');
+
     // Request permission before changing UI state so the system dialog appears
     // on the idle screen, not mid-scan. WiFi/router/GPS details require location
     // at runtime — without it Android anonymizes SSID/BSSID/make/model.
     final status = await Permission.location.request();
+    _log('location permission: ${status.name}');
     if (!status.isGranted) {
       _emit(
         const ScanUiState(
@@ -65,6 +85,7 @@ class ScanViewModel extends ChangeNotifier {
     );
 
     try {
+      _log('configure (env: ${_environment.label})');
       await _sdk.configure(
         ScanConfig(
           apiKey: ScanCredentials.apiKey,
@@ -73,18 +94,33 @@ class ScanViewModel extends ChangeNotifier {
           baseUrl: _environment.backendBaseUrl,
         ),
       );
+      _log('startScan()');
       await _sdk.startScan();
     } catch (e) {
+      _log('exception: $e');
       _emit(ScanUiState(phase: ScanPhase.failed, errorMessage: e.toString()));
     }
+  }
+
+  /// Cancels an in-flight scan. iOS supports this (the SDK stops its services
+  /// and emits `onCanceled`); on Android it is best-effort. Useful to recover
+  /// from a step that stalls — e.g. the traceroute waiting on an unreachable
+  /// host.
+  Future<void> cancel() async {
+    if (!_state.isRunning) return;
+    _log('cancel() requested');
+    await _sdk.cancel();
   }
 
   /// Maps a native [ScanEvent] onto the UI state.
   void _onEvent(ScanEvent event) {
     switch (event) {
       case ScanStarted():
+        _log('▶ started');
         _emit(_state.copyWith(phase: ScanPhase.running, stepLabel: 'started'));
       case ScanProgressed(:final progress):
+        final detail = progress.currentStep?.name ?? progress.label ?? '';
+        _log('· ${progress.percent.toStringAsFixed(0)}% $detail'.trimRight());
         _emit(
           _state.copyWith(
             phase: ScanPhase.running,
@@ -93,6 +129,7 @@ class ScanViewModel extends ChangeNotifier {
           ),
         );
       case ScanCompleted(:final result):
+        _log('✓ finished: ${result.reportUrl}');
         final raw = result.reportUrl;
         _emit(
           ScanUiState(
@@ -106,6 +143,9 @@ class ScanViewModel extends ChangeNotifier {
       case ScanFailed(:final error):
         // Per-step errors are non-fatal and the scan continues; only a terminal
         // submission failure should fail the UI.
+        _log('✕ error[${error.kind.name}]'
+            '${error.serviceType != null ? ' ${error.serviceType}' : ''}: '
+            '${error.message}');
         if (error.kind == ScanErrorKind.submission) {
           _emit(
             ScanUiState(
@@ -116,9 +156,11 @@ class ScanViewModel extends ChangeNotifier {
           );
         }
       case ScanCanceled():
+        _log('canceled');
         _emit(ScanUiState.idle);
       case ScanDataPersisted():
         // The full submitted report JSON (Android only); not surfaced here.
+        _log('data persisted');
         break;
     }
   }

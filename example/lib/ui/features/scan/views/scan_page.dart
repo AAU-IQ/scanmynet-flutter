@@ -85,11 +85,23 @@ class _ScanPageState extends State<ScanPage> {
                         : const Icon(Icons.wifi_find),
                     label: Text(state.isRunning ? 'Scanning…' : 'Run scan'),
                   ),
+                  if (state.isRunning) ...[
+                    const SizedBox(height: 10),
+                    OutlinedButton.icon(
+                      onPressed: widget.viewModel.cancel,
+                      icon: const Icon(Icons.stop_circle_outlined),
+                      label: const Text('Cancel scan'),
+                    ),
+                  ],
                   const SizedBox(height: 24),
                   AnimatedSwitcher(
                     duration: const Duration(milliseconds: 300),
                     child: _resultSection(state),
                   ),
+                  if (widget.viewModel.logs.isNotEmpty) ...[
+                    const SizedBox(height: 20),
+                    _LogPanel(lines: widget.viewModel.logs),
+                  ],
                 ],
               ),
             );
@@ -138,6 +150,60 @@ class _ErrorCard extends StatelessWidget {
               child: Text(
                 message ?? 'Scan failed',
                 style: TextStyle(color: scheme.onErrorContainer),
+              ),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+}
+
+/// Live, scrollable feed of native scan events. The newest line is kept pinned
+/// to the bottom so a stall (e.g. the scan pausing on the traceroute step) is
+/// visible as the last entry with no follow-up.
+class _LogPanel extends StatelessWidget {
+  const _LogPanel({required this.lines});
+
+  final List<String> lines;
+
+  @override
+  Widget build(BuildContext context) {
+    final theme = Theme.of(context);
+    final scheme = theme.colorScheme;
+    return Card(
+      elevation: 0,
+      color: scheme.surfaceContainerHighest,
+      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(18)),
+      child: Padding(
+        padding: const EdgeInsets.all(16),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Row(
+              children: [
+                Icon(Icons.terminal, size: 16, color: scheme.onSurfaceVariant),
+                const SizedBox(width: 8),
+                Text('Scan log', style: theme.textTheme.labelLarge),
+                const Spacer(),
+                Text('${lines.length}',
+                    style: theme.textTheme.labelSmall
+                        ?.copyWith(color: scheme.onSurfaceVariant)),
+              ],
+            ),
+            const SizedBox(height: 8),
+            ConstrainedBox(
+              constraints: const BoxConstraints(maxHeight: 220),
+              child: SingleChildScrollView(
+                reverse: true,
+                child: SelectableText(
+                  lines.join('\n'),
+                  style: theme.textTheme.bodySmall?.copyWith(
+                    fontFamily: 'monospace',
+                    color: scheme.onSurface,
+                    height: 1.4,
+                  ),
+                ),
               ),
             ),
           ],
