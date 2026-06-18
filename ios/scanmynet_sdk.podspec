@@ -17,6 +17,28 @@ A new Flutter plugin project.
   s.dependency 'Flutter'
   s.platform = :ios, '13.0'
 
+  # The native ScanMyNet SDK, bundled as a prebuilt binary (the iOS counterpart
+  # of the Android `tools` AAR). Rebuild it from scanmynet-ios via:
+  #   xcodebuild archive -workspace ScanMyNet.xcworkspace -scheme Production \
+  #     -configuration 'Production Release' (device + simulator) then
+  #   xcodebuild -create-xcframework ... -output ScanMyNet.xcframework
+  s.vendored_frameworks = 'ScanMyNet.xcframework'
+
+  # Unlike the self-contained Android AARs, the iOS SDK is NOT standalone — it
+  # links these third-party frameworks. They are all on the public CocoaPods
+  # trunk, so the host app resolves them automatically during `pod install`.
+  #
+  # Versions are PINNED EXACTLY to what ScanMyNet.xcframework was compiled
+  # against (scanmynet-ios/Podfile.lock). A precompiled Swift binary links
+  # against specific symbol/witness tables, so even a patch bump (e.g. Alamofire
+  # 5.11.1 -> 5.11.2) drops a symbol and crashes at launch with a dyld
+  # "Symbol not found" error. Bump these only in lockstep with a framework
+  # rebuilt against the new versions.
+  s.dependency 'Alamofire', '5.11.1'
+  s.dependency 'BlueSocket', '2.0.4'
+  s.dependency 'NDT7', '0.0.4'
+  s.dependency 'XMLCoder', '0.13.1'
+
   # Flutter.framework does not contain a i386 slice.
   s.pod_target_xcconfig = { 'DEFINES_MODULE' => 'YES', 'EXCLUDED_ARCHS[sdk=iphonesimulator*]' => 'i386' }
   s.swift_version = '5.0'

@@ -4,6 +4,8 @@
 <dict>
 	<key>NSLocationWhenInUseUsageDescription</key>
 	<string>Location is used to read WiFi and router details during a network scan.</string>
+	<key>NSLocalNetworkUsageDescription</key>
+	<string>Local network access is used to discover devices and your router during a network scan.</string>
 	<key>CADisableMinimumFrameDurationOnPhone</key>
 	<true/>
 	<key>CFBundleDevelopmentRegion</key>

@@ -1,0 +1,11 @@
+framework module ScanMyNet {
+  umbrella header "ScanMyNet.h"
+  export *
+
+  module * { export * }
+}
+
+module ScanMyNet.Swift {
+  header "ScanMyNet-Swift.h"
+  requires objc
+}
