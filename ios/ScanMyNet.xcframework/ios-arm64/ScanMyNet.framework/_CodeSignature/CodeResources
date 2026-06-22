@@ -90,7 +90,7 @@
 		</data>
 		<key>Modules/ScanMyNet.swiftmodule/arm64-apple-ios.abi.json</key>
 		<data>
-		0YvoqeUnXR9VpBC+xSOvbxz7o3M=
+		5JSyhRjXv3N0wstFBQFAtaciBXI=
 		</data>
 		<key>Modules/ScanMyNet.swiftmodule/arm64-apple-ios.private.swiftinterface</key>
 		<data>
@@ -106,7 +106,7 @@
 		</data>
 		<key>Modules/ScanMyNet.swiftmodule/arm64-apple-ios.swiftmodule</key>
 		<data>
-		Sz7Ha9OMjcAIkCeaYckQBFa2mtE=
+		jR+G8rOq3bZ2J2ttfd9whsvuE/Y=
 		</data>
 		<key>Modules/module.modulemap</key>
 		<data>
@@ -267,7 +267,7 @@
 		<dict>
 			<key>hash2</key>
 			<data>
-			riTmkEJ4q02VMrly4ulwvV2KlQDoXFrR8ZGT+PU66yA=
+			rd1QRCPNc3T8s7wPng5Wk6v1XNzc+vUKPctdJVO78jM=
 			</data>
 		</dict>
 		<key>Modules/ScanMyNet.swiftmodule/arm64-apple-ios.private.swiftinterface</key>
@@ -295,7 +295,7 @@
 		<dict>
 			<key>hash2</key>
 			<data>
-			Jd0NexQYVWXHMCSVSHTgSBPY8LldKyIjtkS42M359To=
+			Y25ckjXnQnxGJXvM3syfh8jLiIa1uhZbrF2whM+wT4U=
 			</data>
 		</dict>
 		<key>Modules/module.modulemap</key>

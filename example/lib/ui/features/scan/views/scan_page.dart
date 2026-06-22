@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:scanmynet_sdk/scanmynet_sdk.dart';
 import 'package:scanmynet_sdk_example/domain/models/scan_ui_state.dart';
 import 'package:scanmynet_sdk_example/ui/features/scan/view_models/scan_view_model.dart';
 import 'package:scanmynet_sdk_example/ui/features/scan/views/widgets/customer_key_field.dart';
@@ -59,6 +60,12 @@ class _ScanPageState extends State<ScanPage> {
                         ?.copyWith(color: theme.colorScheme.onSurfaceVariant),
                   ),
                   const SizedBox(height: 24),
+                  _EnvironmentSelector(
+                    selected: widget.viewModel.environment,
+                    enabled: !state.isRunning,
+                    onChanged: widget.viewModel.selectEnvironment,
+                  ),
+                  const SizedBox(height: 20),
                   CustomerKeyField(
                     controller: _keyController,
                     enabled: !state.isRunning,
@@ -206,7 +213,8 @@ class _LogPanel extends StatelessWidget {
   }
 }
 
-/// Dev / Staging / Prod picker. Disabled while a scan is running.
+/// Environment picker (staging / production / dev). Disabled while a scan runs.
+/// Backed by the SDK's `ScanEnvironment` enum (the former `AppEnvironment`).
 class _EnvironmentSelector extends StatelessWidget {
   const _EnvironmentSelector({
     required this.selected,
@@ -214,9 +222,12 @@ class _EnvironmentSelector extends StatelessWidget {
     required this.onChanged,
   });
 
-  final AppEnvironment selected;
+  final ScanEnvironment selected;
   final bool enabled;
-  final ValueChanged<AppEnvironment> onChanged;
+  final ValueChanged<ScanEnvironment> onChanged;
+
+  static String _label(ScanEnvironment env) =>
+      env.name[0].toUpperCase() + env.name.substring(1);
 
   @override
   Widget build(BuildContext context) {
@@ -232,10 +243,10 @@ class _EnvironmentSelector extends StatelessWidget {
         const SizedBox(height: 8),
         SizedBox(
           width: double.infinity,
-          child: SegmentedButton<AppEnvironment>(
+          child: SegmentedButton<ScanEnvironment>(
             segments: [
-              for (final env in AppEnvironment.values)
-                ButtonSegment(value: env, label: Text(env.label)),
+              for (final env in ScanEnvironment.values)
+                ButtonSegment(value: env, label: Text(_label(env))),
             ],
             selected: {selected},
             showSelectedIcon: false,
@@ -243,23 +254,6 @@ class _EnvironmentSelector extends StatelessWidget {
                 enabled ? (selection) => onChanged(selection.first) : null,
           ),
         ),
-        if (selected.isPlaceholder) ...[
-          const SizedBox(height: 8),
-          Row(
-            children: [
-              Icon(Icons.info_outline,
-                  size: 16, color: theme.colorScheme.tertiary),
-              const SizedBox(width: 6),
-              Expanded(
-                child: Text(
-                  'Production report URL is a placeholder — not yet confirmed.',
-                  style: theme.textTheme.bodySmall
-                      ?.copyWith(color: theme.colorScheme.tertiary),
-                ),
-              ),
-            ],
-          ),
-        ],
       ],
     );
   }

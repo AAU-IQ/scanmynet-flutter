@@ -1263,6 +1263,20 @@
       "value": "[]"
     },
     {
+      "filePath": "\/Users\/ahmedraad\/Desktop\/asl\/scanmynet-project\/scanmynet-ios\/ScanMyNet\/Services\/LAN Scanner\/LanScanService.swift",
+      "kind": "IntegerLiteral",
+      "offset": 624,
+      "length": 2,
+      "value": "25"
+    },
+    {
+      "filePath": "\/Users\/ahmedraad\/Desktop\/asl\/scanmynet-project\/scanmynet-ios\/ScanMyNet\/Services\/LAN Scanner\/LanScanService.swift",
+      "kind": "BooleanLiteral",
+      "offset": 763,
+      "length": 5,
+      "value": "false"
+    },
+    {
       "filePath": "\/Users\/ahmedraad\/Desktop\/asl\/scanmynet-project\/scanmynet-ios\/ScanMyNet\/Models\/Port\/PortCheck.swift",
       "kind": "StringLiteral",
       "offset": 241,
@@ -1756,34 +1770,34 @@
       "filePath": "\/Users\/ahmedraad\/Desktop\/asl\/scanmynet-project\/scanmynet-ios\/ScanMyNet\/Models\/QualityResult.swift",
       "kind": "IntegerLiteral",
       "offset": 1152,
-      "length": 3,
-      "value": "125"
+      "length": 2,
+      "value": "30"
     },
     {
       "filePath": "\/Users\/ahmedraad\/Desktop\/asl\/scanmynet-project\/scanmynet-ios\/ScanMyNet\/Models\/QualityResult.swift",
       "kind": "Array",
-      "offset": 1186,
+      "offset": 1185,
       "length": 2,
       "value": "[]"
     },
     {
       "filePath": "\/Users\/ahmedraad\/Desktop\/asl\/scanmynet-project\/scanmynet-ios\/ScanMyNet\/Models\/QualityResult.swift",
       "kind": "IntegerLiteral",
-      "offset": 1231,
-      "length": 3,
-      "value": "125"
+      "offset": 1226,
+      "length": 2,
+      "value": "30"
     },
     {
       "filePath": "\/Users\/ahmedraad\/Desktop\/asl\/scanmynet-project\/scanmynet-ios\/ScanMyNet\/Models\/QualityResult.swift",
       "kind": "IntegerLiteral",
-      "offset": 1467,
+      "offset": 1461,
       "length": 1,
       "value": "8"
     },
     {
       "filePath": "\/Users\/ahmedraad\/Desktop\/asl\/scanmynet-project\/scanmynet-ios\/ScanMyNet\/Models\/QualityResult.swift",
       "kind": "StringLiteral",
-      "offset": 1612,
+      "offset": 1606,
       "length": 7,
       "value": "\"https\""
     },
@@ -1903,15 +1917,15 @@
       "filePath": "\/Users\/ahmedraad\/Desktop\/asl\/scanmynet-project\/scanmynet-ios\/ScanMyNet\/Services\/LAN Scanner\/LANDevice.swift",
       "kind": "IntegerLiteral",
       "offset": 400,
-      "length": 3,
-      "value": "125"
+      "length": 2,
+      "value": "30"
     },
     {
       "filePath": "\/Users\/ahmedraad\/Desktop\/asl\/scanmynet-project\/scanmynet-ios\/ScanMyNet\/Services\/LAN Scanner\/LANDevice.swift",
       "kind": "IntegerLiteral",
-      "offset": 446,
-      "length": 3,
-      "value": "125"
+      "offset": 441,
+      "length": 2,
+      "value": "30"
     },
     {
       "filePath": "\/Users\/ahmedraad\/Desktop\/asl\/scanmynet-project\/scanmynet-ios\/ScanMyNet\/Services\/Server Connectivity\/ServerConnectivityService.swift",
@@ -2197,6 +2211,20 @@
       "filePath": "\/Users\/ahmedraad\/Desktop\/asl\/scanmynet-project\/scanmynet-ios\/ScanMyNet\/Services\/Connection Quality\/ConnectionQualityService.swift",
       "kind": "BooleanLiteral",
       "offset": 1313,
+      "length": 5,
+      "value": "false"
+    },
+    {
+      "filePath": "\/Users\/ahmedraad\/Desktop\/asl\/scanmynet-project\/scanmynet-ios\/ScanMyNet\/Services\/Connection Quality\/ConnectionQualityService.swift",
+      "kind": "IntegerLiteral",
+      "offset": 1662,
+      "length": 2,
+      "value": "25"
+    },
+    {
+      "filePath": "\/Users\/ahmedraad\/Desktop\/asl\/scanmynet-project\/scanmynet-ios\/ScanMyNet\/Services\/Connection Quality\/ConnectionQualityService.swift",
+      "kind": "BooleanLiteral",
+      "offset": 1801,
       "length": 5,
       "value": "false"
     }

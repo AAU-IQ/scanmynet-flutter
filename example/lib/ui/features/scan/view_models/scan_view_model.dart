@@ -20,6 +20,7 @@ class ScanViewModel extends ChangeNotifier {
   }) : _apiKey = apiKey,
        _requestKey = requestKey,
        _appName = appName,
+
        _environment = environment,
        _sdk = sdk ?? ScanmynetSdk() {
     _subscription = _sdk.events.listen(_onEvent);
@@ -29,11 +30,21 @@ class ScanViewModel extends ChangeNotifier {
   final String _apiKey;
   final String _requestKey;
   final String _appName;
-  final ScanEnvironment _environment;
+  ScanEnvironment _environment;
   late final StreamSubscription<ScanEvent> _subscription;
 
   ScanUiState _state = ScanUiState.idle;
   ScanUiState get state => _state;
+
+  /// Currently selected target environment (`staging` / `production` / `dev`).
+  ScanEnvironment get environment => _environment;
+
+  /// Switches the target environment (ignored mid-scan).
+  void selectEnvironment(ScanEnvironment env) {
+    if (_state.isRunning || env == _environment) return;
+    _environment = env;
+    notifyListeners();
+  }
 
   /// Rolling, timestamped feed of native scan events — useful for diagnosing
   /// where a scan stalls (e.g. the SDK pausing on the traceroute step). Capped
@@ -48,16 +59,6 @@ class ScanViewModel extends ChangeNotifier {
     final stamp = '${two(now.hour)}:${two(now.minute)}:${two(now.second)}';
     _logs.add('$stamp  $message');
     if (_logs.length > _maxLogLines) _logs.removeAt(0);
-    notifyListeners();
-  }
-
-  AppEnvironment _environment = kDefaultEnvironment;
-  AppEnvironment get environment => _environment;
-
-  /// Switches the target environment (ignored mid-scan).
-  void selectEnvironment(AppEnvironment env) {
-    if (_state.isRunning || env == _environment) return;
-    _environment = env;
     notifyListeners();
   }
 
@@ -94,7 +95,7 @@ class ScanViewModel extends ChangeNotifier {
     _emit(const ScanUiState(phase: ScanPhase.running, stepLabel: 'starting…'));
 
     try {
-      _log('configure (env: ${_environment.label})');
+      _log('configure (env: ${_environment.name})');
       await _sdk.configure(
         ScanConfig(
           apiKey: _apiKey,

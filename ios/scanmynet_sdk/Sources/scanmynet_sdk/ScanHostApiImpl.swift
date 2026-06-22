@@ -132,7 +132,8 @@ private extension Optional where Wrapped == ScanEnvironment {
     switch self {
     case .staging: return .staging
     case .production: return .production
-    case .testing: return .testing
+    // Pigeon `.dev` maps to the SDK's `testing` backend (the dev server).
+    case .dev: return .testing
     case .none: return .production
     }
   }
