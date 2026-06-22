@@ -37,7 +37,16 @@ class ScanHostApiImpl(
     /** Captured from the SDK's ResultCallback to enrich the terminal [ScanResult]. */
     private var lastResult: NetworkScanResult? = null
 
+    /**
+     * Frontend (report-viewer) base URL for the configured environment. The
+     * backend's `ReportResponseDto.data` carries the report's `verification_token`
+     * but not a usable viewer URL, so the terminal [ScanResult.reportUrl] is built
+     * here from this base + the token — matching the native app (TestDebugActivity).
+     */
+    private var frontendBaseUrl: String = (null as ScanEnvironment?).toFrontendUrl()
+
     override fun configure(config: ScanConfig) {
+        frontendBaseUrl = config.environment.toFrontendUrl()
         networkScan = NetworkScan.builder()
             .context(context)
             .userKey(config.userKey.orEmpty())
@@ -54,6 +63,12 @@ class ScanHostApiImpl(
     private fun ScanEnvironment?.toBaseUrl(): String = when (this) {
         ScanEnvironment.DEV -> "https://scanmynet-backend.dev.kvm.creativeadvtech.ml/"
         ScanEnvironment.STAGING -> "https://scanmynet-backend.stg.kvm.creativeadvtech.ml/"
+        ScanEnvironment.PRODUCTION, null -> "https://scanmynet.earthlink.iq/"
+    }
+
+    private fun ScanEnvironment?.toFrontendUrl(): String = when (this) {
+        ScanEnvironment.DEV -> "https://scanmynet.dev.kvm.creativeadvtech.ml/"
+        ScanEnvironment.STAGING -> "https://scanmynet.stg.kvm.creativeadvtech.ml/"
         ScanEnvironment.PRODUCTION, null -> "https://scanmynet.earthlink.iq/"
     }
 
@@ -101,10 +116,25 @@ class ScanHostApiImpl(
     )
 
     private fun ReportResponseDto.toPigeon(result: NetworkScanResult?) = ScanResult(
-        reportUrl = data,
+        reportUrl = buildReportUrl(data),
         status = result?.status?.toPigeon() ?: ScanResultStatus.SUCCESS,
         totalDurationMs = result?.duration,
     )
+
+    /**
+     * Builds the full report-viewer URL Flutter opens as-is. The backend's `data`
+     * is a malformed viewer link (e.g. `…mlview-report?verification_token=…`, no
+     * `/#/`), so we pull the `verification_token` out and re-assemble it against
+     * the environment's [frontendBaseUrl]. `substringAfter` is used instead of
+     * `Uri.getQueryParameter` so the token is found whether it sits in the URL's
+     * query or its `#/` fragment. If no token is present, `data` is passed through.
+     */
+    private fun buildReportUrl(data: String): String {
+        val marker = "verification_token="
+        if (!data.contains(marker)) return data
+        val token = data.substringAfter(marker).substringBefore("&")
+        return "${frontendBaseUrl}#/view-report/?verification_token=$token"
+    }
 
     private fun NetworkScanError.toPigeon() = ScanError(
         kind = ScanErrorKind.PER_STEP,

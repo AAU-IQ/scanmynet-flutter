@@ -14,18 +14,21 @@ class ScanViewModel extends ChangeNotifier {
   ScanViewModel({
     required String apiKey,
     required String requestKey,
+    required String appName,
     required ScanEnvironment environment,
     ScanmynetSdk? sdk,
-  })  : _apiKey = apiKey,
-        _requestKey = requestKey,
-        _environment = environment,
-        _sdk = sdk ?? ScanmynetSdk() {
+  }) : _apiKey = apiKey,
+       _requestKey = requestKey,
+       _appName = appName,
+       _environment = environment,
+       _sdk = sdk ?? ScanmynetSdk() {
     _subscription = _sdk.events.listen(_onEvent);
   }
 
   final ScanmynetSdk _sdk;
   final String _apiKey;
   final String _requestKey;
+  final String _appName;
   final ScanEnvironment _environment;
   late final StreamSubscription<ScanEvent> _subscription;
 
@@ -58,9 +61,7 @@ class ScanViewModel extends ChangeNotifier {
       return;
     }
 
-    _emit(
-      const ScanUiState(phase: ScanPhase.running, stepLabel: 'starting…'),
-    );
+    _emit(const ScanUiState(phase: ScanPhase.running, stepLabel: 'starting…'));
 
     try {
       await _sdk.configure(
@@ -68,6 +69,7 @@ class ScanViewModel extends ChangeNotifier {
           apiKey: _apiKey,
           requestKey: _requestKey,
           userKey: customerKey,
+          appName: _appName,
           environment: _environment,
         ),
       );
