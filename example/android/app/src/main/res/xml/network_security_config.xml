@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  ScanMyNet's UPnP/SSDP step identifies the router by fetching its device-description
+  XML over plain HTTP (e.g. http://192.168.0.1:.../rootDesc.xml). Since Android 9
+  cleartext HTTP is blocked by default, which silently drops that fetch and leaves the
+  router's make/model/manufacturer as "Unknown" (SSDP itself is raw UDP and still works,
+  so the router IP shows but its identity does not). Permitting cleartext restores router
+  identification. The report backend is HTTPS and is unaffected — cleartext is permitted,
+  not forced, so HTTPS endpoints still use TLS. Mirrors the native ScanMyNet app.
+-->
+<network-security-config>
+    <base-config cleartextTrafficPermitted="true">
+        <trust-anchors>
+            <certificates src="system" />
+        </trust-anchors>
+    </base-config>
+</network-security-config>
