@@ -15,9 +15,12 @@ class ScanMyNetApp extends StatefulWidget {
 
 class _ScanMyNetAppState extends State<ScanMyNetApp> {
   // Credentials provided by ScanMyNet — supply your own values here.
+  // Default dev API key (same one the native debug apps use against the dev backend);
+  // without a valid apiKey the report request returns 401.
   late final ScanViewModel _viewModel = ScanViewModel(
-    apiKey: 'YOUR_API_KEY',
-    requestKey: 'YOUR_REQUEST_KEY',
+    apiKey: 'QlxfSAH68t9q0locTuuRXQJpRFFOXMVx',
+    requestKey: 'QA-KEY',
+    appName: 'ScanMyNet',
     environment: ScanEnvironment.dev,
   );
 
