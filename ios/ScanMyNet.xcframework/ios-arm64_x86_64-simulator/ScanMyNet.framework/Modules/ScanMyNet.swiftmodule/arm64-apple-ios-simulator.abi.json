@@ -1,0 +1,2232 @@
+{
+  "ABIRoot": {
+    "kind": "Root",
+    "name": "ScanMyNet",
+    "printedName": "ScanMyNet",
+    "children": [
+      {
+        "kind": "Import",
+        "name": "Foundation",
+        "printedName": "Foundation",
+        "declKind": "Import",
+        "moduleName": "ScanMyNet"
+      },
+      {
+        "kind": "Import",
+        "name": "Foundation",
+        "printedName": "Foundation",
+        "declKind": "Import",
+        "moduleName": "ScanMyNet"
+      },
+      {
+        "kind": "Import",
+        "name": "Foundation",
+        "printedName": "Foundation",
+        "declKind": "Import",
+        "moduleName": "ScanMyNet"
+      },
+      {
+        "kind": "Import",
+        "name": "dnssd",
+        "printedName": "dnssd",
+        "declKind": "Import",
+        "moduleName": "ScanMyNet"
+      },
+      {
+        "kind": "Import",
+        "name": "Foundation",
+        "printedName": "Foundation",
+        "declKind": "Import",
+        "moduleName": "ScanMyNet"
+      },
+      {
+        "kind": "Import",
+        "name": "CoreLocation",
+        "printedName": "CoreLocation",
+        "declKind": "Import",
+        "moduleName": "ScanMyNet"
+      },
+      {
+        "kind": "Import",
+        "name": "Foundation",
+        "printedName": "Foundation",
+        "declKind": "Import",
+        "moduleName": "ScanMyNet"
+      },
+      {
+        "kind": "Import",
+        "name": "Combine",
+        "printedName": "Combine",
+        "declKind": "Import",
+        "moduleName": "ScanMyNet"
+      },
+      {
+        "kind": "Import",
+        "name": "Alamofire",
+        "printedName": "Alamofire",
+        "declKind": "Import",
+        "moduleName": "ScanMyNet"
+      },
+      {
+        "kind": "Import",
+        "name": "Foundation",
+        "printedName": "Foundation",
+        "declKind": "Import",
+        "moduleName": "ScanMyNet"
+      },
+      {
+        "kind": "Import",
+        "name": "Combine",
+        "printedName": "Combine",
+        "declKind": "Import",
+        "moduleName": "ScanMyNet"
+      },
+      {
+        "kind": "Import",
+        "name": "Alamofire",
+        "printedName": "Alamofire",
+        "declKind": "Import",
+        "moduleName": "ScanMyNet"
+      },
+      {
+        "kind": "Import",
+        "name": "Foundation",
+        "printedName": "Foundation",
+        "declKind": "Import",
+        "moduleName": "ScanMyNet"
+      },
+      {
+        "kind": "Import",
+        "name": "Foundation",
+        "printedName": "Foundation",
+        "declKind": "Import",
+        "moduleName": "ScanMyNet"
+      },
+      {
+        "kind": "Import",
+        "name": "Foundation",
+        "printedName": "Foundation",
+        "declKind": "Import",
+        "moduleName": "ScanMyNet"
+      },
+      {
+        "kind": "Import",
+        "name": "Foundation",
+        "printedName": "Foundation",
+        "declKind": "Import",
+        "moduleName": "ScanMyNet"
+      },
+      {
+        "kind": "Import",
+        "name": "Combine",
+        "printedName": "Combine",
+        "declKind": "Import",
+        "moduleName": "ScanMyNet"
+      },
+      {
+        "kind": "TypeDecl",
+        "name": "Environment",
+        "printedName": "Environment",
+        "children": [
+          {
+            "kind": "Var",
+            "name": "staging",
+            "printedName": "staging",
+            "children": [
+              {
+                "kind": "TypeFunc",
+                "name": "Function",
+                "printedName": "(ScanMyNet.Environment.Type) -> ScanMyNet.Environment",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "Environment",
+                    "printedName": "ScanMyNet.Environment",
+                    "usr": "s:9ScanMyNet11EnvironmentO"
+                  },
+                  {
+                    "kind": "TypeNominal",
+                    "name": "Metatype",
+                    "printedName": "ScanMyNet.Environment.Type",
+                    "children": [
+                      {
+                        "kind": "TypeNominal",
+                        "name": "Environment",
+                        "printedName": "ScanMyNet.Environment",
+                        "usr": "s:9ScanMyNet11EnvironmentO"
+                      }
+                    ]
+                  }
+                ]
+              }
+            ],
+            "declKind": "EnumElement",
+            "usr": "s:9ScanMyNet11EnvironmentO7stagingyA2CmF",
+            "mangledName": "$s9ScanMyNet11EnvironmentO7stagingyA2CmF",
+            "moduleName": "ScanMyNet"
+          },
+          {
+            "kind": "Var",
+            "name": "production",
+            "printedName": "production",
+            "children": [
+              {
+                "kind": "TypeFunc",
+                "name": "Function",
+                "printedName": "(ScanMyNet.Environment.Type) -> ScanMyNet.Environment",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "Environment",
+                    "printedName": "ScanMyNet.Environment",
+                    "usr": "s:9ScanMyNet11EnvironmentO"
+                  },
+                  {
+                    "kind": "TypeNominal",
+                    "name": "Metatype",
+                    "printedName": "ScanMyNet.Environment.Type",
+                    "children": [
+                      {
+                        "kind": "TypeNominal",
+                        "name": "Environment",
+                        "printedName": "ScanMyNet.Environment",
+                        "usr": "s:9ScanMyNet11EnvironmentO"
+                      }
+                    ]
+                  }
+                ]
+              }
+            ],
+            "declKind": "EnumElement",
+            "usr": "s:9ScanMyNet11EnvironmentO10productionyA2CmF",
+            "mangledName": "$s9ScanMyNet11EnvironmentO10productionyA2CmF",
+            "moduleName": "ScanMyNet"
+          },
+          {
+            "kind": "Var",
+            "name": "testing",
+            "printedName": "testing",
+            "children": [
+              {
+                "kind": "TypeFunc",
+                "name": "Function",
+                "printedName": "(ScanMyNet.Environment.Type) -> ScanMyNet.Environment",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "Environment",
+                    "printedName": "ScanMyNet.Environment",
+                    "usr": "s:9ScanMyNet11EnvironmentO"
+                  },
+                  {
+                    "kind": "TypeNominal",
+                    "name": "Metatype",
+                    "printedName": "ScanMyNet.Environment.Type",
+                    "children": [
+                      {
+                        "kind": "TypeNominal",
+                        "name": "Environment",
+                        "printedName": "ScanMyNet.Environment",
+                        "usr": "s:9ScanMyNet11EnvironmentO"
+                      }
+                    ]
+                  }
+                ]
+              }
+            ],
+            "declKind": "EnumElement",
+            "usr": "s:9ScanMyNet11EnvironmentO7testingyA2CmF",
+            "mangledName": "$s9ScanMyNet11EnvironmentO7testingyA2CmF",
+            "moduleName": "ScanMyNet"
+          },
+          {
+            "kind": "Function",
+            "name": "==",
+            "printedName": "==(_:_:)",
+            "children": [
+              {
+                "kind": "TypeNominal",
+                "name": "Bool",
+                "printedName": "Swift.Bool",
+                "usr": "s:Sb"
+              },
+              {
+                "kind": "TypeNominal",
+                "name": "Environment",
+                "printedName": "ScanMyNet.Environment",
+                "usr": "s:9ScanMyNet11EnvironmentO"
+              },
+              {
+                "kind": "TypeNominal",
+                "name": "Environment",
+                "printedName": "ScanMyNet.Environment",
+                "usr": "s:9ScanMyNet11EnvironmentO"
+              }
+            ],
+            "declKind": "Func",
+            "usr": "s:9ScanMyNet11EnvironmentO2eeoiySbAC_ACtFZ",
+            "mangledName": "$s9ScanMyNet11EnvironmentO2eeoiySbAC_ACtFZ",
+            "moduleName": "ScanMyNet",
+            "static": true,
+            "implicit": true,
+            "funcSelfKind": "NonMutating"
+          },
+          {
+            "kind": "Var",
+            "name": "hashValue",
+            "printedName": "hashValue",
+            "children": [
+              {
+                "kind": "TypeNominal",
+                "name": "Int",
+                "printedName": "Swift.Int",
+                "usr": "s:Si"
+              }
+            ],
+            "declKind": "Var",
+            "usr": "s:9ScanMyNet11EnvironmentO9hashValueSivp",
+            "mangledName": "$s9ScanMyNet11EnvironmentO9hashValueSivp",
+            "moduleName": "ScanMyNet",
+            "implicit": true,
+            "accessors": [
+              {
+                "kind": "Accessor",
+                "name": "Get",
+                "printedName": "Get()",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "Int",
+                    "printedName": "Swift.Int",
+                    "usr": "s:Si"
+                  }
+                ],
+                "declKind": "Accessor",
+                "usr": "s:9ScanMyNet11EnvironmentO9hashValueSivg",
+                "mangledName": "$s9ScanMyNet11EnvironmentO9hashValueSivg",
+                "moduleName": "ScanMyNet",
+                "implicit": true,
+                "accessorKind": "get"
+              }
+            ]
+          },
+          {
+            "kind": "Function",
+            "name": "hash",
+            "printedName": "hash(into:)",
+            "children": [
+              {
+                "kind": "TypeNominal",
+                "name": "Void",
+                "printedName": "()"
+              },
+              {
+                "kind": "TypeNominal",
+                "name": "Hasher",
+                "printedName": "Swift.Hasher",
+                "paramValueOwnership": "InOut",
+                "usr": "s:s6HasherV"
+              }
+            ],
+            "declKind": "Func",
+            "usr": "s:9ScanMyNet11EnvironmentO4hash4intoys6HasherVz_tF",
+            "mangledName": "$s9ScanMyNet11EnvironmentO4hash4intoys6HasherVz_tF",
+            "moduleName": "ScanMyNet",
+            "implicit": true,
+            "funcSelfKind": "NonMutating"
+          }
+        ],
+        "declKind": "Enum",
+        "usr": "s:9ScanMyNet11EnvironmentO",
+        "mangledName": "$s9ScanMyNet11EnvironmentO",
+        "moduleName": "ScanMyNet",
+        "declAttributes": [
+          "AccessControl"
+        ],
+        "conformances": [
+          {
+            "kind": "Conformance",
+            "name": "Copyable",
+            "printedName": "Copyable",
+            "usr": "s:s8CopyableP",
+            "mangledName": "$ss8CopyableP"
+          },
+          {
+            "kind": "Conformance",
+            "name": "Escapable",
+            "printedName": "Escapable",
+            "usr": "s:s9EscapableP",
+            "mangledName": "$ss9EscapableP"
+          },
+          {
+            "kind": "Conformance",
+            "name": "Equatable",
+            "printedName": "Equatable",
+            "usr": "s:SQ",
+            "mangledName": "$sSQ"
+          },
+          {
+            "kind": "Conformance",
+            "name": "Hashable",
+            "printedName": "Hashable",
+            "usr": "s:SH",
+            "mangledName": "$sSH"
+          }
+        ]
+      },
+      {
+        "kind": "Import",
+        "name": "Foundation",
+        "printedName": "Foundation",
+        "declKind": "Import",
+        "moduleName": "ScanMyNet"
+      },
+      {
+        "kind": "Import",
+        "name": "Foundation",
+        "printedName": "Foundation",
+        "declKind": "Import",
+        "moduleName": "ScanMyNet"
+      },
+      {
+        "kind": "Import",
+        "name": "Network",
+        "printedName": "Network",
+        "declKind": "Import",
+        "moduleName": "ScanMyNet"
+      },
+      {
+        "kind": "Import",
+        "name": "Foundation",
+        "printedName": "Foundation",
+        "declKind": "Import",
+        "moduleName": "ScanMyNet"
+      },
+      {
+        "kind": "Import",
+        "name": "Foundation",
+        "printedName": "Foundation",
+        "declKind": "Import",
+        "moduleName": "ScanMyNet"
+      },
+      {
+        "kind": "Import",
+        "name": "Combine",
+        "printedName": "Combine",
+        "declKind": "Import",
+        "moduleName": "ScanMyNet"
+      },
+      {
+        "kind": "Import",
+        "name": "XMLCoder",
+        "printedName": "XMLCoder",
+        "declKind": "Import",
+        "moduleName": "ScanMyNet"
+      },
+      {
+        "kind": "Import",
+        "name": "Foundation",
+        "printedName": "Foundation",
+        "declKind": "Import",
+        "moduleName": "ScanMyNet"
+      },
+      {
+        "kind": "Import",
+        "name": "UIKit",
+        "printedName": "UIKit",
+        "declKind": "Import",
+        "moduleName": "ScanMyNet"
+      },
+      {
+        "kind": "Import",
+        "name": "Foundation",
+        "printedName": "Foundation",
+        "declKind": "Import",
+        "moduleName": "ScanMyNet"
+      },
+      {
+        "kind": "Import",
+        "name": "Alamofire",
+        "printedName": "Alamofire",
+        "declKind": "Import",
+        "moduleName": "ScanMyNet"
+      },
+      {
+        "kind": "Import",
+        "name": "Foundation",
+        "printedName": "Foundation",
+        "declKind": "Import",
+        "moduleName": "ScanMyNet"
+      },
+      {
+        "kind": "Import",
+        "name": "Alamofire",
+        "printedName": "Alamofire",
+        "declKind": "Import",
+        "moduleName": "ScanMyNet"
+      },
+      {
+        "kind": "Import",
+        "name": "Foundation",
+        "printedName": "Foundation",
+        "declKind": "Import",
+        "moduleName": "ScanMyNet"
+      },
+      {
+        "kind": "Import",
+        "name": "Socket",
+        "printedName": "Socket",
+        "declKind": "Import",
+        "moduleName": "ScanMyNet"
+      },
+      {
+        "kind": "Import",
+        "name": "Foundation",
+        "printedName": "Foundation",
+        "declKind": "Import",
+        "moduleName": "ScanMyNet"
+      },
+      {
+        "kind": "Import",
+        "name": "Foundation",
+        "printedName": "Foundation",
+        "declKind": "Import",
+        "moduleName": "ScanMyNet"
+      },
+      {
+        "kind": "Import",
+        "name": "Foundation",
+        "printedName": "Foundation",
+        "declKind": "Import",
+        "moduleName": "ScanMyNet"
+      },
+      {
+        "kind": "Import",
+        "name": "Foundation",
+        "printedName": "Foundation",
+        "declKind": "Import",
+        "moduleName": "ScanMyNet"
+      },
+      {
+        "kind": "Import",
+        "name": "Foundation",
+        "printedName": "Foundation",
+        "declKind": "Import",
+        "moduleName": "ScanMyNet"
+      },
+      {
+        "kind": "Import",
+        "name": "Foundation",
+        "printedName": "Foundation",
+        "declKind": "Import",
+        "moduleName": "ScanMyNet",
+        "declAttributes": [
+          "RawDocComment"
+        ]
+      },
+      {
+        "kind": "TypeDecl",
+        "name": "ScanMyNetConfiguration",
+        "printedName": "ScanMyNetConfiguration",
+        "children": [
+          {
+            "kind": "Constructor",
+            "name": "init",
+            "printedName": "init(apiKey:requestKey:environment:)",
+            "children": [
+              {
+                "kind": "TypeNominal",
+                "name": "ScanMyNetConfiguration",
+                "printedName": "ScanMyNet.ScanMyNetConfiguration",
+                "usr": "s:9ScanMyNet0abC13ConfigurationC"
+              },
+              {
+                "kind": "TypeNominal",
+                "name": "Optional",
+                "printedName": "Swift.String?",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "String",
+                    "printedName": "Swift.String",
+                    "usr": "s:SS"
+                  }
+                ],
+                "hasDefaultArg": true,
+                "usr": "s:Sq"
+              },
+              {
+                "kind": "TypeNominal",
+                "name": "Optional",
+                "printedName": "Swift.String?",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "String",
+                    "printedName": "Swift.String",
+                    "usr": "s:SS"
+                  }
+                ],
+                "hasDefaultArg": true,
+                "usr": "s:Sq"
+              },
+              {
+                "kind": "TypeNominal",
+                "name": "Environment",
+                "printedName": "ScanMyNet.Environment",
+                "usr": "s:9ScanMyNet11EnvironmentO"
+              }
+            ],
+            "declKind": "Constructor",
+            "usr": "s:9ScanMyNet0abC13ConfigurationC6apiKey07requestF011environmentACSSSg_AgA11EnvironmentOtcfc",
+            "mangledName": "$s9ScanMyNet0abC13ConfigurationC6apiKey07requestF011environmentACSSSg_AgA11EnvironmentOtcfc",
+            "moduleName": "ScanMyNet",
+            "declAttributes": [
+              "AccessControl"
+            ],
+            "init_kind": "Designated"
+          }
+        ],
+        "declKind": "Class",
+        "usr": "s:9ScanMyNet0abC13ConfigurationC",
+        "mangledName": "$s9ScanMyNet0abC13ConfigurationC",
+        "moduleName": "ScanMyNet",
+        "declAttributes": [
+          "AccessControl"
+        ],
+        "conformances": [
+          {
+            "kind": "Conformance",
+            "name": "Copyable",
+            "printedName": "Copyable",
+            "usr": "s:s8CopyableP",
+            "mangledName": "$ss8CopyableP"
+          },
+          {
+            "kind": "Conformance",
+            "name": "Escapable",
+            "printedName": "Escapable",
+            "usr": "s:s9EscapableP",
+            "mangledName": "$ss9EscapableP"
+          }
+        ]
+      },
+      {
+        "kind": "Import",
+        "name": "Foundation",
+        "printedName": "Foundation",
+        "declKind": "Import",
+        "moduleName": "ScanMyNet"
+      },
+      {
+        "kind": "Import",
+        "name": "Foundation",
+        "printedName": "Foundation",
+        "declKind": "Import",
+        "moduleName": "ScanMyNet"
+      },
+      {
+        "kind": "Import",
+        "name": "Foundation",
+        "printedName": "Foundation",
+        "declKind": "Import",
+        "moduleName": "ScanMyNet"
+      },
+      {
+        "kind": "Import",
+        "name": "NDT7",
+        "printedName": "NDT7",
+        "declKind": "Import",
+        "moduleName": "ScanMyNet"
+      },
+      {
+        "kind": "Import",
+        "name": "Foundation",
+        "printedName": "Foundation",
+        "declKind": "Import",
+        "moduleName": "ScanMyNet"
+      },
+      {
+        "kind": "TypeDecl",
+        "name": "ScanMyNetDelegate",
+        "printedName": "ScanMyNetDelegate",
+        "children": [
+          {
+            "kind": "Function",
+            "name": "scanStarted",
+            "printedName": "scanStarted()",
+            "children": [
+              {
+                "kind": "TypeNominal",
+                "name": "Void",
+                "printedName": "()"
+              }
+            ],
+            "declKind": "Func",
+            "usr": "s:9ScanMyNet0abC8DelegateP11scanStartedyyF",
+            "mangledName": "$s9ScanMyNet0abC8DelegateP11scanStartedyyF",
+            "moduleName": "ScanMyNet",
+            "genericSig": "<τ_0_0 where τ_0_0 : ScanMyNet.ScanMyNetDelegate>",
+            "sugared_genericSig": "<Self where Self : ScanMyNet.ScanMyNetDelegate>",
+            "protocolReq": true,
+            "reqNewWitnessTableEntry": true,
+            "funcSelfKind": "NonMutating"
+          },
+          {
+            "kind": "Function",
+            "name": "scanFinished",
+            "printedName": "scanFinished(reportUrl:)",
+            "children": [
+              {
+                "kind": "TypeNominal",
+                "name": "Void",
+                "printedName": "()"
+              },
+              {
+                "kind": "TypeNominal",
+                "name": "String",
+                "printedName": "Swift.String",
+                "usr": "s:SS"
+              }
+            ],
+            "declKind": "Func",
+            "usr": "s:9ScanMyNet0abC8DelegateP12scanFinished9reportUrlySS_tF",
+            "mangledName": "$s9ScanMyNet0abC8DelegateP12scanFinished9reportUrlySS_tF",
+            "moduleName": "ScanMyNet",
+            "genericSig": "<τ_0_0 where τ_0_0 : ScanMyNet.ScanMyNetDelegate>",
+            "sugared_genericSig": "<Self where Self : ScanMyNet.ScanMyNetDelegate>",
+            "protocolReq": true,
+            "reqNewWitnessTableEntry": true,
+            "funcSelfKind": "NonMutating"
+          },
+          {
+            "kind": "Function",
+            "name": "nextScanStarted",
+            "printedName": "nextScanStarted(value:)",
+            "children": [
+              {
+                "kind": "TypeNominal",
+                "name": "Void",
+                "printedName": "()"
+              },
+              {
+                "kind": "TypeNominal",
+                "name": "String",
+                "printedName": "Swift.String",
+                "usr": "s:SS"
+              }
+            ],
+            "declKind": "Func",
+            "usr": "s:9ScanMyNet0abC8DelegateP04nextA7Started5valueySS_tF",
+            "mangledName": "$s9ScanMyNet0abC8DelegateP04nextA7Started5valueySS_tF",
+            "moduleName": "ScanMyNet",
+            "genericSig": "<τ_0_0 where τ_0_0 : ScanMyNet.ScanMyNetDelegate>",
+            "sugared_genericSig": "<Self where Self : ScanMyNet.ScanMyNetDelegate>",
+            "protocolReq": true,
+            "reqNewWitnessTableEntry": true,
+            "funcSelfKind": "NonMutating"
+          },
+          {
+            "kind": "Function",
+            "name": "scanProgress",
+            "printedName": "scanProgress(value:)",
+            "children": [
+              {
+                "kind": "TypeNominal",
+                "name": "Void",
+                "printedName": "()"
+              },
+              {
+                "kind": "TypeNominal",
+                "name": "Float",
+                "printedName": "Swift.Float",
+                "usr": "s:Sf"
+              }
+            ],
+            "declKind": "Func",
+            "usr": "s:9ScanMyNet0abC8DelegateP12scanProgress5valueySf_tF",
+            "mangledName": "$s9ScanMyNet0abC8DelegateP12scanProgress5valueySf_tF",
+            "moduleName": "ScanMyNet",
+            "genericSig": "<τ_0_0 where τ_0_0 : ScanMyNet.ScanMyNetDelegate>",
+            "sugared_genericSig": "<Self where Self : ScanMyNet.ScanMyNetDelegate>",
+            "protocolReq": true,
+            "reqNewWitnessTableEntry": true,
+            "funcSelfKind": "NonMutating"
+          },
+          {
+            "kind": "Function",
+            "name": "scanServiceFailed",
+            "printedName": "scanServiceFailed(type:with:)",
+            "children": [
+              {
+                "kind": "TypeNominal",
+                "name": "Void",
+                "printedName": "()"
+              },
+              {
+                "kind": "TypeNominal",
+                "name": "String",
+                "printedName": "Swift.String",
+                "usr": "s:SS"
+              },
+              {
+                "kind": "TypeNominal",
+                "name": "Error",
+                "printedName": "any Swift.Error",
+                "usr": "s:s5ErrorP"
+              }
+            ],
+            "declKind": "Func",
+            "usr": "s:9ScanMyNet0abC8DelegateP17scanServiceFailed4type4withySS_s5Error_ptF",
+            "mangledName": "$s9ScanMyNet0abC8DelegateP17scanServiceFailed4type4withySS_s5Error_ptF",
+            "moduleName": "ScanMyNet",
+            "genericSig": "<τ_0_0 where τ_0_0 : ScanMyNet.ScanMyNetDelegate>",
+            "sugared_genericSig": "<Self where Self : ScanMyNet.ScanMyNetDelegate>",
+            "protocolReq": true,
+            "reqNewWitnessTableEntry": true,
+            "funcSelfKind": "NonMutating"
+          },
+          {
+            "kind": "Function",
+            "name": "scanFailed",
+            "printedName": "scanFailed(with:response:)",
+            "children": [
+              {
+                "kind": "TypeNominal",
+                "name": "Void",
+                "printedName": "()"
+              },
+              {
+                "kind": "TypeNominal",
+                "name": "Error",
+                "printedName": "any Swift.Error",
+                "usr": "s:s5ErrorP"
+              },
+              {
+                "kind": "TypeNominal",
+                "name": "String",
+                "printedName": "Swift.String",
+                "usr": "s:SS"
+              }
+            ],
+            "declKind": "Func",
+            "usr": "s:9ScanMyNet0abC8DelegateP10scanFailed4with8responseys5Error_p_SStF",
+            "mangledName": "$s9ScanMyNet0abC8DelegateP10scanFailed4with8responseys5Error_p_SStF",
+            "moduleName": "ScanMyNet",
+            "genericSig": "<τ_0_0 where τ_0_0 : ScanMyNet.ScanMyNetDelegate>",
+            "sugared_genericSig": "<Self where Self : ScanMyNet.ScanMyNetDelegate>",
+            "protocolReq": true,
+            "reqNewWitnessTableEntry": true,
+            "funcSelfKind": "NonMutating"
+          },
+          {
+            "kind": "Function",
+            "name": "scanCanceled",
+            "printedName": "scanCanceled()",
+            "children": [
+              {
+                "kind": "TypeNominal",
+                "name": "Void",
+                "printedName": "()"
+              }
+            ],
+            "declKind": "Func",
+            "usr": "s:9ScanMyNet0abC8DelegateP12scanCanceledyyF",
+            "mangledName": "$s9ScanMyNet0abC8DelegateP12scanCanceledyyF",
+            "moduleName": "ScanMyNet",
+            "genericSig": "<τ_0_0 where τ_0_0 : ScanMyNet.ScanMyNetDelegate>",
+            "sugared_genericSig": "<Self where Self : ScanMyNet.ScanMyNetDelegate>",
+            "protocolReq": true,
+            "reqNewWitnessTableEntry": true,
+            "funcSelfKind": "NonMutating"
+          },
+          {
+            "kind": "Function",
+            "name": "serviceTriggered",
+            "printedName": "serviceTriggered(log:)",
+            "children": [
+              {
+                "kind": "TypeNominal",
+                "name": "Void",
+                "printedName": "()"
+              },
+              {
+                "kind": "TypeNominal",
+                "name": "String",
+                "printedName": "Swift.String",
+                "usr": "s:SS"
+              }
+            ],
+            "declKind": "Func",
+            "usr": "s:9ScanMyNet0abC8DelegateP16serviceTriggered3logySS_tF",
+            "mangledName": "$s9ScanMyNet0abC8DelegateP16serviceTriggered3logySS_tF",
+            "moduleName": "ScanMyNet",
+            "genericSig": "<τ_0_0 where τ_0_0 : ScanMyNet.ScanMyNetDelegate>",
+            "sugared_genericSig": "<Self where Self : ScanMyNet.ScanMyNetDelegate>",
+            "protocolReq": true,
+            "reqNewWitnessTableEntry": true,
+            "funcSelfKind": "NonMutating"
+          },
+          {
+            "kind": "Function",
+            "name": "getRequestData",
+            "printedName": "getRequestData(request:response:error:)",
+            "children": [
+              {
+                "kind": "TypeNominal",
+                "name": "Void",
+                "printedName": "()"
+              },
+              {
+                "kind": "TypeNominal",
+                "name": "Optional",
+                "printedName": "Foundation.URLRequest?",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "URLRequest",
+                    "printedName": "Foundation.URLRequest",
+                    "usr": "s:10Foundation10URLRequestV"
+                  }
+                ],
+                "usr": "s:Sq"
+              },
+              {
+                "kind": "TypeNominal",
+                "name": "Optional",
+                "printedName": "Foundation.HTTPURLResponse?",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "HTTPURLResponse",
+                    "printedName": "Foundation.HTTPURLResponse",
+                    "usr": "c:objc(cs)NSHTTPURLResponse"
+                  }
+                ],
+                "usr": "s:Sq"
+              },
+              {
+                "kind": "TypeNominal",
+                "name": "Optional",
+                "printedName": "(any Swift.Error)?",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "Error",
+                    "printedName": "any Swift.Error",
+                    "usr": "s:s5ErrorP"
+                  }
+                ],
+                "usr": "s:Sq"
+              }
+            ],
+            "declKind": "Func",
+            "usr": "s:9ScanMyNet0abC8DelegateP14getRequestData7request8response5errory10Foundation10URLRequestVSg_So17NSHTTPURLResponseCSgs5Error_pSgtF",
+            "mangledName": "$s9ScanMyNet0abC8DelegateP14getRequestData7request8response5errory10Foundation10URLRequestVSg_So17NSHTTPURLResponseCSgs5Error_pSgtF",
+            "moduleName": "ScanMyNet",
+            "genericSig": "<τ_0_0 where τ_0_0 : ScanMyNet.ScanMyNetDelegate>",
+            "sugared_genericSig": "<Self where Self : ScanMyNet.ScanMyNetDelegate>",
+            "protocolReq": true,
+            "reqNewWitnessTableEntry": true,
+            "funcSelfKind": "NonMutating"
+          }
+        ],
+        "declKind": "Protocol",
+        "usr": "s:9ScanMyNet0abC8DelegateP",
+        "mangledName": "$s9ScanMyNet0abC8DelegateP",
+        "moduleName": "ScanMyNet",
+        "declAttributes": [
+          "AccessControl"
+        ],
+        "conformances": [
+          {
+            "kind": "Conformance",
+            "name": "Escapable",
+            "printedName": "Escapable",
+            "usr": "s:s9EscapableP",
+            "mangledName": "$ss9EscapableP"
+          },
+          {
+            "kind": "Conformance",
+            "name": "Copyable",
+            "printedName": "Copyable",
+            "usr": "s:s8CopyableP",
+            "mangledName": "$ss8CopyableP"
+          }
+        ]
+      },
+      {
+        "kind": "TypeDecl",
+        "name": "ScanMyNetManager",
+        "printedName": "ScanMyNetManager",
+        "children": [
+          {
+            "kind": "Var",
+            "name": "delegate",
+            "printedName": "delegate",
+            "children": [
+              {
+                "kind": "TypeNominal",
+                "name": "Optional",
+                "printedName": "(any ScanMyNet.ScanMyNetDelegate)?",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "ScanMyNetDelegate",
+                    "printedName": "any ScanMyNet.ScanMyNetDelegate",
+                    "usr": "s:9ScanMyNet0abC8DelegateP"
+                  }
+                ],
+                "usr": "s:Sq"
+              }
+            ],
+            "declKind": "Var",
+            "usr": "s:9ScanMyNet0abC7ManagerC8delegateAA0abC8Delegate_pSgvp",
+            "mangledName": "$s9ScanMyNet0abC7ManagerC8delegateAA0abC8Delegate_pSgvp",
+            "moduleName": "ScanMyNet",
+            "declAttributes": [
+              "HasInitialValue",
+              "HasStorage",
+              "AccessControl"
+            ],
+            "hasStorage": true,
+            "accessors": [
+              {
+                "kind": "Accessor",
+                "name": "Get",
+                "printedName": "Get()",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "Optional",
+                    "printedName": "(any ScanMyNet.ScanMyNetDelegate)?",
+                    "children": [
+                      {
+                        "kind": "TypeNominal",
+                        "name": "ScanMyNetDelegate",
+                        "printedName": "any ScanMyNet.ScanMyNetDelegate",
+                        "usr": "s:9ScanMyNet0abC8DelegateP"
+                      }
+                    ],
+                    "usr": "s:Sq"
+                  }
+                ],
+                "declKind": "Accessor",
+                "usr": "s:9ScanMyNet0abC7ManagerC8delegateAA0abC8Delegate_pSgvg",
+                "mangledName": "$s9ScanMyNet0abC7ManagerC8delegateAA0abC8Delegate_pSgvg",
+                "moduleName": "ScanMyNet",
+                "implicit": true,
+                "accessorKind": "get"
+              },
+              {
+                "kind": "Accessor",
+                "name": "Set",
+                "printedName": "Set()",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "Void",
+                    "printedName": "()"
+                  },
+                  {
+                    "kind": "TypeNominal",
+                    "name": "Optional",
+                    "printedName": "(any ScanMyNet.ScanMyNetDelegate)?",
+                    "children": [
+                      {
+                        "kind": "TypeNominal",
+                        "name": "ScanMyNetDelegate",
+                        "printedName": "any ScanMyNet.ScanMyNetDelegate",
+                        "usr": "s:9ScanMyNet0abC8DelegateP"
+                      }
+                    ],
+                    "usr": "s:Sq"
+                  }
+                ],
+                "declKind": "Accessor",
+                "usr": "s:9ScanMyNet0abC7ManagerC8delegateAA0abC8Delegate_pSgvs",
+                "mangledName": "$s9ScanMyNet0abC7ManagerC8delegateAA0abC8Delegate_pSgvs",
+                "moduleName": "ScanMyNet",
+                "implicit": true,
+                "accessorKind": "set"
+              },
+              {
+                "kind": "Accessor",
+                "name": "Modify",
+                "printedName": "Modify()",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "Void",
+                    "printedName": "()"
+                  }
+                ],
+                "declKind": "Accessor",
+                "usr": "s:9ScanMyNet0abC7ManagerC8delegateAA0abC8Delegate_pSgvM",
+                "mangledName": "$s9ScanMyNet0abC7ManagerC8delegateAA0abC8Delegate_pSgvM",
+                "moduleName": "ScanMyNet",
+                "implicit": true,
+                "accessorKind": "_modify"
+              }
+            ]
+          },
+          {
+            "kind": "Constructor",
+            "name": "init",
+            "printedName": "init(configuration:)",
+            "children": [
+              {
+                "kind": "TypeNominal",
+                "name": "ScanMyNetManager",
+                "printedName": "ScanMyNet.ScanMyNetManager",
+                "usr": "s:9ScanMyNet0abC7ManagerC"
+              },
+              {
+                "kind": "TypeNominal",
+                "name": "ScanMyNetConfiguration",
+                "printedName": "ScanMyNet.ScanMyNetConfiguration",
+                "usr": "s:9ScanMyNet0abC13ConfigurationC"
+              }
+            ],
+            "declKind": "Constructor",
+            "usr": "s:9ScanMyNet0abC7ManagerC13configurationAcA0abC13ConfigurationC_tcfc",
+            "mangledName": "$s9ScanMyNet0abC7ManagerC13configurationAcA0abC13ConfigurationC_tcfc",
+            "moduleName": "ScanMyNet",
+            "declAttributes": [
+              "AccessControl"
+            ],
+            "init_kind": "Designated"
+          },
+          {
+            "kind": "Function",
+            "name": "start",
+            "printedName": "start()",
+            "children": [
+              {
+                "kind": "TypeNominal",
+                "name": "Void",
+                "printedName": "()"
+              }
+            ],
+            "declKind": "Func",
+            "usr": "s:9ScanMyNet0abC7ManagerC5startyyF",
+            "mangledName": "$s9ScanMyNet0abC7ManagerC5startyyF",
+            "moduleName": "ScanMyNet",
+            "declAttributes": [
+              "AccessControl",
+              "RawDocComment"
+            ],
+            "funcSelfKind": "NonMutating"
+          },
+          {
+            "kind": "Function",
+            "name": "cancel",
+            "printedName": "cancel()",
+            "children": [
+              {
+                "kind": "TypeNominal",
+                "name": "Void",
+                "printedName": "()"
+              }
+            ],
+            "declKind": "Func",
+            "usr": "s:9ScanMyNet0abC7ManagerC6cancelyyF",
+            "mangledName": "$s9ScanMyNet0abC7ManagerC6cancelyyF",
+            "moduleName": "ScanMyNet",
+            "declAttributes": [
+              "AccessControl",
+              "RawDocComment"
+            ],
+            "funcSelfKind": "NonMutating"
+          }
+        ],
+        "declKind": "Class",
+        "usr": "s:9ScanMyNet0abC7ManagerC",
+        "mangledName": "$s9ScanMyNet0abC7ManagerC",
+        "moduleName": "ScanMyNet",
+        "declAttributes": [
+          "AccessControl"
+        ],
+        "conformances": [
+          {
+            "kind": "Conformance",
+            "name": "Copyable",
+            "printedName": "Copyable",
+            "usr": "s:s8CopyableP",
+            "mangledName": "$ss8CopyableP"
+          },
+          {
+            "kind": "Conformance",
+            "name": "Escapable",
+            "printedName": "Escapable",
+            "usr": "s:s9EscapableP",
+            "mangledName": "$ss9EscapableP"
+          }
+        ]
+      },
+      {
+        "kind": "Import",
+        "name": "Foundation",
+        "printedName": "Foundation",
+        "declKind": "Import",
+        "moduleName": "ScanMyNet",
+        "declAttributes": [
+          "RawDocComment"
+        ]
+      },
+      {
+        "kind": "Import",
+        "name": "Foundation",
+        "printedName": "Foundation",
+        "declKind": "Import",
+        "moduleName": "ScanMyNet"
+      },
+      {
+        "kind": "Import",
+        "name": "CoreLocation",
+        "printedName": "CoreLocation",
+        "declKind": "Import",
+        "moduleName": "ScanMyNet"
+      },
+      {
+        "kind": "Import",
+        "name": "Foundation",
+        "printedName": "Foundation",
+        "declKind": "Import",
+        "moduleName": "ScanMyNet"
+      },
+      {
+        "kind": "Import",
+        "name": "Foundation",
+        "printedName": "Foundation",
+        "declKind": "Import",
+        "moduleName": "ScanMyNet"
+      },
+      {
+        "kind": "Import",
+        "name": "Foundation",
+        "printedName": "Foundation",
+        "declKind": "Import",
+        "moduleName": "ScanMyNet"
+      },
+      {
+        "kind": "Import",
+        "name": "NetworkExtension",
+        "printedName": "NetworkExtension",
+        "declKind": "Import",
+        "moduleName": "ScanMyNet"
+      },
+      {
+        "kind": "Import",
+        "name": "SystemConfiguration.CaptiveNetwork",
+        "printedName": "SystemConfiguration.CaptiveNetwork",
+        "declKind": "Import",
+        "moduleName": "ScanMyNet"
+      },
+      {
+        "kind": "Import",
+        "name": "Foundation",
+        "printedName": "Foundation",
+        "declKind": "Import",
+        "moduleName": "ScanMyNet"
+      },
+      {
+        "kind": "Import",
+        "name": "UIKit",
+        "printedName": "UIKit",
+        "declKind": "Import",
+        "moduleName": "ScanMyNet"
+      },
+      {
+        "kind": "Import",
+        "name": "Foundation",
+        "printedName": "Foundation",
+        "declKind": "Import",
+        "moduleName": "ScanMyNet"
+      }
+    ],
+    "json_format_version": 8
+  },
+  "ConstValues": [
+    {
+      "filePath": "\/Users\/ahmedraad\/Desktop\/asl\/scanmynet-project\/scanmynet-ios\/ScanMyNet\/Services\/LAN Scanner\/LanScanService.swift",
+      "kind": "Array",
+      "offset": 184,
+      "length": 2,
+      "value": "[]"
+    },
+    {
+      "filePath": "\/Users\/ahmedraad\/Desktop\/asl\/scanmynet-project\/scanmynet-ios\/ScanMyNet\/Services\/LAN Scanner\/LanScanService.swift",
+      "kind": "Array",
+      "offset": 236,
+      "length": 2,
+      "value": "[]"
+    },
+    {
+      "filePath": "\/Users\/ahmedraad\/Desktop\/asl\/scanmynet-project\/scanmynet-ios\/ScanMyNet\/Services\/LAN Scanner\/LanScanService.swift",
+      "kind": "IntegerLiteral",
+      "offset": 624,
+      "length": 2,
+      "value": "25"
+    },
+    {
+      "filePath": "\/Users\/ahmedraad\/Desktop\/asl\/scanmynet-project\/scanmynet-ios\/ScanMyNet\/Services\/LAN Scanner\/LanScanService.swift",
+      "kind": "BooleanLiteral",
+      "offset": 763,
+      "length": 5,
+      "value": "false"
+    },
+    {
+      "filePath": "\/Users\/ahmedraad\/Desktop\/asl\/scanmynet-project\/scanmynet-ios\/ScanMyNet\/Models\/Port\/PortCheck.swift",
+      "kind": "StringLiteral",
+      "offset": 241,
+      "length": 11,
+      "value": "\"port_type\""
+    },
+    {
+      "filePath": "\/Users\/ahmedraad\/Desktop\/asl\/scanmynet-project\/scanmynet-ios\/ScanMyNet\/Models\/Port\/PortCheck.swift",
+      "kind": "StringLiteral",
+      "offset": 304,
+      "length": 13,
+      "value": "\"port_status\""
+    },
+    {
+      "filePath": "\/Users\/ahmedraad\/Desktop\/asl\/scanmynet-project\/scanmynet-ios\/ScanMyNet\/Services\/Server Connectivity\/DNS\/DNSResolver.swift",
+      "kind": "Dictionary",
+      "offset": 120,
+      "length": 3,
+      "value": "[]"
+    },
+    {
+      "filePath": "\/Users\/ahmedraad\/Desktop\/asl\/scanmynet-project\/scanmynet-ios\/ScanMyNet\/Services\/Server Connectivity\/DNS\/DNSResolver.swift",
+      "kind": "IntegerLiteral",
+      "offset": 147,
+      "length": 1,
+      "value": "0"
+    },
+    {
+      "filePath": "\/Users\/ahmedraad\/Desktop\/asl\/scanmynet-project\/scanmynet-ios\/ScanMyNet\/Services\/Server Connectivity\/DNS\/DNSResolver.swift",
+      "kind": "IntegerLiteral",
+      "offset": 930,
+      "length": 1,
+      "value": "1"
+    },
+    {
+      "filePath": "\/Users\/ahmedraad\/Desktop\/asl\/scanmynet-project\/scanmynet-ios\/ScanMyNet\/Services\/Server Connectivity\/DNS\/DNSResolver.swift",
+      "kind": "IntegerLiteral",
+      "offset": 940,
+      "length": 1,
+      "value": "2"
+    },
+    {
+      "filePath": "\/Users\/ahmedraad\/Desktop\/asl\/scanmynet-project\/scanmynet-ios\/ScanMyNet\/Services\/Server Connectivity\/DNS\/DNSResolver.swift",
+      "kind": "IntegerLiteral",
+      "offset": 949,
+      "length": 1,
+      "value": "3"
+    },
+    {
+      "filePath": "\/Users\/ahmedraad\/Desktop\/asl\/scanmynet-project\/scanmynet-ios\/ScanMyNet\/Services\/Server Connectivity\/DNS\/DNSResolver.swift",
+      "kind": "StringLiteral",
+      "offset": 1389,
+      "length": 15,
+      "value": "\"ResolverQueue\""
+    },
+    {
+      "filePath": "\/Users\/ahmedraad\/Desktop\/asl\/scanmynet-project\/scanmynet-ios\/ScanMyNet\/Services\/Server Connectivity\/DNS\/DNSResolver.swift",
+      "kind": "Array",
+      "offset": 1629,
+      "length": 2,
+      "value": "[]"
+    },
+    {
+      "filePath": "\/Users\/ahmedraad\/Desktop\/asl\/scanmynet-project\/scanmynet-ios\/ScanMyNet\/Services\/Server Connectivity\/DNS\/DNSResolver.swift",
+      "kind": "Array",
+      "offset": 1663,
+      "length": 2,
+      "value": "[]"
+    },
+    {
+      "filePath": "\/Users\/ahmedraad\/Desktop\/asl\/scanmynet-project\/scanmynet-ios\/ScanMyNet\/Services\/Server Connectivity\/DNS\/DNSResolver.swift",
+      "kind": "BooleanLiteral",
+      "offset": 1763,
+      "length": 5,
+      "value": "false"
+    },
+    {
+      "filePath": "\/Users\/ahmedraad\/Desktop\/asl\/scanmynet-project\/scanmynet-ios\/ScanMyNet\/Services\/Server Connectivity\/DNS\/DNSResolver.swift",
+      "kind": "BooleanLiteral",
+      "offset": 2155,
+      "length": 4,
+      "value": "true"
+    },
+    {
+      "filePath": "\/Users\/ahmedraad\/Desktop\/asl\/scanmynet-project\/scanmynet-ios\/ScanMyNet\/Services\/Server Connectivity\/DNS\/DNSResolver.swift",
+      "kind": "IntegerLiteral",
+      "offset": 2176,
+      "length": 1,
+      "value": "3"
+    },
+    {
+      "filePath": "\/Users\/ahmedraad\/Desktop\/asl\/scanmynet-project\/scanmynet-ios\/ScanMyNet\/Models\/Report.swift",
+      "kind": "StringLiteral",
+      "offset": 4312,
+      "length": 22,
+      "value": "\"last_known_public_ip\""
+    },
+    {
+      "filePath": "\/Users\/ahmedraad\/Desktop\/asl\/scanmynet-project\/scanmynet-ios\/ScanMyNet\/Models\/Report.swift",
+      "kind": "StringLiteral",
+      "offset": 4370,
+      "length": 24,
+      "value": "\"user_public_up_address\""
+    },
+    {
+      "filePath": "\/Users\/ahmedraad\/Desktop\/asl\/scanmynet-project\/scanmynet-ios\/ScanMyNet\/Models\/Report.swift",
+      "kind": "StringLiteral",
+      "offset": 4502,
+      "length": 19,
+      "value": "\"router_ip_address\""
+    },
+    {
+      "filePath": "\/Users\/ahmedraad\/Desktop\/asl\/scanmynet-project\/scanmynet-ios\/ScanMyNet\/Models\/Report.swift",
+      "kind": "StringLiteral",
+      "offset": 4602,
+      "length": 19,
+      "value": "\"model_description\""
+    },
+    {
+      "filePath": "\/Users\/ahmedraad\/Desktop\/asl\/scanmynet-project\/scanmynet-ios\/ScanMyNet\/Models\/Report.swift",
+      "kind": "StringLiteral",
+      "offset": 4650,
+      "length": 15,
+      "value": "\"friendly_name\""
+    },
+    {
+      "filePath": "\/Users\/ahmedraad\/Desktop\/asl\/scanmynet-project\/scanmynet-ios\/ScanMyNet\/Models\/Report.swift",
+      "kind": "StringLiteral",
+      "offset": 4692,
+      "length": 13,
+      "value": "\"device_type\""
+    },
+    {
+      "filePath": "\/Users\/ahmedraad\/Desktop\/asl\/scanmynet-project\/scanmynet-ios\/ScanMyNet\/Models\/Report.swift",
+      "kind": "StringLiteral",
+      "offset": 4734,
+      "length": 16,
+      "value": "\"route_this_sdk\""
+    },
+    {
+      "filePath": "\/Users\/ahmedraad\/Desktop\/asl\/scanmynet-project\/scanmynet-ios\/ScanMyNet\/Models\/Report.swift",
+      "kind": "StringLiteral",
+      "offset": 4781,
+      "length": 18,
+      "value": "\"network_speed_up\""
+    },
+    {
+      "filePath": "\/Users\/ahmedraad\/Desktop\/asl\/scanmynet-project\/scanmynet-ios\/ScanMyNet\/Models\/Report.swift",
+      "kind": "StringLiteral",
+      "offset": 4832,
+      "length": 20,
+      "value": "\"network_speed_down\""
+    },
+    {
+      "filePath": "\/Users\/ahmedraad\/Desktop\/asl\/scanmynet-project\/scanmynet-ios\/ScanMyNet\/Models\/Report.swift",
+      "kind": "StringLiteral",
+      "offset": 4880,
+      "length": 14,
+      "value": "\"gps_latitude\""
+    },
+    {
+      "filePath": "\/Users\/ahmedraad\/Desktop\/asl\/scanmynet-project\/scanmynet-ios\/ScanMyNet\/Models\/Report.swift",
+      "kind": "StringLiteral",
+      "offset": 4923,
+      "length": 15,
+      "value": "\"gps_longitude\""
+    },
+    {
+      "filePath": "\/Users\/ahmedraad\/Desktop\/asl\/scanmynet-project\/scanmynet-ios\/ScanMyNet\/Models\/Report.swift",
+      "kind": "StringLiteral",
+      "offset": 4973,
+      "length": 21,
+      "value": "\"server_connectivity\""
+    },
+    {
+      "filePath": "\/Users\/ahmedraad\/Desktop\/asl\/scanmynet-project\/scanmynet-ios\/ScanMyNet\/Models\/Report.swift",
+      "kind": "StringLiteral",
+      "offset": 5033,
+      "length": 27,
+      "value": "\"network_speed_up_segments\""
+    },
+    {
+      "filePath": "\/Users\/ahmedraad\/Desktop\/asl\/scanmynet-project\/scanmynet-ios\/ScanMyNet\/Models\/Report.swift",
+      "kind": "StringLiteral",
+      "offset": 5101,
+      "length": 29,
+      "value": "\"network_speed_down_segments\""
+    },
+    {
+      "filePath": "\/Users\/ahmedraad\/Desktop\/asl\/scanmynet-project\/scanmynet-ios\/ScanMyNet\/Models\/Report.swift",
+      "kind": "StringLiteral",
+      "offset": 5157,
+      "length": 13,
+      "value": "\"port_checks\""
+    },
+    {
+      "filePath": "\/Users\/ahmedraad\/Desktop\/asl\/scanmynet-project\/scanmynet-ios\/ScanMyNet\/Models\/Report.swift",
+      "kind": "StringLiteral",
+      "offset": 5196,
+      "length": 12,
+      "value": "\"dns_lookup\""
+    },
+    {
+      "filePath": "\/Users\/ahmedraad\/Desktop\/asl\/scanmynet-project\/scanmynet-ios\/ScanMyNet\/Models\/Report.swift",
+      "kind": "StringLiteral",
+      "offset": 5237,
+      "length": 15,
+      "value": "\"local_devices\""
+    },
+    {
+      "filePath": "\/Users\/ahmedraad\/Desktop\/asl\/scanmynet-project\/scanmynet-ios\/ScanMyNet\/Models\/Report.swift",
+      "kind": "StringLiteral",
+      "offset": 5286,
+      "length": 22,
+      "value": "\"dns_raw_ping_results\""
+    },
+    {
+      "filePath": "\/Users\/ahmedraad\/Desktop\/asl\/scanmynet-project\/scanmynet-ios\/ScanMyNet\/Services\/Network\/NetworkLayer.swift",
+      "kind": "IntegerLiteral",
+      "offset": 202,
+      "length": 2,
+      "value": "10"
+    },
+    {
+      "filePath": "\/Users\/ahmedraad\/Desktop\/asl\/scanmynet-project\/scanmynet-ios\/ScanMyNet\/Models\/Trace.swift",
+      "kind": "StringLiteral",
+      "offset": 191,
+      "length": 8,
+      "value": "\"dns_ip\""
+    },
+    {
+      "filePath": "\/Users\/ahmedraad\/Desktop\/asl\/scanmynet-project\/scanmynet-ios\/ScanMyNet\/Models\/Trace.swift",
+      "kind": "StringLiteral",
+      "offset": 223,
+      "length": 10,
+      "value": "\"dns_name\""
+    },
+    {
+      "filePath": "\/Users\/ahmedraad\/Desktop\/asl\/scanmynet-project\/scanmynet-ios\/ScanMyNet\/Models\/Trace.swift",
+      "kind": "StringLiteral",
+      "offset": 259,
+      "length": 12,
+      "value": "\"rtt_values\""
+    },
+    {
+      "filePath": "\/Users\/ahmedraad\/Desktop\/asl\/scanmynet-project\/scanmynet-ios\/ScanMyNet\/Models\/Trace.swift",
+      "kind": "StringLiteral",
+      "offset": 449,
+      "length": 20,
+      "value": "\"dns_destination_ip\""
+    },
+    {
+      "filePath": "\/Users\/ahmedraad\/Desktop\/asl\/scanmynet-project\/scanmynet-ios\/ScanMyNet\/ReportManager.swift",
+      "kind": "StringLiteral",
+      "offset": 782,
+      "length": 2,
+      "value": "\"\""
+    },
+    {
+      "filePath": "\/Users\/ahmedraad\/Desktop\/asl\/scanmynet-project\/scanmynet-ios\/ScanMyNet\/ReportManager.swift",
+      "kind": "IntegerLiteral",
+      "offset": 874,
+      "length": 1,
+      "value": "0"
+    },
+    {
+      "filePath": "\/Users\/ahmedraad\/Desktop\/asl\/scanmynet-project\/scanmynet-ios\/ScanMyNet\/ReportManager.swift",
+      "kind": "BooleanLiteral",
+      "offset": 1781,
+      "length": 5,
+      "value": "false"
+    },
+    {
+      "filePath": "\/Users\/ahmedraad\/Desktop\/asl\/scanmynet-project\/scanmynet-ios\/ScanMyNet\/ReportManager.swift",
+      "kind": "BooleanLiteral",
+      "offset": 1817,
+      "length": 5,
+      "value": "false"
+    },
+    {
+      "filePath": "\/Users\/ahmedraad\/Desktop\/asl\/scanmynet-project\/scanmynet-ios\/ScanMyNet\/ReportManager.swift",
+      "kind": "BooleanLiteral",
+      "offset": 1845,
+      "length": 5,
+      "value": "false"
+    },
+    {
+      "filePath": "\/Users\/ahmedraad\/Desktop\/asl\/scanmynet-project\/scanmynet-ios\/ScanMyNet\/ReportManager.swift",
+      "kind": "BooleanLiteral",
+      "offset": 1867,
+      "length": 5,
+      "value": "false"
+    },
+    {
+      "filePath": "\/Users\/ahmedraad\/Desktop\/asl\/scanmynet-project\/scanmynet-ios\/ScanMyNet\/ReportManager.swift",
+      "kind": "BooleanLiteral",
+      "offset": 1893,
+      "length": 5,
+      "value": "false"
+    },
+    {
+      "filePath": "\/Users\/ahmedraad\/Desktop\/asl\/scanmynet-project\/scanmynet-ios\/ScanMyNet\/ReportManager.swift",
+      "kind": "BooleanLiteral",
+      "offset": 1928,
+      "length": 5,
+      "value": "false"
+    },
+    {
+      "filePath": "\/Users\/ahmedraad\/Desktop\/asl\/scanmynet-project\/scanmynet-ios\/ScanMyNet\/ReportManager.swift",
+      "kind": "BooleanLiteral",
+      "offset": 1958,
+      "length": 5,
+      "value": "false"
+    },
+    {
+      "filePath": "\/Users\/ahmedraad\/Desktop\/asl\/scanmynet-project\/scanmynet-ios\/ScanMyNet\/ReportManager.swift",
+      "kind": "BooleanLiteral",
+      "offset": 1990,
+      "length": 5,
+      "value": "false"
+    },
+    {
+      "filePath": "\/Users\/ahmedraad\/Desktop\/asl\/scanmynet-project\/scanmynet-ios\/ScanMyNet\/Models\/Port\/Port.swift",
+      "kind": "BooleanLiteral",
+      "offset": 153,
+      "length": 5,
+      "value": "false"
+    },
+    {
+      "filePath": "\/Users\/ahmedraad\/Desktop\/asl\/scanmynet-project\/scanmynet-ios\/ScanMyNet\/Services\/Traceroute\/TracerouteService.swift",
+      "kind": "Array",
+      "offset": 238,
+      "length": 152,
+      "value": "[\"admin.earthlink.iq\", \"109.224.14.2\", \"8.8.8.8\", \"facebook.com\", \"youtube.com\", \"admin.ftth.iq\"]"
+    },
+    {
+      "filePath": "\/Users\/ahmedraad\/Desktop\/asl\/scanmynet-project\/scanmynet-ios\/ScanMyNet\/Services\/Traceroute\/TracerouteService.swift",
+      "kind": "Array",
+      "offset": 437,
+      "length": 2,
+      "value": "[]"
+    },
+    {
+      "filePath": "\/Users\/ahmedraad\/Desktop\/asl\/scanmynet-project\/scanmynet-ios\/ScanMyNet\/Services\/Traceroute\/TracerouteService.swift",
+      "kind": "Dictionary",
+      "offset": 500,
+      "length": 3,
+      "value": "[]"
+    },
+    {
+      "filePath": "\/Users\/ahmedraad\/Desktop\/asl\/scanmynet-project\/scanmynet-ios\/ScanMyNet\/Services\/Traceroute\/TracerouteService.swift",
+      "kind": "Dictionary",
+      "offset": 575,
+      "length": 3,
+      "value": "[]"
+    },
+    {
+      "filePath": "\/Users\/ahmedraad\/Desktop\/asl\/scanmynet-project\/scanmynet-ios\/ScanMyNet\/Services\/Traceroute\/TracerouteService.swift",
+      "kind": "IntegerLiteral",
+      "offset": 610,
+      "length": 1,
+      "value": "0"
+    },
+    {
+      "filePath": "\/Users\/ahmedraad\/Desktop\/asl\/scanmynet-project\/scanmynet-ios\/ScanMyNet\/Services\/Traceroute\/TracerouteService.swift",
+      "kind": "IntegerLiteral",
+      "offset": 995,
+      "length": 2,
+      "value": "20"
+    },
+    {
+      "filePath": "\/Users\/ahmedraad\/Desktop\/asl\/scanmynet-project\/scanmynet-ios\/ScanMyNet\/Services\/Traceroute\/TracerouteService.swift",
+      "kind": "BooleanLiteral",
+      "offset": 1141,
+      "length": 5,
+      "value": "false"
+    },
+    {
+      "filePath": "\/Users\/ahmedraad\/Desktop\/asl\/scanmynet-project\/scanmynet-ios\/ScanMyNet\/Services\/Traceroute\/TracerouteService.swift",
+      "kind": "Array",
+      "offset": 1230,
+      "length": 2,
+      "value": "[]"
+    },
+    {
+      "filePath": "\/Users\/ahmedraad\/Desktop\/asl\/scanmynet-project\/scanmynet-ios\/ScanMyNet\/Services\/SSDP\/SSDPService.swift",
+      "kind": "BooleanLiteral",
+      "offset": 309,
+      "length": 5,
+      "value": "false"
+    },
+    {
+      "filePath": "\/Users\/ahmedraad\/Desktop\/asl\/scanmynet-project\/scanmynet-ios\/ScanMyNet\/Models\/Server.swift",
+      "kind": "StringLiteral",
+      "offset": 79,
+      "length": 2,
+      "value": "\"\""
+    },
+    {
+      "filePath": "\/Users\/ahmedraad\/Desktop\/asl\/scanmynet-project\/scanmynet-ios\/ScanMyNet\/Models\/Server.swift",
+      "kind": "StringLiteral",
+      "offset": 104,
+      "length": 2,
+      "value": "\"\""
+    },
+    {
+      "filePath": "\/Users\/ahmedraad\/Desktop\/asl\/scanmynet-project\/scanmynet-ios\/ScanMyNet\/Models\/Server.swift",
+      "kind": "BooleanLiteral",
+      "offset": 133,
+      "length": 5,
+      "value": "false"
+    },
+    {
+      "filePath": "\/Users\/ahmedraad\/Desktop\/asl\/scanmynet-project\/scanmynet-ios\/ScanMyNet\/Models\/Server.swift",
+      "kind": "IntegerLiteral",
+      "offset": 160,
+      "length": 1,
+      "value": "0"
+    },
+    {
+      "filePath": "\/Users\/ahmedraad\/Desktop\/asl\/scanmynet-project\/scanmynet-ios\/ScanMyNet\/Models\/Server.swift",
+      "kind": "IntegerLiteral",
+      "offset": 292,
+      "length": 1,
+      "value": "5"
+    },
+    {
+      "filePath": "\/Users\/ahmedraad\/Desktop\/asl\/scanmynet-project\/scanmynet-ios\/ScanMyNet\/Models\/QualityResult.swift",
+      "kind": "StringLiteral",
+      "offset": 269,
+      "length": 10,
+      "value": "\"dns_name\""
+    },
+    {
+      "filePath": "\/Users\/ahmedraad\/Desktop\/asl\/scanmynet-project\/scanmynet-ios\/ScanMyNet\/Models\/QualityResult.swift",
+      "kind": "StringLiteral",
+      "offset": 301,
+      "length": 8,
+      "value": "\"dns_ip\""
+    },
+    {
+      "filePath": "\/Users\/ahmedraad\/Desktop\/asl\/scanmynet-project\/scanmynet-ios\/ScanMyNet\/Models\/QualityResult.swift",
+      "kind": "StringLiteral",
+      "offset": 340,
+      "length": 17,
+      "value": "\"packets_dropped\""
+    },
+    {
+      "filePath": "\/Users\/ahmedraad\/Desktop\/asl\/scanmynet-project\/scanmynet-ios\/ScanMyNet\/Models\/QualityResult.swift",
+      "kind": "StringLiteral",
+      "offset": 388,
+      "length": 18,
+      "value": "\"num_packets_sent\""
+    },
+    {
+      "filePath": "\/Users\/ahmedraad\/Desktop\/asl\/scanmynet-project\/scanmynet-ios\/ScanMyNet\/Models\/QualityResult.swift",
+      "kind": "StringLiteral",
+      "offset": 433,
+      "length": 13,
+      "value": "\"ping_values\""
+    },
+    {
+      "filePath": "\/Users\/ahmedraad\/Desktop\/asl\/scanmynet-project\/scanmynet-ios\/ScanMyNet\/Models\/QualityResult.swift",
+      "kind": "BooleanLiteral",
+      "offset": 845,
+      "length": 5,
+      "value": "false"
+    },
+    {
+      "filePath": "\/Users\/ahmedraad\/Desktop\/asl\/scanmynet-project\/scanmynet-ios\/ScanMyNet\/Models\/QualityResult.swift",
+      "kind": "StringLiteral",
+      "offset": 875,
+      "length": 9,
+      "value": "\"Unknown\""
+    },
+    {
+      "filePath": "\/Users\/ahmedraad\/Desktop\/asl\/scanmynet-project\/scanmynet-ios\/ScanMyNet\/Models\/QualityResult.swift",
+      "kind": "BooleanLiteral",
+      "offset": 965,
+      "length": 5,
+      "value": "false"
+    },
+    {
+      "filePath": "\/Users\/ahmedraad\/Desktop\/asl\/scanmynet-project\/scanmynet-ios\/ScanMyNet\/Models\/QualityResult.swift",
+      "kind": "IntegerLiteral",
+      "offset": 1117,
+      "length": 1,
+      "value": "0"
+    },
+    {
+      "filePath": "\/Users\/ahmedraad\/Desktop\/asl\/scanmynet-project\/scanmynet-ios\/ScanMyNet\/Models\/QualityResult.swift",
+      "kind": "IntegerLiteral",
+      "offset": 1152,
+      "length": 2,
+      "value": "30"
+    },
+    {
+      "filePath": "\/Users\/ahmedraad\/Desktop\/asl\/scanmynet-project\/scanmynet-ios\/ScanMyNet\/Models\/QualityResult.swift",
+      "kind": "Array",
+      "offset": 1185,
+      "length": 2,
+      "value": "[]"
+    },
+    {
+      "filePath": "\/Users\/ahmedraad\/Desktop\/asl\/scanmynet-project\/scanmynet-ios\/ScanMyNet\/Models\/QualityResult.swift",
+      "kind": "IntegerLiteral",
+      "offset": 1226,
+      "length": 2,
+      "value": "30"
+    },
+    {
+      "filePath": "\/Users\/ahmedraad\/Desktop\/asl\/scanmynet-project\/scanmynet-ios\/ScanMyNet\/Models\/QualityResult.swift",
+      "kind": "IntegerLiteral",
+      "offset": 1461,
+      "length": 1,
+      "value": "8"
+    },
+    {
+      "filePath": "\/Users\/ahmedraad\/Desktop\/asl\/scanmynet-project\/scanmynet-ios\/ScanMyNet\/Models\/QualityResult.swift",
+      "kind": "StringLiteral",
+      "offset": 1606,
+      "length": 7,
+      "value": "\"https\""
+    },
+    {
+      "filePath": "\/Users\/ahmedraad\/Desktop\/asl\/scanmynet-project\/scanmynet-ios\/ScanMyNet\/frameworks\/SSDP Client\/SSDPDiscovery.swift",
+      "kind": "IntegerLiteral",
+      "offset": 3150,
+      "length": 2,
+      "value": "10"
+    },
+    {
+      "filePath": "\/Users\/ahmedraad\/Desktop\/asl\/scanmynet-project\/scanmynet-ios\/ScanMyNet\/frameworks\/SSDP Client\/SSDPDiscovery.swift",
+      "kind": "StringLiteral",
+      "offset": 3177,
+      "length": 10,
+      "value": "\"ssdp:all\""
+    },
+    {
+      "filePath": "\/Users\/ahmedraad\/Desktop\/asl\/scanmynet-project\/scanmynet-ios\/ScanMyNet\/frameworks\/SSDP Client\/SSDPDiscovery.swift",
+      "kind": "IntegerLiteral",
+      "offset": 3203,
+      "length": 4,
+      "value": "1900"
+    },
+    {
+      "filePath": "\/Users\/ahmedraad\/Desktop\/asl\/scanmynet-project\/scanmynet-ios\/ScanMyNet\/Models\/DNS.swift",
+      "kind": "StringLiteral",
+      "offset": 192,
+      "length": 8,
+      "value": "\"dns_ip\""
+    },
+    {
+      "filePath": "\/Users\/ahmedraad\/Desktop\/asl\/scanmynet-project\/scanmynet-ios\/ScanMyNet\/Models\/DNS.swift",
+      "kind": "StringLiteral",
+      "offset": 246,
+      "length": 13,
+      "value": "\"reverse_dns\""
+    },
+    {
+      "filePath": "\/Users\/ahmedraad\/Desktop\/asl\/scanmynet-project\/scanmynet-ios\/ScanMyNet\/Models\/LocalDevice.swift",
+      "kind": "StringLiteral",
+      "offset": 366,
+      "length": 13,
+      "value": "\"device_name\""
+    },
+    {
+      "filePath": "\/Users\/ahmedraad\/Desktop\/asl\/scanmynet-project\/scanmynet-ios\/ScanMyNet\/Models\/LocalDevice.swift",
+      "kind": "StringLiteral",
+      "offset": 404,
+      "length": 11,
+      "value": "\"device_ip\""
+    },
+    {
+      "filePath": "\/Users\/ahmedraad\/Desktop\/asl\/scanmynet-project\/scanmynet-ios\/ScanMyNet\/Models\/LocalDevice.swift",
+      "kind": "StringLiteral",
+      "offset": 448,
+      "length": 20,
+      "value": "\"device_mac_address\""
+    },
+    {
+      "filePath": "\/Users\/ahmedraad\/Desktop\/asl\/scanmynet-project\/scanmynet-ios\/ScanMyNet\/Models\/LocalDevice.swift",
+      "kind": "StringLiteral",
+      "offset": 525,
+      "length": 17,
+      "value": "\"packets_dropped\""
+    },
+    {
+      "filePath": "\/Users\/ahmedraad\/Desktop\/asl\/scanmynet-project\/scanmynet-ios\/ScanMyNet\/Models\/LocalDevice.swift",
+      "kind": "StringLiteral",
+      "offset": 573,
+      "length": 18,
+      "value": "\"num_packets_sent\""
+    },
+    {
+      "filePath": "\/Users\/ahmedraad\/Desktop\/asl\/scanmynet-project\/scanmynet-ios\/ScanMyNet\/Models\/LocalDevice.swift",
+      "kind": "StringLiteral",
+      "offset": 618,
+      "length": 13,
+      "value": "\"ping_values\""
+    },
+    {
+      "filePath": "\/Users\/ahmedraad\/Desktop\/asl\/scanmynet-project\/scanmynet-ios\/ScanMyNet\/Models\/LocalDevice.swift",
+      "kind": "StringLiteral",
+      "offset": 665,
+      "length": 21,
+      "value": "\"is_subscriber_phone\""
+    },
+    {
+      "filePath": "\/Users\/ahmedraad\/Desktop\/asl\/scanmynet-project\/scanmynet-ios\/ScanMyNet\/Models\/SSIDInfo.swift",
+      "kind": "StringLiteral",
+      "offset": 467,
+      "length": 9,
+      "value": "\"ssid_ip\""
+    },
+    {
+      "filePath": "\/Users\/ahmedraad\/Desktop\/asl\/scanmynet-project\/scanmynet-ios\/ScanMyNet\/Models\/ServerConnectivity.swift",
+      "kind": "StringLiteral",
+      "offset": 203,
+      "length": 15,
+      "value": "\"server_status\""
+    },
+    {
+      "filePath": "\/Users\/ahmedraad\/Desktop\/asl\/scanmynet-project\/scanmynet-ios\/ScanMyNet\/Services\/LAN Scanner\/LANDevice.swift",
+      "kind": "Array",
+      "offset": 216,
+      "length": 2,
+      "value": "[]"
+    },
+    {
+      "filePath": "\/Users\/ahmedraad\/Desktop\/asl\/scanmynet-project\/scanmynet-ios\/ScanMyNet\/Services\/LAN Scanner\/LANDevice.swift",
+      "kind": "IntegerLiteral",
+      "offset": 365,
+      "length": 1,
+      "value": "0"
+    },
+    {
+      "filePath": "\/Users\/ahmedraad\/Desktop\/asl\/scanmynet-project\/scanmynet-ios\/ScanMyNet\/Services\/LAN Scanner\/LANDevice.swift",
+      "kind": "IntegerLiteral",
+      "offset": 400,
+      "length": 2,
+      "value": "30"
+    },
+    {
+      "filePath": "\/Users\/ahmedraad\/Desktop\/asl\/scanmynet-project\/scanmynet-ios\/ScanMyNet\/Services\/LAN Scanner\/LANDevice.swift",
+      "kind": "IntegerLiteral",
+      "offset": 441,
+      "length": 2,
+      "value": "30"
+    },
+    {
+      "filePath": "\/Users\/ahmedraad\/Desktop\/asl\/scanmynet-project\/scanmynet-ios\/ScanMyNet\/Services\/Server Connectivity\/ServerConnectivityService.swift",
+      "kind": "Array",
+      "offset": 200,
+      "length": 2,
+      "value": "[]"
+    },
+    {
+      "filePath": "\/Users\/ahmedraad\/Desktop\/asl\/scanmynet-project\/scanmynet-ios\/ScanMyNet\/Services\/Server Connectivity\/ServerConnectivityService.swift",
+      "kind": "Array",
+      "offset": 245,
+      "length": 2,
+      "value": "[]"
+    },
+    {
+      "filePath": "\/Users\/ahmedraad\/Desktop\/asl\/scanmynet-project\/scanmynet-ios\/ScanMyNet\/Services\/Server Connectivity\/ServerConnectivityService.swift",
+      "kind": "Array",
+      "offset": 283,
+      "length": 2,
+      "value": "[]"
+    },
+    {
+      "filePath": "\/Users\/ahmedraad\/Desktop\/asl\/scanmynet-project\/scanmynet-ios\/ScanMyNet\/Services\/Server Connectivity\/ServerConnectivityService.swift",
+      "kind": "Array",
+      "offset": 328,
+      "length": 2,
+      "value": "[]"
+    },
+    {
+      "filePath": "\/Users\/ahmedraad\/Desktop\/asl\/scanmynet-project\/scanmynet-ios\/ScanMyNet\/Services\/Server Connectivity\/ServerConnectivityService.swift",
+      "kind": "StringLiteral",
+      "offset": 358,
+      "length": 35,
+      "value": "\"com.creativeadvtech.scanmynet-ios\""
+    },
+    {
+      "filePath": "\/Users\/ahmedraad\/Desktop\/asl\/scanmynet-project\/scanmynet-ios\/ScanMyNet\/Services\/SpeedCheck\/SpeedCheck.swift",
+      "kind": "Array",
+      "offset": 244,
+      "length": 2,
+      "value": "[]"
+    },
+    {
+      "filePath": "\/Users\/ahmedraad\/Desktop\/asl\/scanmynet-project\/scanmynet-ios\/ScanMyNet\/Services\/SpeedCheck\/SpeedCheck.swift",
+      "kind": "Array",
+      "offset": 280,
+      "length": 2,
+      "value": "[]"
+    },
+    {
+      "filePath": "\/Users\/ahmedraad\/Desktop\/asl\/scanmynet-project\/scanmynet-ios\/ScanMyNet\/Services\/SpeedCheck\/SpeedCheck.swift",
+      "kind": "IntegerLiteral",
+      "offset": 323,
+      "length": 1,
+      "value": "0"
+    },
+    {
+      "filePath": "\/Users\/ahmedraad\/Desktop\/asl\/scanmynet-project\/scanmynet-ios\/ScanMyNet\/Services\/SpeedCheck\/SpeedCheck.swift",
+      "kind": "IntegerLiteral",
+      "offset": 363,
+      "length": 1,
+      "value": "0"
+    },
+    {
+      "filePath": "\/Users\/ahmedraad\/Desktop\/asl\/scanmynet-project\/scanmynet-ios\/ScanMyNet\/ScanMyNet.swift",
+      "kind": "IntegerLiteral",
+      "offset": 584,
+      "length": 1,
+      "value": "0"
+    },
+    {
+      "filePath": "\/Users\/ahmedraad\/Desktop\/asl\/scanmynet-project\/scanmynet-ios\/ScanMyNet\/ScanMyNet.swift",
+      "kind": "IntegerLiteral",
+      "offset": 620,
+      "length": 1,
+      "value": "0"
+    },
+    {
+      "filePath": "\/Users\/ahmedraad\/Desktop\/asl\/scanmynet-project\/scanmynet-ios\/ScanMyNet\/ScanMyNet.swift",
+      "kind": "BooleanLiteral",
+      "offset": 664,
+      "length": 5,
+      "value": "false"
+    },
+    {
+      "filePath": "\/Users\/ahmedraad\/Desktop\/asl\/scanmynet-project\/scanmynet-ios\/ScanMyNet\/ScanMyNet.swift",
+      "kind": "BooleanLiteral",
+      "offset": 1368,
+      "length": 5,
+      "value": "false"
+    },
+    {
+      "filePath": "\/Users\/ahmedraad\/Desktop\/asl\/scanmynet-project\/scanmynet-ios\/ScanMyNet\/ScanMyNet.swift",
+      "kind": "BooleanLiteral",
+      "offset": 1404,
+      "length": 5,
+      "value": "false"
+    },
+    {
+      "filePath": "\/Users\/ahmedraad\/Desktop\/asl\/scanmynet-project\/scanmynet-ios\/ScanMyNet\/ScanMyNet.swift",
+      "kind": "BooleanLiteral",
+      "offset": 1432,
+      "length": 5,
+      "value": "false"
+    },
+    {
+      "filePath": "\/Users\/ahmedraad\/Desktop\/asl\/scanmynet-project\/scanmynet-ios\/ScanMyNet\/ScanMyNet.swift",
+      "kind": "BooleanLiteral",
+      "offset": 1454,
+      "length": 5,
+      "value": "false"
+    },
+    {
+      "filePath": "\/Users\/ahmedraad\/Desktop\/asl\/scanmynet-project\/scanmynet-ios\/ScanMyNet\/ScanMyNet.swift",
+      "kind": "BooleanLiteral",
+      "offset": 1480,
+      "length": 5,
+      "value": "false"
+    },
+    {
+      "filePath": "\/Users\/ahmedraad\/Desktop\/asl\/scanmynet-project\/scanmynet-ios\/ScanMyNet\/ScanMyNet.swift",
+      "kind": "BooleanLiteral",
+      "offset": 1515,
+      "length": 5,
+      "value": "false"
+    },
+    {
+      "filePath": "\/Users\/ahmedraad\/Desktop\/asl\/scanmynet-project\/scanmynet-ios\/ScanMyNet\/ScanMyNet.swift",
+      "kind": "BooleanLiteral",
+      "offset": 1545,
+      "length": 5,
+      "value": "false"
+    },
+    {
+      "filePath": "\/Users\/ahmedraad\/Desktop\/asl\/scanmynet-project\/scanmynet-ios\/ScanMyNet\/ScanMyNet.swift",
+      "kind": "BooleanLiteral",
+      "offset": 1577,
+      "length": 5,
+      "value": "false"
+    },
+    {
+      "filePath": "\/Users\/ahmedraad\/Desktop\/asl\/scanmynet-project\/scanmynet-ios\/ScanMyNet\/Services\/Additional Data\/SSIDService.swift",
+      "kind": "Array",
+      "offset": 348,
+      "length": 7,
+      "value": "[\"en0\"]"
+    },
+    {
+      "filePath": "\/Users\/ahmedraad\/Desktop\/asl\/scanmynet-project\/scanmynet-ios\/ScanMyNet\/Services\/Additional Data\/SSIDService.swift",
+      "kind": "Array",
+      "offset": 386,
+      "length": 41,
+      "value": "[\"pdp_ip0\", \"pdp_ip1\", \"pdp_ip2\", \"pdp_ip3\"]"
+    },
+    {
+      "filePath": "\/Users\/ahmedraad\/Desktop\/asl\/scanmynet-project\/scanmynet-ios\/ScanMyNet\/Services\/Connection Quality\/ConnectionQualityService.swift",
+      "kind": "StringLiteral",
+      "offset": 612,
+      "length": 20,
+      "value": "\"admin.earthlink.iq\""
+    },
+    {
+      "filePath": "\/Users\/ahmedraad\/Desktop\/asl\/scanmynet-project\/scanmynet-ios\/ScanMyNet\/Services\/Connection Quality\/ConnectionQualityService.swift",
+      "kind": "StringLiteral",
+      "offset": 640,
+      "length": 17,
+      "value": "\"Earthlink Admin\""
+    },
+    {
+      "filePath": "\/Users\/ahmedraad\/Desktop\/asl\/scanmynet-project\/scanmynet-ios\/ScanMyNet\/Services\/Connection Quality\/ConnectionQualityService.swift",
+      "kind": "StringLiteral",
+      "offset": 686,
+      "length": 14,
+      "value": "\"109.224.14.2\""
+    },
+    {
+      "filePath": "\/Users\/ahmedraad\/Desktop\/asl\/scanmynet-project\/scanmynet-ios\/ScanMyNet\/Services\/Connection Quality\/ConnectionQualityService.swift",
+      "kind": "StringLiteral",
+      "offset": 708,
+      "length": 15,
+      "value": "\"Earthlink DNS\""
+    },
+    {
+      "filePath": "\/Users\/ahmedraad\/Desktop\/asl\/scanmynet-project\/scanmynet-ios\/ScanMyNet\/Services\/Connection Quality\/ConnectionQualityService.swift",
+      "kind": "StringLiteral",
+      "offset": 733,
+      "length": 6,
+      "value": "\"http\""
+    },
+    {
+      "filePath": "\/Users\/ahmedraad\/Desktop\/asl\/scanmynet-project\/scanmynet-ios\/ScanMyNet\/Services\/Connection Quality\/ConnectionQualityService.swift",
+      "kind": "StringLiteral",
+      "offset": 768,
+      "length": 9,
+      "value": "\"8.8.8.8\""
+    },
+    {
+      "filePath": "\/Users\/ahmedraad\/Desktop\/asl\/scanmynet-project\/scanmynet-ios\/ScanMyNet\/Services\/Connection Quality\/ConnectionQualityService.swift",
+      "kind": "StringLiteral",
+      "offset": 785,
+      "length": 12,
+      "value": "\"Google DNS\""
+    },
+    {
+      "filePath": "\/Users\/ahmedraad\/Desktop\/asl\/scanmynet-project\/scanmynet-ios\/ScanMyNet\/Services\/Connection Quality\/ConnectionQualityService.swift",
+      "kind": "StringLiteral",
+      "offset": 826,
+      "length": 14,
+      "value": "\"facebook.com\""
+    },
+    {
+      "filePath": "\/Users\/ahmedraad\/Desktop\/asl\/scanmynet-project\/scanmynet-ios\/ScanMyNet\/Services\/Connection Quality\/ConnectionQualityService.swift",
+      "kind": "StringLiteral",
+      "offset": 848,
+      "length": 10,
+      "value": "\"Facebook\""
+    },
+    {
+      "filePath": "\/Users\/ahmedraad\/Desktop\/asl\/scanmynet-project\/scanmynet-ios\/ScanMyNet\/Services\/Connection Quality\/ConnectionQualityService.swift",
+      "kind": "StringLiteral",
+      "offset": 887,
+      "length": 13,
+      "value": "\"youtube.com\""
+    },
+    {
+      "filePath": "\/Users\/ahmedraad\/Desktop\/asl\/scanmynet-project\/scanmynet-ios\/ScanMyNet\/Services\/Connection Quality\/ConnectionQualityService.swift",
+      "kind": "StringLiteral",
+      "offset": 908,
+      "length": 9,
+      "value": "\"Youtube\""
+    },
+    {
+      "filePath": "\/Users\/ahmedraad\/Desktop\/asl\/scanmynet-project\/scanmynet-ios\/ScanMyNet\/Services\/Connection Quality\/ConnectionQualityService.swift",
+      "kind": "StringLiteral",
+      "offset": 946,
+      "length": 15,
+      "value": "\"admin.ftth.iq\""
+    },
+    {
+      "filePath": "\/Users\/ahmedraad\/Desktop\/asl\/scanmynet-project\/scanmynet-ios\/ScanMyNet\/Services\/Connection Quality\/ConnectionQualityService.swift",
+      "kind": "StringLiteral",
+      "offset": 969,
+      "length": 12,
+      "value": "\"FTTH Admin\""
+    },
+    {
+      "filePath": "\/Users\/ahmedraad\/Desktop\/asl\/scanmynet-project\/scanmynet-ios\/ScanMyNet\/Services\/Connection Quality\/ConnectionQualityService.swift",
+      "kind": "Array",
+      "offset": 1029,
+      "length": 2,
+      "value": "[]"
+    },
+    {
+      "filePath": "\/Users\/ahmedraad\/Desktop\/asl\/scanmynet-project\/scanmynet-ios\/ScanMyNet\/Services\/Connection Quality\/ConnectionQualityService.swift",
+      "kind": "Array",
+      "offset": 1077,
+      "length": 2,
+      "value": "[]"
+    },
+    {
+      "filePath": "\/Users\/ahmedraad\/Desktop\/asl\/scanmynet-project\/scanmynet-ios\/ScanMyNet\/Services\/Connection Quality\/ConnectionQualityService.swift",
+      "kind": "StringLiteral",
+      "offset": 1114,
+      "length": 2,
+      "value": "\"\""
+    },
+    {
+      "filePath": "\/Users\/ahmedraad\/Desktop\/asl\/scanmynet-project\/scanmynet-ios\/ScanMyNet\/Services\/Connection Quality\/ConnectionQualityService.swift",
+      "kind": "Array",
+      "offset": 1242,
+      "length": 2,
+      "value": "[]"
+    },
+    {
+      "filePath": "\/Users\/ahmedraad\/Desktop\/asl\/scanmynet-project\/scanmynet-ios\/ScanMyNet\/Services\/Connection Quality\/ConnectionQualityService.swift",
+      "kind": "Array",
+      "offset": 1284,
+      "length": 2,
+      "value": "[]"
+    },
+    {
+      "filePath": "\/Users\/ahmedraad\/Desktop\/asl\/scanmynet-project\/scanmynet-ios\/ScanMyNet\/Services\/Connection Quality\/ConnectionQualityService.swift",
+      "kind": "BooleanLiteral",
+      "offset": 1313,
+      "length": 5,
+      "value": "false"
+    },
+    {
+      "filePath": "\/Users\/ahmedraad\/Desktop\/asl\/scanmynet-project\/scanmynet-ios\/ScanMyNet\/Services\/Connection Quality\/ConnectionQualityService.swift",
+      "kind": "IntegerLiteral",
+      "offset": 1662,
+      "length": 2,
+      "value": "25"
+    },
+    {
+      "filePath": "\/Users\/ahmedraad\/Desktop\/asl\/scanmynet-project\/scanmynet-ios\/ScanMyNet\/Services\/Connection Quality\/ConnectionQualityService.swift",
+      "kind": "BooleanLiteral",
+      "offset": 1801,
+      "length": 5,
+      "value": "false"
+    }
+  ]
+}

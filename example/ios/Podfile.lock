@@ -1,0 +1,59 @@
+PODS:
+  - Alamofire (5.11.1)
+  - BlueSocket (2.0.4)
+  - Flutter (1.0.0)
+  - integration_test (0.0.1):
+    - Flutter
+  - NDT7 (0.0.4)
+  - permission_handler_apple (9.4.8):
+    - Flutter
+  - scanmynet_sdk (0.0.1):
+    - Alamofire (= 5.11.1)
+    - BlueSocket (= 2.0.4)
+    - Flutter
+    - NDT7 (= 0.0.4)
+    - XMLCoder (= 0.13.1)
+  - url_launcher_ios (0.0.1):
+    - Flutter
+  - XMLCoder (0.13.1)
+
+DEPENDENCIES:
+  - Flutter (from `Flutter`)
+  - integration_test (from `.symlinks/plugins/integration_test/ios`)
+  - permission_handler_apple (from `.symlinks/plugins/permission_handler_apple/ios`)
+  - scanmynet_sdk (from `.symlinks/plugins/scanmynet_sdk/ios`)
+  - url_launcher_ios (from `.symlinks/plugins/url_launcher_ios/ios`)
+
+SPEC REPOS:
+  trunk:
+    - Alamofire
+    - BlueSocket
+    - NDT7
+    - XMLCoder
+
+EXTERNAL SOURCES:
+  Flutter:
+    :path: Flutter
+  integration_test:
+    :path: ".symlinks/plugins/integration_test/ios"
+  permission_handler_apple:
+    :path: ".symlinks/plugins/permission_handler_apple/ios"
+  scanmynet_sdk:
+    :path: ".symlinks/plugins/scanmynet_sdk/ios"
+  url_launcher_ios:
+    :path: ".symlinks/plugins/url_launcher_ios/ios"
+
+SPEC CHECKSUMS:
+  Alamofire: eec6cd8f73b242b59e34153a606a909eb9864b14
+  BlueSocket: cc33e2bded4b680ff14200b4160ed459602b9205
+  Flutter: cabc95a1d2626b1b06e7179b784ebcf0c0cde467
+  integration_test: 4a889634ef21a45d28d50d622cf412dc6d9f586e
+  NDT7: db6448ebf5648c2f1721bf3b473470ab201f4145
+  permission_handler_apple: 92d754bbaa7361d436db2d6c3c1c2a0fdcec462e
+  scanmynet_sdk: c38238632afba7c1d606fc8a030de8645357e1b6
+  url_launcher_ios: 7a95fa5b60cc718a708b8f2966718e93db0cef1b
+  XMLCoder: bd962586bc6777a9e6a17bc84d97a3c5413a9495
+
+PODFILE CHECKSUM: e2f609193c878ec2bfdf8858d42913290cb2a3da
+
+COCOAPODS: 1.16.2

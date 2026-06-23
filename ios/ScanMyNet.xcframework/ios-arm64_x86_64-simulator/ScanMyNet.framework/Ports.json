@@ -1,0 +1,246 @@
+[{
+    "description": "HTTP",
+    "port": "80",
+    "port_type": "TCP"
+},
+{
+    "description": "POP3 x APOP",
+    "port": "110",
+    "port_type": "TCP"
+},
+{
+    "description": "IMAP",
+    "port": "143",
+    "port_type": "TCP"
+},
+{
+    "description": "HTTPS",
+    "port": "443",
+    "port_type": "TCP"
+},
+{
+    "description": "Microsoft Active Directory & SMB file sharing",
+    "port": "445",
+    "port_type": "TCP"
+},
+{
+    "description": "SMTPS & URL Rendezvous Directory for SSM",
+    "port": "465",
+    "port_type": "TCP"
+},
+{
+    "description": "SMTP - email message submission",
+    "port": "587",
+    "port_type": "TCP"
+},
+{
+    "description": "rsync",
+    "port": "873",
+    "port_type": "TCP"
+},
+{
+    "description": "IMAP4 protocol over TLS/SSL",
+    "port": "993",
+    "port_type": "TCP"
+},
+{
+    "description": "POP3 protocol over TLS/SSL",
+    "port": "995",
+    "port_type": "TCP"
+},
+{
+    "description": "Battle.net",
+    "port": "1119",
+    "port_type": "TCP"
+},
+{
+    "description": "RTMP",
+    "port": "1935",
+    "port_type": "TCP"
+},
+{
+    "description": "Xbox Live",
+    "port": "3074",
+    "port_type": "TCP"
+},
+{
+    "description": "STUN and TURN, a protocol for NAT traversal",
+    "port": "3478",
+    "port_type": "TCP"
+},
+{
+    "description": "World of Warcraft",
+    "port": "3724",
+    "port_type": "TCP"
+},
+{
+    "description": "Overwatch PC, Elder Scrolls Online PS4/Xbox; SIP",
+    "port": "5060",
+    "port_type": "TCP"
+},
+{
+    "description": "Overwatch PC, Elder Scrolls Online PS4/Xbox; Localisation Access",
+    "port": "5062",
+    "port_type": "TCP"
+},
+{
+    "description": "Fortnite, League of Legends; XMPP",
+    "port": "5222",
+    "port_type": "TCP"
+},
+{
+    "description": "PS3 common gaming Port",
+    "port": "5223",
+    "port_type": "TCP"
+},
+{
+    "description": "Fortnite",
+    "port": "5795",
+    "port_type": "TCP"
+},
+{
+    "description": "Fortnite",
+    "port": "5847",
+    "port_type": "TCP"
+},
+{
+    "description": "Overwatch, Starcraft II",
+    "port": "6113",
+    "port_type": "TCP"
+},
+{
+    "description": "Nintendo Wii & Switch",
+    "port": "6667",
+    "port_type": "TCP"
+},
+{
+    "description": "PS3 common gaming Port",
+    "port": "8080",
+    "port_type": "TCP"
+},
+{
+    "description": "Far Cry, Watch Dogs",
+    "port": "9000",
+    "port_type": "TCP"
+},
+{
+    "description": "Nintendo Wii & Switch",
+    "port": "12400",
+    "port_type": "TCP"
+},
+{
+    "description": "Steam",
+    "port": "27015",
+    "port_type": "TCP"
+},
+{
+    "description": "Steam",
+    "port": "27030",
+    "port_type": "TCP"
+},
+{
+    "description": "Nintendo Wii & Switch",
+    "port": "28910",
+    "port_type": "TCP"
+},
+{
+    "description": "Nintendo Wii & Switch",
+    "port": "29900",
+    "port_type": "TCP"
+},
+{
+    "description": "Xbox common gaming port",
+    "port": "88",
+    "port_type": "UDP"
+},
+{
+    "description": "Xbox One; ISAKMP",
+    "port": "500",
+    "port_type": "UDP"
+},
+{
+    "description": "Xbox Live Chat, MSN",
+    "port": "1863",
+    "port_type": "UDP"
+},
+{
+    "description": "Xbox Live",
+    "port": "3074",
+    "port_type": "UDP"
+},
+{
+    "description": "STUN and TURN, a protocol for NAT traversal",
+    "port": "3478",
+    "port_type": "UDP"
+},
+{
+    "description": "PSN",
+    "port": "3480",
+    "port_type": "UDP"
+},
+{
+    "description": "Xbox One",
+    "port": "3544",
+    "port_type": "UDP"
+},
+{
+    "description": "PS3",
+    "port": "3658",
+    "port_type": "UDP"
+},
+{
+    "description": "Battlefield, Crysis, Dragon Age, FIFA, Mass Effect, NHL, Star Wars: Battlefront; SASL",
+    "port": "3659",
+    "port_type": "UDP"
+},
+{
+    "description": "PC common gaming Port",
+    "port": "4380",
+    "port_type": "UDP"
+},
+{
+    "description": "Xbox One",
+    "port": "4500",
+    "port_type": "UDP"
+},
+{
+    "description": "SIP (Overwatch chat)",
+    "port": "5060",
+    "port_type": "UDP"
+},
+{
+    "description": "PS3",
+    "port": "5223",
+    "port_type": "UDP"
+},
+{
+    "description": "Overwatch PC, Elder Scrolls Online PS4/Xbox",
+    "port": "6250",
+    "port_type": "UDP"
+},
+{
+    "description": "GTA V & Online, Red Dead Remeption 2 & Online",
+    "port": "6250",
+    "port_type": "UDP"
+},
+{
+    "description": "Madden NFL, PSN",
+    "port": "10070",
+    "port_type": "UDP"
+},
+{
+    "description": "Steam",
+    "port": "27036",
+    "port_type": "UDP"
+},
+{
+    "description": "Roblox",
+    "port": "49152",
+    "port_type": "UDP"
+},
+{
+    "description": "GTA V",
+    "port": "61455",
+    "port_type": "UDP"
+}
+]

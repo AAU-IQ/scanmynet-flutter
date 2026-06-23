@@ -1,0 +1,58 @@
+// swift-interface-format-version: 1.0
+// swift-compiler-version: Apple Swift version 6.2 effective-5.10 (swiftlang-6.2.0.19.9 clang-1700.3.19.1)
+// swift-module-flags: -target arm64-apple-ios12.0-simulator -enable-objc-interop -enable-library-evolution -swift-version 5 -enforce-exclusivity=checked -O -enable-experimental-feature DebugDescriptionMacro -enable-bare-slash-regex -module-name ScanMyNet
+// swift-module-flags-ignorable: -no-verify-emitted-module-interface -formal-cxx-interoperability-mode=off -interface-compiler-version 6.2
+import Alamofire
+import SystemConfiguration.CaptiveNetwork
+import Combine
+import CoreLocation
+import Foundation
+import NDT7
+import Network
+import NetworkExtension
+@_exported import ScanMyNet
+import Socket
+import Swift
+import SystemConfiguration
+import UIKit
+import XMLCoder
+import _Concurrency
+import _StringProcessing
+import _SwiftConcurrencyShims
+import dnssd
+public enum Environment {
+  case staging, production, testing
+  public static func == (a: ScanMyNet.Environment, b: ScanMyNet.Environment) -> Swift.Bool
+  public func hash(into hasher: inout Swift.Hasher)
+  public var hashValue: Swift.Int {
+    get
+  }
+}
+public class ScanMyNetConfiguration {
+  #if compiler(>=5.3) && $NonescapableTypes
+  public init(apiKey: Swift.String? = nil, requestKey: Swift.String? = nil, environment: ScanMyNet.Environment)
+  #endif
+  @objc deinit
+}
+public protocol ScanMyNetDelegate {
+  func scanStarted()
+  func scanFinished(reportUrl: Swift.String)
+  func nextScanStarted(value: Swift.String)
+  func scanProgress(value: Swift.Float)
+  func scanServiceFailed(type: Swift.String, with error: any Swift.Error)
+  func scanFailed(with error: any Swift.Error, response: Swift.String)
+  func scanCanceled()
+  func serviceTriggered(log: Swift.String)
+  #if compiler(>=5.3) && $NonescapableTypes
+  func getRequestData(request: Foundation.URLRequest?, response: Foundation.HTTPURLResponse?, error: (any Swift.Error)?)
+  #endif
+}
+public class ScanMyNetManager {
+  public var delegate: (any ScanMyNet.ScanMyNetDelegate)?
+  public init(configuration: ScanMyNet.ScanMyNetConfiguration)
+  public func start()
+  public func cancel()
+  @objc deinit
+}
+extension ScanMyNet.Environment : Swift.Equatable {}
+extension ScanMyNet.Environment : Swift.Hashable {}
