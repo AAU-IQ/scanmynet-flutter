@@ -1,6 +1,46 @@
 [{
+    "description": "FTP Data",
+    "port": "20",
+    "port_type": "TCP"
+},
+{
+    "description": "FTP Control",
+    "port": "21",
+    "port_type": "TCP"
+},
+{
+    "description": "SSH",
+    "port": "22",
+    "port_type": "TCP"
+},
+{
+    "description": "Telnet",
+    "port": "23",
+    "port_type": "TCP"
+},
+{
+    "description": "SMTP",
+    "port": "25",
+    "port_type": "TCP"
+},
+{
+    "description": "DNS",
+    "port": "53",
+    "port_type": "TCP"
+},
+{
     "description": "HTTP",
     "port": "80",
+    "port_type": "TCP"
+},
+{
+    "description": "Alternate HTTP",
+    "port": "81",
+    "port_type": "TCP"
+},
+{
+    "description": "Kerberos",
+    "port": "88",
     "port_type": "TCP"
 },
 {
@@ -9,8 +49,38 @@
     "port_type": "TCP"
 },
 {
+    "description": "RPC",
+    "port": "111",
+    "port_type": "TCP"
+},
+{
+    "description": "MS RPC",
+    "port": "135",
+    "port_type": "TCP"
+},
+{
+    "description": "NetBIOS",
+    "port": "139",
+    "port_type": "TCP"
+},
+{
     "description": "IMAP",
     "port": "143",
+    "port_type": "TCP"
+},
+{
+    "description": "SNMP",
+    "port": "161",
+    "port_type": "TCP"
+},
+{
+    "description": "BGP",
+    "port": "179",
+    "port_type": "TCP"
+},
+{
+    "description": "LDAP",
+    "port": "389",
     "port_type": "TCP"
 },
 {
@@ -29,8 +99,38 @@
     "port_type": "TCP"
 },
 {
+    "description": "Syslog",
+    "port": "514",
+    "port_type": "TCP"
+},
+{
+    "description": "Printer (LPD)",
+    "port": "515",
+    "port_type": "TCP"
+},
+{
+    "description": "AFP (Mac)",
+    "port": "548",
+    "port_type": "TCP"
+},
+{
+    "description": "RTSP",
+    "port": "554",
+    "port_type": "TCP"
+},
+{
     "description": "SMTP - email message submission",
     "port": "587",
+    "port_type": "TCP"
+},
+{
+    "description": "IPP Printing",
+    "port": "631",
+    "port_type": "TCP"
+},
+{
+    "description": "DNS-over-TLS",
+    "port": "853",
     "port_type": "TCP"
 },
 {
@@ -49,8 +149,38 @@
     "port_type": "TCP"
 },
 {
+    "description": "SOCKS Proxy",
+    "port": "1080",
+    "port_type": "TCP"
+},
+{
     "description": "Battle.net",
     "port": "1119",
+    "port_type": "TCP"
+},
+{
+    "description": "OpenVPN",
+    "port": "1194",
+    "port_type": "TCP"
+},
+{
+    "description": "Microsoft SQL",
+    "port": "1433",
+    "port_type": "TCP"
+},
+{
+    "description": "Oracle",
+    "port": "1521",
+    "port_type": "TCP"
+},
+{
+    "description": "PPTP",
+    "port": "1723",
+    "port_type": "TCP"
+},
+{
+    "description": "MQTT",
+    "port": "1883",
     "port_type": "TCP"
 },
 {
@@ -59,8 +189,38 @@
     "port_type": "TCP"
 },
 {
+    "description": "NFS",
+    "port": "2049",
+    "port_type": "TCP"
+},
+{
+    "description": "Docker",
+    "port": "2375",
+    "port_type": "TCP"
+},
+{
+    "description": "Docker TLS",
+    "port": "2376",
+    "port_type": "TCP"
+},
+{
+    "description": "NodeJS",
+    "port": "3000",
+    "port_type": "TCP"
+},
+{
     "description": "Xbox Live",
     "port": "3074",
+    "port_type": "TCP"
+},
+{
+    "description": "MySQL",
+    "port": "3306",
+    "port_type": "TCP"
+},
+{
+    "description": "RDP",
+    "port": "3389",
     "port_type": "TCP"
 },
 {
@@ -74,8 +234,18 @@
     "port_type": "TCP"
 },
 {
+    "description": "UPnP/NAS",
+    "port": "5000",
+    "port_type": "TCP"
+},
+{
     "description": "Overwatch PC, Elder Scrolls Online PS4/Xbox; SIP",
     "port": "5060",
+    "port_type": "TCP"
+},
+{
+    "description": "SIP TLS",
+    "port": "5061",
     "port_type": "TCP"
 },
 {
@@ -94,6 +264,16 @@
     "port_type": "TCP"
 },
 {
+    "description": "WSD",
+    "port": "5357",
+    "port_type": "TCP"
+},
+{
+    "description": "PostgreSQL",
+    "port": "5432",
+    "port_type": "TCP"
+},
+{
     "description": "Fortnite",
     "port": "5795",
     "port_type": "TCP"
@@ -104,8 +284,28 @@
     "port_type": "TCP"
 },
 {
+    "description": "VNC",
+    "port": "5900",
+    "port_type": "TCP"
+},
+{
+    "description": "WinRM",
+    "port": "5985",
+    "port_type": "TCP"
+},
+{
+    "description": "WinRM HTTPS",
+    "port": "5986",
+    "port_type": "TCP"
+},
+{
     "description": "Overwatch, Starcraft II",
     "port": "6113",
+    "port_type": "TCP"
+},
+{
+    "description": "Redis",
+    "port": "6379",
     "port_type": "TCP"
 },
 {
@@ -114,13 +314,58 @@
     "port_type": "TCP"
 },
 {
+    "description": "WebLogic",
+    "port": "7001",
+    "port_type": "TCP"
+},
+{
+    "description": "HTTP Alt",
+    "port": "8000",
+    "port_type": "TCP"
+},
+{
+    "description": "Chromecast",
+    "port": "8008",
+    "port_type": "TCP"
+},
+{
+    "description": "Chromecast",
+    "port": "8009",
+    "port_type": "TCP"
+},
+{
     "description": "PS3 common gaming Port",
     "port": "8080",
     "port_type": "TCP"
 },
 {
+    "description": "HTTP Alt",
+    "port": "8081",
+    "port_type": "TCP"
+},
+{
+    "description": "HTTPS Alt",
+    "port": "8443",
+    "port_type": "TCP"
+},
+{
+    "description": "HTTP Alt",
+    "port": "8888",
+    "port_type": "TCP"
+},
+{
     "description": "Far Cry, Watch Dogs",
     "port": "9000",
+    "port_type": "TCP"
+},
+{
+    "description": "Admin Panels",
+    "port": "9090",
+    "port_type": "TCP"
+},
+{
+    "description": "Elasticsearch",
+    "port": "9200",
     "port_type": "TCP"
 },
 {
@@ -131,6 +376,11 @@
 {
     "description": "Steam",
     "port": "27015",
+    "port_type": "TCP"
+},
+{
+    "description": "MongoDB",
+    "port": "27017",
     "port_type": "TCP"
 },
 {
@@ -149,8 +399,63 @@
     "port_type": "TCP"
 },
 {
+    "description": "Plex",
+    "port": "32400",
+    "port_type": "TCP"
+},
+{
+    "description": "Dynamic Ports",
+    "port": "49152",
+    "port_type": "TCP"
+},
+{
+    "description": "DNS",
+    "port": "53",
+    "port_type": "UDP"
+},
+{
+    "description": "DHCP Server",
+    "port": "67",
+    "port_type": "UDP"
+},
+{
+    "description": "DHCP Client",
+    "port": "68",
+    "port_type": "UDP"
+},
+{
+    "description": "TFTP",
+    "port": "69",
+    "port_type": "UDP"
+},
+{
     "description": "Xbox common gaming port",
     "port": "88",
+    "port_type": "UDP"
+},
+{
+    "description": "NTP",
+    "port": "123",
+    "port_type": "UDP"
+},
+{
+    "description": "NetBIOS Name",
+    "port": "137",
+    "port_type": "UDP"
+},
+{
+    "description": "NetBIOS Datagram",
+    "port": "138",
+    "port_type": "UDP"
+},
+{
+    "description": "SNMP",
+    "port": "161",
+    "port_type": "UDP"
+},
+{
+    "description": "SNMP Trap",
+    "port": "162",
     "port_type": "UDP"
 },
 {
@@ -159,8 +464,23 @@
     "port_type": "UDP"
 },
 {
+    "description": "Syslog",
+    "port": "514",
+    "port_type": "UDP"
+},
+{
+    "description": "RIP",
+    "port": "520",
+    "port_type": "UDP"
+},
+{
     "description": "Xbox Live Chat, MSN",
     "port": "1863",
+    "port_type": "UDP"
+},
+{
+    "description": "SSDP",
+    "port": "1900",
     "port_type": "UDP"
 },
 {
@@ -194,6 +514,11 @@
     "port_type": "UDP"
 },
 {
+    "description": "WS-Discovery",
+    "port": "3702",
+    "port_type": "UDP"
+},
+{
     "description": "PC common gaming Port",
     "port": "4380",
     "port_type": "UDP"
@@ -214,13 +539,28 @@
     "port_type": "UDP"
 },
 {
+    "description": "mDNS",
+    "port": "5353",
+    "port_type": "UDP"
+},
+{
+    "description": "LLMNR",
+    "port": "5355",
+    "port_type": "UDP"
+},
+{
+    "description": "CoAP",
+    "port": "5683",
+    "port_type": "UDP"
+},
+{
     "description": "Overwatch PC, Elder Scrolls Online PS4/Xbox",
     "port": "6250",
     "port_type": "UDP"
 },
 {
-    "description": "GTA V & Online, Red Dead Remeption 2 & Online",
-    "port": "6250",
+    "description": "Online gaming",
+    "port": "6672",
     "port_type": "UDP"
 },
 {

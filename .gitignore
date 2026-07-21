@@ -61,3 +61,7 @@ Thumbs.db
 
 # Agent coordination scratch
 .superpowers/
+
+# Transient iOS framework staging area — used only to inspect/verify a Bitrise
+# build_sdk artifact before copying it into ios/. Not part of the package.
+ios_sdk_ignore_for_github_for_test_and_check_only/

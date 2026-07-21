@@ -2,3 +2,6 @@
 # These also referenced a committed (now rotated) API key; keep them off pub.dev.
 docs/superpowers/
 .superpowers/
+
+# Transient staging area for verifying a Bitrise framework build. Never ship it.
+ios_sdk_ignore_for_github_for_test_and_check_only/

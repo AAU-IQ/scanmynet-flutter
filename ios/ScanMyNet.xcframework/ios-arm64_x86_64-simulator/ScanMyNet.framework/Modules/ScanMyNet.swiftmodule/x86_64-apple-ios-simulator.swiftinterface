@@ -1,11 +1,12 @@
 // swift-interface-format-version: 1.0
-// swift-compiler-version: Apple Swift version 6.2 effective-5.10 (swiftlang-6.2.0.19.9 clang-1700.3.19.1)
-// swift-module-flags: -target x86_64-apple-ios12.0-simulator -enable-objc-interop -enable-library-evolution -swift-version 5 -enforce-exclusivity=checked -O -enable-experimental-feature DebugDescriptionMacro -enable-bare-slash-regex -module-name ScanMyNet
-// swift-module-flags-ignorable: -no-verify-emitted-module-interface -formal-cxx-interoperability-mode=off -interface-compiler-version 6.2
+// swift-compiler-version: Apple Swift version 6.3.3 effective-5.10 (swiftlang-6.3.3.1.3 clang-2100.1.1.101)
+// swift-module-flags: -target x86_64-apple-ios12.0-simulator -enable-objc-interop -enable-library-evolution -swift-version 5 -O -enable-experimental-feature DebugDescriptionMacro -enable-bare-slash-regex -module-name ScanMyNet
+// swift-module-flags-ignorable: -no-verify-emitted-module-interface -formal-cxx-interoperability-mode=off -interface-compiler-version 6.3.3
 import Alamofire
 import SystemConfiguration.CaptiveNetwork
 import Combine
 import CoreLocation
+import Darwin
 import Foundation
 import NDT7
 import Network
@@ -20,6 +21,274 @@ import _Concurrency
 import _StringProcessing
 import _SwiftConcurrencyShims
 import dnssd
+public struct SMNBasicConnectivity : Swift.Codable {
+  public let ipAssignedViaDHCP: Swift.Bool?
+  public let serverConnectivity: [ScanMyNet.SMNServerConnectivityResult]?
+  public let portChecks: [ScanMyNet.SMNPortCheckResult]?
+  public let dnsLookup: [ScanMyNet.SMNDNSLookupResult]?
+  public let summary: ScanMyNet.SMNConnectivitySummary?
+  public let servers: [Swift.String]?
+  public let udp: [Swift.Int]?
+  public let tcp: [Swift.Int]?
+  public let firewall: ScanMyNet.SMNToggleState?
+  public let clientIsolation: ScanMyNet.SMNToggleState?
+  public let multicast: ScanMyNet.SMNToggleState?
+  public let alerts: [ScanMyNet.SMNReportAlert]?
+  public func encode(to encoder: any Swift.Encoder) throws
+  public init(from decoder: any Swift.Decoder) throws
+}
+public struct SMNServerConnectivityResult : Swift.Codable {
+  public let name: Swift.String?
+  public let serverStatus: Swift.Bool?
+  public func encode(to encoder: any Swift.Encoder) throws
+  public init(from decoder: any Swift.Decoder) throws
+}
+public struct SMNPortCheckResult : Swift.Codable {
+  public let port: Swift.Int?
+  public let portType: Swift.String?
+  public let description: Swift.String?
+  public let portStatus: Swift.Bool?
+  public func encode(to encoder: any Swift.Encoder) throws
+  public init(from decoder: any Swift.Decoder) throws
+}
+public struct SMNDNSLookupResult : Swift.Codable {
+  public let dnsIP: Swift.String?
+  public let alias: Swift.String?
+  public let reverseDNS: Swift.String?
+  public func encode(to encoder: any Swift.Encoder) throws
+  public init(from decoder: any Swift.Decoder) throws
+}
+public struct SMNConnectivitySummary : Swift.Codable {
+  public let serverConnectivity: ScanMyNet.SMNStatusColor?
+  public let portChecks: ScanMyNet.SMNStatusColor?
+  public let dnsLookup: [Swift.String]?
+  public func encode(to encoder: any Swift.Encoder) throws
+  public init(from decoder: any Swift.Decoder) throws
+}
+public struct SMNStatusColor : Swift.Codable {
+  public let status: Swift.String?
+  public let color: Swift.String?
+  public func encode(to encoder: any Swift.Encoder) throws
+  public init(from decoder: any Swift.Decoder) throws
+}
+public struct SMNToggleState : Swift.Codable {
+  public let value: Swift.String?
+  public let color: Swift.String?
+  public let status: Swift.String?
+  public let alerts: ScanMyNet.SMNReportAlert?
+  public func encode(to encoder: any Swift.Encoder) throws
+  public init(from decoder: any Swift.Decoder) throws
+}
+public struct SMNReportAlert : Swift.Codable {
+  public let alertType: Swift.String?
+  public let alertValue: Swift.String?
+  public func encode(to encoder: any Swift.Encoder) throws
+  public init(from decoder: any Swift.Decoder) throws
+}
+public struct AnyCodable : Swift.Codable {
+  public let value: Any?
+  public init(from decoder: any Swift.Decoder) throws
+  public func encode(to encoder: any Swift.Encoder) throws
+}
+public struct SMNLocalConnectedDevice : Swift.Codable {
+  public let deviceName: Swift.String?
+  public let deviceIP: Swift.String?
+  public let deviceMacAddress: Swift.String?
+  public let manufacturer: Swift.String?
+  public let packetsDropped: Swift.Double?
+  public let numPacketsSent: Swift.Int?
+  public let pingValues: [Swift.Double]?
+  public let isSubscriberPhone: Swift.Bool?
+  public let averagePingTime: Swift.Double?
+  public let connectionQualityColor: ScanMyNet.SMNQualityColor?
+  public let isSubscriberRouter: Swift.Bool?
+  public let deviceDetails: ScanMyNet.SMNDeviceRecognition?
+  public func encode(to encoder: any Swift.Encoder) throws
+  public init(from decoder: any Swift.Decoder) throws
+}
+public struct SMNQualityColor : Swift.Codable {
+  public let quality: Swift.String?
+  public let color: Swift.String?
+  public func encode(to encoder: any Swift.Encoder) throws
+  public init(from decoder: any Swift.Decoder) throws
+}
+public struct SMNDeviceRecognition : Swift.Codable {
+  public let mac: Swift.String?
+  public let recognition: [Swift.String : ScanMyNet.AnyCodable]?
+  public func encode(to encoder: any Swift.Encoder) throws
+  public init(from decoder: any Swift.Decoder) throws
+}
+public struct SMNCustomerRouterDetails : Swift.Codable {
+  public let make: Swift.String?
+  public let model: Swift.String?
+  public let encryption: Swift.String?
+  public let protocols: Swift.String?
+  public let mesh: Swift.String?
+  public let routerIPAddress: Swift.String?
+  public let routerMacAddress: Swift.String?
+  public let manufacturer: Swift.String?
+  public let hostname: Swift.String?
+  public let modelDescription: Swift.String?
+  public let modelNumber: Swift.String?
+  public let friendlyName: Swift.String?
+  public let deviceType: Swift.String?
+  public let routerDetails: ScanMyNet.SMNDeviceRecognition?
+  public func encode(to encoder: any Swift.Encoder) throws
+  public init(from decoder: any Swift.Decoder) throws
+}
+public struct SMNDNSQuality : Swift.Codable {
+  public let dnsName: Swift.String?
+  public let dnsIP: Swift.String?
+  public let packetsDropped: Swift.Double?
+  public let numPacketsSent: Swift.Int?
+  public let pingValues: [Swift.Double]?
+  public let isSubscriberRouter: Swift.Bool?
+  public let jitter: Swift.Double?
+  public let averagePingTime: Swift.Double?
+  public let connectionQualityColor: ScanMyNet.SMNQualityColor?
+  public let layerRanking: Swift.Int?
+  public func encode(to encoder: any Swift.Encoder) throws
+  public init(from decoder: any Swift.Decoder) throws
+}
+public struct SMNTracerouteResultEntry : Swift.Codable {
+  public let dnsDestinationIP: Swift.String?
+  public let hops: [ScanMyNet.SMNTracerouteHop]?
+  public func encode(to encoder: any Swift.Encoder) throws
+  public init(from decoder: any Swift.Decoder) throws
+}
+public struct SMNTracerouteHop : Swift.Codable {
+  public let dnsIP: Swift.String?
+  public let dnsName: Swift.String?
+  public let rttValues: [Swift.Int]?
+  public func encode(to encoder: any Swift.Encoder) throws
+  public init(from decoder: any Swift.Decoder) throws
+}
+public struct SMNReportAction : Swift.Codable {
+  public let actionType: Swift.String?
+  public let actionValue: Swift.String?
+  public func encode(to encoder: any Swift.Encoder) throws
+  public init(from decoder: any Swift.Decoder) throws
+}
+public struct SMNReportPayload : Swift.Codable {
+  public let customerDetails: ScanMyNet.SMNCustomerDetails?
+  public let sdkDetails: ScanMyNet.SMNSDKDetails?
+  public let routerUsageDuringScan: ScanMyNet.SMNRouterUsage?
+  public let customerInternetSpeed: ScanMyNet.SMNInternetSpeed?
+  public let basicConnectivity: ScanMyNet.SMNBasicConnectivity?
+  public let localConnectedDevices: [ScanMyNet.SMNLocalConnectedDevice]?
+  public let customerRouterDetails: ScanMyNet.SMNCustomerRouterDetails?
+  public let networkTopology: ScanMyNet.SMNNetworkTopology?
+  public let userWifiNetwork: ScanMyNet.SMNWifiNetworkResult?
+  public let networkCongestion: ScanMyNet.SMNNetworkCongestion?
+  public let connectionQuality: [ScanMyNet.SMNDNSQuality]?
+  public let traceroute: [ScanMyNet.SMNTracerouteResultEntry]?
+  public let alerts: [ScanMyNet.SMNReportAlert]?
+  public let actions: [ScanMyNet.SMNReportAction]?
+  public let incompleteAnalysis: Swift.Bool?
+  public func encode(to encoder: any Swift.Encoder) throws
+  public init(from decoder: any Swift.Decoder) throws
+}
+public struct SMNCustomerDetails : Swift.Codable {
+  public let key: Swift.String?
+  public let lastKnownPublicIP: Swift.String?
+  public let lastKnownPublicIPDetails: [Swift.String : Swift.String]?
+  public func encode(to encoder: any Swift.Encoder) throws
+  public init(from decoder: any Swift.Decoder) throws
+}
+public struct SMNSDKDetails : Swift.Codable {
+  public let start: Swift.String?
+  public let duration: Swift.Int?
+  public let platform: Swift.String?
+  public let app: Swift.String?
+  public let routeThisSDK: Swift.String?
+  public let userPublicUpAddress: Swift.String?
+  public let gpsLatitude: Swift.Double?
+  public let gpsLongitude: Swift.Double?
+  public func encode(to encoder: any Swift.Encoder) throws
+  public init(from decoder: any Swift.Decoder) throws
+}
+public struct SMNRouterUsage : Swift.Codable {
+  public let networkUsageDown: Swift.Double?
+  public let networkUsageUp: Swift.Double?
+  public func encode(to encoder: any Swift.Encoder) throws
+  public init(from decoder: any Swift.Decoder) throws
+}
+public struct SMNInternetSpeed : Swift.Codable {
+  public let networkSpeedDown: Swift.Double?
+  public let networkSpeedUp: Swift.Double?
+  public let currentNegotiatedLinkSpeed: Swift.Double?
+  public let maximumLinkSupportedByPhone: Swift.String?
+  public let networkSpeedUpSegments: [Swift.Double]?
+  public let networkSpeedDownSegments: [Swift.Double]?
+  public let connectionQuality: [Swift.String : Swift.String]?
+  public var quality: (label: Swift.String, color: Swift.String)? {
+    get
+  }
+  public func encode(to encoder: any Swift.Encoder) throws
+  public init(from decoder: any Swift.Decoder) throws
+}
+public struct SMNNetworkTopology : Swift.Codable {
+  public let routerIPAddress: Swift.String?
+  public let otherRouters: [Swift.String]?
+  public let otherRoutersDetails: [ScanMyNet.SMNOtherRouterDetail]?
+  public let doubleNatDetected: ScanMyNet.SMNDoubleNat?
+  public func encode(to encoder: any Swift.Encoder) throws
+  public init(from decoder: any Swift.Decoder) throws
+}
+public struct SMNOtherRouterDetail : Swift.Codable {
+  public let ip: Swift.String?
+  public let asn: Swift.Int?
+  public let owner: Swift.String?
+  public func encode(to encoder: any Swift.Encoder) throws
+  public init(from decoder: any Swift.Decoder) throws
+}
+public struct SMNDoubleNat : Swift.Codable {
+  public let isDoubleNat: Swift.Bool?
+  public let doubleNatHop: [Swift.String]?
+  public func encode(to encoder: any Swift.Encoder) throws
+  public init(from decoder: any Swift.Decoder) throws
+}
+public struct SMNWifiNetworkResult : Swift.Codable {
+  public let ssid: Swift.String?
+  public let ssidIP: Swift.String?
+  public let bssid: Swift.String?
+  public let encryption: Swift.String?
+  public let frequency: Swift.Double?
+  public let wpsAvailability: Swift.Bool?
+  public let signalStrength: Swift.Int?
+  public let numWifiChannels: Swift.Int?
+  public let channelWidth: Swift.Int?
+  public let currentChannel: Swift.Int?
+  public let isSubscriberSSID: Swift.Bool?
+  public func encode(to encoder: any Swift.Encoder) throws
+  public init(from decoder: any Swift.Decoder) throws
+}
+public struct SMNNetworkCongestion : Swift.Codable {
+  public let userConnection: ScanMyNet.SMNUserConnection?
+  public let environment: ScanMyNet.SMNCongestionEnvironment?
+  public func encode(to encoder: any Swift.Encoder) throws
+  public init(from decoder: any Swift.Decoder) throws
+}
+public struct SMNUserConnection : Swift.Codable {
+  public let phoneWifiFrequency: Swift.Double?
+  public let numPhoneWifiChannel: Swift.Int?
+  public let numNetworksOnChannel: Swift.Int?
+  public let phoneWifiChannel: Swift.Int?
+  public func encode(to encoder: any Swift.Encoder) throws
+  public init(from decoder: any Swift.Decoder) throws
+}
+public struct SMNCongestionEnvironment : Swift.Codable {
+  public let channelCongestion: [ScanMyNet.SMNChannelCongestion]?
+  public let surroundingWifiNetworks: [ScanMyNet.SMNWifiNetworkResult]?
+  public func encode(to encoder: any Swift.Encoder) throws
+  public init(from decoder: any Swift.Decoder) throws
+}
+public struct SMNChannelCongestion : Swift.Codable {
+  public let index: Swift.String?
+  public let numNetworks: Swift.Int?
+  public func encode(to encoder: any Swift.Encoder) throws
+  public init(from decoder: any Swift.Decoder) throws
+}
 public enum Environment {
   case staging, production, testing
   public static func == (a: ScanMyNet.Environment, b: ScanMyNet.Environment) -> Swift.Bool
@@ -29,23 +298,23 @@ public enum Environment {
   }
 }
 public class ScanMyNetConfiguration {
-  #if compiler(>=5.3) && $NonescapableTypes
   public init(apiKey: Swift.String? = nil, requestKey: Swift.String? = nil, environment: ScanMyNet.Environment)
-  #endif
   @objc deinit
 }
 public protocol ScanMyNetDelegate {
   func scanStarted()
   func scanFinished(reportUrl: Swift.String)
+  func scanFinished(reportUrl: Swift.String, report: ScanMyNet.SMNReportPayload?)
   func nextScanStarted(value: Swift.String)
   func scanProgress(value: Swift.Float)
   func scanServiceFailed(type: Swift.String, with error: any Swift.Error)
   func scanFailed(with error: any Swift.Error, response: Swift.String)
   func scanCanceled()
   func serviceTriggered(log: Swift.String)
-  #if compiler(>=5.3) && $NonescapableTypes
   func getRequestData(request: Foundation.URLRequest?, response: Foundation.HTTPURLResponse?, error: (any Swift.Error)?)
-  #endif
+}
+extension ScanMyNet.ScanMyNetDelegate {
+  public func scanFinished(reportUrl: Swift.String, report: ScanMyNet.SMNReportPayload?)
 }
 public class ScanMyNetManager {
   public var delegate: (any ScanMyNet.ScanMyNetDelegate)?
