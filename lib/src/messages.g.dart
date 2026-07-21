@@ -168,6 +168,7 @@ class ScanConfig {
     this.baseUrl,
     this.requestKey,
     this.environment,
+    this.schemaVersion,
   });
 
   /// MANDATORY on both. Android `ApiKey.apiKey`; iOS `configuration.apiKey`.
@@ -191,6 +192,11 @@ class ScanConfig {
   /// TODO(confirm) default environment.
   ScanEnvironment? environment;
 
+  /// Pigeon schema version, set by the Dart layer. Native compares it against
+  /// its own compiled-in constant and throws on mismatch — codecs are
+  /// positional, so a skewed pair misreads fields silently rather than failing.
+  int? schemaVersion;
+
   List<Object?> _toList() {
     return <Object?>[
       apiKey,
@@ -199,6 +205,7 @@ class ScanConfig {
       baseUrl,
       requestKey,
       environment,
+      schemaVersion,
     ];
   }
 
@@ -214,6 +221,7 @@ class ScanConfig {
       baseUrl: result[3] as String?,
       requestKey: result[4] as String?,
       environment: result[5] as ScanEnvironment?,
+      schemaVersion: result[6] as int?,
     );
   }
 
@@ -226,7 +234,7 @@ class ScanConfig {
     if (identical(this, other)) {
       return true;
     }
-    return _deepEquals(apiKey, other.apiKey) && _deepEquals(userKey, other.userKey) && _deepEquals(appName, other.appName) && _deepEquals(baseUrl, other.baseUrl) && _deepEquals(requestKey, other.requestKey) && _deepEquals(environment, other.environment);
+    return _deepEquals(apiKey, other.apiKey) && _deepEquals(userKey, other.userKey) && _deepEquals(appName, other.appName) && _deepEquals(baseUrl, other.baseUrl) && _deepEquals(requestKey, other.requestKey) && _deepEquals(environment, other.environment) && _deepEquals(schemaVersion, other.schemaVersion);
   }
 
   @override
@@ -312,6 +320,9 @@ class ScanResult {
     required this.reportUrl,
     this.status,
     this.totalDurationMs,
+    this.reportId,
+    this.customerId,
+    this.report,
   });
 
   /// The online report URL (Android value may carry a `verification_token`
@@ -324,11 +335,24 @@ class ScanResult {
   /// Android `NetworkScanResult.duration` (total ms). Null on iOS.
   int? totalDurationMs;
 
+  /// Backend report identifier. Lets you correlate a scan without parsing the
+  /// JWT in [reportUrl]. Null on backends predating the payload.
+  String? reportId;
+
+  /// Subscriber/customer key the report was filed under.
+  String? customerId;
+
+  /// The full report payload. Null when the backend omitted it.
+  ReportData? report;
+
   List<Object?> _toList() {
     return <Object?>[
       reportUrl,
       status,
       totalDurationMs,
+      reportId,
+      customerId,
+      report,
     ];
   }
 
@@ -341,6 +365,9 @@ class ScanResult {
       reportUrl: result[0]! as String,
       status: result[1] as ScanResultStatus?,
       totalDurationMs: result[2] as int?,
+      reportId: result[3] as String?,
+      customerId: result[4] as String?,
+      report: result[5] as ReportData?,
     );
   }
 
@@ -353,7 +380,7 @@ class ScanResult {
     if (identical(this, other)) {
       return true;
     }
-    return _deepEquals(reportUrl, other.reportUrl) && _deepEquals(status, other.status) && _deepEquals(totalDurationMs, other.totalDurationMs);
+    return _deepEquals(reportUrl, other.reportUrl) && _deepEquals(status, other.status) && _deepEquals(totalDurationMs, other.totalDurationMs) && _deepEquals(reportId, other.reportId) && _deepEquals(customerId, other.customerId) && _deepEquals(report, other.report);
   }
 
   @override
@@ -468,6 +495,1778 @@ class ScanReport {
   int get hashCode => _deepHash(<Object?>[runtimeType, ..._toList()]);
 }
 
+/// A `{quality, color}` pair. NOT the same shape as
+/// [InternetSpeed.connectionQuality], which is a single-entry map.
+class QualityColor {
+  QualityColor({
+    this.quality,
+    this.color,
+  });
+
+  String? quality;
+
+  String? color;
+
+  List<Object?> _toList() {
+    return <Object?>[
+      quality,
+      color,
+    ];
+  }
+
+  Object encode() {
+    return _toList();  }
+
+  static QualityColor decode(Object result) {
+    result as List<Object?>;
+    return QualityColor(
+      quality: result[0] as String?,
+      color: result[1] as String?,
+    );
+  }
+
+  @override
+  // ignore: avoid_equals_and_hash_code_on_mutable_classes
+  bool operator ==(Object other) {
+    if (other is! QualityColor || other.runtimeType != runtimeType) {
+      return false;
+    }
+    if (identical(this, other)) {
+      return true;
+    }
+    return _deepEquals(quality, other.quality) && _deepEquals(color, other.color);
+  }
+
+  @override
+  // ignore: avoid_equals_and_hash_code_on_mutable_classes
+  int get hashCode => _deepHash(<Object?>[runtimeType, ..._toList()]);
+}
+
+/// A `{status, color}` roll-up pair.
+class StatusColor {
+  StatusColor({
+    this.status,
+    this.color,
+  });
+
+  String? status;
+
+  String? color;
+
+  List<Object?> _toList() {
+    return <Object?>[
+      status,
+      color,
+    ];
+  }
+
+  Object encode() {
+    return _toList();  }
+
+  static StatusColor decode(Object result) {
+    result as List<Object?>;
+    return StatusColor(
+      status: result[0] as String?,
+      color: result[1] as String?,
+    );
+  }
+
+  @override
+  // ignore: avoid_equals_and_hash_code_on_mutable_classes
+  bool operator ==(Object other) {
+    if (other is! StatusColor || other.runtimeType != runtimeType) {
+      return false;
+    }
+    if (identical(this, other)) {
+      return true;
+    }
+    return _deepEquals(status, other.status) && _deepEquals(color, other.color);
+  }
+
+  @override
+  // ignore: avoid_equals_and_hash_code_on_mutable_classes
+  int get hashCode => _deepHash(<Object?>[runtimeType, ..._toList()]);
+}
+
+/// A report alert. [alertType] is a String, never an enum — new members ship
+/// without an API version bump. Branch on [alertType], never [alertValue].
+class ReportAlert {
+  ReportAlert({
+    this.alertType,
+    this.alertValue,
+  });
+
+  String? alertType;
+
+  String? alertValue;
+
+  List<Object?> _toList() {
+    return <Object?>[
+      alertType,
+      alertValue,
+    ];
+  }
+
+  Object encode() {
+    return _toList();  }
+
+  static ReportAlert decode(Object result) {
+    result as List<Object?>;
+    return ReportAlert(
+      alertType: result[0] as String?,
+      alertValue: result[1] as String?,
+    );
+  }
+
+  @override
+  // ignore: avoid_equals_and_hash_code_on_mutable_classes
+  bool operator ==(Object other) {
+    if (other is! ReportAlert || other.runtimeType != runtimeType) {
+      return false;
+    }
+    if (identical(this, other)) {
+      return true;
+    }
+    return _deepEquals(alertType, other.alertType) && _deepEquals(alertValue, other.alertValue);
+  }
+
+  @override
+  // ignore: avoid_equals_and_hash_code_on_mutable_classes
+  int get hashCode => _deepHash(<Object?>[runtimeType, ..._toList()]);
+}
+
+/// A report recommendation. Field names differ from [ReportAlert]:
+/// actions use `action_*`, alerts use `alert_*`.
+class ReportAction {
+  ReportAction({
+    this.actionType,
+    this.actionValue,
+  });
+
+  String? actionType;
+
+  String? actionValue;
+
+  List<Object?> _toList() {
+    return <Object?>[
+      actionType,
+      actionValue,
+    ];
+  }
+
+  Object encode() {
+    return _toList();  }
+
+  static ReportAction decode(Object result) {
+    result as List<Object?>;
+    return ReportAction(
+      actionType: result[0] as String?,
+      actionValue: result[1] as String?,
+    );
+  }
+
+  @override
+  // ignore: avoid_equals_and_hash_code_on_mutable_classes
+  bool operator ==(Object other) {
+    if (other is! ReportAction || other.runtimeType != runtimeType) {
+      return false;
+    }
+    if (identical(this, other)) {
+      return true;
+    }
+    return _deepEquals(actionType, other.actionType) && _deepEquals(actionValue, other.actionValue);
+  }
+
+  @override
+  // ignore: avoid_equals_and_hash_code_on_mutable_classes
+  int get hashCode => _deepHash(<Object?>[runtimeType, ..._toList()]);
+}
+
+class CustomerDetails {
+  CustomerDetails({
+    this.key,
+    this.lastKnownPublicIp,
+    this.lastKnownPublicIpDetails,
+  });
+
+  String? key;
+
+  String? lastKnownPublicIp;
+
+  /// Capitalised keys (`Country`, `Region`, `ISP`). Passed through verbatim.
+  Map<String, String>? lastKnownPublicIpDetails;
+
+  List<Object?> _toList() {
+    return <Object?>[
+      key,
+      lastKnownPublicIp,
+      lastKnownPublicIpDetails,
+    ];
+  }
+
+  Object encode() {
+    return _toList();  }
+
+  static CustomerDetails decode(Object result) {
+    result as List<Object?>;
+    return CustomerDetails(
+      key: result[0] as String?,
+      lastKnownPublicIp: result[1] as String?,
+      lastKnownPublicIpDetails: (result[2] as Map<Object?, Object?>?)?.cast<String, String>(),
+    );
+  }
+
+  @override
+  // ignore: avoid_equals_and_hash_code_on_mutable_classes
+  bool operator ==(Object other) {
+    if (other is! CustomerDetails || other.runtimeType != runtimeType) {
+      return false;
+    }
+    if (identical(this, other)) {
+      return true;
+    }
+    return _deepEquals(key, other.key) && _deepEquals(lastKnownPublicIp, other.lastKnownPublicIp) && _deepEquals(lastKnownPublicIpDetails, other.lastKnownPublicIpDetails);
+  }
+
+  @override
+  // ignore: avoid_equals_and_hash_code_on_mutable_classes
+  int get hashCode => _deepHash(<Object?>[runtimeType, ..._toList()]);
+}
+
+class SdkDetails {
+  SdkDetails({
+    this.start,
+    this.duration,
+    this.platform,
+    this.app,
+    this.routeThisSdk,
+    this.userPublicUpAddress,
+    this.gpsLatitude,
+    this.gpsLongitude,
+  });
+
+  String? start;
+
+  /// Seconds.
+  int? duration;
+
+  String? platform;
+
+  String? app;
+
+  String? routeThisSdk;
+
+  String? userPublicUpAddress;
+
+  double? gpsLatitude;
+
+  double? gpsLongitude;
+
+  List<Object?> _toList() {
+    return <Object?>[
+      start,
+      duration,
+      platform,
+      app,
+      routeThisSdk,
+      userPublicUpAddress,
+      gpsLatitude,
+      gpsLongitude,
+    ];
+  }
+
+  Object encode() {
+    return _toList();  }
+
+  static SdkDetails decode(Object result) {
+    result as List<Object?>;
+    return SdkDetails(
+      start: result[0] as String?,
+      duration: result[1] as int?,
+      platform: result[2] as String?,
+      app: result[3] as String?,
+      routeThisSdk: result[4] as String?,
+      userPublicUpAddress: result[5] as String?,
+      gpsLatitude: result[6] as double?,
+      gpsLongitude: result[7] as double?,
+    );
+  }
+
+  @override
+  // ignore: avoid_equals_and_hash_code_on_mutable_classes
+  bool operator ==(Object other) {
+    if (other is! SdkDetails || other.runtimeType != runtimeType) {
+      return false;
+    }
+    if (identical(this, other)) {
+      return true;
+    }
+    return _deepEquals(start, other.start) && _deepEquals(duration, other.duration) && _deepEquals(platform, other.platform) && _deepEquals(app, other.app) && _deepEquals(routeThisSdk, other.routeThisSdk) && _deepEquals(userPublicUpAddress, other.userPublicUpAddress) && _deepEquals(gpsLatitude, other.gpsLatitude) && _deepEquals(gpsLongitude, other.gpsLongitude);
+  }
+
+  @override
+  // ignore: avoid_equals_and_hash_code_on_mutable_classes
+  int get hashCode => _deepHash(<Object?>[runtimeType, ..._toList()]);
+}
+
+/// Mbps.
+class RouterUsage {
+  RouterUsage({
+    this.networkUsageDown,
+    this.networkUsageUp,
+  });
+
+  double? networkUsageDown;
+
+  double? networkUsageUp;
+
+  List<Object?> _toList() {
+    return <Object?>[
+      networkUsageDown,
+      networkUsageUp,
+    ];
+  }
+
+  Object encode() {
+    return _toList();  }
+
+  static RouterUsage decode(Object result) {
+    result as List<Object?>;
+    return RouterUsage(
+      networkUsageDown: result[0] as double?,
+      networkUsageUp: result[1] as double?,
+    );
+  }
+
+  @override
+  // ignore: avoid_equals_and_hash_code_on_mutable_classes
+  bool operator ==(Object other) {
+    if (other is! RouterUsage || other.runtimeType != runtimeType) {
+      return false;
+    }
+    if (identical(this, other)) {
+      return true;
+    }
+    return _deepEquals(networkUsageDown, other.networkUsageDown) && _deepEquals(networkUsageUp, other.networkUsageUp);
+  }
+
+  @override
+  // ignore: avoid_equals_and_hash_code_on_mutable_classes
+  int get hashCode => _deepHash(<Object?>[runtimeType, ..._toList()]);
+}
+
+class InternetSpeed {
+  InternetSpeed({
+    this.networkSpeedDown,
+    this.networkSpeedUp,
+    this.currentNegotiatedLinkSpeed,
+    this.maximumLinkSupportedByPhone,
+    this.networkSpeedUpSegments,
+    this.networkSpeedDownSegments,
+    this.connectionQuality,
+  });
+
+  double? networkSpeedDown;
+
+  double? networkSpeedUp;
+
+  double? currentNegotiatedLinkSpeed;
+
+  String? maximumLinkSupportedByPhone;
+
+  List<double>? networkSpeedUpSegments;
+
+  List<double>? networkSpeedDownSegments;
+
+  /// SINGLE-ENTRY map keyed by the quality label, e.g. `{"good": "green"}`.
+  /// NOT a [QualityColor] struct.
+  Map<String, String>? connectionQuality;
+
+  List<Object?> _toList() {
+    return <Object?>[
+      networkSpeedDown,
+      networkSpeedUp,
+      currentNegotiatedLinkSpeed,
+      maximumLinkSupportedByPhone,
+      networkSpeedUpSegments,
+      networkSpeedDownSegments,
+      connectionQuality,
+    ];
+  }
+
+  Object encode() {
+    return _toList();  }
+
+  static InternetSpeed decode(Object result) {
+    result as List<Object?>;
+    return InternetSpeed(
+      networkSpeedDown: result[0] as double?,
+      networkSpeedUp: result[1] as double?,
+      currentNegotiatedLinkSpeed: result[2] as double?,
+      maximumLinkSupportedByPhone: result[3] as String?,
+      networkSpeedUpSegments: (result[4] as List<Object?>?)?.cast<double>(),
+      networkSpeedDownSegments: (result[5] as List<Object?>?)?.cast<double>(),
+      connectionQuality: (result[6] as Map<Object?, Object?>?)?.cast<String, String>(),
+    );
+  }
+
+  @override
+  // ignore: avoid_equals_and_hash_code_on_mutable_classes
+  bool operator ==(Object other) {
+    if (other is! InternetSpeed || other.runtimeType != runtimeType) {
+      return false;
+    }
+    if (identical(this, other)) {
+      return true;
+    }
+    return _deepEquals(networkSpeedDown, other.networkSpeedDown) && _deepEquals(networkSpeedUp, other.networkSpeedUp) && _deepEquals(currentNegotiatedLinkSpeed, other.currentNegotiatedLinkSpeed) && _deepEquals(maximumLinkSupportedByPhone, other.maximumLinkSupportedByPhone) && _deepEquals(networkSpeedUpSegments, other.networkSpeedUpSegments) && _deepEquals(networkSpeedDownSegments, other.networkSpeedDownSegments) && _deepEquals(connectionQuality, other.connectionQuality);
+  }
+
+  @override
+  // ignore: avoid_equals_and_hash_code_on_mutable_classes
+  int get hashCode => _deepHash(<Object?>[runtimeType, ..._toList()]);
+}
+
+class ServerConnectivityResult {
+  ServerConnectivityResult({
+    this.name,
+    this.serverStatus,
+  });
+
+  String? name;
+
+  bool? serverStatus;
+
+  List<Object?> _toList() {
+    return <Object?>[
+      name,
+      serverStatus,
+    ];
+  }
+
+  Object encode() {
+    return _toList();  }
+
+  static ServerConnectivityResult decode(Object result) {
+    result as List<Object?>;
+    return ServerConnectivityResult(
+      name: result[0] as String?,
+      serverStatus: result[1] as bool?,
+    );
+  }
+
+  @override
+  // ignore: avoid_equals_and_hash_code_on_mutable_classes
+  bool operator ==(Object other) {
+    if (other is! ServerConnectivityResult || other.runtimeType != runtimeType) {
+      return false;
+    }
+    if (identical(this, other)) {
+      return true;
+    }
+    return _deepEquals(name, other.name) && _deepEquals(serverStatus, other.serverStatus);
+  }
+
+  @override
+  // ignore: avoid_equals_and_hash_code_on_mutable_classes
+  int get hashCode => _deepHash(<Object?>[runtimeType, ..._toList()]);
+}
+
+class PortCheckResult {
+  PortCheckResult({
+    this.port,
+    this.portType,
+    this.description,
+    this.portStatus,
+  });
+
+  int? port;
+
+  String? portType;
+
+  String? description;
+
+  bool? portStatus;
+
+  List<Object?> _toList() {
+    return <Object?>[
+      port,
+      portType,
+      description,
+      portStatus,
+    ];
+  }
+
+  Object encode() {
+    return _toList();  }
+
+  static PortCheckResult decode(Object result) {
+    result as List<Object?>;
+    return PortCheckResult(
+      port: result[0] as int?,
+      portType: result[1] as String?,
+      description: result[2] as String?,
+      portStatus: result[3] as bool?,
+    );
+  }
+
+  @override
+  // ignore: avoid_equals_and_hash_code_on_mutable_classes
+  bool operator ==(Object other) {
+    if (other is! PortCheckResult || other.runtimeType != runtimeType) {
+      return false;
+    }
+    if (identical(this, other)) {
+      return true;
+    }
+    return _deepEquals(port, other.port) && _deepEquals(portType, other.portType) && _deepEquals(description, other.description) && _deepEquals(portStatus, other.portStatus);
+  }
+
+  @override
+  // ignore: avoid_equals_and_hash_code_on_mutable_classes
+  int get hashCode => _deepHash(<Object?>[runtimeType, ..._toList()]);
+}
+
+class DnsLookupResult {
+  DnsLookupResult({
+    this.dnsIp,
+    this.alias,
+    this.reverseDns,
+  });
+
+  String? dnsIp;
+
+  String? alias;
+
+  String? reverseDns;
+
+  List<Object?> _toList() {
+    return <Object?>[
+      dnsIp,
+      alias,
+      reverseDns,
+    ];
+  }
+
+  Object encode() {
+    return _toList();  }
+
+  static DnsLookupResult decode(Object result) {
+    result as List<Object?>;
+    return DnsLookupResult(
+      dnsIp: result[0] as String?,
+      alias: result[1] as String?,
+      reverseDns: result[2] as String?,
+    );
+  }
+
+  @override
+  // ignore: avoid_equals_and_hash_code_on_mutable_classes
+  bool operator ==(Object other) {
+    if (other is! DnsLookupResult || other.runtimeType != runtimeType) {
+      return false;
+    }
+    if (identical(this, other)) {
+      return true;
+    }
+    return _deepEquals(dnsIp, other.dnsIp) && _deepEquals(alias, other.alias) && _deepEquals(reverseDns, other.reverseDns);
+  }
+
+  @override
+  // ignore: avoid_equals_and_hash_code_on_mutable_classes
+  int get hashCode => _deepHash(<Object?>[runtimeType, ..._toList()]);
+}
+
+/// The three entries do NOT share a type: [dnsLookup] is a list of alias
+/// strings while its siblings are objects.
+class ConnectivitySummary {
+  ConnectivitySummary({
+    this.serverConnectivity,
+    this.portChecks,
+    this.dnsLookup,
+  });
+
+  StatusColor? serverConnectivity;
+
+  StatusColor? portChecks;
+
+  List<String>? dnsLookup;
+
+  List<Object?> _toList() {
+    return <Object?>[
+      serverConnectivity,
+      portChecks,
+      dnsLookup,
+    ];
+  }
+
+  Object encode() {
+    return _toList();  }
+
+  static ConnectivitySummary decode(Object result) {
+    result as List<Object?>;
+    return ConnectivitySummary(
+      serverConnectivity: result[0] as StatusColor?,
+      portChecks: result[1] as StatusColor?,
+      dnsLookup: (result[2] as List<Object?>?)?.cast<String>(),
+    );
+  }
+
+  @override
+  // ignore: avoid_equals_and_hash_code_on_mutable_classes
+  bool operator ==(Object other) {
+    if (other is! ConnectivitySummary || other.runtimeType != runtimeType) {
+      return false;
+    }
+    if (identical(this, other)) {
+      return true;
+    }
+    return _deepEquals(serverConnectivity, other.serverConnectivity) && _deepEquals(portChecks, other.portChecks) && _deepEquals(dnsLookup, other.dnsLookup);
+  }
+
+  @override
+  // ignore: avoid_equals_and_hash_code_on_mutable_classes
+  int get hashCode => _deepHash(<Object?>[runtimeType, ..._toList()]);
+}
+
+/// Firewall / client isolation / multicast. [value] is the STRING
+/// `"Enabled"` / `"Disabled"`, never a bool.
+class ToggleState {
+  ToggleState({
+    this.value,
+    this.color,
+    this.status,
+    this.alert,
+  });
+
+  String? value;
+
+  String? color;
+
+  String? status;
+
+  /// Single alert object, not a list. Null when no alert applies.
+  ReportAlert? alert;
+
+  List<Object?> _toList() {
+    return <Object?>[
+      value,
+      color,
+      status,
+      alert,
+    ];
+  }
+
+  Object encode() {
+    return _toList();  }
+
+  static ToggleState decode(Object result) {
+    result as List<Object?>;
+    return ToggleState(
+      value: result[0] as String?,
+      color: result[1] as String?,
+      status: result[2] as String?,
+      alert: result[3] as ReportAlert?,
+    );
+  }
+
+  @override
+  // ignore: avoid_equals_and_hash_code_on_mutable_classes
+  bool operator ==(Object other) {
+    if (other is! ToggleState || other.runtimeType != runtimeType) {
+      return false;
+    }
+    if (identical(this, other)) {
+      return true;
+    }
+    return _deepEquals(value, other.value) && _deepEquals(color, other.color) && _deepEquals(status, other.status) && _deepEquals(alert, other.alert);
+  }
+
+  @override
+  // ignore: avoid_equals_and_hash_code_on_mutable_classes
+  int get hashCode => _deepHash(<Object?>[runtimeType, ..._toList()]);
+}
+
+class BasicConnectivity {
+  BasicConnectivity({
+    this.ipAssignedViaDhcp,
+    this.serverConnectivity,
+    this.portChecks,
+    this.dnsLookup,
+    this.summary,
+    this.blockedServers,
+    this.blockedUdpPorts,
+    this.blockedTcpPorts,
+    this.firewall,
+    this.clientIsolation,
+    this.multicast,
+  });
+
+  bool? ipAssignedViaDhcp;
+
+  List<ServerConnectivityResult>? serverConnectivity;
+
+  List<PortCheckResult>? portChecks;
+
+  List<DnsLookupResult>? dnsLookup;
+
+  ConnectivitySummary? summary;
+
+  /// Blocked server names (payload key `servers`).
+  List<String>? blockedServers;
+
+  /// Blocked UDP ports (payload key `udp`).
+  List<int>? blockedUdpPorts;
+
+  /// Blocked TCP ports (payload key `tcp`).
+  List<int>? blockedTcpPorts;
+
+  ToggleState? firewall;
+
+  ToggleState? clientIsolation;
+
+  ToggleState? multicast;
+
+  List<Object?> _toList() {
+    return <Object?>[
+      ipAssignedViaDhcp,
+      serverConnectivity,
+      portChecks,
+      dnsLookup,
+      summary,
+      blockedServers,
+      blockedUdpPorts,
+      blockedTcpPorts,
+      firewall,
+      clientIsolation,
+      multicast,
+    ];
+  }
+
+  Object encode() {
+    return _toList();  }
+
+  static BasicConnectivity decode(Object result) {
+    result as List<Object?>;
+    return BasicConnectivity(
+      ipAssignedViaDhcp: result[0] as bool?,
+      serverConnectivity: (result[1] as List<Object?>?)?.cast<ServerConnectivityResult>(),
+      portChecks: (result[2] as List<Object?>?)?.cast<PortCheckResult>(),
+      dnsLookup: (result[3] as List<Object?>?)?.cast<DnsLookupResult>(),
+      summary: result[4] as ConnectivitySummary?,
+      blockedServers: (result[5] as List<Object?>?)?.cast<String>(),
+      blockedUdpPorts: (result[6] as List<Object?>?)?.cast<int>(),
+      blockedTcpPorts: (result[7] as List<Object?>?)?.cast<int>(),
+      firewall: result[8] as ToggleState?,
+      clientIsolation: result[9] as ToggleState?,
+      multicast: result[10] as ToggleState?,
+    );
+  }
+
+  @override
+  // ignore: avoid_equals_and_hash_code_on_mutable_classes
+  bool operator ==(Object other) {
+    if (other is! BasicConnectivity || other.runtimeType != runtimeType) {
+      return false;
+    }
+    if (identical(this, other)) {
+      return true;
+    }
+    return _deepEquals(ipAssignedViaDhcp, other.ipAssignedViaDhcp) && _deepEquals(serverConnectivity, other.serverConnectivity) && _deepEquals(portChecks, other.portChecks) && _deepEquals(dnsLookup, other.dnsLookup) && _deepEquals(summary, other.summary) && _deepEquals(blockedServers, other.blockedServers) && _deepEquals(blockedUdpPorts, other.blockedUdpPorts) && _deepEquals(blockedTcpPorts, other.blockedTcpPorts) && _deepEquals(firewall, other.firewall) && _deepEquals(clientIsolation, other.clientIsolation) && _deepEquals(multicast, other.multicast);
+  }
+
+  @override
+  // ignore: avoid_equals_and_hash_code_on_mutable_classes
+  int get hashCode => _deepHash(<Object?>[runtimeType, ..._toList()]);
+}
+
+/// Third-party (Fing) recognition. [recognition] is an open payload.
+class DeviceRecognition {
+  DeviceRecognition({
+    this.mac,
+    this.recognition,
+  });
+
+  String? mac;
+
+  Map<String, Object?>? recognition;
+
+  List<Object?> _toList() {
+    return <Object?>[
+      mac,
+      recognition,
+    ];
+  }
+
+  Object encode() {
+    return _toList();  }
+
+  static DeviceRecognition decode(Object result) {
+    result as List<Object?>;
+    return DeviceRecognition(
+      mac: result[0] as String?,
+      recognition: (result[1] as Map<Object?, Object?>?)?.cast<String, Object?>(),
+    );
+  }
+
+  @override
+  // ignore: avoid_equals_and_hash_code_on_mutable_classes
+  bool operator ==(Object other) {
+    if (other is! DeviceRecognition || other.runtimeType != runtimeType) {
+      return false;
+    }
+    if (identical(this, other)) {
+      return true;
+    }
+    return _deepEquals(mac, other.mac) && _deepEquals(recognition, other.recognition);
+  }
+
+  @override
+  // ignore: avoid_equals_and_hash_code_on_mutable_classes
+  int get hashCode => _deepHash(<Object?>[runtimeType, ..._toList()]);
+}
+
+class LocalConnectedDevice {
+  LocalConnectedDevice({
+    this.deviceName,
+    this.deviceIp,
+    this.deviceMacAddress,
+    this.manufacturer,
+    this.packetsDropped,
+    this.numPacketsSent,
+    this.pingValues,
+    this.isSubscriberPhone,
+    this.averagePingTime,
+    this.connectionQualityColor,
+    this.isSubscriberRouter,
+    this.deviceDetails,
+  });
+
+  String? deviceName;
+
+  String? deviceIp;
+
+  String? deviceMacAddress;
+
+  String? manufacturer;
+
+  double? packetsDropped;
+
+  int? numPacketsSent;
+
+  List<double>? pingValues;
+
+  bool? isSubscriberPhone;
+
+  /// `0` (not null) when [pingValues] is empty.
+  double? averagePingTime;
+
+  QualityColor? connectionQualityColor;
+
+  bool? isSubscriberRouter;
+
+  /// Null when device recognition did not run.
+  DeviceRecognition? deviceDetails;
+
+  List<Object?> _toList() {
+    return <Object?>[
+      deviceName,
+      deviceIp,
+      deviceMacAddress,
+      manufacturer,
+      packetsDropped,
+      numPacketsSent,
+      pingValues,
+      isSubscriberPhone,
+      averagePingTime,
+      connectionQualityColor,
+      isSubscriberRouter,
+      deviceDetails,
+    ];
+  }
+
+  Object encode() {
+    return _toList();  }
+
+  static LocalConnectedDevice decode(Object result) {
+    result as List<Object?>;
+    return LocalConnectedDevice(
+      deviceName: result[0] as String?,
+      deviceIp: result[1] as String?,
+      deviceMacAddress: result[2] as String?,
+      manufacturer: result[3] as String?,
+      packetsDropped: result[4] as double?,
+      numPacketsSent: result[5] as int?,
+      pingValues: (result[6] as List<Object?>?)?.cast<double>(),
+      isSubscriberPhone: result[7] as bool?,
+      averagePingTime: result[8] as double?,
+      connectionQualityColor: result[9] as QualityColor?,
+      isSubscriberRouter: result[10] as bool?,
+      deviceDetails: result[11] as DeviceRecognition?,
+    );
+  }
+
+  @override
+  // ignore: avoid_equals_and_hash_code_on_mutable_classes
+  bool operator ==(Object other) {
+    if (other is! LocalConnectedDevice || other.runtimeType != runtimeType) {
+      return false;
+    }
+    if (identical(this, other)) {
+      return true;
+    }
+    return _deepEquals(deviceName, other.deviceName) && _deepEquals(deviceIp, other.deviceIp) && _deepEquals(deviceMacAddress, other.deviceMacAddress) && _deepEquals(manufacturer, other.manufacturer) && _deepEquals(packetsDropped, other.packetsDropped) && _deepEquals(numPacketsSent, other.numPacketsSent) && _deepEquals(pingValues, other.pingValues) && _deepEquals(isSubscriberPhone, other.isSubscriberPhone) && _deepEquals(averagePingTime, other.averagePingTime) && _deepEquals(connectionQualityColor, other.connectionQualityColor) && _deepEquals(isSubscriberRouter, other.isSubscriberRouter) && _deepEquals(deviceDetails, other.deviceDetails);
+  }
+
+  @override
+  // ignore: avoid_equals_and_hash_code_on_mutable_classes
+  int get hashCode => _deepHash(<Object?>[runtimeType, ..._toList()]);
+}
+
+class CustomerRouterDetails {
+  CustomerRouterDetails({
+    this.make,
+    this.model,
+    this.encryption,
+    this.protocols,
+    this.mesh,
+    this.routerIpAddress,
+    this.routerMacAddress,
+    this.manufacturer,
+    this.hostname,
+    this.modelDescription,
+    this.modelNumber,
+    this.friendlyName,
+    this.deviceType,
+    this.routerDetails,
+  });
+
+  String? make;
+
+  String? model;
+
+  String? encryption;
+
+  String? protocols;
+
+  String? mesh;
+
+  String? routerIpAddress;
+
+  String? routerMacAddress;
+
+  String? manufacturer;
+
+  String? hostname;
+
+  String? modelDescription;
+
+  String? modelNumber;
+
+  String? friendlyName;
+
+  String? deviceType;
+
+  /// Present only when [routerMacAddress] is non-null.
+  DeviceRecognition? routerDetails;
+
+  List<Object?> _toList() {
+    return <Object?>[
+      make,
+      model,
+      encryption,
+      protocols,
+      mesh,
+      routerIpAddress,
+      routerMacAddress,
+      manufacturer,
+      hostname,
+      modelDescription,
+      modelNumber,
+      friendlyName,
+      deviceType,
+      routerDetails,
+    ];
+  }
+
+  Object encode() {
+    return _toList();  }
+
+  static CustomerRouterDetails decode(Object result) {
+    result as List<Object?>;
+    return CustomerRouterDetails(
+      make: result[0] as String?,
+      model: result[1] as String?,
+      encryption: result[2] as String?,
+      protocols: result[3] as String?,
+      mesh: result[4] as String?,
+      routerIpAddress: result[5] as String?,
+      routerMacAddress: result[6] as String?,
+      manufacturer: result[7] as String?,
+      hostname: result[8] as String?,
+      modelDescription: result[9] as String?,
+      modelNumber: result[10] as String?,
+      friendlyName: result[11] as String?,
+      deviceType: result[12] as String?,
+      routerDetails: result[13] as DeviceRecognition?,
+    );
+  }
+
+  @override
+  // ignore: avoid_equals_and_hash_code_on_mutable_classes
+  bool operator ==(Object other) {
+    if (other is! CustomerRouterDetails || other.runtimeType != runtimeType) {
+      return false;
+    }
+    if (identical(this, other)) {
+      return true;
+    }
+    return _deepEquals(make, other.make) && _deepEquals(model, other.model) && _deepEquals(encryption, other.encryption) && _deepEquals(protocols, other.protocols) && _deepEquals(mesh, other.mesh) && _deepEquals(routerIpAddress, other.routerIpAddress) && _deepEquals(routerMacAddress, other.routerMacAddress) && _deepEquals(manufacturer, other.manufacturer) && _deepEquals(hostname, other.hostname) && _deepEquals(modelDescription, other.modelDescription) && _deepEquals(modelNumber, other.modelNumber) && _deepEquals(friendlyName, other.friendlyName) && _deepEquals(deviceType, other.deviceType) && _deepEquals(routerDetails, other.routerDetails);
+  }
+
+  @override
+  // ignore: avoid_equals_and_hash_code_on_mutable_classes
+  int get hashCode => _deepHash(<Object?>[runtimeType, ..._toList()]);
+}
+
+class OtherRouterDetail {
+  OtherRouterDetail({
+    this.ip,
+    this.asn,
+    this.owner,
+  });
+
+  String? ip;
+
+  /// Autonomous system number. Null for private hops and until the GeoLite2-ASN
+  /// database is provisioned server-side.
+  int? asn;
+
+  /// `"Private"` for RFC-1918 addresses regardless of database state; null for
+  /// public addresses until the ASN database is provisioned.
+  String? owner;
+
+  List<Object?> _toList() {
+    return <Object?>[
+      ip,
+      asn,
+      owner,
+    ];
+  }
+
+  Object encode() {
+    return _toList();  }
+
+  static OtherRouterDetail decode(Object result) {
+    result as List<Object?>;
+    return OtherRouterDetail(
+      ip: result[0] as String?,
+      asn: result[1] as int?,
+      owner: result[2] as String?,
+    );
+  }
+
+  @override
+  // ignore: avoid_equals_and_hash_code_on_mutable_classes
+  bool operator ==(Object other) {
+    if (other is! OtherRouterDetail || other.runtimeType != runtimeType) {
+      return false;
+    }
+    if (identical(this, other)) {
+      return true;
+    }
+    return _deepEquals(ip, other.ip) && _deepEquals(asn, other.asn) && _deepEquals(owner, other.owner);
+  }
+
+  @override
+  // ignore: avoid_equals_and_hash_code_on_mutable_classes
+  int get hashCode => _deepHash(<Object?>[runtimeType, ..._toList()]);
+}
+
+class DoubleNat {
+  DoubleNat({
+    this.isDoubleNat,
+    this.doubleNatHop,
+  });
+
+  bool? isDoubleNat;
+
+  List<String>? doubleNatHop;
+
+  List<Object?> _toList() {
+    return <Object?>[
+      isDoubleNat,
+      doubleNatHop,
+    ];
+  }
+
+  Object encode() {
+    return _toList();  }
+
+  static DoubleNat decode(Object result) {
+    result as List<Object?>;
+    return DoubleNat(
+      isDoubleNat: result[0] as bool?,
+      doubleNatHop: (result[1] as List<Object?>?)?.cast<String>(),
+    );
+  }
+
+  @override
+  // ignore: avoid_equals_and_hash_code_on_mutable_classes
+  bool operator ==(Object other) {
+    if (other is! DoubleNat || other.runtimeType != runtimeType) {
+      return false;
+    }
+    if (identical(this, other)) {
+      return true;
+    }
+    return _deepEquals(isDoubleNat, other.isDoubleNat) && _deepEquals(doubleNatHop, other.doubleNatHop);
+  }
+
+  @override
+  // ignore: avoid_equals_and_hash_code_on_mutable_classes
+  int get hashCode => _deepHash(<Object?>[runtimeType, ..._toList()]);
+}
+
+class NetworkTopology {
+  NetworkTopology({
+    this.routerIpAddress,
+    this.otherRouters,
+    this.otherRoutersDetails,
+    this.doubleNatDetected,
+  });
+
+  String? routerIpAddress;
+
+  /// De-duplicated, ordered by first appearance across traceroute hops.
+  List<String>? otherRouters;
+
+  List<OtherRouterDetail>? otherRoutersDetails;
+
+  /// Null means NO double NAT — the key is absent in that case, not false.
+  DoubleNat? doubleNatDetected;
+
+  List<Object?> _toList() {
+    return <Object?>[
+      routerIpAddress,
+      otherRouters,
+      otherRoutersDetails,
+      doubleNatDetected,
+    ];
+  }
+
+  Object encode() {
+    return _toList();  }
+
+  static NetworkTopology decode(Object result) {
+    result as List<Object?>;
+    return NetworkTopology(
+      routerIpAddress: result[0] as String?,
+      otherRouters: (result[1] as List<Object?>?)?.cast<String>(),
+      otherRoutersDetails: (result[2] as List<Object?>?)?.cast<OtherRouterDetail>(),
+      doubleNatDetected: result[3] as DoubleNat?,
+    );
+  }
+
+  @override
+  // ignore: avoid_equals_and_hash_code_on_mutable_classes
+  bool operator ==(Object other) {
+    if (other is! NetworkTopology || other.runtimeType != runtimeType) {
+      return false;
+    }
+    if (identical(this, other)) {
+      return true;
+    }
+    return _deepEquals(routerIpAddress, other.routerIpAddress) && _deepEquals(otherRouters, other.otherRouters) && _deepEquals(otherRoutersDetails, other.otherRoutersDetails) && _deepEquals(doubleNatDetected, other.doubleNatDetected);
+  }
+
+  @override
+  // ignore: avoid_equals_and_hash_code_on_mutable_classes
+  int get hashCode => _deepHash(<Object?>[runtimeType, ..._toList()]);
+}
+
+/// [frequency] is GHz. [signalStrength] is dBm (negative).
+class WifiNetworkResult {
+  WifiNetworkResult({
+    this.ssid,
+    this.ssidIp,
+    this.bssid,
+    this.encryption,
+    this.frequency,
+    this.wpsAvailability,
+    this.signalStrength,
+    this.numWifiChannels,
+    this.channelWidth,
+    this.currentChannel,
+    this.isSubscriberSsid,
+  });
+
+  String? ssid;
+
+  String? ssidIp;
+
+  String? bssid;
+
+  String? encryption;
+
+  double? frequency;
+
+  bool? wpsAvailability;
+
+  int? signalStrength;
+
+  int? numWifiChannels;
+
+  int? channelWidth;
+
+  int? currentChannel;
+
+  bool? isSubscriberSsid;
+
+  List<Object?> _toList() {
+    return <Object?>[
+      ssid,
+      ssidIp,
+      bssid,
+      encryption,
+      frequency,
+      wpsAvailability,
+      signalStrength,
+      numWifiChannels,
+      channelWidth,
+      currentChannel,
+      isSubscriberSsid,
+    ];
+  }
+
+  Object encode() {
+    return _toList();  }
+
+  static WifiNetworkResult decode(Object result) {
+    result as List<Object?>;
+    return WifiNetworkResult(
+      ssid: result[0] as String?,
+      ssidIp: result[1] as String?,
+      bssid: result[2] as String?,
+      encryption: result[3] as String?,
+      frequency: result[4] as double?,
+      wpsAvailability: result[5] as bool?,
+      signalStrength: result[6] as int?,
+      numWifiChannels: result[7] as int?,
+      channelWidth: result[8] as int?,
+      currentChannel: result[9] as int?,
+      isSubscriberSsid: result[10] as bool?,
+    );
+  }
+
+  @override
+  // ignore: avoid_equals_and_hash_code_on_mutable_classes
+  bool operator ==(Object other) {
+    if (other is! WifiNetworkResult || other.runtimeType != runtimeType) {
+      return false;
+    }
+    if (identical(this, other)) {
+      return true;
+    }
+    return _deepEquals(ssid, other.ssid) && _deepEquals(ssidIp, other.ssidIp) && _deepEquals(bssid, other.bssid) && _deepEquals(encryption, other.encryption) && _deepEquals(frequency, other.frequency) && _deepEquals(wpsAvailability, other.wpsAvailability) && _deepEquals(signalStrength, other.signalStrength) && _deepEquals(numWifiChannels, other.numWifiChannels) && _deepEquals(channelWidth, other.channelWidth) && _deepEquals(currentChannel, other.currentChannel) && _deepEquals(isSubscriberSsid, other.isSubscriberSsid);
+  }
+
+  @override
+  // ignore: avoid_equals_and_hash_code_on_mutable_classes
+  int get hashCode => _deepHash(<Object?>[runtimeType, ..._toList()]);
+}
+
+/// [numPhoneWifiChannel] is the COUNT of congestion entries, not a channel
+/// number — the channel is [phoneWifiChannel].
+class UserConnection {
+  UserConnection({
+    this.phoneWifiFrequency,
+    this.numPhoneWifiChannel,
+    this.numNetworksOnChannel,
+    this.phoneWifiChannel,
+  });
+
+  double? phoneWifiFrequency;
+
+  int? numPhoneWifiChannel;
+
+  int? numNetworksOnChannel;
+
+  int? phoneWifiChannel;
+
+  List<Object?> _toList() {
+    return <Object?>[
+      phoneWifiFrequency,
+      numPhoneWifiChannel,
+      numNetworksOnChannel,
+      phoneWifiChannel,
+    ];
+  }
+
+  Object encode() {
+    return _toList();  }
+
+  static UserConnection decode(Object result) {
+    result as List<Object?>;
+    return UserConnection(
+      phoneWifiFrequency: result[0] as double?,
+      numPhoneWifiChannel: result[1] as int?,
+      numNetworksOnChannel: result[2] as int?,
+      phoneWifiChannel: result[3] as int?,
+    );
+  }
+
+  @override
+  // ignore: avoid_equals_and_hash_code_on_mutable_classes
+  bool operator ==(Object other) {
+    if (other is! UserConnection || other.runtimeType != runtimeType) {
+      return false;
+    }
+    if (identical(this, other)) {
+      return true;
+    }
+    return _deepEquals(phoneWifiFrequency, other.phoneWifiFrequency) && _deepEquals(numPhoneWifiChannel, other.numPhoneWifiChannel) && _deepEquals(numNetworksOnChannel, other.numNetworksOnChannel) && _deepEquals(phoneWifiChannel, other.phoneWifiChannel);
+  }
+
+  @override
+  // ignore: avoid_equals_and_hash_code_on_mutable_classes
+  int get hashCode => _deepHash(<Object?>[runtimeType, ..._toList()]);
+}
+
+/// [index] is a STRING in the payload, not an int.
+class ChannelCongestion {
+  ChannelCongestion({
+    this.index,
+    this.numNetworks,
+  });
+
+  String? index;
+
+  int? numNetworks;
+
+  List<Object?> _toList() {
+    return <Object?>[
+      index,
+      numNetworks,
+    ];
+  }
+
+  Object encode() {
+    return _toList();  }
+
+  static ChannelCongestion decode(Object result) {
+    result as List<Object?>;
+    return ChannelCongestion(
+      index: result[0] as String?,
+      numNetworks: result[1] as int?,
+    );
+  }
+
+  @override
+  // ignore: avoid_equals_and_hash_code_on_mutable_classes
+  bool operator ==(Object other) {
+    if (other is! ChannelCongestion || other.runtimeType != runtimeType) {
+      return false;
+    }
+    if (identical(this, other)) {
+      return true;
+    }
+    return _deepEquals(index, other.index) && _deepEquals(numNetworks, other.numNetworks);
+  }
+
+  @override
+  // ignore: avoid_equals_and_hash_code_on_mutable_classes
+  int get hashCode => _deepHash(<Object?>[runtimeType, ..._toList()]);
+}
+
+class CongestionEnvironment {
+  CongestionEnvironment({
+    this.channelCongestion,
+    this.surroundingWifiNetworks,
+  });
+
+  List<ChannelCongestion>? channelCongestion;
+
+  /// Excludes the subscriber's own SSID.
+  List<WifiNetworkResult>? surroundingWifiNetworks;
+
+  List<Object?> _toList() {
+    return <Object?>[
+      channelCongestion,
+      surroundingWifiNetworks,
+    ];
+  }
+
+  Object encode() {
+    return _toList();  }
+
+  static CongestionEnvironment decode(Object result) {
+    result as List<Object?>;
+    return CongestionEnvironment(
+      channelCongestion: (result[0] as List<Object?>?)?.cast<ChannelCongestion>(),
+      surroundingWifiNetworks: (result[1] as List<Object?>?)?.cast<WifiNetworkResult>(),
+    );
+  }
+
+  @override
+  // ignore: avoid_equals_and_hash_code_on_mutable_classes
+  bool operator ==(Object other) {
+    if (other is! CongestionEnvironment || other.runtimeType != runtimeType) {
+      return false;
+    }
+    if (identical(this, other)) {
+      return true;
+    }
+    return _deepEquals(channelCongestion, other.channelCongestion) && _deepEquals(surroundingWifiNetworks, other.surroundingWifiNetworks);
+  }
+
+  @override
+  // ignore: avoid_equals_and_hash_code_on_mutable_classes
+  int get hashCode => _deepHash(<Object?>[runtimeType, ..._toList()]);
+}
+
+class NetworkCongestion {
+  NetworkCongestion({
+    this.userConnection,
+    this.environment,
+  });
+
+  UserConnection? userConnection;
+
+  CongestionEnvironment? environment;
+
+  List<Object?> _toList() {
+    return <Object?>[
+      userConnection,
+      environment,
+    ];
+  }
+
+  Object encode() {
+    return _toList();  }
+
+  static NetworkCongestion decode(Object result) {
+    result as List<Object?>;
+    return NetworkCongestion(
+      userConnection: result[0] as UserConnection?,
+      environment: result[1] as CongestionEnvironment?,
+    );
+  }
+
+  @override
+  // ignore: avoid_equals_and_hash_code_on_mutable_classes
+  bool operator ==(Object other) {
+    if (other is! NetworkCongestion || other.runtimeType != runtimeType) {
+      return false;
+    }
+    if (identical(this, other)) {
+      return true;
+    }
+    return _deepEquals(userConnection, other.userConnection) && _deepEquals(environment, other.environment);
+  }
+
+  @override
+  // ignore: avoid_equals_and_hash_code_on_mutable_classes
+  int get hashCode => _deepHash(<Object?>[runtimeType, ..._toList()]);
+}
+
+/// [layerRanking] is 1 (local), 2 (unknown/default) or 3 (external).
+class DnsQuality {
+  DnsQuality({
+    this.dnsName,
+    this.dnsIp,
+    this.packetsDropped,
+    this.numPacketsSent,
+    this.pingValues,
+    this.isSubscriberRouter,
+    this.jitter,
+    this.averagePingTime,
+    this.connectionQualityColor,
+    this.layerRanking,
+  });
+
+  String? dnsName;
+
+  String? dnsIp;
+
+  double? packetsDropped;
+
+  int? numPacketsSent;
+
+  List<double>? pingValues;
+
+  /// True for the subscriber's own router.
+  bool? isSubscriberRouter;
+
+  double? jitter;
+
+  double? averagePingTime;
+
+  QualityColor? connectionQualityColor;
+
+  int? layerRanking;
+
+  List<Object?> _toList() {
+    return <Object?>[
+      dnsName,
+      dnsIp,
+      packetsDropped,
+      numPacketsSent,
+      pingValues,
+      isSubscriberRouter,
+      jitter,
+      averagePingTime,
+      connectionQualityColor,
+      layerRanking,
+    ];
+  }
+
+  Object encode() {
+    return _toList();  }
+
+  static DnsQuality decode(Object result) {
+    result as List<Object?>;
+    return DnsQuality(
+      dnsName: result[0] as String?,
+      dnsIp: result[1] as String?,
+      packetsDropped: result[2] as double?,
+      numPacketsSent: result[3] as int?,
+      pingValues: (result[4] as List<Object?>?)?.cast<double>(),
+      isSubscriberRouter: result[5] as bool?,
+      jitter: result[6] as double?,
+      averagePingTime: result[7] as double?,
+      connectionQualityColor: result[8] as QualityColor?,
+      layerRanking: result[9] as int?,
+    );
+  }
+
+  @override
+  // ignore: avoid_equals_and_hash_code_on_mutable_classes
+  bool operator ==(Object other) {
+    if (other is! DnsQuality || other.runtimeType != runtimeType) {
+      return false;
+    }
+    if (identical(this, other)) {
+      return true;
+    }
+    return _deepEquals(dnsName, other.dnsName) && _deepEquals(dnsIp, other.dnsIp) && _deepEquals(packetsDropped, other.packetsDropped) && _deepEquals(numPacketsSent, other.numPacketsSent) && _deepEquals(pingValues, other.pingValues) && _deepEquals(isSubscriberRouter, other.isSubscriberRouter) && _deepEquals(jitter, other.jitter) && _deepEquals(averagePingTime, other.averagePingTime) && _deepEquals(connectionQualityColor, other.connectionQualityColor) && _deepEquals(layerRanking, other.layerRanking);
+  }
+
+  @override
+  // ignore: avoid_equals_and_hash_code_on_mutable_classes
+  int get hashCode => _deepHash(<Object?>[runtimeType, ..._toList()]);
+}
+
+/// [rttValues] are integers in milliseconds.
+class TracerouteHop {
+  TracerouteHop({
+    this.dnsIp,
+    this.dnsName,
+    this.rttValues,
+  });
+
+  String? dnsIp;
+
+  String? dnsName;
+
+  List<int>? rttValues;
+
+  List<Object?> _toList() {
+    return <Object?>[
+      dnsIp,
+      dnsName,
+      rttValues,
+    ];
+  }
+
+  Object encode() {
+    return _toList();  }
+
+  static TracerouteHop decode(Object result) {
+    result as List<Object?>;
+    return TracerouteHop(
+      dnsIp: result[0] as String?,
+      dnsName: result[1] as String?,
+      rttValues: (result[2] as List<Object?>?)?.cast<int>(),
+    );
+  }
+
+  @override
+  // ignore: avoid_equals_and_hash_code_on_mutable_classes
+  bool operator ==(Object other) {
+    if (other is! TracerouteHop || other.runtimeType != runtimeType) {
+      return false;
+    }
+    if (identical(this, other)) {
+      return true;
+    }
+    return _deepEquals(dnsIp, other.dnsIp) && _deepEquals(dnsName, other.dnsName) && _deepEquals(rttValues, other.rttValues);
+  }
+
+  @override
+  // ignore: avoid_equals_and_hash_code_on_mutable_classes
+  int get hashCode => _deepHash(<Object?>[runtimeType, ..._toList()]);
+}
+
+class TracerouteEntry {
+  TracerouteEntry({
+    this.dnsDestinationIp,
+    this.hops,
+  });
+
+  String? dnsDestinationIp;
+
+  List<TracerouteHop>? hops;
+
+  List<Object?> _toList() {
+    return <Object?>[
+      dnsDestinationIp,
+      hops,
+    ];
+  }
+
+  Object encode() {
+    return _toList();  }
+
+  static TracerouteEntry decode(Object result) {
+    result as List<Object?>;
+    return TracerouteEntry(
+      dnsDestinationIp: result[0] as String?,
+      hops: (result[1] as List<Object?>?)?.cast<TracerouteHop>(),
+    );
+  }
+
+  @override
+  // ignore: avoid_equals_and_hash_code_on_mutable_classes
+  bool operator ==(Object other) {
+    if (other is! TracerouteEntry || other.runtimeType != runtimeType) {
+      return false;
+    }
+    if (identical(this, other)) {
+      return true;
+    }
+    return _deepEquals(dnsDestinationIp, other.dnsDestinationIp) && _deepEquals(hops, other.hops);
+  }
+
+  @override
+  // ignore: avoid_equals_and_hash_code_on_mutable_classes
+  int get hashCode => _deepHash(<Object?>[runtimeType, ..._toList()]);
+}
+
+/// The full report payload. Mirrors the FE contract and evolves with it — this
+/// is NOT a stable versioned schema.
+class ReportData {
+  ReportData({
+    this.customerDetails,
+    this.sdkDetails,
+    this.routerUsageDuringScan,
+    this.customerInternetSpeed,
+    this.basicConnectivity,
+    this.localConnectedDevices,
+    this.customerRouterDetails,
+    this.networkTopology,
+    this.userWifiNetwork,
+    this.networkCongestion,
+    this.connectionQuality,
+    this.traceroute,
+    this.alerts,
+    this.actions,
+    this.incompleteAnalysis,
+  });
+
+  CustomerDetails? customerDetails;
+
+  SdkDetails? sdkDetails;
+
+  RouterUsage? routerUsageDuringScan;
+
+  InternetSpeed? customerInternetSpeed;
+
+  BasicConnectivity? basicConnectivity;
+
+  List<LocalConnectedDevice>? localConnectedDevices;
+
+  CustomerRouterDetails? customerRouterDetails;
+
+  NetworkTopology? networkTopology;
+
+  WifiNetworkResult? userWifiNetwork;
+
+  NetworkCongestion? networkCongestion;
+
+  List<DnsQuality>? connectionQuality;
+
+  List<TracerouteEntry>? traceroute;
+
+  List<ReportAlert>? alerts;
+
+  List<ReportAction>? actions;
+
+  /// True when both `missing_upnp` and `incomplete_speed_test` fired — present
+  /// the scan as unreliable.
+  bool? incompleteAnalysis;
+
+  List<Object?> _toList() {
+    return <Object?>[
+      customerDetails,
+      sdkDetails,
+      routerUsageDuringScan,
+      customerInternetSpeed,
+      basicConnectivity,
+      localConnectedDevices,
+      customerRouterDetails,
+      networkTopology,
+      userWifiNetwork,
+      networkCongestion,
+      connectionQuality,
+      traceroute,
+      alerts,
+      actions,
+      incompleteAnalysis,
+    ];
+  }
+
+  Object encode() {
+    return _toList();  }
+
+  static ReportData decode(Object result) {
+    result as List<Object?>;
+    return ReportData(
+      customerDetails: result[0] as CustomerDetails?,
+      sdkDetails: result[1] as SdkDetails?,
+      routerUsageDuringScan: result[2] as RouterUsage?,
+      customerInternetSpeed: result[3] as InternetSpeed?,
+      basicConnectivity: result[4] as BasicConnectivity?,
+      localConnectedDevices: (result[5] as List<Object?>?)?.cast<LocalConnectedDevice>(),
+      customerRouterDetails: result[6] as CustomerRouterDetails?,
+      networkTopology: result[7] as NetworkTopology?,
+      userWifiNetwork: result[8] as WifiNetworkResult?,
+      networkCongestion: result[9] as NetworkCongestion?,
+      connectionQuality: (result[10] as List<Object?>?)?.cast<DnsQuality>(),
+      traceroute: (result[11] as List<Object?>?)?.cast<TracerouteEntry>(),
+      alerts: (result[12] as List<Object?>?)?.cast<ReportAlert>(),
+      actions: (result[13] as List<Object?>?)?.cast<ReportAction>(),
+      incompleteAnalysis: result[14] as bool?,
+    );
+  }
+
+  @override
+  // ignore: avoid_equals_and_hash_code_on_mutable_classes
+  bool operator ==(Object other) {
+    if (other is! ReportData || other.runtimeType != runtimeType) {
+      return false;
+    }
+    if (identical(this, other)) {
+      return true;
+    }
+    return _deepEquals(customerDetails, other.customerDetails) && _deepEquals(sdkDetails, other.sdkDetails) && _deepEquals(routerUsageDuringScan, other.routerUsageDuringScan) && _deepEquals(customerInternetSpeed, other.customerInternetSpeed) && _deepEquals(basicConnectivity, other.basicConnectivity) && _deepEquals(localConnectedDevices, other.localConnectedDevices) && _deepEquals(customerRouterDetails, other.customerRouterDetails) && _deepEquals(networkTopology, other.networkTopology) && _deepEquals(userWifiNetwork, other.userWifiNetwork) && _deepEquals(networkCongestion, other.networkCongestion) && _deepEquals(connectionQuality, other.connectionQuality) && _deepEquals(traceroute, other.traceroute) && _deepEquals(alerts, other.alerts) && _deepEquals(actions, other.actions) && _deepEquals(incompleteAnalysis, other.incompleteAnalysis);
+  }
+
+  @override
+  // ignore: avoid_equals_and_hash_code_on_mutable_classes
+  int get hashCode => _deepHash(<Object?>[runtimeType, ..._toList()]);
+}
+
 
 class _PigeonCodec extends StandardMessageCodec {
   const _PigeonCodec();
@@ -503,6 +2302,93 @@ class _PigeonCodec extends StandardMessageCodec {
     }    else if (value is ScanReport) {
       buffer.putUint8(137);
       writeValue(buffer, value.encode());
+    }    else if (value is QualityColor) {
+      buffer.putUint8(138);
+      writeValue(buffer, value.encode());
+    }    else if (value is StatusColor) {
+      buffer.putUint8(139);
+      writeValue(buffer, value.encode());
+    }    else if (value is ReportAlert) {
+      buffer.putUint8(140);
+      writeValue(buffer, value.encode());
+    }    else if (value is ReportAction) {
+      buffer.putUint8(141);
+      writeValue(buffer, value.encode());
+    }    else if (value is CustomerDetails) {
+      buffer.putUint8(142);
+      writeValue(buffer, value.encode());
+    }    else if (value is SdkDetails) {
+      buffer.putUint8(143);
+      writeValue(buffer, value.encode());
+    }    else if (value is RouterUsage) {
+      buffer.putUint8(144);
+      writeValue(buffer, value.encode());
+    }    else if (value is InternetSpeed) {
+      buffer.putUint8(145);
+      writeValue(buffer, value.encode());
+    }    else if (value is ServerConnectivityResult) {
+      buffer.putUint8(146);
+      writeValue(buffer, value.encode());
+    }    else if (value is PortCheckResult) {
+      buffer.putUint8(147);
+      writeValue(buffer, value.encode());
+    }    else if (value is DnsLookupResult) {
+      buffer.putUint8(148);
+      writeValue(buffer, value.encode());
+    }    else if (value is ConnectivitySummary) {
+      buffer.putUint8(149);
+      writeValue(buffer, value.encode());
+    }    else if (value is ToggleState) {
+      buffer.putUint8(150);
+      writeValue(buffer, value.encode());
+    }    else if (value is BasicConnectivity) {
+      buffer.putUint8(151);
+      writeValue(buffer, value.encode());
+    }    else if (value is DeviceRecognition) {
+      buffer.putUint8(152);
+      writeValue(buffer, value.encode());
+    }    else if (value is LocalConnectedDevice) {
+      buffer.putUint8(153);
+      writeValue(buffer, value.encode());
+    }    else if (value is CustomerRouterDetails) {
+      buffer.putUint8(154);
+      writeValue(buffer, value.encode());
+    }    else if (value is OtherRouterDetail) {
+      buffer.putUint8(155);
+      writeValue(buffer, value.encode());
+    }    else if (value is DoubleNat) {
+      buffer.putUint8(156);
+      writeValue(buffer, value.encode());
+    }    else if (value is NetworkTopology) {
+      buffer.putUint8(157);
+      writeValue(buffer, value.encode());
+    }    else if (value is WifiNetworkResult) {
+      buffer.putUint8(158);
+      writeValue(buffer, value.encode());
+    }    else if (value is UserConnection) {
+      buffer.putUint8(159);
+      writeValue(buffer, value.encode());
+    }    else if (value is ChannelCongestion) {
+      buffer.putUint8(160);
+      writeValue(buffer, value.encode());
+    }    else if (value is CongestionEnvironment) {
+      buffer.putUint8(161);
+      writeValue(buffer, value.encode());
+    }    else if (value is NetworkCongestion) {
+      buffer.putUint8(162);
+      writeValue(buffer, value.encode());
+    }    else if (value is DnsQuality) {
+      buffer.putUint8(163);
+      writeValue(buffer, value.encode());
+    }    else if (value is TracerouteHop) {
+      buffer.putUint8(164);
+      writeValue(buffer, value.encode());
+    }    else if (value is TracerouteEntry) {
+      buffer.putUint8(165);
+      writeValue(buffer, value.encode());
+    }    else if (value is ReportData) {
+      buffer.putUint8(166);
+      writeValue(buffer, value.encode());
     } else {
       super.writeValue(buffer, value);
     }
@@ -533,6 +2419,64 @@ class _PigeonCodec extends StandardMessageCodec {
         return ScanError.decode(readValue(buffer)!);
       case 137:
         return ScanReport.decode(readValue(buffer)!);
+      case 138:
+        return QualityColor.decode(readValue(buffer)!);
+      case 139:
+        return StatusColor.decode(readValue(buffer)!);
+      case 140:
+        return ReportAlert.decode(readValue(buffer)!);
+      case 141:
+        return ReportAction.decode(readValue(buffer)!);
+      case 142:
+        return CustomerDetails.decode(readValue(buffer)!);
+      case 143:
+        return SdkDetails.decode(readValue(buffer)!);
+      case 144:
+        return RouterUsage.decode(readValue(buffer)!);
+      case 145:
+        return InternetSpeed.decode(readValue(buffer)!);
+      case 146:
+        return ServerConnectivityResult.decode(readValue(buffer)!);
+      case 147:
+        return PortCheckResult.decode(readValue(buffer)!);
+      case 148:
+        return DnsLookupResult.decode(readValue(buffer)!);
+      case 149:
+        return ConnectivitySummary.decode(readValue(buffer)!);
+      case 150:
+        return ToggleState.decode(readValue(buffer)!);
+      case 151:
+        return BasicConnectivity.decode(readValue(buffer)!);
+      case 152:
+        return DeviceRecognition.decode(readValue(buffer)!);
+      case 153:
+        return LocalConnectedDevice.decode(readValue(buffer)!);
+      case 154:
+        return CustomerRouterDetails.decode(readValue(buffer)!);
+      case 155:
+        return OtherRouterDetail.decode(readValue(buffer)!);
+      case 156:
+        return DoubleNat.decode(readValue(buffer)!);
+      case 157:
+        return NetworkTopology.decode(readValue(buffer)!);
+      case 158:
+        return WifiNetworkResult.decode(readValue(buffer)!);
+      case 159:
+        return UserConnection.decode(readValue(buffer)!);
+      case 160:
+        return ChannelCongestion.decode(readValue(buffer)!);
+      case 161:
+        return CongestionEnvironment.decode(readValue(buffer)!);
+      case 162:
+        return NetworkCongestion.decode(readValue(buffer)!);
+      case 163:
+        return DnsQuality.decode(readValue(buffer)!);
+      case 164:
+        return TracerouteHop.decode(readValue(buffer)!);
+      case 165:
+        return TracerouteEntry.decode(readValue(buffer)!);
+      case 166:
+        return ReportData.decode(readValue(buffer)!);
       default:
         return super.readValueOfType(type, buffer);
     }

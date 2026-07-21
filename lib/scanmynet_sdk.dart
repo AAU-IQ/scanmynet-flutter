@@ -5,6 +5,7 @@ import 'src/scan_events.dart';
 
 export 'src/messages.g.dart';
 export 'src/scan_events.dart';
+export 'src/report_types.dart';
 
 /// Public entry point for the ScanMyNet plugin.
 ///
@@ -31,6 +32,9 @@ class ScanmynetSdk {
   final StreamController<ScanEvent> _events =
       StreamController<ScanEvent>.broadcast();
 
+  /// Pigeon schema version. Bump whenever fields are added to the schema.
+  static const int schemaVersion = 2;
+
   /// Native scan lifecycle as a broadcast stream. Subscribe before calling
   /// [startScan] to receive every event.
   Stream<ScanEvent> get events => _events.stream;
@@ -42,7 +46,10 @@ class ScanmynetSdk {
 
   /// Configures the native SDK. Android builds the `NetworkScan`; iOS builds
   /// the `ScanMyNetManager`. Must be called before [startScan].
-  Future<void> configure(ScanConfig config) => _host.configure(config);
+  Future<void> configure(ScanConfig config) {
+    config.schemaVersion = schemaVersion;
+    return _host.configure(config);
+  }
 
   /// Starts a full network scan. Progress and the final result are delivered
   /// through [events], not returned here.

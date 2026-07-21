@@ -24,6 +24,9 @@ final class ScanHostApiImpl: NSObject, ScanHostApi {
   /// the last known percent so every `ScanProgress` we emit carries both.
   private var lastPercent: Double = 0
 
+  /// Must match `.schemaVersion` in Dart.
+  private static let schemaVersion: Int64 = 2
+
   init(flutterApi: ScanFlutterApi) {
     self.flutterApi = flutterApi
     super.init()
@@ -32,6 +35,15 @@ final class ScanHostApiImpl: NSObject, ScanHostApi {
   // MARK: - ScanHostApi (Dart -> native)
 
   func configure(config: ScanConfig) throws {
+    if let incoming = config.schemaVersion, incoming != Self.schemaVersion {
+      throw PigeonError(
+        code: "SCHEMA_MISMATCH",
+        message: "Pigeon schema mismatch: Dart sent v\(incoming), native expects "
+          + "v\(Self.schemaVersion). Codecs are positional — a mismatched pair "
+          + "misreads fields silently. Rebuild the plugin's native binaries.",
+        details: nil
+      )
+    }
     lastPercent = 0
     let configuration = ScanMyNetConfiguration(
       apiKey: config.apiKey,

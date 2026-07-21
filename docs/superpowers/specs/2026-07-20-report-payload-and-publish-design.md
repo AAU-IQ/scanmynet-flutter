@@ -86,12 +86,20 @@ data class ReportResponseDto(
 )
 ```
 
-Plus nested `*Dto` classes for the 15 sections. The DTO package already contains
-`LocalDeviceDto`, `WifiNetworkDto`, `CongestionDto`, `TracerouteDto`,
-`DnsLookupDto`, `PortDto`, `ServerConnectivityDto` and `DnsPingResultDto`. These
-model the *request* shape; several response sections are close relatives and
-serve as a starting point, but they are not reusable verbatim and must be
-verified field-by-field against the BE doc.
+Plus nested `*Dto` classes for the 15 sections.
+
+The DTO package already contains `LocalDeviceDto`, `WifiNetworkDto`,
+`CongestionDto`, `TracerouteDto`, `DnsLookupDto`, `PortDto`,
+`ServerConnectivityDto` and `DnsPingResultDto`. These model the *request* shape
+and are **not** reusable — response DTOs are separate types throughout.
+
+The request/response divergence is real, not cosmetic. `CongestionDto.index` is
+`Int?`, while the response's `channel_congestion[].index` is documented as a
+string. `LocalDeviceDto` lacks the response's `average_ping_time`,
+`connection_quality_color`, `device_details` and `is_subscriber_router`.
+`DnsPingResultDto` lacks `jitter`, `average_ping_time`, `layer_ranking` and
+`connection_quality_color`. Reusing either type would silently produce wrong
+data. The request DTOs are useful only as a naming reference.
 
 The rebuilt AAR is published to `android/local-maven-repo/` in `scanmynet_sdk`.
 
@@ -140,7 +148,7 @@ and would fail silently instead, which is quieter but equally wrong.
 
 ## §2 — Pigeon schema
 
-Approximately 60 classes mirroring the 15 sections, added to
+Approximately 33 classes mirroring the 15 sections, added to
 `pigeons/messages.dart`.
 
 `ScanResult` gains three fields. The payload arrives in the same HTTP response
@@ -190,7 +198,13 @@ nullable in Pigeon, because `report` itself is nullable and an absent parent
 makes every child absent.
 
 `basic_connectivity.alerts` is documented as always empty — real alerts are
-promoted to top-level `report.alerts`. It is not modelled.
+promoted to top-level `report.alerts`.
+
+The two layers deliberately differ here. The Android DTO **does** model it, so
+the response maps 1:1 onto the wire shape and nothing is silently dropped at the
+decode boundary. The Pigeon schema **does not**, so Earthlink is never handed an
+always-empty array to reason about. The asymmetry is intentional: the native
+layer mirrors the payload, the public API exposes only what is useful.
 
 ## §3 — Native bridges
 
@@ -264,7 +278,7 @@ Publication is irreversible: a version can be retracted within 7 days but
 remains downloadable, and the package name is permanently claimed.
 
 **1. Credential exposure.** `example/lib/app.dart:21` contains a working API
-key (`QlxfSAH68t9q0locTuuRXQJpRFFOXMVx`; the adjacent comment confirms it is
+key (`<COMMITTED-KEY-REDACTED-ROTATE-ON-BACKEND>`; the adjacent comment confirms it is
 valid). `pub publish` includes `example/` by design.
 
 - *This spec's work:* remove the literal, read it from `--dart-define`, document
