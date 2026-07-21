@@ -1,0 +1,4 @@
+# Internal SDD planning/spec artifacts — not for package consumers.
+# These also referenced a committed (now rotated) API key; keep them off pub.dev.
+docs/superpowers/
+.superpowers/

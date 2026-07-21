@@ -14,11 +14,13 @@ class ScanMyNetApp extends StatefulWidget {
 }
 
 class _ScanMyNetAppState extends State<ScanMyNetApp> {
-  // Credentials provided by ScanMyNet — supply your own values here.
-  // Default dev API key (same one the native debug apps use against the dev backend);
-  // without a valid apiKey the report request returns 401.
+  // Supply your ScanMyNet credentials at build time:
+  //   flutter run --dart-define=SMN_API_KEY=your-key
+  // The report request returns 401 without a valid key.
+  static const _apiKey = String.fromEnvironment('SMN_API_KEY');
+
   late final ScanViewModel _viewModel = ScanViewModel(
-    apiKey: 'QlxfSAH68t9q0locTuuRXQJpRFFOXMVx',
+    apiKey: _apiKey,
     requestKey: 'QA-KEY',
     appName: 'ScanMyNet',
     environment: ScanEnvironment.dev,
