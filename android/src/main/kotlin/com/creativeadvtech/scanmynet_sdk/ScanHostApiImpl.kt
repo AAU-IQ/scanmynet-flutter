@@ -46,6 +46,14 @@ class ScanHostApiImpl(
     private var frontendBaseUrl: String = (null as ScanEnvironment?).toFrontendUrl()
 
     override fun configure(config: ScanConfig) {
+        val incoming = config.schemaVersion
+        if (incoming != null && incoming != SCHEMA_VERSION) {
+            throw IllegalStateException(
+                "Pigeon schema mismatch: Dart sent v$incoming, native expects " +
+                    "v$SCHEMA_VERSION. Codecs are positional — a mismatched pair " +
+                    "misreads fields silently. Rebuild the plugin's native binaries.",
+            )
+        }
         frontendBaseUrl = config.environment.toFrontendUrl()
         networkScan = NetworkScan.builder()
             .context(context)
@@ -119,6 +127,9 @@ class ScanHostApiImpl(
         reportUrl = buildReportUrl(data),
         status = result?.status?.toPigeon() ?: ScanResultStatus.SUCCESS,
         totalDurationMs = result?.duration,
+        reportId = report_id,
+        customerId = customer_id,
+        report = report?.toPigeon(),
     )
 
     /**
@@ -169,5 +180,10 @@ class ScanHostApiImpl(
         NetworkScanStep.LAN_DISCOVERY -> ScanStep.LAN_DISCOVERY
         NetworkScanStep.ADDITIONAL_DATA -> ScanStep.ADDITIONAL_DATA
         NetworkScanStep.RESULT_SUBMISSION -> ScanStep.RESULT_SUBMISSION
+    }
+
+    companion object {
+        /** Must match `.schemaVersion` in Dart. */
+        const val SCHEMA_VERSION = 2L
     }
 }

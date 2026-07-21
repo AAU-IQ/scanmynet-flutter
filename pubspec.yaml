@@ -1,7 +1,8 @@
 name: scanmynet_sdk
-description: "A new Flutter plugin project."
-version: 0.0.1
-homepage:
+description: "Flutter plugin for the ScanMyNet network diagnostics SDK — runs a full home-network scan and returns a structured report."
+version: 1.0.0
+homepage: https://bitbucket.org/creativeadvtech/scanmynet_sdk
+repository: https://bitbucket.org/creativeadvtech/scanmynet_sdk
 
 environment:
   sdk: ^3.12.0
@@ -11,6 +12,7 @@ dependencies:
   flutter:
     sdk: flutter
   plugin_platform_interface: ^2.0.2
+  meta: ^1.16.0
 
 dev_dependencies:
   flutter_test:

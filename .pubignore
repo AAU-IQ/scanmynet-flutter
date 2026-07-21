@@ -1,0 +1,11 @@
+# Agent scratch — not for package consumers.
+.superpowers/
+
+# Transient staging area for verifying a Bitrise framework build. Never ship it.
+ios_sdk_ignore_for_github_for_test_and_check_only/
+
+# A .pubignore OVERRIDES .gitignore in this directory, so the build artifacts
+# normally excluded by .gitignore must be repeated here — otherwise pub bundles
+# them (e.g. build/test_cache holds ~90 MB of Dart compilation cache).
+build/
+.dart_tool/

@@ -4,14 +4,15 @@
 #
 Pod::Spec.new do |s|
   s.name             = 'scanmynet_sdk'
-  s.version          = '0.0.1'
-  s.summary          = 'A new Flutter plugin project.'
+  s.version          = '1.0.0'
+  s.summary          = 'Flutter plugin for the ScanMyNet network diagnostics SDK.'
   s.description      = <<-DESC
-A new Flutter plugin project.
+Runs a full home-network scan through the native ScanMyNet SDK and returns a
+structured diagnostics report to Flutter.
                        DESC
-  s.homepage         = 'http://example.com'
+  s.homepage         = 'https://bitbucket.org/creativeadvtech/scanmynet_sdk'
   s.license          = { :file => '../LICENSE' }
-  s.author           = { 'Your Company' => 'email@example.com' }
+  s.author           = { 'AAU' => 'info@aau.iq' }
   s.source           = { :path => '.' }
   s.source_files = 'scanmynet_sdk/Sources/scanmynet_sdk/**/*'
   s.dependency 'Flutter'

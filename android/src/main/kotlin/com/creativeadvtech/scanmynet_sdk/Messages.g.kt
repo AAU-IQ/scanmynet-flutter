@@ -196,11 +196,10 @@ class FlutterError (
 ) : RuntimeException()
 
 /**
- * iOS `ScanMyNetConfiguration.Environment`. Android has no environment enum —
- * it takes an explicit [ScanConfig.baseUrl] string instead.
- * TODO(confirm): how iOS `environment` maps to an Android baseUrl, and whether
- * the host passes baseUrl OR environment. Native code maps explicitly; do NOT
- * rely on index parity.
+ * Selects the backend both platforms talk to. iOS maps it onto
+ * `ScanMyNetConfiguration.Environment`; Android maps it to the matching
+ * Retrofit base URL internally. Null defaults to [ScanEnvironment.production].
+ * Native code maps explicitly by case — do NOT rely on index parity.
  */
 enum class ScanEnvironment(val raw: Int) {
   STAGING(0),
@@ -296,18 +295,19 @@ data class ScanConfig (
   val userKey: String? = null,
   /** Android `AppName.appName` (ReportParamDto.app). iOS: not used. */
   val appName: String? = null,
-  /**
-   * Android `BaseUrl.baseUrl` (Retrofit base). iOS selects backend via
-   * [environment] instead.
-   */
-  val baseUrl: String? = null,
   /** iOS `ScanMyNetConfiguration.requestKey`. Android: not used. */
   val requestKey: String? = null,
   /**
-   * iOS only. If null on iOS, native defaults to [ScanEnvironment.production].
-   * TODO(confirm) default environment.
+   * Backend selector, honoured on both platforms. Null defaults to
+   * [ScanEnvironment.production].
    */
-  val environment: ScanEnvironment? = null
+  val environment: ScanEnvironment? = null,
+  /**
+   * Pigeon schema version, set by the Dart layer. Native compares it against
+   * its own compiled-in constant and throws on mismatch — codecs are
+   * positional, so a skewed pair misreads fields silently rather than failing.
+   */
+  val schemaVersion: Long? = null
 )
  {
   companion object {
@@ -315,10 +315,10 @@ data class ScanConfig (
       val apiKey = pigeonVar_list[0] as String
       val userKey = pigeonVar_list[1] as String?
       val appName = pigeonVar_list[2] as String?
-      val baseUrl = pigeonVar_list[3] as String?
-      val requestKey = pigeonVar_list[4] as String?
-      val environment = pigeonVar_list[5] as ScanEnvironment?
-      return ScanConfig(apiKey, userKey, appName, baseUrl, requestKey, environment)
+      val requestKey = pigeonVar_list[3] as String?
+      val environment = pigeonVar_list[4] as ScanEnvironment?
+      val schemaVersion = pigeonVar_list[5] as Long?
+      return ScanConfig(apiKey, userKey, appName, requestKey, environment, schemaVersion)
     }
   }
   fun toList(): List<Any?> {
@@ -326,9 +326,9 @@ data class ScanConfig (
       apiKey,
       userKey,
       appName,
-      baseUrl,
       requestKey,
       environment,
+      schemaVersion,
     )
   }
   override fun equals(other: Any?): Boolean {
@@ -339,7 +339,7 @@ data class ScanConfig (
       return true
     }
     val other = other as ScanConfig
-    return MessagesPigeonUtils.deepEquals(this.apiKey, other.apiKey) && MessagesPigeonUtils.deepEquals(this.userKey, other.userKey) && MessagesPigeonUtils.deepEquals(this.appName, other.appName) && MessagesPigeonUtils.deepEquals(this.baseUrl, other.baseUrl) && MessagesPigeonUtils.deepEquals(this.requestKey, other.requestKey) && MessagesPigeonUtils.deepEquals(this.environment, other.environment)
+    return MessagesPigeonUtils.deepEquals(this.apiKey, other.apiKey) && MessagesPigeonUtils.deepEquals(this.userKey, other.userKey) && MessagesPigeonUtils.deepEquals(this.appName, other.appName) && MessagesPigeonUtils.deepEquals(this.requestKey, other.requestKey) && MessagesPigeonUtils.deepEquals(this.environment, other.environment) && MessagesPigeonUtils.deepEquals(this.schemaVersion, other.schemaVersion)
   }
 
   override fun hashCode(): Int {
@@ -347,9 +347,9 @@ data class ScanConfig (
     result = 31 * result + MessagesPigeonUtils.deepHash(this.apiKey)
     result = 31 * result + MessagesPigeonUtils.deepHash(this.userKey)
     result = 31 * result + MessagesPigeonUtils.deepHash(this.appName)
-    result = 31 * result + MessagesPigeonUtils.deepHash(this.baseUrl)
     result = 31 * result + MessagesPigeonUtils.deepHash(this.requestKey)
     result = 31 * result + MessagesPigeonUtils.deepHash(this.environment)
+    result = 31 * result + MessagesPigeonUtils.deepHash(this.schemaVersion)
     return result
   }
 }
@@ -437,7 +437,16 @@ data class ScanResult (
   /** Android `NetworkScanResult.status`. iOS only emits on success -> SUCCESS. */
   val status: ScanResultStatus? = null,
   /** Android `NetworkScanResult.duration` (total ms). Null on iOS. */
-  val totalDurationMs: Long? = null
+  val totalDurationMs: Long? = null,
+  /**
+   * Backend report identifier. Lets you correlate a scan without parsing the
+   * JWT in [reportUrl]. Null on backends predating the payload.
+   */
+  val reportId: String? = null,
+  /** Subscriber/customer key the report was filed under. */
+  val customerId: String? = null,
+  /** The full report payload. Null when the backend omitted it. */
+  val report: ReportData? = null
 )
  {
   companion object {
@@ -445,7 +454,10 @@ data class ScanResult (
       val reportUrl = pigeonVar_list[0] as String
       val status = pigeonVar_list[1] as ScanResultStatus?
       val totalDurationMs = pigeonVar_list[2] as Long?
-      return ScanResult(reportUrl, status, totalDurationMs)
+      val reportId = pigeonVar_list[3] as String?
+      val customerId = pigeonVar_list[4] as String?
+      val report = pigeonVar_list[5] as ReportData?
+      return ScanResult(reportUrl, status, totalDurationMs, reportId, customerId, report)
     }
   }
   fun toList(): List<Any?> {
@@ -453,6 +465,9 @@ data class ScanResult (
       reportUrl,
       status,
       totalDurationMs,
+      reportId,
+      customerId,
+      report,
     )
   }
   override fun equals(other: Any?): Boolean {
@@ -463,7 +478,7 @@ data class ScanResult (
       return true
     }
     val other = other as ScanResult
-    return MessagesPigeonUtils.deepEquals(this.reportUrl, other.reportUrl) && MessagesPigeonUtils.deepEquals(this.status, other.status) && MessagesPigeonUtils.deepEquals(this.totalDurationMs, other.totalDurationMs)
+    return MessagesPigeonUtils.deepEquals(this.reportUrl, other.reportUrl) && MessagesPigeonUtils.deepEquals(this.status, other.status) && MessagesPigeonUtils.deepEquals(this.totalDurationMs, other.totalDurationMs) && MessagesPigeonUtils.deepEquals(this.reportId, other.reportId) && MessagesPigeonUtils.deepEquals(this.customerId, other.customerId) && MessagesPigeonUtils.deepEquals(this.report, other.report)
   }
 
   override fun hashCode(): Int {
@@ -471,6 +486,9 @@ data class ScanResult (
     result = 31 * result + MessagesPigeonUtils.deepHash(this.reportUrl)
     result = 31 * result + MessagesPigeonUtils.deepHash(this.status)
     result = 31 * result + MessagesPigeonUtils.deepHash(this.totalDurationMs)
+    result = 31 * result + MessagesPigeonUtils.deepHash(this.reportId)
+    result = 31 * result + MessagesPigeonUtils.deepHash(this.customerId)
+    result = 31 * result + MessagesPigeonUtils.deepHash(this.report)
     return result
   }
 }
@@ -572,6 +590,1540 @@ data class ScanReport (
     return result
   }
 }
+
+/**
+ * A `{quality, color}` pair. NOT the same shape as
+ * [InternetSpeed.connectionQuality], which is a single-entry map.
+ *
+ * Generated class from Pigeon that represents data sent in messages.
+ */
+data class QualityColor (
+  val quality: String? = null,
+  val color: String? = null
+)
+ {
+  companion object {
+    fun fromList(pigeonVar_list: List<Any?>): QualityColor {
+      val quality = pigeonVar_list[0] as String?
+      val color = pigeonVar_list[1] as String?
+      return QualityColor(quality, color)
+    }
+  }
+  fun toList(): List<Any?> {
+    return listOf(
+      quality,
+      color,
+    )
+  }
+  override fun equals(other: Any?): Boolean {
+    if (other == null || other.javaClass != javaClass) {
+      return false
+    }
+    if (this === other) {
+      return true
+    }
+    val other = other as QualityColor
+    return MessagesPigeonUtils.deepEquals(this.quality, other.quality) && MessagesPigeonUtils.deepEquals(this.color, other.color)
+  }
+
+  override fun hashCode(): Int {
+    var result = javaClass.hashCode()
+    result = 31 * result + MessagesPigeonUtils.deepHash(this.quality)
+    result = 31 * result + MessagesPigeonUtils.deepHash(this.color)
+    return result
+  }
+}
+
+/**
+ * A `{status, color}` roll-up pair.
+ *
+ * Generated class from Pigeon that represents data sent in messages.
+ */
+data class StatusColor (
+  val status: String? = null,
+  val color: String? = null
+)
+ {
+  companion object {
+    fun fromList(pigeonVar_list: List<Any?>): StatusColor {
+      val status = pigeonVar_list[0] as String?
+      val color = pigeonVar_list[1] as String?
+      return StatusColor(status, color)
+    }
+  }
+  fun toList(): List<Any?> {
+    return listOf(
+      status,
+      color,
+    )
+  }
+  override fun equals(other: Any?): Boolean {
+    if (other == null || other.javaClass != javaClass) {
+      return false
+    }
+    if (this === other) {
+      return true
+    }
+    val other = other as StatusColor
+    return MessagesPigeonUtils.deepEquals(this.status, other.status) && MessagesPigeonUtils.deepEquals(this.color, other.color)
+  }
+
+  override fun hashCode(): Int {
+    var result = javaClass.hashCode()
+    result = 31 * result + MessagesPigeonUtils.deepHash(this.status)
+    result = 31 * result + MessagesPigeonUtils.deepHash(this.color)
+    return result
+  }
+}
+
+/**
+ * A report alert. [alertType] is a String, never an enum — new members ship
+ * without an API version bump. Branch on [alertType], never [alertValue].
+ *
+ * Generated class from Pigeon that represents data sent in messages.
+ */
+data class ReportAlert (
+  val alertType: String? = null,
+  val alertValue: String? = null
+)
+ {
+  companion object {
+    fun fromList(pigeonVar_list: List<Any?>): ReportAlert {
+      val alertType = pigeonVar_list[0] as String?
+      val alertValue = pigeonVar_list[1] as String?
+      return ReportAlert(alertType, alertValue)
+    }
+  }
+  fun toList(): List<Any?> {
+    return listOf(
+      alertType,
+      alertValue,
+    )
+  }
+  override fun equals(other: Any?): Boolean {
+    if (other == null || other.javaClass != javaClass) {
+      return false
+    }
+    if (this === other) {
+      return true
+    }
+    val other = other as ReportAlert
+    return MessagesPigeonUtils.deepEquals(this.alertType, other.alertType) && MessagesPigeonUtils.deepEquals(this.alertValue, other.alertValue)
+  }
+
+  override fun hashCode(): Int {
+    var result = javaClass.hashCode()
+    result = 31 * result + MessagesPigeonUtils.deepHash(this.alertType)
+    result = 31 * result + MessagesPigeonUtils.deepHash(this.alertValue)
+    return result
+  }
+}
+
+/**
+ * A report recommendation. Field names differ from [ReportAlert]:
+ * actions use `action_*`, alerts use `alert_*`.
+ *
+ * Generated class from Pigeon that represents data sent in messages.
+ */
+data class ReportAction (
+  val actionType: String? = null,
+  val actionValue: String? = null
+)
+ {
+  companion object {
+    fun fromList(pigeonVar_list: List<Any?>): ReportAction {
+      val actionType = pigeonVar_list[0] as String?
+      val actionValue = pigeonVar_list[1] as String?
+      return ReportAction(actionType, actionValue)
+    }
+  }
+  fun toList(): List<Any?> {
+    return listOf(
+      actionType,
+      actionValue,
+    )
+  }
+  override fun equals(other: Any?): Boolean {
+    if (other == null || other.javaClass != javaClass) {
+      return false
+    }
+    if (this === other) {
+      return true
+    }
+    val other = other as ReportAction
+    return MessagesPigeonUtils.deepEquals(this.actionType, other.actionType) && MessagesPigeonUtils.deepEquals(this.actionValue, other.actionValue)
+  }
+
+  override fun hashCode(): Int {
+    var result = javaClass.hashCode()
+    result = 31 * result + MessagesPigeonUtils.deepHash(this.actionType)
+    result = 31 * result + MessagesPigeonUtils.deepHash(this.actionValue)
+    return result
+  }
+}
+
+/** Generated class from Pigeon that represents data sent in messages. */
+data class CustomerDetails (
+  val key: String? = null,
+  val lastKnownPublicIp: String? = null,
+  /** Capitalised keys (`Country`, `Region`, `ISP`). Passed through verbatim. */
+  val lastKnownPublicIpDetails: Map<String, String>? = null
+)
+ {
+  companion object {
+    fun fromList(pigeonVar_list: List<Any?>): CustomerDetails {
+      val key = pigeonVar_list[0] as String?
+      val lastKnownPublicIp = pigeonVar_list[1] as String?
+      val lastKnownPublicIpDetails = pigeonVar_list[2] as Map<String, String>?
+      return CustomerDetails(key, lastKnownPublicIp, lastKnownPublicIpDetails)
+    }
+  }
+  fun toList(): List<Any?> {
+    return listOf(
+      key,
+      lastKnownPublicIp,
+      lastKnownPublicIpDetails,
+    )
+  }
+  override fun equals(other: Any?): Boolean {
+    if (other == null || other.javaClass != javaClass) {
+      return false
+    }
+    if (this === other) {
+      return true
+    }
+    val other = other as CustomerDetails
+    return MessagesPigeonUtils.deepEquals(this.key, other.key) && MessagesPigeonUtils.deepEquals(this.lastKnownPublicIp, other.lastKnownPublicIp) && MessagesPigeonUtils.deepEquals(this.lastKnownPublicIpDetails, other.lastKnownPublicIpDetails)
+  }
+
+  override fun hashCode(): Int {
+    var result = javaClass.hashCode()
+    result = 31 * result + MessagesPigeonUtils.deepHash(this.key)
+    result = 31 * result + MessagesPigeonUtils.deepHash(this.lastKnownPublicIp)
+    result = 31 * result + MessagesPigeonUtils.deepHash(this.lastKnownPublicIpDetails)
+    return result
+  }
+}
+
+/** Generated class from Pigeon that represents data sent in messages. */
+data class SdkDetails (
+  val start: String? = null,
+  /** Seconds. */
+  val duration: Long? = null,
+  val platform: String? = null,
+  val app: String? = null,
+  val routeThisSdk: String? = null,
+  val userPublicUpAddress: String? = null,
+  val gpsLatitude: Double? = null,
+  val gpsLongitude: Double? = null
+)
+ {
+  companion object {
+    fun fromList(pigeonVar_list: List<Any?>): SdkDetails {
+      val start = pigeonVar_list[0] as String?
+      val duration = pigeonVar_list[1] as Long?
+      val platform = pigeonVar_list[2] as String?
+      val app = pigeonVar_list[3] as String?
+      val routeThisSdk = pigeonVar_list[4] as String?
+      val userPublicUpAddress = pigeonVar_list[5] as String?
+      val gpsLatitude = pigeonVar_list[6] as Double?
+      val gpsLongitude = pigeonVar_list[7] as Double?
+      return SdkDetails(start, duration, platform, app, routeThisSdk, userPublicUpAddress, gpsLatitude, gpsLongitude)
+    }
+  }
+  fun toList(): List<Any?> {
+    return listOf(
+      start,
+      duration,
+      platform,
+      app,
+      routeThisSdk,
+      userPublicUpAddress,
+      gpsLatitude,
+      gpsLongitude,
+    )
+  }
+  override fun equals(other: Any?): Boolean {
+    if (other == null || other.javaClass != javaClass) {
+      return false
+    }
+    if (this === other) {
+      return true
+    }
+    val other = other as SdkDetails
+    return MessagesPigeonUtils.deepEquals(this.start, other.start) && MessagesPigeonUtils.deepEquals(this.duration, other.duration) && MessagesPigeonUtils.deepEquals(this.platform, other.platform) && MessagesPigeonUtils.deepEquals(this.app, other.app) && MessagesPigeonUtils.deepEquals(this.routeThisSdk, other.routeThisSdk) && MessagesPigeonUtils.deepEquals(this.userPublicUpAddress, other.userPublicUpAddress) && MessagesPigeonUtils.deepEquals(this.gpsLatitude, other.gpsLatitude) && MessagesPigeonUtils.deepEquals(this.gpsLongitude, other.gpsLongitude)
+  }
+
+  override fun hashCode(): Int {
+    var result = javaClass.hashCode()
+    result = 31 * result + MessagesPigeonUtils.deepHash(this.start)
+    result = 31 * result + MessagesPigeonUtils.deepHash(this.duration)
+    result = 31 * result + MessagesPigeonUtils.deepHash(this.platform)
+    result = 31 * result + MessagesPigeonUtils.deepHash(this.app)
+    result = 31 * result + MessagesPigeonUtils.deepHash(this.routeThisSdk)
+    result = 31 * result + MessagesPigeonUtils.deepHash(this.userPublicUpAddress)
+    result = 31 * result + MessagesPigeonUtils.deepHash(this.gpsLatitude)
+    result = 31 * result + MessagesPigeonUtils.deepHash(this.gpsLongitude)
+    return result
+  }
+}
+
+/**
+ * Mbps.
+ *
+ * Generated class from Pigeon that represents data sent in messages.
+ */
+data class RouterUsage (
+  val networkUsageDown: Double? = null,
+  val networkUsageUp: Double? = null
+)
+ {
+  companion object {
+    fun fromList(pigeonVar_list: List<Any?>): RouterUsage {
+      val networkUsageDown = pigeonVar_list[0] as Double?
+      val networkUsageUp = pigeonVar_list[1] as Double?
+      return RouterUsage(networkUsageDown, networkUsageUp)
+    }
+  }
+  fun toList(): List<Any?> {
+    return listOf(
+      networkUsageDown,
+      networkUsageUp,
+    )
+  }
+  override fun equals(other: Any?): Boolean {
+    if (other == null || other.javaClass != javaClass) {
+      return false
+    }
+    if (this === other) {
+      return true
+    }
+    val other = other as RouterUsage
+    return MessagesPigeonUtils.deepEquals(this.networkUsageDown, other.networkUsageDown) && MessagesPigeonUtils.deepEquals(this.networkUsageUp, other.networkUsageUp)
+  }
+
+  override fun hashCode(): Int {
+    var result = javaClass.hashCode()
+    result = 31 * result + MessagesPigeonUtils.deepHash(this.networkUsageDown)
+    result = 31 * result + MessagesPigeonUtils.deepHash(this.networkUsageUp)
+    return result
+  }
+}
+
+/** Generated class from Pigeon that represents data sent in messages. */
+data class InternetSpeed (
+  val networkSpeedDown: Double? = null,
+  val networkSpeedUp: Double? = null,
+  val currentNegotiatedLinkSpeed: Double? = null,
+  val maximumLinkSupportedByPhone: String? = null,
+  val networkSpeedUpSegments: List<Double>? = null,
+  val networkSpeedDownSegments: List<Double>? = null,
+  /**
+   * SINGLE-ENTRY map keyed by the quality label, e.g. `{"good": "green"}`.
+   * NOT a [QualityColor] struct.
+   */
+  val connectionQuality: Map<String, String>? = null
+)
+ {
+  companion object {
+    fun fromList(pigeonVar_list: List<Any?>): InternetSpeed {
+      val networkSpeedDown = pigeonVar_list[0] as Double?
+      val networkSpeedUp = pigeonVar_list[1] as Double?
+      val currentNegotiatedLinkSpeed = pigeonVar_list[2] as Double?
+      val maximumLinkSupportedByPhone = pigeonVar_list[3] as String?
+      val networkSpeedUpSegments = pigeonVar_list[4] as List<Double>?
+      val networkSpeedDownSegments = pigeonVar_list[5] as List<Double>?
+      val connectionQuality = pigeonVar_list[6] as Map<String, String>?
+      return InternetSpeed(networkSpeedDown, networkSpeedUp, currentNegotiatedLinkSpeed, maximumLinkSupportedByPhone, networkSpeedUpSegments, networkSpeedDownSegments, connectionQuality)
+    }
+  }
+  fun toList(): List<Any?> {
+    return listOf(
+      networkSpeedDown,
+      networkSpeedUp,
+      currentNegotiatedLinkSpeed,
+      maximumLinkSupportedByPhone,
+      networkSpeedUpSegments,
+      networkSpeedDownSegments,
+      connectionQuality,
+    )
+  }
+  override fun equals(other: Any?): Boolean {
+    if (other == null || other.javaClass != javaClass) {
+      return false
+    }
+    if (this === other) {
+      return true
+    }
+    val other = other as InternetSpeed
+    return MessagesPigeonUtils.deepEquals(this.networkSpeedDown, other.networkSpeedDown) && MessagesPigeonUtils.deepEquals(this.networkSpeedUp, other.networkSpeedUp) && MessagesPigeonUtils.deepEquals(this.currentNegotiatedLinkSpeed, other.currentNegotiatedLinkSpeed) && MessagesPigeonUtils.deepEquals(this.maximumLinkSupportedByPhone, other.maximumLinkSupportedByPhone) && MessagesPigeonUtils.deepEquals(this.networkSpeedUpSegments, other.networkSpeedUpSegments) && MessagesPigeonUtils.deepEquals(this.networkSpeedDownSegments, other.networkSpeedDownSegments) && MessagesPigeonUtils.deepEquals(this.connectionQuality, other.connectionQuality)
+  }
+
+  override fun hashCode(): Int {
+    var result = javaClass.hashCode()
+    result = 31 * result + MessagesPigeonUtils.deepHash(this.networkSpeedDown)
+    result = 31 * result + MessagesPigeonUtils.deepHash(this.networkSpeedUp)
+    result = 31 * result + MessagesPigeonUtils.deepHash(this.currentNegotiatedLinkSpeed)
+    result = 31 * result + MessagesPigeonUtils.deepHash(this.maximumLinkSupportedByPhone)
+    result = 31 * result + MessagesPigeonUtils.deepHash(this.networkSpeedUpSegments)
+    result = 31 * result + MessagesPigeonUtils.deepHash(this.networkSpeedDownSegments)
+    result = 31 * result + MessagesPigeonUtils.deepHash(this.connectionQuality)
+    return result
+  }
+}
+
+/** Generated class from Pigeon that represents data sent in messages. */
+data class ServerConnectivityResult (
+  val name: String? = null,
+  val serverStatus: Boolean? = null
+)
+ {
+  companion object {
+    fun fromList(pigeonVar_list: List<Any?>): ServerConnectivityResult {
+      val name = pigeonVar_list[0] as String?
+      val serverStatus = pigeonVar_list[1] as Boolean?
+      return ServerConnectivityResult(name, serverStatus)
+    }
+  }
+  fun toList(): List<Any?> {
+    return listOf(
+      name,
+      serverStatus,
+    )
+  }
+  override fun equals(other: Any?): Boolean {
+    if (other == null || other.javaClass != javaClass) {
+      return false
+    }
+    if (this === other) {
+      return true
+    }
+    val other = other as ServerConnectivityResult
+    return MessagesPigeonUtils.deepEquals(this.name, other.name) && MessagesPigeonUtils.deepEquals(this.serverStatus, other.serverStatus)
+  }
+
+  override fun hashCode(): Int {
+    var result = javaClass.hashCode()
+    result = 31 * result + MessagesPigeonUtils.deepHash(this.name)
+    result = 31 * result + MessagesPigeonUtils.deepHash(this.serverStatus)
+    return result
+  }
+}
+
+/** Generated class from Pigeon that represents data sent in messages. */
+data class PortCheckResult (
+  val port: Long? = null,
+  val portType: String? = null,
+  val description: String? = null,
+  val portStatus: Boolean? = null
+)
+ {
+  companion object {
+    fun fromList(pigeonVar_list: List<Any?>): PortCheckResult {
+      val port = pigeonVar_list[0] as Long?
+      val portType = pigeonVar_list[1] as String?
+      val description = pigeonVar_list[2] as String?
+      val portStatus = pigeonVar_list[3] as Boolean?
+      return PortCheckResult(port, portType, description, portStatus)
+    }
+  }
+  fun toList(): List<Any?> {
+    return listOf(
+      port,
+      portType,
+      description,
+      portStatus,
+    )
+  }
+  override fun equals(other: Any?): Boolean {
+    if (other == null || other.javaClass != javaClass) {
+      return false
+    }
+    if (this === other) {
+      return true
+    }
+    val other = other as PortCheckResult
+    return MessagesPigeonUtils.deepEquals(this.port, other.port) && MessagesPigeonUtils.deepEquals(this.portType, other.portType) && MessagesPigeonUtils.deepEquals(this.description, other.description) && MessagesPigeonUtils.deepEquals(this.portStatus, other.portStatus)
+  }
+
+  override fun hashCode(): Int {
+    var result = javaClass.hashCode()
+    result = 31 * result + MessagesPigeonUtils.deepHash(this.port)
+    result = 31 * result + MessagesPigeonUtils.deepHash(this.portType)
+    result = 31 * result + MessagesPigeonUtils.deepHash(this.description)
+    result = 31 * result + MessagesPigeonUtils.deepHash(this.portStatus)
+    return result
+  }
+}
+
+/** Generated class from Pigeon that represents data sent in messages. */
+data class DnsLookupResult (
+  val dnsIp: String? = null,
+  val alias: String? = null,
+  val reverseDns: String? = null
+)
+ {
+  companion object {
+    fun fromList(pigeonVar_list: List<Any?>): DnsLookupResult {
+      val dnsIp = pigeonVar_list[0] as String?
+      val alias = pigeonVar_list[1] as String?
+      val reverseDns = pigeonVar_list[2] as String?
+      return DnsLookupResult(dnsIp, alias, reverseDns)
+    }
+  }
+  fun toList(): List<Any?> {
+    return listOf(
+      dnsIp,
+      alias,
+      reverseDns,
+    )
+  }
+  override fun equals(other: Any?): Boolean {
+    if (other == null || other.javaClass != javaClass) {
+      return false
+    }
+    if (this === other) {
+      return true
+    }
+    val other = other as DnsLookupResult
+    return MessagesPigeonUtils.deepEquals(this.dnsIp, other.dnsIp) && MessagesPigeonUtils.deepEquals(this.alias, other.alias) && MessagesPigeonUtils.deepEquals(this.reverseDns, other.reverseDns)
+  }
+
+  override fun hashCode(): Int {
+    var result = javaClass.hashCode()
+    result = 31 * result + MessagesPigeonUtils.deepHash(this.dnsIp)
+    result = 31 * result + MessagesPigeonUtils.deepHash(this.alias)
+    result = 31 * result + MessagesPigeonUtils.deepHash(this.reverseDns)
+    return result
+  }
+}
+
+/**
+ * The three entries do NOT share a type: [dnsLookup] is a list of alias
+ * strings while its siblings are objects.
+ *
+ * Generated class from Pigeon that represents data sent in messages.
+ */
+data class ConnectivitySummary (
+  val serverConnectivity: StatusColor? = null,
+  val portChecks: StatusColor? = null,
+  val dnsLookup: List<String>? = null
+)
+ {
+  companion object {
+    fun fromList(pigeonVar_list: List<Any?>): ConnectivitySummary {
+      val serverConnectivity = pigeonVar_list[0] as StatusColor?
+      val portChecks = pigeonVar_list[1] as StatusColor?
+      val dnsLookup = pigeonVar_list[2] as List<String>?
+      return ConnectivitySummary(serverConnectivity, portChecks, dnsLookup)
+    }
+  }
+  fun toList(): List<Any?> {
+    return listOf(
+      serverConnectivity,
+      portChecks,
+      dnsLookup,
+    )
+  }
+  override fun equals(other: Any?): Boolean {
+    if (other == null || other.javaClass != javaClass) {
+      return false
+    }
+    if (this === other) {
+      return true
+    }
+    val other = other as ConnectivitySummary
+    return MessagesPigeonUtils.deepEquals(this.serverConnectivity, other.serverConnectivity) && MessagesPigeonUtils.deepEquals(this.portChecks, other.portChecks) && MessagesPigeonUtils.deepEquals(this.dnsLookup, other.dnsLookup)
+  }
+
+  override fun hashCode(): Int {
+    var result = javaClass.hashCode()
+    result = 31 * result + MessagesPigeonUtils.deepHash(this.serverConnectivity)
+    result = 31 * result + MessagesPigeonUtils.deepHash(this.portChecks)
+    result = 31 * result + MessagesPigeonUtils.deepHash(this.dnsLookup)
+    return result
+  }
+}
+
+/**
+ * Firewall / client isolation / multicast. [value] is the STRING
+ * `"Enabled"` / `"Disabled"`, never a bool.
+ *
+ * Generated class from Pigeon that represents data sent in messages.
+ */
+data class ToggleState (
+  val value: String? = null,
+  val color: String? = null,
+  val status: String? = null,
+  /** Single alert object, not a list. Null when no alert applies. */
+  val alert: ReportAlert? = null
+)
+ {
+  companion object {
+    fun fromList(pigeonVar_list: List<Any?>): ToggleState {
+      val value = pigeonVar_list[0] as String?
+      val color = pigeonVar_list[1] as String?
+      val status = pigeonVar_list[2] as String?
+      val alert = pigeonVar_list[3] as ReportAlert?
+      return ToggleState(value, color, status, alert)
+    }
+  }
+  fun toList(): List<Any?> {
+    return listOf(
+      value,
+      color,
+      status,
+      alert,
+    )
+  }
+  override fun equals(other: Any?): Boolean {
+    if (other == null || other.javaClass != javaClass) {
+      return false
+    }
+    if (this === other) {
+      return true
+    }
+    val other = other as ToggleState
+    return MessagesPigeonUtils.deepEquals(this.value, other.value) && MessagesPigeonUtils.deepEquals(this.color, other.color) && MessagesPigeonUtils.deepEquals(this.status, other.status) && MessagesPigeonUtils.deepEquals(this.alert, other.alert)
+  }
+
+  override fun hashCode(): Int {
+    var result = javaClass.hashCode()
+    result = 31 * result + MessagesPigeonUtils.deepHash(this.value)
+    result = 31 * result + MessagesPigeonUtils.deepHash(this.color)
+    result = 31 * result + MessagesPigeonUtils.deepHash(this.status)
+    result = 31 * result + MessagesPigeonUtils.deepHash(this.alert)
+    return result
+  }
+}
+
+/** Generated class from Pigeon that represents data sent in messages. */
+data class BasicConnectivity (
+  val ipAssignedViaDhcp: Boolean? = null,
+  val serverConnectivity: List<ServerConnectivityResult>? = null,
+  val portChecks: List<PortCheckResult>? = null,
+  val dnsLookup: List<DnsLookupResult>? = null,
+  val summary: ConnectivitySummary? = null,
+  /** Blocked server names (payload key `servers`). */
+  val blockedServers: List<String>? = null,
+  /** Blocked UDP ports (payload key `udp`). */
+  val blockedUdpPorts: List<Long>? = null,
+  /** Blocked TCP ports (payload key `tcp`). */
+  val blockedTcpPorts: List<Long>? = null,
+  val firewall: ToggleState? = null,
+  val clientIsolation: ToggleState? = null,
+  val multicast: ToggleState? = null
+)
+ {
+  companion object {
+    fun fromList(pigeonVar_list: List<Any?>): BasicConnectivity {
+      val ipAssignedViaDhcp = pigeonVar_list[0] as Boolean?
+      val serverConnectivity = pigeonVar_list[1] as List<ServerConnectivityResult>?
+      val portChecks = pigeonVar_list[2] as List<PortCheckResult>?
+      val dnsLookup = pigeonVar_list[3] as List<DnsLookupResult>?
+      val summary = pigeonVar_list[4] as ConnectivitySummary?
+      val blockedServers = pigeonVar_list[5] as List<String>?
+      val blockedUdpPorts = pigeonVar_list[6] as List<Long>?
+      val blockedTcpPorts = pigeonVar_list[7] as List<Long>?
+      val firewall = pigeonVar_list[8] as ToggleState?
+      val clientIsolation = pigeonVar_list[9] as ToggleState?
+      val multicast = pigeonVar_list[10] as ToggleState?
+      return BasicConnectivity(ipAssignedViaDhcp, serverConnectivity, portChecks, dnsLookup, summary, blockedServers, blockedUdpPorts, blockedTcpPorts, firewall, clientIsolation, multicast)
+    }
+  }
+  fun toList(): List<Any?> {
+    return listOf(
+      ipAssignedViaDhcp,
+      serverConnectivity,
+      portChecks,
+      dnsLookup,
+      summary,
+      blockedServers,
+      blockedUdpPorts,
+      blockedTcpPorts,
+      firewall,
+      clientIsolation,
+      multicast,
+    )
+  }
+  override fun equals(other: Any?): Boolean {
+    if (other == null || other.javaClass != javaClass) {
+      return false
+    }
+    if (this === other) {
+      return true
+    }
+    val other = other as BasicConnectivity
+    return MessagesPigeonUtils.deepEquals(this.ipAssignedViaDhcp, other.ipAssignedViaDhcp) && MessagesPigeonUtils.deepEquals(this.serverConnectivity, other.serverConnectivity) && MessagesPigeonUtils.deepEquals(this.portChecks, other.portChecks) && MessagesPigeonUtils.deepEquals(this.dnsLookup, other.dnsLookup) && MessagesPigeonUtils.deepEquals(this.summary, other.summary) && MessagesPigeonUtils.deepEquals(this.blockedServers, other.blockedServers) && MessagesPigeonUtils.deepEquals(this.blockedUdpPorts, other.blockedUdpPorts) && MessagesPigeonUtils.deepEquals(this.blockedTcpPorts, other.blockedTcpPorts) && MessagesPigeonUtils.deepEquals(this.firewall, other.firewall) && MessagesPigeonUtils.deepEquals(this.clientIsolation, other.clientIsolation) && MessagesPigeonUtils.deepEquals(this.multicast, other.multicast)
+  }
+
+  override fun hashCode(): Int {
+    var result = javaClass.hashCode()
+    result = 31 * result + MessagesPigeonUtils.deepHash(this.ipAssignedViaDhcp)
+    result = 31 * result + MessagesPigeonUtils.deepHash(this.serverConnectivity)
+    result = 31 * result + MessagesPigeonUtils.deepHash(this.portChecks)
+    result = 31 * result + MessagesPigeonUtils.deepHash(this.dnsLookup)
+    result = 31 * result + MessagesPigeonUtils.deepHash(this.summary)
+    result = 31 * result + MessagesPigeonUtils.deepHash(this.blockedServers)
+    result = 31 * result + MessagesPigeonUtils.deepHash(this.blockedUdpPorts)
+    result = 31 * result + MessagesPigeonUtils.deepHash(this.blockedTcpPorts)
+    result = 31 * result + MessagesPigeonUtils.deepHash(this.firewall)
+    result = 31 * result + MessagesPigeonUtils.deepHash(this.clientIsolation)
+    result = 31 * result + MessagesPigeonUtils.deepHash(this.multicast)
+    return result
+  }
+}
+
+/**
+ * Third-party (Fing) recognition. [recognition] is an open payload.
+ *
+ * Generated class from Pigeon that represents data sent in messages.
+ */
+data class DeviceRecognition (
+  val mac: String? = null,
+  val recognition: Map<String, Any?>? = null
+)
+ {
+  companion object {
+    fun fromList(pigeonVar_list: List<Any?>): DeviceRecognition {
+      val mac = pigeonVar_list[0] as String?
+      val recognition = pigeonVar_list[1] as Map<String, Any?>?
+      return DeviceRecognition(mac, recognition)
+    }
+  }
+  fun toList(): List<Any?> {
+    return listOf(
+      mac,
+      recognition,
+    )
+  }
+  override fun equals(other: Any?): Boolean {
+    if (other == null || other.javaClass != javaClass) {
+      return false
+    }
+    if (this === other) {
+      return true
+    }
+    val other = other as DeviceRecognition
+    return MessagesPigeonUtils.deepEquals(this.mac, other.mac) && MessagesPigeonUtils.deepEquals(this.recognition, other.recognition)
+  }
+
+  override fun hashCode(): Int {
+    var result = javaClass.hashCode()
+    result = 31 * result + MessagesPigeonUtils.deepHash(this.mac)
+    result = 31 * result + MessagesPigeonUtils.deepHash(this.recognition)
+    return result
+  }
+}
+
+/** Generated class from Pigeon that represents data sent in messages. */
+data class LocalConnectedDevice (
+  val deviceName: String? = null,
+  val deviceIp: String? = null,
+  val deviceMacAddress: String? = null,
+  val manufacturer: String? = null,
+  val packetsDropped: Double? = null,
+  val numPacketsSent: Long? = null,
+  val pingValues: List<Double>? = null,
+  val isSubscriberPhone: Boolean? = null,
+  /** `0` (not null) when [pingValues] is empty. */
+  val averagePingTime: Double? = null,
+  val connectionQualityColor: QualityColor? = null,
+  val isSubscriberRouter: Boolean? = null,
+  /** Null when device recognition did not run. */
+  val deviceDetails: DeviceRecognition? = null
+)
+ {
+  companion object {
+    fun fromList(pigeonVar_list: List<Any?>): LocalConnectedDevice {
+      val deviceName = pigeonVar_list[0] as String?
+      val deviceIp = pigeonVar_list[1] as String?
+      val deviceMacAddress = pigeonVar_list[2] as String?
+      val manufacturer = pigeonVar_list[3] as String?
+      val packetsDropped = pigeonVar_list[4] as Double?
+      val numPacketsSent = pigeonVar_list[5] as Long?
+      val pingValues = pigeonVar_list[6] as List<Double>?
+      val isSubscriberPhone = pigeonVar_list[7] as Boolean?
+      val averagePingTime = pigeonVar_list[8] as Double?
+      val connectionQualityColor = pigeonVar_list[9] as QualityColor?
+      val isSubscriberRouter = pigeonVar_list[10] as Boolean?
+      val deviceDetails = pigeonVar_list[11] as DeviceRecognition?
+      return LocalConnectedDevice(deviceName, deviceIp, deviceMacAddress, manufacturer, packetsDropped, numPacketsSent, pingValues, isSubscriberPhone, averagePingTime, connectionQualityColor, isSubscriberRouter, deviceDetails)
+    }
+  }
+  fun toList(): List<Any?> {
+    return listOf(
+      deviceName,
+      deviceIp,
+      deviceMacAddress,
+      manufacturer,
+      packetsDropped,
+      numPacketsSent,
+      pingValues,
+      isSubscriberPhone,
+      averagePingTime,
+      connectionQualityColor,
+      isSubscriberRouter,
+      deviceDetails,
+    )
+  }
+  override fun equals(other: Any?): Boolean {
+    if (other == null || other.javaClass != javaClass) {
+      return false
+    }
+    if (this === other) {
+      return true
+    }
+    val other = other as LocalConnectedDevice
+    return MessagesPigeonUtils.deepEquals(this.deviceName, other.deviceName) && MessagesPigeonUtils.deepEquals(this.deviceIp, other.deviceIp) && MessagesPigeonUtils.deepEquals(this.deviceMacAddress, other.deviceMacAddress) && MessagesPigeonUtils.deepEquals(this.manufacturer, other.manufacturer) && MessagesPigeonUtils.deepEquals(this.packetsDropped, other.packetsDropped) && MessagesPigeonUtils.deepEquals(this.numPacketsSent, other.numPacketsSent) && MessagesPigeonUtils.deepEquals(this.pingValues, other.pingValues) && MessagesPigeonUtils.deepEquals(this.isSubscriberPhone, other.isSubscriberPhone) && MessagesPigeonUtils.deepEquals(this.averagePingTime, other.averagePingTime) && MessagesPigeonUtils.deepEquals(this.connectionQualityColor, other.connectionQualityColor) && MessagesPigeonUtils.deepEquals(this.isSubscriberRouter, other.isSubscriberRouter) && MessagesPigeonUtils.deepEquals(this.deviceDetails, other.deviceDetails)
+  }
+
+  override fun hashCode(): Int {
+    var result = javaClass.hashCode()
+    result = 31 * result + MessagesPigeonUtils.deepHash(this.deviceName)
+    result = 31 * result + MessagesPigeonUtils.deepHash(this.deviceIp)
+    result = 31 * result + MessagesPigeonUtils.deepHash(this.deviceMacAddress)
+    result = 31 * result + MessagesPigeonUtils.deepHash(this.manufacturer)
+    result = 31 * result + MessagesPigeonUtils.deepHash(this.packetsDropped)
+    result = 31 * result + MessagesPigeonUtils.deepHash(this.numPacketsSent)
+    result = 31 * result + MessagesPigeonUtils.deepHash(this.pingValues)
+    result = 31 * result + MessagesPigeonUtils.deepHash(this.isSubscriberPhone)
+    result = 31 * result + MessagesPigeonUtils.deepHash(this.averagePingTime)
+    result = 31 * result + MessagesPigeonUtils.deepHash(this.connectionQualityColor)
+    result = 31 * result + MessagesPigeonUtils.deepHash(this.isSubscriberRouter)
+    result = 31 * result + MessagesPigeonUtils.deepHash(this.deviceDetails)
+    return result
+  }
+}
+
+/** Generated class from Pigeon that represents data sent in messages. */
+data class CustomerRouterDetails (
+  val make: String? = null,
+  val model: String? = null,
+  val encryption: String? = null,
+  val protocols: String? = null,
+  val mesh: String? = null,
+  val routerIpAddress: String? = null,
+  val routerMacAddress: String? = null,
+  val manufacturer: String? = null,
+  val hostname: String? = null,
+  val modelDescription: String? = null,
+  val modelNumber: String? = null,
+  val friendlyName: String? = null,
+  val deviceType: String? = null,
+  /** Present only when [routerMacAddress] is non-null. */
+  val routerDetails: DeviceRecognition? = null
+)
+ {
+  companion object {
+    fun fromList(pigeonVar_list: List<Any?>): CustomerRouterDetails {
+      val make = pigeonVar_list[0] as String?
+      val model = pigeonVar_list[1] as String?
+      val encryption = pigeonVar_list[2] as String?
+      val protocols = pigeonVar_list[3] as String?
+      val mesh = pigeonVar_list[4] as String?
+      val routerIpAddress = pigeonVar_list[5] as String?
+      val routerMacAddress = pigeonVar_list[6] as String?
+      val manufacturer = pigeonVar_list[7] as String?
+      val hostname = pigeonVar_list[8] as String?
+      val modelDescription = pigeonVar_list[9] as String?
+      val modelNumber = pigeonVar_list[10] as String?
+      val friendlyName = pigeonVar_list[11] as String?
+      val deviceType = pigeonVar_list[12] as String?
+      val routerDetails = pigeonVar_list[13] as DeviceRecognition?
+      return CustomerRouterDetails(make, model, encryption, protocols, mesh, routerIpAddress, routerMacAddress, manufacturer, hostname, modelDescription, modelNumber, friendlyName, deviceType, routerDetails)
+    }
+  }
+  fun toList(): List<Any?> {
+    return listOf(
+      make,
+      model,
+      encryption,
+      protocols,
+      mesh,
+      routerIpAddress,
+      routerMacAddress,
+      manufacturer,
+      hostname,
+      modelDescription,
+      modelNumber,
+      friendlyName,
+      deviceType,
+      routerDetails,
+    )
+  }
+  override fun equals(other: Any?): Boolean {
+    if (other == null || other.javaClass != javaClass) {
+      return false
+    }
+    if (this === other) {
+      return true
+    }
+    val other = other as CustomerRouterDetails
+    return MessagesPigeonUtils.deepEquals(this.make, other.make) && MessagesPigeonUtils.deepEquals(this.model, other.model) && MessagesPigeonUtils.deepEquals(this.encryption, other.encryption) && MessagesPigeonUtils.deepEquals(this.protocols, other.protocols) && MessagesPigeonUtils.deepEquals(this.mesh, other.mesh) && MessagesPigeonUtils.deepEquals(this.routerIpAddress, other.routerIpAddress) && MessagesPigeonUtils.deepEquals(this.routerMacAddress, other.routerMacAddress) && MessagesPigeonUtils.deepEquals(this.manufacturer, other.manufacturer) && MessagesPigeonUtils.deepEquals(this.hostname, other.hostname) && MessagesPigeonUtils.deepEquals(this.modelDescription, other.modelDescription) && MessagesPigeonUtils.deepEquals(this.modelNumber, other.modelNumber) && MessagesPigeonUtils.deepEquals(this.friendlyName, other.friendlyName) && MessagesPigeonUtils.deepEquals(this.deviceType, other.deviceType) && MessagesPigeonUtils.deepEquals(this.routerDetails, other.routerDetails)
+  }
+
+  override fun hashCode(): Int {
+    var result = javaClass.hashCode()
+    result = 31 * result + MessagesPigeonUtils.deepHash(this.make)
+    result = 31 * result + MessagesPigeonUtils.deepHash(this.model)
+    result = 31 * result + MessagesPigeonUtils.deepHash(this.encryption)
+    result = 31 * result + MessagesPigeonUtils.deepHash(this.protocols)
+    result = 31 * result + MessagesPigeonUtils.deepHash(this.mesh)
+    result = 31 * result + MessagesPigeonUtils.deepHash(this.routerIpAddress)
+    result = 31 * result + MessagesPigeonUtils.deepHash(this.routerMacAddress)
+    result = 31 * result + MessagesPigeonUtils.deepHash(this.manufacturer)
+    result = 31 * result + MessagesPigeonUtils.deepHash(this.hostname)
+    result = 31 * result + MessagesPigeonUtils.deepHash(this.modelDescription)
+    result = 31 * result + MessagesPigeonUtils.deepHash(this.modelNumber)
+    result = 31 * result + MessagesPigeonUtils.deepHash(this.friendlyName)
+    result = 31 * result + MessagesPigeonUtils.deepHash(this.deviceType)
+    result = 31 * result + MessagesPigeonUtils.deepHash(this.routerDetails)
+    return result
+  }
+}
+
+/** Generated class from Pigeon that represents data sent in messages. */
+data class OtherRouterDetail (
+  val ip: String? = null,
+  /**
+   * Autonomous system number. Null for private hops and until the GeoLite2-ASN
+   * database is provisioned server-side.
+   */
+  val asn: Long? = null,
+  /**
+   * `"Private"` for RFC-1918 addresses regardless of database state; null for
+   * public addresses until the ASN database is provisioned.
+   */
+  val owner: String? = null
+)
+ {
+  companion object {
+    fun fromList(pigeonVar_list: List<Any?>): OtherRouterDetail {
+      val ip = pigeonVar_list[0] as String?
+      val asn = pigeonVar_list[1] as Long?
+      val owner = pigeonVar_list[2] as String?
+      return OtherRouterDetail(ip, asn, owner)
+    }
+  }
+  fun toList(): List<Any?> {
+    return listOf(
+      ip,
+      asn,
+      owner,
+    )
+  }
+  override fun equals(other: Any?): Boolean {
+    if (other == null || other.javaClass != javaClass) {
+      return false
+    }
+    if (this === other) {
+      return true
+    }
+    val other = other as OtherRouterDetail
+    return MessagesPigeonUtils.deepEquals(this.ip, other.ip) && MessagesPigeonUtils.deepEquals(this.asn, other.asn) && MessagesPigeonUtils.deepEquals(this.owner, other.owner)
+  }
+
+  override fun hashCode(): Int {
+    var result = javaClass.hashCode()
+    result = 31 * result + MessagesPigeonUtils.deepHash(this.ip)
+    result = 31 * result + MessagesPigeonUtils.deepHash(this.asn)
+    result = 31 * result + MessagesPigeonUtils.deepHash(this.owner)
+    return result
+  }
+}
+
+/** Generated class from Pigeon that represents data sent in messages. */
+data class DoubleNat (
+  val isDoubleNat: Boolean? = null,
+  val doubleNatHop: List<String>? = null
+)
+ {
+  companion object {
+    fun fromList(pigeonVar_list: List<Any?>): DoubleNat {
+      val isDoubleNat = pigeonVar_list[0] as Boolean?
+      val doubleNatHop = pigeonVar_list[1] as List<String>?
+      return DoubleNat(isDoubleNat, doubleNatHop)
+    }
+  }
+  fun toList(): List<Any?> {
+    return listOf(
+      isDoubleNat,
+      doubleNatHop,
+    )
+  }
+  override fun equals(other: Any?): Boolean {
+    if (other == null || other.javaClass != javaClass) {
+      return false
+    }
+    if (this === other) {
+      return true
+    }
+    val other = other as DoubleNat
+    return MessagesPigeonUtils.deepEquals(this.isDoubleNat, other.isDoubleNat) && MessagesPigeonUtils.deepEquals(this.doubleNatHop, other.doubleNatHop)
+  }
+
+  override fun hashCode(): Int {
+    var result = javaClass.hashCode()
+    result = 31 * result + MessagesPigeonUtils.deepHash(this.isDoubleNat)
+    result = 31 * result + MessagesPigeonUtils.deepHash(this.doubleNatHop)
+    return result
+  }
+}
+
+/** Generated class from Pigeon that represents data sent in messages. */
+data class NetworkTopology (
+  val routerIpAddress: String? = null,
+  /** De-duplicated, ordered by first appearance across traceroute hops. */
+  val otherRouters: List<String>? = null,
+  val otherRoutersDetails: List<OtherRouterDetail>? = null,
+  /** Null means NO double NAT — the key is absent in that case, not false. */
+  val doubleNatDetected: DoubleNat? = null
+)
+ {
+  companion object {
+    fun fromList(pigeonVar_list: List<Any?>): NetworkTopology {
+      val routerIpAddress = pigeonVar_list[0] as String?
+      val otherRouters = pigeonVar_list[1] as List<String>?
+      val otherRoutersDetails = pigeonVar_list[2] as List<OtherRouterDetail>?
+      val doubleNatDetected = pigeonVar_list[3] as DoubleNat?
+      return NetworkTopology(routerIpAddress, otherRouters, otherRoutersDetails, doubleNatDetected)
+    }
+  }
+  fun toList(): List<Any?> {
+    return listOf(
+      routerIpAddress,
+      otherRouters,
+      otherRoutersDetails,
+      doubleNatDetected,
+    )
+  }
+  override fun equals(other: Any?): Boolean {
+    if (other == null || other.javaClass != javaClass) {
+      return false
+    }
+    if (this === other) {
+      return true
+    }
+    val other = other as NetworkTopology
+    return MessagesPigeonUtils.deepEquals(this.routerIpAddress, other.routerIpAddress) && MessagesPigeonUtils.deepEquals(this.otherRouters, other.otherRouters) && MessagesPigeonUtils.deepEquals(this.otherRoutersDetails, other.otherRoutersDetails) && MessagesPigeonUtils.deepEquals(this.doubleNatDetected, other.doubleNatDetected)
+  }
+
+  override fun hashCode(): Int {
+    var result = javaClass.hashCode()
+    result = 31 * result + MessagesPigeonUtils.deepHash(this.routerIpAddress)
+    result = 31 * result + MessagesPigeonUtils.deepHash(this.otherRouters)
+    result = 31 * result + MessagesPigeonUtils.deepHash(this.otherRoutersDetails)
+    result = 31 * result + MessagesPigeonUtils.deepHash(this.doubleNatDetected)
+    return result
+  }
+}
+
+/**
+ * [frequency] is GHz. [signalStrength] is dBm (negative).
+ *
+ * Generated class from Pigeon that represents data sent in messages.
+ */
+data class WifiNetworkResult (
+  val ssid: String? = null,
+  val ssidIp: String? = null,
+  val bssid: String? = null,
+  val encryption: String? = null,
+  val frequency: Double? = null,
+  val wpsAvailability: Boolean? = null,
+  val signalStrength: Long? = null,
+  val numWifiChannels: Long? = null,
+  val channelWidth: Long? = null,
+  val currentChannel: Long? = null,
+  val isSubscriberSsid: Boolean? = null
+)
+ {
+  companion object {
+    fun fromList(pigeonVar_list: List<Any?>): WifiNetworkResult {
+      val ssid = pigeonVar_list[0] as String?
+      val ssidIp = pigeonVar_list[1] as String?
+      val bssid = pigeonVar_list[2] as String?
+      val encryption = pigeonVar_list[3] as String?
+      val frequency = pigeonVar_list[4] as Double?
+      val wpsAvailability = pigeonVar_list[5] as Boolean?
+      val signalStrength = pigeonVar_list[6] as Long?
+      val numWifiChannels = pigeonVar_list[7] as Long?
+      val channelWidth = pigeonVar_list[8] as Long?
+      val currentChannel = pigeonVar_list[9] as Long?
+      val isSubscriberSsid = pigeonVar_list[10] as Boolean?
+      return WifiNetworkResult(ssid, ssidIp, bssid, encryption, frequency, wpsAvailability, signalStrength, numWifiChannels, channelWidth, currentChannel, isSubscriberSsid)
+    }
+  }
+  fun toList(): List<Any?> {
+    return listOf(
+      ssid,
+      ssidIp,
+      bssid,
+      encryption,
+      frequency,
+      wpsAvailability,
+      signalStrength,
+      numWifiChannels,
+      channelWidth,
+      currentChannel,
+      isSubscriberSsid,
+    )
+  }
+  override fun equals(other: Any?): Boolean {
+    if (other == null || other.javaClass != javaClass) {
+      return false
+    }
+    if (this === other) {
+      return true
+    }
+    val other = other as WifiNetworkResult
+    return MessagesPigeonUtils.deepEquals(this.ssid, other.ssid) && MessagesPigeonUtils.deepEquals(this.ssidIp, other.ssidIp) && MessagesPigeonUtils.deepEquals(this.bssid, other.bssid) && MessagesPigeonUtils.deepEquals(this.encryption, other.encryption) && MessagesPigeonUtils.deepEquals(this.frequency, other.frequency) && MessagesPigeonUtils.deepEquals(this.wpsAvailability, other.wpsAvailability) && MessagesPigeonUtils.deepEquals(this.signalStrength, other.signalStrength) && MessagesPigeonUtils.deepEquals(this.numWifiChannels, other.numWifiChannels) && MessagesPigeonUtils.deepEquals(this.channelWidth, other.channelWidth) && MessagesPigeonUtils.deepEquals(this.currentChannel, other.currentChannel) && MessagesPigeonUtils.deepEquals(this.isSubscriberSsid, other.isSubscriberSsid)
+  }
+
+  override fun hashCode(): Int {
+    var result = javaClass.hashCode()
+    result = 31 * result + MessagesPigeonUtils.deepHash(this.ssid)
+    result = 31 * result + MessagesPigeonUtils.deepHash(this.ssidIp)
+    result = 31 * result + MessagesPigeonUtils.deepHash(this.bssid)
+    result = 31 * result + MessagesPigeonUtils.deepHash(this.encryption)
+    result = 31 * result + MessagesPigeonUtils.deepHash(this.frequency)
+    result = 31 * result + MessagesPigeonUtils.deepHash(this.wpsAvailability)
+    result = 31 * result + MessagesPigeonUtils.deepHash(this.signalStrength)
+    result = 31 * result + MessagesPigeonUtils.deepHash(this.numWifiChannels)
+    result = 31 * result + MessagesPigeonUtils.deepHash(this.channelWidth)
+    result = 31 * result + MessagesPigeonUtils.deepHash(this.currentChannel)
+    result = 31 * result + MessagesPigeonUtils.deepHash(this.isSubscriberSsid)
+    return result
+  }
+}
+
+/**
+ * [numPhoneWifiChannel] is the COUNT of congestion entries, not a channel
+ * number — the channel is [phoneWifiChannel].
+ *
+ * Generated class from Pigeon that represents data sent in messages.
+ */
+data class UserConnection (
+  val phoneWifiFrequency: Double? = null,
+  val numPhoneWifiChannel: Long? = null,
+  val numNetworksOnChannel: Long? = null,
+  val phoneWifiChannel: Long? = null
+)
+ {
+  companion object {
+    fun fromList(pigeonVar_list: List<Any?>): UserConnection {
+      val phoneWifiFrequency = pigeonVar_list[0] as Double?
+      val numPhoneWifiChannel = pigeonVar_list[1] as Long?
+      val numNetworksOnChannel = pigeonVar_list[2] as Long?
+      val phoneWifiChannel = pigeonVar_list[3] as Long?
+      return UserConnection(phoneWifiFrequency, numPhoneWifiChannel, numNetworksOnChannel, phoneWifiChannel)
+    }
+  }
+  fun toList(): List<Any?> {
+    return listOf(
+      phoneWifiFrequency,
+      numPhoneWifiChannel,
+      numNetworksOnChannel,
+      phoneWifiChannel,
+    )
+  }
+  override fun equals(other: Any?): Boolean {
+    if (other == null || other.javaClass != javaClass) {
+      return false
+    }
+    if (this === other) {
+      return true
+    }
+    val other = other as UserConnection
+    return MessagesPigeonUtils.deepEquals(this.phoneWifiFrequency, other.phoneWifiFrequency) && MessagesPigeonUtils.deepEquals(this.numPhoneWifiChannel, other.numPhoneWifiChannel) && MessagesPigeonUtils.deepEquals(this.numNetworksOnChannel, other.numNetworksOnChannel) && MessagesPigeonUtils.deepEquals(this.phoneWifiChannel, other.phoneWifiChannel)
+  }
+
+  override fun hashCode(): Int {
+    var result = javaClass.hashCode()
+    result = 31 * result + MessagesPigeonUtils.deepHash(this.phoneWifiFrequency)
+    result = 31 * result + MessagesPigeonUtils.deepHash(this.numPhoneWifiChannel)
+    result = 31 * result + MessagesPigeonUtils.deepHash(this.numNetworksOnChannel)
+    result = 31 * result + MessagesPigeonUtils.deepHash(this.phoneWifiChannel)
+    return result
+  }
+}
+
+/**
+ * [index] is a STRING in the payload, not an int.
+ *
+ * Generated class from Pigeon that represents data sent in messages.
+ */
+data class ChannelCongestion (
+  val index: String? = null,
+  val numNetworks: Long? = null
+)
+ {
+  companion object {
+    fun fromList(pigeonVar_list: List<Any?>): ChannelCongestion {
+      val index = pigeonVar_list[0] as String?
+      val numNetworks = pigeonVar_list[1] as Long?
+      return ChannelCongestion(index, numNetworks)
+    }
+  }
+  fun toList(): List<Any?> {
+    return listOf(
+      index,
+      numNetworks,
+    )
+  }
+  override fun equals(other: Any?): Boolean {
+    if (other == null || other.javaClass != javaClass) {
+      return false
+    }
+    if (this === other) {
+      return true
+    }
+    val other = other as ChannelCongestion
+    return MessagesPigeonUtils.deepEquals(this.index, other.index) && MessagesPigeonUtils.deepEquals(this.numNetworks, other.numNetworks)
+  }
+
+  override fun hashCode(): Int {
+    var result = javaClass.hashCode()
+    result = 31 * result + MessagesPigeonUtils.deepHash(this.index)
+    result = 31 * result + MessagesPigeonUtils.deepHash(this.numNetworks)
+    return result
+  }
+}
+
+/** Generated class from Pigeon that represents data sent in messages. */
+data class CongestionEnvironment (
+  val channelCongestion: List<ChannelCongestion>? = null,
+  /** Excludes the subscriber's own SSID. */
+  val surroundingWifiNetworks: List<WifiNetworkResult>? = null
+)
+ {
+  companion object {
+    fun fromList(pigeonVar_list: List<Any?>): CongestionEnvironment {
+      val channelCongestion = pigeonVar_list[0] as List<ChannelCongestion>?
+      val surroundingWifiNetworks = pigeonVar_list[1] as List<WifiNetworkResult>?
+      return CongestionEnvironment(channelCongestion, surroundingWifiNetworks)
+    }
+  }
+  fun toList(): List<Any?> {
+    return listOf(
+      channelCongestion,
+      surroundingWifiNetworks,
+    )
+  }
+  override fun equals(other: Any?): Boolean {
+    if (other == null || other.javaClass != javaClass) {
+      return false
+    }
+    if (this === other) {
+      return true
+    }
+    val other = other as CongestionEnvironment
+    return MessagesPigeonUtils.deepEquals(this.channelCongestion, other.channelCongestion) && MessagesPigeonUtils.deepEquals(this.surroundingWifiNetworks, other.surroundingWifiNetworks)
+  }
+
+  override fun hashCode(): Int {
+    var result = javaClass.hashCode()
+    result = 31 * result + MessagesPigeonUtils.deepHash(this.channelCongestion)
+    result = 31 * result + MessagesPigeonUtils.deepHash(this.surroundingWifiNetworks)
+    return result
+  }
+}
+
+/** Generated class from Pigeon that represents data sent in messages. */
+data class NetworkCongestion (
+  val userConnection: UserConnection? = null,
+  val environment: CongestionEnvironment? = null
+)
+ {
+  companion object {
+    fun fromList(pigeonVar_list: List<Any?>): NetworkCongestion {
+      val userConnection = pigeonVar_list[0] as UserConnection?
+      val environment = pigeonVar_list[1] as CongestionEnvironment?
+      return NetworkCongestion(userConnection, environment)
+    }
+  }
+  fun toList(): List<Any?> {
+    return listOf(
+      userConnection,
+      environment,
+    )
+  }
+  override fun equals(other: Any?): Boolean {
+    if (other == null || other.javaClass != javaClass) {
+      return false
+    }
+    if (this === other) {
+      return true
+    }
+    val other = other as NetworkCongestion
+    return MessagesPigeonUtils.deepEquals(this.userConnection, other.userConnection) && MessagesPigeonUtils.deepEquals(this.environment, other.environment)
+  }
+
+  override fun hashCode(): Int {
+    var result = javaClass.hashCode()
+    result = 31 * result + MessagesPigeonUtils.deepHash(this.userConnection)
+    result = 31 * result + MessagesPigeonUtils.deepHash(this.environment)
+    return result
+  }
+}
+
+/**
+ * [layerRanking] is 1 (local), 2 (unknown/default) or 3 (external).
+ *
+ * Generated class from Pigeon that represents data sent in messages.
+ */
+data class DnsQuality (
+  val dnsName: String? = null,
+  val dnsIp: String? = null,
+  val packetsDropped: Double? = null,
+  val numPacketsSent: Long? = null,
+  val pingValues: List<Double>? = null,
+  /** True for the subscriber's own router. */
+  val isSubscriberRouter: Boolean? = null,
+  val jitter: Double? = null,
+  val averagePingTime: Double? = null,
+  val connectionQualityColor: QualityColor? = null,
+  val layerRanking: Long? = null
+)
+ {
+  companion object {
+    fun fromList(pigeonVar_list: List<Any?>): DnsQuality {
+      val dnsName = pigeonVar_list[0] as String?
+      val dnsIp = pigeonVar_list[1] as String?
+      val packetsDropped = pigeonVar_list[2] as Double?
+      val numPacketsSent = pigeonVar_list[3] as Long?
+      val pingValues = pigeonVar_list[4] as List<Double>?
+      val isSubscriberRouter = pigeonVar_list[5] as Boolean?
+      val jitter = pigeonVar_list[6] as Double?
+      val averagePingTime = pigeonVar_list[7] as Double?
+      val connectionQualityColor = pigeonVar_list[8] as QualityColor?
+      val layerRanking = pigeonVar_list[9] as Long?
+      return DnsQuality(dnsName, dnsIp, packetsDropped, numPacketsSent, pingValues, isSubscriberRouter, jitter, averagePingTime, connectionQualityColor, layerRanking)
+    }
+  }
+  fun toList(): List<Any?> {
+    return listOf(
+      dnsName,
+      dnsIp,
+      packetsDropped,
+      numPacketsSent,
+      pingValues,
+      isSubscriberRouter,
+      jitter,
+      averagePingTime,
+      connectionQualityColor,
+      layerRanking,
+    )
+  }
+  override fun equals(other: Any?): Boolean {
+    if (other == null || other.javaClass != javaClass) {
+      return false
+    }
+    if (this === other) {
+      return true
+    }
+    val other = other as DnsQuality
+    return MessagesPigeonUtils.deepEquals(this.dnsName, other.dnsName) && MessagesPigeonUtils.deepEquals(this.dnsIp, other.dnsIp) && MessagesPigeonUtils.deepEquals(this.packetsDropped, other.packetsDropped) && MessagesPigeonUtils.deepEquals(this.numPacketsSent, other.numPacketsSent) && MessagesPigeonUtils.deepEquals(this.pingValues, other.pingValues) && MessagesPigeonUtils.deepEquals(this.isSubscriberRouter, other.isSubscriberRouter) && MessagesPigeonUtils.deepEquals(this.jitter, other.jitter) && MessagesPigeonUtils.deepEquals(this.averagePingTime, other.averagePingTime) && MessagesPigeonUtils.deepEquals(this.connectionQualityColor, other.connectionQualityColor) && MessagesPigeonUtils.deepEquals(this.layerRanking, other.layerRanking)
+  }
+
+  override fun hashCode(): Int {
+    var result = javaClass.hashCode()
+    result = 31 * result + MessagesPigeonUtils.deepHash(this.dnsName)
+    result = 31 * result + MessagesPigeonUtils.deepHash(this.dnsIp)
+    result = 31 * result + MessagesPigeonUtils.deepHash(this.packetsDropped)
+    result = 31 * result + MessagesPigeonUtils.deepHash(this.numPacketsSent)
+    result = 31 * result + MessagesPigeonUtils.deepHash(this.pingValues)
+    result = 31 * result + MessagesPigeonUtils.deepHash(this.isSubscriberRouter)
+    result = 31 * result + MessagesPigeonUtils.deepHash(this.jitter)
+    result = 31 * result + MessagesPigeonUtils.deepHash(this.averagePingTime)
+    result = 31 * result + MessagesPigeonUtils.deepHash(this.connectionQualityColor)
+    result = 31 * result + MessagesPigeonUtils.deepHash(this.layerRanking)
+    return result
+  }
+}
+
+/**
+ * [rttValues] are integers in milliseconds.
+ *
+ * Generated class from Pigeon that represents data sent in messages.
+ */
+data class TracerouteHop (
+  val dnsIp: String? = null,
+  val dnsName: String? = null,
+  val rttValues: List<Long>? = null
+)
+ {
+  companion object {
+    fun fromList(pigeonVar_list: List<Any?>): TracerouteHop {
+      val dnsIp = pigeonVar_list[0] as String?
+      val dnsName = pigeonVar_list[1] as String?
+      val rttValues = pigeonVar_list[2] as List<Long>?
+      return TracerouteHop(dnsIp, dnsName, rttValues)
+    }
+  }
+  fun toList(): List<Any?> {
+    return listOf(
+      dnsIp,
+      dnsName,
+      rttValues,
+    )
+  }
+  override fun equals(other: Any?): Boolean {
+    if (other == null || other.javaClass != javaClass) {
+      return false
+    }
+    if (this === other) {
+      return true
+    }
+    val other = other as TracerouteHop
+    return MessagesPigeonUtils.deepEquals(this.dnsIp, other.dnsIp) && MessagesPigeonUtils.deepEquals(this.dnsName, other.dnsName) && MessagesPigeonUtils.deepEquals(this.rttValues, other.rttValues)
+  }
+
+  override fun hashCode(): Int {
+    var result = javaClass.hashCode()
+    result = 31 * result + MessagesPigeonUtils.deepHash(this.dnsIp)
+    result = 31 * result + MessagesPigeonUtils.deepHash(this.dnsName)
+    result = 31 * result + MessagesPigeonUtils.deepHash(this.rttValues)
+    return result
+  }
+}
+
+/** Generated class from Pigeon that represents data sent in messages. */
+data class TracerouteEntry (
+  val dnsDestinationIp: String? = null,
+  val hops: List<TracerouteHop>? = null
+)
+ {
+  companion object {
+    fun fromList(pigeonVar_list: List<Any?>): TracerouteEntry {
+      val dnsDestinationIp = pigeonVar_list[0] as String?
+      val hops = pigeonVar_list[1] as List<TracerouteHop>?
+      return TracerouteEntry(dnsDestinationIp, hops)
+    }
+  }
+  fun toList(): List<Any?> {
+    return listOf(
+      dnsDestinationIp,
+      hops,
+    )
+  }
+  override fun equals(other: Any?): Boolean {
+    if (other == null || other.javaClass != javaClass) {
+      return false
+    }
+    if (this === other) {
+      return true
+    }
+    val other = other as TracerouteEntry
+    return MessagesPigeonUtils.deepEquals(this.dnsDestinationIp, other.dnsDestinationIp) && MessagesPigeonUtils.deepEquals(this.hops, other.hops)
+  }
+
+  override fun hashCode(): Int {
+    var result = javaClass.hashCode()
+    result = 31 * result + MessagesPigeonUtils.deepHash(this.dnsDestinationIp)
+    result = 31 * result + MessagesPigeonUtils.deepHash(this.hops)
+    return result
+  }
+}
+
+/**
+ * The full report payload. Mirrors the FE contract and evolves with it — this
+ * is NOT a stable versioned schema.
+ *
+ * Generated class from Pigeon that represents data sent in messages.
+ */
+data class ReportData (
+  val customerDetails: CustomerDetails? = null,
+  val sdkDetails: SdkDetails? = null,
+  val routerUsageDuringScan: RouterUsage? = null,
+  val customerInternetSpeed: InternetSpeed? = null,
+  val basicConnectivity: BasicConnectivity? = null,
+  val localConnectedDevices: List<LocalConnectedDevice>? = null,
+  val customerRouterDetails: CustomerRouterDetails? = null,
+  val networkTopology: NetworkTopology? = null,
+  val userWifiNetwork: WifiNetworkResult? = null,
+  val networkCongestion: NetworkCongestion? = null,
+  val connectionQuality: List<DnsQuality>? = null,
+  val traceroute: List<TracerouteEntry>? = null,
+  val alerts: List<ReportAlert>? = null,
+  val actions: List<ReportAction>? = null,
+  /**
+   * True when both `missing_upnp` and `incomplete_speed_test` fired — present
+   * the scan as unreliable.
+   */
+  val incompleteAnalysis: Boolean? = null
+)
+ {
+  companion object {
+    fun fromList(pigeonVar_list: List<Any?>): ReportData {
+      val customerDetails = pigeonVar_list[0] as CustomerDetails?
+      val sdkDetails = pigeonVar_list[1] as SdkDetails?
+      val routerUsageDuringScan = pigeonVar_list[2] as RouterUsage?
+      val customerInternetSpeed = pigeonVar_list[3] as InternetSpeed?
+      val basicConnectivity = pigeonVar_list[4] as BasicConnectivity?
+      val localConnectedDevices = pigeonVar_list[5] as List<LocalConnectedDevice>?
+      val customerRouterDetails = pigeonVar_list[6] as CustomerRouterDetails?
+      val networkTopology = pigeonVar_list[7] as NetworkTopology?
+      val userWifiNetwork = pigeonVar_list[8] as WifiNetworkResult?
+      val networkCongestion = pigeonVar_list[9] as NetworkCongestion?
+      val connectionQuality = pigeonVar_list[10] as List<DnsQuality>?
+      val traceroute = pigeonVar_list[11] as List<TracerouteEntry>?
+      val alerts = pigeonVar_list[12] as List<ReportAlert>?
+      val actions = pigeonVar_list[13] as List<ReportAction>?
+      val incompleteAnalysis = pigeonVar_list[14] as Boolean?
+      return ReportData(customerDetails, sdkDetails, routerUsageDuringScan, customerInternetSpeed, basicConnectivity, localConnectedDevices, customerRouterDetails, networkTopology, userWifiNetwork, networkCongestion, connectionQuality, traceroute, alerts, actions, incompleteAnalysis)
+    }
+  }
+  fun toList(): List<Any?> {
+    return listOf(
+      customerDetails,
+      sdkDetails,
+      routerUsageDuringScan,
+      customerInternetSpeed,
+      basicConnectivity,
+      localConnectedDevices,
+      customerRouterDetails,
+      networkTopology,
+      userWifiNetwork,
+      networkCongestion,
+      connectionQuality,
+      traceroute,
+      alerts,
+      actions,
+      incompleteAnalysis,
+    )
+  }
+  override fun equals(other: Any?): Boolean {
+    if (other == null || other.javaClass != javaClass) {
+      return false
+    }
+    if (this === other) {
+      return true
+    }
+    val other = other as ReportData
+    return MessagesPigeonUtils.deepEquals(this.customerDetails, other.customerDetails) && MessagesPigeonUtils.deepEquals(this.sdkDetails, other.sdkDetails) && MessagesPigeonUtils.deepEquals(this.routerUsageDuringScan, other.routerUsageDuringScan) && MessagesPigeonUtils.deepEquals(this.customerInternetSpeed, other.customerInternetSpeed) && MessagesPigeonUtils.deepEquals(this.basicConnectivity, other.basicConnectivity) && MessagesPigeonUtils.deepEquals(this.localConnectedDevices, other.localConnectedDevices) && MessagesPigeonUtils.deepEquals(this.customerRouterDetails, other.customerRouterDetails) && MessagesPigeonUtils.deepEquals(this.networkTopology, other.networkTopology) && MessagesPigeonUtils.deepEquals(this.userWifiNetwork, other.userWifiNetwork) && MessagesPigeonUtils.deepEquals(this.networkCongestion, other.networkCongestion) && MessagesPigeonUtils.deepEquals(this.connectionQuality, other.connectionQuality) && MessagesPigeonUtils.deepEquals(this.traceroute, other.traceroute) && MessagesPigeonUtils.deepEquals(this.alerts, other.alerts) && MessagesPigeonUtils.deepEquals(this.actions, other.actions) && MessagesPigeonUtils.deepEquals(this.incompleteAnalysis, other.incompleteAnalysis)
+  }
+
+  override fun hashCode(): Int {
+    var result = javaClass.hashCode()
+    result = 31 * result + MessagesPigeonUtils.deepHash(this.customerDetails)
+    result = 31 * result + MessagesPigeonUtils.deepHash(this.sdkDetails)
+    result = 31 * result + MessagesPigeonUtils.deepHash(this.routerUsageDuringScan)
+    result = 31 * result + MessagesPigeonUtils.deepHash(this.customerInternetSpeed)
+    result = 31 * result + MessagesPigeonUtils.deepHash(this.basicConnectivity)
+    result = 31 * result + MessagesPigeonUtils.deepHash(this.localConnectedDevices)
+    result = 31 * result + MessagesPigeonUtils.deepHash(this.customerRouterDetails)
+    result = 31 * result + MessagesPigeonUtils.deepHash(this.networkTopology)
+    result = 31 * result + MessagesPigeonUtils.deepHash(this.userWifiNetwork)
+    result = 31 * result + MessagesPigeonUtils.deepHash(this.networkCongestion)
+    result = 31 * result + MessagesPigeonUtils.deepHash(this.connectionQuality)
+    result = 31 * result + MessagesPigeonUtils.deepHash(this.traceroute)
+    result = 31 * result + MessagesPigeonUtils.deepHash(this.alerts)
+    result = 31 * result + MessagesPigeonUtils.deepHash(this.actions)
+    result = 31 * result + MessagesPigeonUtils.deepHash(this.incompleteAnalysis)
+    return result
+  }
+}
 private open class MessagesPigeonCodec : StandardMessageCodec() {
   override fun readValueOfType(type: Byte, buffer: ByteBuffer): Any? {
     return when (type) {
@@ -620,6 +2172,151 @@ private open class MessagesPigeonCodec : StandardMessageCodec() {
           ScanReport.fromList(it)
         }
       }
+      138.toByte() -> {
+        return (readValue(buffer) as? List<Any?>)?.let {
+          QualityColor.fromList(it)
+        }
+      }
+      139.toByte() -> {
+        return (readValue(buffer) as? List<Any?>)?.let {
+          StatusColor.fromList(it)
+        }
+      }
+      140.toByte() -> {
+        return (readValue(buffer) as? List<Any?>)?.let {
+          ReportAlert.fromList(it)
+        }
+      }
+      141.toByte() -> {
+        return (readValue(buffer) as? List<Any?>)?.let {
+          ReportAction.fromList(it)
+        }
+      }
+      142.toByte() -> {
+        return (readValue(buffer) as? List<Any?>)?.let {
+          CustomerDetails.fromList(it)
+        }
+      }
+      143.toByte() -> {
+        return (readValue(buffer) as? List<Any?>)?.let {
+          SdkDetails.fromList(it)
+        }
+      }
+      144.toByte() -> {
+        return (readValue(buffer) as? List<Any?>)?.let {
+          RouterUsage.fromList(it)
+        }
+      }
+      145.toByte() -> {
+        return (readValue(buffer) as? List<Any?>)?.let {
+          InternetSpeed.fromList(it)
+        }
+      }
+      146.toByte() -> {
+        return (readValue(buffer) as? List<Any?>)?.let {
+          ServerConnectivityResult.fromList(it)
+        }
+      }
+      147.toByte() -> {
+        return (readValue(buffer) as? List<Any?>)?.let {
+          PortCheckResult.fromList(it)
+        }
+      }
+      148.toByte() -> {
+        return (readValue(buffer) as? List<Any?>)?.let {
+          DnsLookupResult.fromList(it)
+        }
+      }
+      149.toByte() -> {
+        return (readValue(buffer) as? List<Any?>)?.let {
+          ConnectivitySummary.fromList(it)
+        }
+      }
+      150.toByte() -> {
+        return (readValue(buffer) as? List<Any?>)?.let {
+          ToggleState.fromList(it)
+        }
+      }
+      151.toByte() -> {
+        return (readValue(buffer) as? List<Any?>)?.let {
+          BasicConnectivity.fromList(it)
+        }
+      }
+      152.toByte() -> {
+        return (readValue(buffer) as? List<Any?>)?.let {
+          DeviceRecognition.fromList(it)
+        }
+      }
+      153.toByte() -> {
+        return (readValue(buffer) as? List<Any?>)?.let {
+          LocalConnectedDevice.fromList(it)
+        }
+      }
+      154.toByte() -> {
+        return (readValue(buffer) as? List<Any?>)?.let {
+          CustomerRouterDetails.fromList(it)
+        }
+      }
+      155.toByte() -> {
+        return (readValue(buffer) as? List<Any?>)?.let {
+          OtherRouterDetail.fromList(it)
+        }
+      }
+      156.toByte() -> {
+        return (readValue(buffer) as? List<Any?>)?.let {
+          DoubleNat.fromList(it)
+        }
+      }
+      157.toByte() -> {
+        return (readValue(buffer) as? List<Any?>)?.let {
+          NetworkTopology.fromList(it)
+        }
+      }
+      158.toByte() -> {
+        return (readValue(buffer) as? List<Any?>)?.let {
+          WifiNetworkResult.fromList(it)
+        }
+      }
+      159.toByte() -> {
+        return (readValue(buffer) as? List<Any?>)?.let {
+          UserConnection.fromList(it)
+        }
+      }
+      160.toByte() -> {
+        return (readValue(buffer) as? List<Any?>)?.let {
+          ChannelCongestion.fromList(it)
+        }
+      }
+      161.toByte() -> {
+        return (readValue(buffer) as? List<Any?>)?.let {
+          CongestionEnvironment.fromList(it)
+        }
+      }
+      162.toByte() -> {
+        return (readValue(buffer) as? List<Any?>)?.let {
+          NetworkCongestion.fromList(it)
+        }
+      }
+      163.toByte() -> {
+        return (readValue(buffer) as? List<Any?>)?.let {
+          DnsQuality.fromList(it)
+        }
+      }
+      164.toByte() -> {
+        return (readValue(buffer) as? List<Any?>)?.let {
+          TracerouteHop.fromList(it)
+        }
+      }
+      165.toByte() -> {
+        return (readValue(buffer) as? List<Any?>)?.let {
+          TracerouteEntry.fromList(it)
+        }
+      }
+      166.toByte() -> {
+        return (readValue(buffer) as? List<Any?>)?.let {
+          ReportData.fromList(it)
+        }
+      }
       else -> super.readValueOfType(type, buffer)
     }
   }
@@ -659,6 +2356,122 @@ private open class MessagesPigeonCodec : StandardMessageCodec() {
       }
       is ScanReport -> {
         stream.write(137)
+        writeValue(stream, value.toList())
+      }
+      is QualityColor -> {
+        stream.write(138)
+        writeValue(stream, value.toList())
+      }
+      is StatusColor -> {
+        stream.write(139)
+        writeValue(stream, value.toList())
+      }
+      is ReportAlert -> {
+        stream.write(140)
+        writeValue(stream, value.toList())
+      }
+      is ReportAction -> {
+        stream.write(141)
+        writeValue(stream, value.toList())
+      }
+      is CustomerDetails -> {
+        stream.write(142)
+        writeValue(stream, value.toList())
+      }
+      is SdkDetails -> {
+        stream.write(143)
+        writeValue(stream, value.toList())
+      }
+      is RouterUsage -> {
+        stream.write(144)
+        writeValue(stream, value.toList())
+      }
+      is InternetSpeed -> {
+        stream.write(145)
+        writeValue(stream, value.toList())
+      }
+      is ServerConnectivityResult -> {
+        stream.write(146)
+        writeValue(stream, value.toList())
+      }
+      is PortCheckResult -> {
+        stream.write(147)
+        writeValue(stream, value.toList())
+      }
+      is DnsLookupResult -> {
+        stream.write(148)
+        writeValue(stream, value.toList())
+      }
+      is ConnectivitySummary -> {
+        stream.write(149)
+        writeValue(stream, value.toList())
+      }
+      is ToggleState -> {
+        stream.write(150)
+        writeValue(stream, value.toList())
+      }
+      is BasicConnectivity -> {
+        stream.write(151)
+        writeValue(stream, value.toList())
+      }
+      is DeviceRecognition -> {
+        stream.write(152)
+        writeValue(stream, value.toList())
+      }
+      is LocalConnectedDevice -> {
+        stream.write(153)
+        writeValue(stream, value.toList())
+      }
+      is CustomerRouterDetails -> {
+        stream.write(154)
+        writeValue(stream, value.toList())
+      }
+      is OtherRouterDetail -> {
+        stream.write(155)
+        writeValue(stream, value.toList())
+      }
+      is DoubleNat -> {
+        stream.write(156)
+        writeValue(stream, value.toList())
+      }
+      is NetworkTopology -> {
+        stream.write(157)
+        writeValue(stream, value.toList())
+      }
+      is WifiNetworkResult -> {
+        stream.write(158)
+        writeValue(stream, value.toList())
+      }
+      is UserConnection -> {
+        stream.write(159)
+        writeValue(stream, value.toList())
+      }
+      is ChannelCongestion -> {
+        stream.write(160)
+        writeValue(stream, value.toList())
+      }
+      is CongestionEnvironment -> {
+        stream.write(161)
+        writeValue(stream, value.toList())
+      }
+      is NetworkCongestion -> {
+        stream.write(162)
+        writeValue(stream, value.toList())
+      }
+      is DnsQuality -> {
+        stream.write(163)
+        writeValue(stream, value.toList())
+      }
+      is TracerouteHop -> {
+        stream.write(164)
+        writeValue(stream, value.toList())
+      }
+      is TracerouteEntry -> {
+        stream.write(165)
+        writeValue(stream, value.toList())
+      }
+      is ReportData -> {
+        stream.write(166)
         writeValue(stream, value.toList())
       }
       else -> super.writeValue(stream, value)

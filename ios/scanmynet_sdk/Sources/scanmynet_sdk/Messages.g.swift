@@ -178,11 +178,10 @@ func deepHashMessages(value: Any?, hasher: inout Hasher) {
 }
 
 
-/// iOS `ScanMyNetConfiguration.Environment`. Android has no environment enum —
-/// it takes an explicit [ScanConfig.baseUrl] string instead.
-/// TODO(confirm): how iOS `environment` maps to an Android baseUrl, and whether
-/// the host passes baseUrl OR environment. Native code maps explicitly; do NOT
-/// rely on index parity.
+/// Selects the backend both platforms talk to. iOS maps it onto
+/// `ScanMyNetConfiguration.Environment`; Android maps it to the matching
+/// Retrofit base URL internally. Null defaults to [ScanEnvironment.production].
+/// Native code maps explicitly by case — do NOT rely on index parity.
 enum ScanEnvironment: Int {
   case staging = 0
   case production = 1
@@ -241,14 +240,15 @@ struct ScanConfig: Hashable {
   var userKey: String? = nil
   /// Android `AppName.appName` (ReportParamDto.app). iOS: not used.
   var appName: String? = nil
-  /// Android `BaseUrl.baseUrl` (Retrofit base). iOS selects backend via
-  /// [environment] instead.
-  var baseUrl: String? = nil
   /// iOS `ScanMyNetConfiguration.requestKey`. Android: not used.
   var requestKey: String? = nil
-  /// iOS only. If null on iOS, native defaults to [ScanEnvironment.production].
-  /// TODO(confirm) default environment.
+  /// Backend selector, honoured on both platforms. Null defaults to
+  /// [ScanEnvironment.production].
   var environment: ScanEnvironment? = nil
+  /// Pigeon schema version, set by the Dart layer. Native compares it against
+  /// its own compiled-in constant and throws on mismatch — codecs are
+  /// positional, so a skewed pair misreads fields silently rather than failing.
+  var schemaVersion: Int64? = nil
 
 
   // swift-format-ignore: AlwaysUseLowerCamelCase
@@ -256,17 +256,17 @@ struct ScanConfig: Hashable {
     let apiKey = pigeonVar_list[0] as! String
     let userKey: String? = nilOrValue(pigeonVar_list[1])
     let appName: String? = nilOrValue(pigeonVar_list[2])
-    let baseUrl: String? = nilOrValue(pigeonVar_list[3])
-    let requestKey: String? = nilOrValue(pigeonVar_list[4])
-    let environment: ScanEnvironment? = nilOrValue(pigeonVar_list[5])
+    let requestKey: String? = nilOrValue(pigeonVar_list[3])
+    let environment: ScanEnvironment? = nilOrValue(pigeonVar_list[4])
+    let schemaVersion: Int64? = nilOrValue(pigeonVar_list[5])
 
     return ScanConfig(
       apiKey: apiKey,
       userKey: userKey,
       appName: appName,
-      baseUrl: baseUrl,
       requestKey: requestKey,
-      environment: environment
+      environment: environment,
+      schemaVersion: schemaVersion
     )
   }
   func toList() -> [Any?] {
@@ -274,16 +274,16 @@ struct ScanConfig: Hashable {
       apiKey,
       userKey,
       appName,
-      baseUrl,
       requestKey,
       environment,
+      schemaVersion,
     ]
   }
   static func == (lhs: ScanConfig, rhs: ScanConfig) -> Bool {
     if Swift.type(of: lhs) != Swift.type(of: rhs) {
       return false
     }
-    return deepEqualsMessages(lhs.apiKey, rhs.apiKey) && deepEqualsMessages(lhs.userKey, rhs.userKey) && deepEqualsMessages(lhs.appName, rhs.appName) && deepEqualsMessages(lhs.baseUrl, rhs.baseUrl) && deepEqualsMessages(lhs.requestKey, rhs.requestKey) && deepEqualsMessages(lhs.environment, rhs.environment)
+    return deepEqualsMessages(lhs.apiKey, rhs.apiKey) && deepEqualsMessages(lhs.userKey, rhs.userKey) && deepEqualsMessages(lhs.appName, rhs.appName) && deepEqualsMessages(lhs.requestKey, rhs.requestKey) && deepEqualsMessages(lhs.environment, rhs.environment) && deepEqualsMessages(lhs.schemaVersion, rhs.schemaVersion)
   }
 
   func hash(into hasher: inout Hasher) {
@@ -291,9 +291,9 @@ struct ScanConfig: Hashable {
     deepHashMessages(value: apiKey, hasher: &hasher)
     deepHashMessages(value: userKey, hasher: &hasher)
     deepHashMessages(value: appName, hasher: &hasher)
-    deepHashMessages(value: baseUrl, hasher: &hasher)
     deepHashMessages(value: requestKey, hasher: &hasher)
     deepHashMessages(value: environment, hasher: &hasher)
+    deepHashMessages(value: schemaVersion, hasher: &hasher)
   }
 }
 
@@ -372,6 +372,13 @@ struct ScanResult: Hashable {
   var status: ScanResultStatus? = nil
   /// Android `NetworkScanResult.duration` (total ms). Null on iOS.
   var totalDurationMs: Int64? = nil
+  /// Backend report identifier. Lets you correlate a scan without parsing the
+  /// JWT in [reportUrl]. Null on backends predating the payload.
+  var reportId: String? = nil
+  /// Subscriber/customer key the report was filed under.
+  var customerId: String? = nil
+  /// The full report payload. Null when the backend omitted it.
+  var report: ReportData? = nil
 
 
   // swift-format-ignore: AlwaysUseLowerCamelCase
@@ -379,11 +386,17 @@ struct ScanResult: Hashable {
     let reportUrl = pigeonVar_list[0] as! String
     let status: ScanResultStatus? = nilOrValue(pigeonVar_list[1])
     let totalDurationMs: Int64? = nilOrValue(pigeonVar_list[2])
+    let reportId: String? = nilOrValue(pigeonVar_list[3])
+    let customerId: String? = nilOrValue(pigeonVar_list[4])
+    let report: ReportData? = nilOrValue(pigeonVar_list[5])
 
     return ScanResult(
       reportUrl: reportUrl,
       status: status,
-      totalDurationMs: totalDurationMs
+      totalDurationMs: totalDurationMs,
+      reportId: reportId,
+      customerId: customerId,
+      report: report
     )
   }
   func toList() -> [Any?] {
@@ -391,13 +404,16 @@ struct ScanResult: Hashable {
       reportUrl,
       status,
       totalDurationMs,
+      reportId,
+      customerId,
+      report,
     ]
   }
   static func == (lhs: ScanResult, rhs: ScanResult) -> Bool {
     if Swift.type(of: lhs) != Swift.type(of: rhs) {
       return false
     }
-    return deepEqualsMessages(lhs.reportUrl, rhs.reportUrl) && deepEqualsMessages(lhs.status, rhs.status) && deepEqualsMessages(lhs.totalDurationMs, rhs.totalDurationMs)
+    return deepEqualsMessages(lhs.reportUrl, rhs.reportUrl) && deepEqualsMessages(lhs.status, rhs.status) && deepEqualsMessages(lhs.totalDurationMs, rhs.totalDurationMs) && deepEqualsMessages(lhs.reportId, rhs.reportId) && deepEqualsMessages(lhs.customerId, rhs.customerId) && deepEqualsMessages(lhs.report, rhs.report)
   }
 
   func hash(into hasher: inout Hasher) {
@@ -405,6 +421,9 @@ struct ScanResult: Hashable {
     deepHashMessages(value: reportUrl, hasher: &hasher)
     deepHashMessages(value: status, hasher: &hasher)
     deepHashMessages(value: totalDurationMs, hasher: &hasher)
+    deepHashMessages(value: reportId, hasher: &hasher)
+    deepHashMessages(value: customerId, hasher: &hasher)
+    deepHashMessages(value: report, hasher: &hasher)
   }
 }
 
@@ -499,6 +518,1531 @@ struct ScanReport: Hashable {
   }
 }
 
+/// A `{quality, color}` pair. NOT the same shape as
+/// [InternetSpeed.connectionQuality], which is a single-entry map.
+///
+/// Generated class from Pigeon that represents data sent in messages.
+struct QualityColor: Hashable {
+  var quality: String? = nil
+  var color: String? = nil
+
+
+  // swift-format-ignore: AlwaysUseLowerCamelCase
+  static func fromList(_ pigeonVar_list: [Any?]) -> QualityColor? {
+    let quality: String? = nilOrValue(pigeonVar_list[0])
+    let color: String? = nilOrValue(pigeonVar_list[1])
+
+    return QualityColor(
+      quality: quality,
+      color: color
+    )
+  }
+  func toList() -> [Any?] {
+    return [
+      quality,
+      color,
+    ]
+  }
+  static func == (lhs: QualityColor, rhs: QualityColor) -> Bool {
+    if Swift.type(of: lhs) != Swift.type(of: rhs) {
+      return false
+    }
+    return deepEqualsMessages(lhs.quality, rhs.quality) && deepEqualsMessages(lhs.color, rhs.color)
+  }
+
+  func hash(into hasher: inout Hasher) {
+    hasher.combine("QualityColor")
+    deepHashMessages(value: quality, hasher: &hasher)
+    deepHashMessages(value: color, hasher: &hasher)
+  }
+}
+
+/// A `{status, color}` roll-up pair.
+///
+/// Generated class from Pigeon that represents data sent in messages.
+struct StatusColor: Hashable {
+  var status: String? = nil
+  var color: String? = nil
+
+
+  // swift-format-ignore: AlwaysUseLowerCamelCase
+  static func fromList(_ pigeonVar_list: [Any?]) -> StatusColor? {
+    let status: String? = nilOrValue(pigeonVar_list[0])
+    let color: String? = nilOrValue(pigeonVar_list[1])
+
+    return StatusColor(
+      status: status,
+      color: color
+    )
+  }
+  func toList() -> [Any?] {
+    return [
+      status,
+      color,
+    ]
+  }
+  static func == (lhs: StatusColor, rhs: StatusColor) -> Bool {
+    if Swift.type(of: lhs) != Swift.type(of: rhs) {
+      return false
+    }
+    return deepEqualsMessages(lhs.status, rhs.status) && deepEqualsMessages(lhs.color, rhs.color)
+  }
+
+  func hash(into hasher: inout Hasher) {
+    hasher.combine("StatusColor")
+    deepHashMessages(value: status, hasher: &hasher)
+    deepHashMessages(value: color, hasher: &hasher)
+  }
+}
+
+/// A report alert. [alertType] is a String, never an enum — new members ship
+/// without an API version bump. Branch on [alertType], never [alertValue].
+///
+/// Generated class from Pigeon that represents data sent in messages.
+struct ReportAlert: Hashable {
+  var alertType: String? = nil
+  var alertValue: String? = nil
+
+
+  // swift-format-ignore: AlwaysUseLowerCamelCase
+  static func fromList(_ pigeonVar_list: [Any?]) -> ReportAlert? {
+    let alertType: String? = nilOrValue(pigeonVar_list[0])
+    let alertValue: String? = nilOrValue(pigeonVar_list[1])
+
+    return ReportAlert(
+      alertType: alertType,
+      alertValue: alertValue
+    )
+  }
+  func toList() -> [Any?] {
+    return [
+      alertType,
+      alertValue,
+    ]
+  }
+  static func == (lhs: ReportAlert, rhs: ReportAlert) -> Bool {
+    if Swift.type(of: lhs) != Swift.type(of: rhs) {
+      return false
+    }
+    return deepEqualsMessages(lhs.alertType, rhs.alertType) && deepEqualsMessages(lhs.alertValue, rhs.alertValue)
+  }
+
+  func hash(into hasher: inout Hasher) {
+    hasher.combine("ReportAlert")
+    deepHashMessages(value: alertType, hasher: &hasher)
+    deepHashMessages(value: alertValue, hasher: &hasher)
+  }
+}
+
+/// A report recommendation. Field names differ from [ReportAlert]:
+/// actions use `action_*`, alerts use `alert_*`.
+///
+/// Generated class from Pigeon that represents data sent in messages.
+struct ReportAction: Hashable {
+  var actionType: String? = nil
+  var actionValue: String? = nil
+
+
+  // swift-format-ignore: AlwaysUseLowerCamelCase
+  static func fromList(_ pigeonVar_list: [Any?]) -> ReportAction? {
+    let actionType: String? = nilOrValue(pigeonVar_list[0])
+    let actionValue: String? = nilOrValue(pigeonVar_list[1])
+
+    return ReportAction(
+      actionType: actionType,
+      actionValue: actionValue
+    )
+  }
+  func toList() -> [Any?] {
+    return [
+      actionType,
+      actionValue,
+    ]
+  }
+  static func == (lhs: ReportAction, rhs: ReportAction) -> Bool {
+    if Swift.type(of: lhs) != Swift.type(of: rhs) {
+      return false
+    }
+    return deepEqualsMessages(lhs.actionType, rhs.actionType) && deepEqualsMessages(lhs.actionValue, rhs.actionValue)
+  }
+
+  func hash(into hasher: inout Hasher) {
+    hasher.combine("ReportAction")
+    deepHashMessages(value: actionType, hasher: &hasher)
+    deepHashMessages(value: actionValue, hasher: &hasher)
+  }
+}
+
+/// Generated class from Pigeon that represents data sent in messages.
+struct CustomerDetails: Hashable {
+  var key: String? = nil
+  var lastKnownPublicIp: String? = nil
+  /// Capitalised keys (`Country`, `Region`, `ISP`). Passed through verbatim.
+  var lastKnownPublicIpDetails: [String: String]? = nil
+
+
+  // swift-format-ignore: AlwaysUseLowerCamelCase
+  static func fromList(_ pigeonVar_list: [Any?]) -> CustomerDetails? {
+    let key: String? = nilOrValue(pigeonVar_list[0])
+    let lastKnownPublicIp: String? = nilOrValue(pigeonVar_list[1])
+    let lastKnownPublicIpDetails: [String: String]? = nilOrValue(pigeonVar_list[2])
+
+    return CustomerDetails(
+      key: key,
+      lastKnownPublicIp: lastKnownPublicIp,
+      lastKnownPublicIpDetails: lastKnownPublicIpDetails
+    )
+  }
+  func toList() -> [Any?] {
+    return [
+      key,
+      lastKnownPublicIp,
+      lastKnownPublicIpDetails,
+    ]
+  }
+  static func == (lhs: CustomerDetails, rhs: CustomerDetails) -> Bool {
+    if Swift.type(of: lhs) != Swift.type(of: rhs) {
+      return false
+    }
+    return deepEqualsMessages(lhs.key, rhs.key) && deepEqualsMessages(lhs.lastKnownPublicIp, rhs.lastKnownPublicIp) && deepEqualsMessages(lhs.lastKnownPublicIpDetails, rhs.lastKnownPublicIpDetails)
+  }
+
+  func hash(into hasher: inout Hasher) {
+    hasher.combine("CustomerDetails")
+    deepHashMessages(value: key, hasher: &hasher)
+    deepHashMessages(value: lastKnownPublicIp, hasher: &hasher)
+    deepHashMessages(value: lastKnownPublicIpDetails, hasher: &hasher)
+  }
+}
+
+/// Generated class from Pigeon that represents data sent in messages.
+struct SdkDetails: Hashable {
+  var start: String? = nil
+  /// Seconds.
+  var duration: Int64? = nil
+  var platform: String? = nil
+  var app: String? = nil
+  var routeThisSdk: String? = nil
+  var userPublicUpAddress: String? = nil
+  var gpsLatitude: Double? = nil
+  var gpsLongitude: Double? = nil
+
+
+  // swift-format-ignore: AlwaysUseLowerCamelCase
+  static func fromList(_ pigeonVar_list: [Any?]) -> SdkDetails? {
+    let start: String? = nilOrValue(pigeonVar_list[0])
+    let duration: Int64? = nilOrValue(pigeonVar_list[1])
+    let platform: String? = nilOrValue(pigeonVar_list[2])
+    let app: String? = nilOrValue(pigeonVar_list[3])
+    let routeThisSdk: String? = nilOrValue(pigeonVar_list[4])
+    let userPublicUpAddress: String? = nilOrValue(pigeonVar_list[5])
+    let gpsLatitude: Double? = nilOrValue(pigeonVar_list[6])
+    let gpsLongitude: Double? = nilOrValue(pigeonVar_list[7])
+
+    return SdkDetails(
+      start: start,
+      duration: duration,
+      platform: platform,
+      app: app,
+      routeThisSdk: routeThisSdk,
+      userPublicUpAddress: userPublicUpAddress,
+      gpsLatitude: gpsLatitude,
+      gpsLongitude: gpsLongitude
+    )
+  }
+  func toList() -> [Any?] {
+    return [
+      start,
+      duration,
+      platform,
+      app,
+      routeThisSdk,
+      userPublicUpAddress,
+      gpsLatitude,
+      gpsLongitude,
+    ]
+  }
+  static func == (lhs: SdkDetails, rhs: SdkDetails) -> Bool {
+    if Swift.type(of: lhs) != Swift.type(of: rhs) {
+      return false
+    }
+    return deepEqualsMessages(lhs.start, rhs.start) && deepEqualsMessages(lhs.duration, rhs.duration) && deepEqualsMessages(lhs.platform, rhs.platform) && deepEqualsMessages(lhs.app, rhs.app) && deepEqualsMessages(lhs.routeThisSdk, rhs.routeThisSdk) && deepEqualsMessages(lhs.userPublicUpAddress, rhs.userPublicUpAddress) && deepEqualsMessages(lhs.gpsLatitude, rhs.gpsLatitude) && deepEqualsMessages(lhs.gpsLongitude, rhs.gpsLongitude)
+  }
+
+  func hash(into hasher: inout Hasher) {
+    hasher.combine("SdkDetails")
+    deepHashMessages(value: start, hasher: &hasher)
+    deepHashMessages(value: duration, hasher: &hasher)
+    deepHashMessages(value: platform, hasher: &hasher)
+    deepHashMessages(value: app, hasher: &hasher)
+    deepHashMessages(value: routeThisSdk, hasher: &hasher)
+    deepHashMessages(value: userPublicUpAddress, hasher: &hasher)
+    deepHashMessages(value: gpsLatitude, hasher: &hasher)
+    deepHashMessages(value: gpsLongitude, hasher: &hasher)
+  }
+}
+
+/// Mbps.
+///
+/// Generated class from Pigeon that represents data sent in messages.
+struct RouterUsage: Hashable {
+  var networkUsageDown: Double? = nil
+  var networkUsageUp: Double? = nil
+
+
+  // swift-format-ignore: AlwaysUseLowerCamelCase
+  static func fromList(_ pigeonVar_list: [Any?]) -> RouterUsage? {
+    let networkUsageDown: Double? = nilOrValue(pigeonVar_list[0])
+    let networkUsageUp: Double? = nilOrValue(pigeonVar_list[1])
+
+    return RouterUsage(
+      networkUsageDown: networkUsageDown,
+      networkUsageUp: networkUsageUp
+    )
+  }
+  func toList() -> [Any?] {
+    return [
+      networkUsageDown,
+      networkUsageUp,
+    ]
+  }
+  static func == (lhs: RouterUsage, rhs: RouterUsage) -> Bool {
+    if Swift.type(of: lhs) != Swift.type(of: rhs) {
+      return false
+    }
+    return deepEqualsMessages(lhs.networkUsageDown, rhs.networkUsageDown) && deepEqualsMessages(lhs.networkUsageUp, rhs.networkUsageUp)
+  }
+
+  func hash(into hasher: inout Hasher) {
+    hasher.combine("RouterUsage")
+    deepHashMessages(value: networkUsageDown, hasher: &hasher)
+    deepHashMessages(value: networkUsageUp, hasher: &hasher)
+  }
+}
+
+/// Generated class from Pigeon that represents data sent in messages.
+struct InternetSpeed: Hashable {
+  var networkSpeedDown: Double? = nil
+  var networkSpeedUp: Double? = nil
+  var currentNegotiatedLinkSpeed: Double? = nil
+  var maximumLinkSupportedByPhone: String? = nil
+  var networkSpeedUpSegments: [Double]? = nil
+  var networkSpeedDownSegments: [Double]? = nil
+  /// SINGLE-ENTRY map keyed by the quality label, e.g. `{"good": "green"}`.
+  /// NOT a [QualityColor] struct.
+  var connectionQuality: [String: String]? = nil
+
+
+  // swift-format-ignore: AlwaysUseLowerCamelCase
+  static func fromList(_ pigeonVar_list: [Any?]) -> InternetSpeed? {
+    let networkSpeedDown: Double? = nilOrValue(pigeonVar_list[0])
+    let networkSpeedUp: Double? = nilOrValue(pigeonVar_list[1])
+    let currentNegotiatedLinkSpeed: Double? = nilOrValue(pigeonVar_list[2])
+    let maximumLinkSupportedByPhone: String? = nilOrValue(pigeonVar_list[3])
+    let networkSpeedUpSegments: [Double]? = nilOrValue(pigeonVar_list[4])
+    let networkSpeedDownSegments: [Double]? = nilOrValue(pigeonVar_list[5])
+    let connectionQuality: [String: String]? = nilOrValue(pigeonVar_list[6])
+
+    return InternetSpeed(
+      networkSpeedDown: networkSpeedDown,
+      networkSpeedUp: networkSpeedUp,
+      currentNegotiatedLinkSpeed: currentNegotiatedLinkSpeed,
+      maximumLinkSupportedByPhone: maximumLinkSupportedByPhone,
+      networkSpeedUpSegments: networkSpeedUpSegments,
+      networkSpeedDownSegments: networkSpeedDownSegments,
+      connectionQuality: connectionQuality
+    )
+  }
+  func toList() -> [Any?] {
+    return [
+      networkSpeedDown,
+      networkSpeedUp,
+      currentNegotiatedLinkSpeed,
+      maximumLinkSupportedByPhone,
+      networkSpeedUpSegments,
+      networkSpeedDownSegments,
+      connectionQuality,
+    ]
+  }
+  static func == (lhs: InternetSpeed, rhs: InternetSpeed) -> Bool {
+    if Swift.type(of: lhs) != Swift.type(of: rhs) {
+      return false
+    }
+    return deepEqualsMessages(lhs.networkSpeedDown, rhs.networkSpeedDown) && deepEqualsMessages(lhs.networkSpeedUp, rhs.networkSpeedUp) && deepEqualsMessages(lhs.currentNegotiatedLinkSpeed, rhs.currentNegotiatedLinkSpeed) && deepEqualsMessages(lhs.maximumLinkSupportedByPhone, rhs.maximumLinkSupportedByPhone) && deepEqualsMessages(lhs.networkSpeedUpSegments, rhs.networkSpeedUpSegments) && deepEqualsMessages(lhs.networkSpeedDownSegments, rhs.networkSpeedDownSegments) && deepEqualsMessages(lhs.connectionQuality, rhs.connectionQuality)
+  }
+
+  func hash(into hasher: inout Hasher) {
+    hasher.combine("InternetSpeed")
+    deepHashMessages(value: networkSpeedDown, hasher: &hasher)
+    deepHashMessages(value: networkSpeedUp, hasher: &hasher)
+    deepHashMessages(value: currentNegotiatedLinkSpeed, hasher: &hasher)
+    deepHashMessages(value: maximumLinkSupportedByPhone, hasher: &hasher)
+    deepHashMessages(value: networkSpeedUpSegments, hasher: &hasher)
+    deepHashMessages(value: networkSpeedDownSegments, hasher: &hasher)
+    deepHashMessages(value: connectionQuality, hasher: &hasher)
+  }
+}
+
+/// Generated class from Pigeon that represents data sent in messages.
+struct ServerConnectivityResult: Hashable {
+  var name: String? = nil
+  var serverStatus: Bool? = nil
+
+
+  // swift-format-ignore: AlwaysUseLowerCamelCase
+  static func fromList(_ pigeonVar_list: [Any?]) -> ServerConnectivityResult? {
+    let name: String? = nilOrValue(pigeonVar_list[0])
+    let serverStatus: Bool? = nilOrValue(pigeonVar_list[1])
+
+    return ServerConnectivityResult(
+      name: name,
+      serverStatus: serverStatus
+    )
+  }
+  func toList() -> [Any?] {
+    return [
+      name,
+      serverStatus,
+    ]
+  }
+  static func == (lhs: ServerConnectivityResult, rhs: ServerConnectivityResult) -> Bool {
+    if Swift.type(of: lhs) != Swift.type(of: rhs) {
+      return false
+    }
+    return deepEqualsMessages(lhs.name, rhs.name) && deepEqualsMessages(lhs.serverStatus, rhs.serverStatus)
+  }
+
+  func hash(into hasher: inout Hasher) {
+    hasher.combine("ServerConnectivityResult")
+    deepHashMessages(value: name, hasher: &hasher)
+    deepHashMessages(value: serverStatus, hasher: &hasher)
+  }
+}
+
+/// Generated class from Pigeon that represents data sent in messages.
+struct PortCheckResult: Hashable {
+  var port: Int64? = nil
+  var portType: String? = nil
+  var description: String? = nil
+  var portStatus: Bool? = nil
+
+
+  // swift-format-ignore: AlwaysUseLowerCamelCase
+  static func fromList(_ pigeonVar_list: [Any?]) -> PortCheckResult? {
+    let port: Int64? = nilOrValue(pigeonVar_list[0])
+    let portType: String? = nilOrValue(pigeonVar_list[1])
+    let description: String? = nilOrValue(pigeonVar_list[2])
+    let portStatus: Bool? = nilOrValue(pigeonVar_list[3])
+
+    return PortCheckResult(
+      port: port,
+      portType: portType,
+      description: description,
+      portStatus: portStatus
+    )
+  }
+  func toList() -> [Any?] {
+    return [
+      port,
+      portType,
+      description,
+      portStatus,
+    ]
+  }
+  static func == (lhs: PortCheckResult, rhs: PortCheckResult) -> Bool {
+    if Swift.type(of: lhs) != Swift.type(of: rhs) {
+      return false
+    }
+    return deepEqualsMessages(lhs.port, rhs.port) && deepEqualsMessages(lhs.portType, rhs.portType) && deepEqualsMessages(lhs.description, rhs.description) && deepEqualsMessages(lhs.portStatus, rhs.portStatus)
+  }
+
+  func hash(into hasher: inout Hasher) {
+    hasher.combine("PortCheckResult")
+    deepHashMessages(value: port, hasher: &hasher)
+    deepHashMessages(value: portType, hasher: &hasher)
+    deepHashMessages(value: description, hasher: &hasher)
+    deepHashMessages(value: portStatus, hasher: &hasher)
+  }
+}
+
+/// Generated class from Pigeon that represents data sent in messages.
+struct DnsLookupResult: Hashable {
+  var dnsIp: String? = nil
+  var alias: String? = nil
+  var reverseDns: String? = nil
+
+
+  // swift-format-ignore: AlwaysUseLowerCamelCase
+  static func fromList(_ pigeonVar_list: [Any?]) -> DnsLookupResult? {
+    let dnsIp: String? = nilOrValue(pigeonVar_list[0])
+    let alias: String? = nilOrValue(pigeonVar_list[1])
+    let reverseDns: String? = nilOrValue(pigeonVar_list[2])
+
+    return DnsLookupResult(
+      dnsIp: dnsIp,
+      alias: alias,
+      reverseDns: reverseDns
+    )
+  }
+  func toList() -> [Any?] {
+    return [
+      dnsIp,
+      alias,
+      reverseDns,
+    ]
+  }
+  static func == (lhs: DnsLookupResult, rhs: DnsLookupResult) -> Bool {
+    if Swift.type(of: lhs) != Swift.type(of: rhs) {
+      return false
+    }
+    return deepEqualsMessages(lhs.dnsIp, rhs.dnsIp) && deepEqualsMessages(lhs.alias, rhs.alias) && deepEqualsMessages(lhs.reverseDns, rhs.reverseDns)
+  }
+
+  func hash(into hasher: inout Hasher) {
+    hasher.combine("DnsLookupResult")
+    deepHashMessages(value: dnsIp, hasher: &hasher)
+    deepHashMessages(value: alias, hasher: &hasher)
+    deepHashMessages(value: reverseDns, hasher: &hasher)
+  }
+}
+
+/// The three entries do NOT share a type: [dnsLookup] is a list of alias
+/// strings while its siblings are objects.
+///
+/// Generated class from Pigeon that represents data sent in messages.
+struct ConnectivitySummary: Hashable {
+  var serverConnectivity: StatusColor? = nil
+  var portChecks: StatusColor? = nil
+  var dnsLookup: [String]? = nil
+
+
+  // swift-format-ignore: AlwaysUseLowerCamelCase
+  static func fromList(_ pigeonVar_list: [Any?]) -> ConnectivitySummary? {
+    let serverConnectivity: StatusColor? = nilOrValue(pigeonVar_list[0])
+    let portChecks: StatusColor? = nilOrValue(pigeonVar_list[1])
+    let dnsLookup: [String]? = nilOrValue(pigeonVar_list[2])
+
+    return ConnectivitySummary(
+      serverConnectivity: serverConnectivity,
+      portChecks: portChecks,
+      dnsLookup: dnsLookup
+    )
+  }
+  func toList() -> [Any?] {
+    return [
+      serverConnectivity,
+      portChecks,
+      dnsLookup,
+    ]
+  }
+  static func == (lhs: ConnectivitySummary, rhs: ConnectivitySummary) -> Bool {
+    if Swift.type(of: lhs) != Swift.type(of: rhs) {
+      return false
+    }
+    return deepEqualsMessages(lhs.serverConnectivity, rhs.serverConnectivity) && deepEqualsMessages(lhs.portChecks, rhs.portChecks) && deepEqualsMessages(lhs.dnsLookup, rhs.dnsLookup)
+  }
+
+  func hash(into hasher: inout Hasher) {
+    hasher.combine("ConnectivitySummary")
+    deepHashMessages(value: serverConnectivity, hasher: &hasher)
+    deepHashMessages(value: portChecks, hasher: &hasher)
+    deepHashMessages(value: dnsLookup, hasher: &hasher)
+  }
+}
+
+/// Firewall / client isolation / multicast. [value] is the STRING
+/// `"Enabled"` / `"Disabled"`, never a bool.
+///
+/// Generated class from Pigeon that represents data sent in messages.
+struct ToggleState: Hashable {
+  var value: String? = nil
+  var color: String? = nil
+  var status: String? = nil
+  /// Single alert object, not a list. Null when no alert applies.
+  var alert: ReportAlert? = nil
+
+
+  // swift-format-ignore: AlwaysUseLowerCamelCase
+  static func fromList(_ pigeonVar_list: [Any?]) -> ToggleState? {
+    let value: String? = nilOrValue(pigeonVar_list[0])
+    let color: String? = nilOrValue(pigeonVar_list[1])
+    let status: String? = nilOrValue(pigeonVar_list[2])
+    let alert: ReportAlert? = nilOrValue(pigeonVar_list[3])
+
+    return ToggleState(
+      value: value,
+      color: color,
+      status: status,
+      alert: alert
+    )
+  }
+  func toList() -> [Any?] {
+    return [
+      value,
+      color,
+      status,
+      alert,
+    ]
+  }
+  static func == (lhs: ToggleState, rhs: ToggleState) -> Bool {
+    if Swift.type(of: lhs) != Swift.type(of: rhs) {
+      return false
+    }
+    return deepEqualsMessages(lhs.value, rhs.value) && deepEqualsMessages(lhs.color, rhs.color) && deepEqualsMessages(lhs.status, rhs.status) && deepEqualsMessages(lhs.alert, rhs.alert)
+  }
+
+  func hash(into hasher: inout Hasher) {
+    hasher.combine("ToggleState")
+    deepHashMessages(value: value, hasher: &hasher)
+    deepHashMessages(value: color, hasher: &hasher)
+    deepHashMessages(value: status, hasher: &hasher)
+    deepHashMessages(value: alert, hasher: &hasher)
+  }
+}
+
+/// Generated class from Pigeon that represents data sent in messages.
+struct BasicConnectivity: Hashable {
+  var ipAssignedViaDhcp: Bool? = nil
+  var serverConnectivity: [ServerConnectivityResult]? = nil
+  var portChecks: [PortCheckResult]? = nil
+  var dnsLookup: [DnsLookupResult]? = nil
+  var summary: ConnectivitySummary? = nil
+  /// Blocked server names (payload key `servers`).
+  var blockedServers: [String]? = nil
+  /// Blocked UDP ports (payload key `udp`).
+  var blockedUdpPorts: [Int64]? = nil
+  /// Blocked TCP ports (payload key `tcp`).
+  var blockedTcpPorts: [Int64]? = nil
+  var firewall: ToggleState? = nil
+  var clientIsolation: ToggleState? = nil
+  var multicast: ToggleState? = nil
+
+
+  // swift-format-ignore: AlwaysUseLowerCamelCase
+  static func fromList(_ pigeonVar_list: [Any?]) -> BasicConnectivity? {
+    let ipAssignedViaDhcp: Bool? = nilOrValue(pigeonVar_list[0])
+    let serverConnectivity: [ServerConnectivityResult]? = nilOrValue(pigeonVar_list[1])
+    let portChecks: [PortCheckResult]? = nilOrValue(pigeonVar_list[2])
+    let dnsLookup: [DnsLookupResult]? = nilOrValue(pigeonVar_list[3])
+    let summary: ConnectivitySummary? = nilOrValue(pigeonVar_list[4])
+    let blockedServers: [String]? = nilOrValue(pigeonVar_list[5])
+    let blockedUdpPorts: [Int64]? = nilOrValue(pigeonVar_list[6])
+    let blockedTcpPorts: [Int64]? = nilOrValue(pigeonVar_list[7])
+    let firewall: ToggleState? = nilOrValue(pigeonVar_list[8])
+    let clientIsolation: ToggleState? = nilOrValue(pigeonVar_list[9])
+    let multicast: ToggleState? = nilOrValue(pigeonVar_list[10])
+
+    return BasicConnectivity(
+      ipAssignedViaDhcp: ipAssignedViaDhcp,
+      serverConnectivity: serverConnectivity,
+      portChecks: portChecks,
+      dnsLookup: dnsLookup,
+      summary: summary,
+      blockedServers: blockedServers,
+      blockedUdpPorts: blockedUdpPorts,
+      blockedTcpPorts: blockedTcpPorts,
+      firewall: firewall,
+      clientIsolation: clientIsolation,
+      multicast: multicast
+    )
+  }
+  func toList() -> [Any?] {
+    return [
+      ipAssignedViaDhcp,
+      serverConnectivity,
+      portChecks,
+      dnsLookup,
+      summary,
+      blockedServers,
+      blockedUdpPorts,
+      blockedTcpPorts,
+      firewall,
+      clientIsolation,
+      multicast,
+    ]
+  }
+  static func == (lhs: BasicConnectivity, rhs: BasicConnectivity) -> Bool {
+    if Swift.type(of: lhs) != Swift.type(of: rhs) {
+      return false
+    }
+    return deepEqualsMessages(lhs.ipAssignedViaDhcp, rhs.ipAssignedViaDhcp) && deepEqualsMessages(lhs.serverConnectivity, rhs.serverConnectivity) && deepEqualsMessages(lhs.portChecks, rhs.portChecks) && deepEqualsMessages(lhs.dnsLookup, rhs.dnsLookup) && deepEqualsMessages(lhs.summary, rhs.summary) && deepEqualsMessages(lhs.blockedServers, rhs.blockedServers) && deepEqualsMessages(lhs.blockedUdpPorts, rhs.blockedUdpPorts) && deepEqualsMessages(lhs.blockedTcpPorts, rhs.blockedTcpPorts) && deepEqualsMessages(lhs.firewall, rhs.firewall) && deepEqualsMessages(lhs.clientIsolation, rhs.clientIsolation) && deepEqualsMessages(lhs.multicast, rhs.multicast)
+  }
+
+  func hash(into hasher: inout Hasher) {
+    hasher.combine("BasicConnectivity")
+    deepHashMessages(value: ipAssignedViaDhcp, hasher: &hasher)
+    deepHashMessages(value: serverConnectivity, hasher: &hasher)
+    deepHashMessages(value: portChecks, hasher: &hasher)
+    deepHashMessages(value: dnsLookup, hasher: &hasher)
+    deepHashMessages(value: summary, hasher: &hasher)
+    deepHashMessages(value: blockedServers, hasher: &hasher)
+    deepHashMessages(value: blockedUdpPorts, hasher: &hasher)
+    deepHashMessages(value: blockedTcpPorts, hasher: &hasher)
+    deepHashMessages(value: firewall, hasher: &hasher)
+    deepHashMessages(value: clientIsolation, hasher: &hasher)
+    deepHashMessages(value: multicast, hasher: &hasher)
+  }
+}
+
+/// Third-party (Fing) recognition. [recognition] is an open payload.
+///
+/// Generated class from Pigeon that represents data sent in messages.
+struct DeviceRecognition: Hashable {
+  var mac: String? = nil
+  var recognition: [String: Any?]? = nil
+
+
+  // swift-format-ignore: AlwaysUseLowerCamelCase
+  static func fromList(_ pigeonVar_list: [Any?]) -> DeviceRecognition? {
+    let mac: String? = nilOrValue(pigeonVar_list[0])
+    let recognition: [String: Any?]? = nilOrValue(pigeonVar_list[1])
+
+    return DeviceRecognition(
+      mac: mac,
+      recognition: recognition
+    )
+  }
+  func toList() -> [Any?] {
+    return [
+      mac,
+      recognition,
+    ]
+  }
+  static func == (lhs: DeviceRecognition, rhs: DeviceRecognition) -> Bool {
+    if Swift.type(of: lhs) != Swift.type(of: rhs) {
+      return false
+    }
+    return deepEqualsMessages(lhs.mac, rhs.mac) && deepEqualsMessages(lhs.recognition, rhs.recognition)
+  }
+
+  func hash(into hasher: inout Hasher) {
+    hasher.combine("DeviceRecognition")
+    deepHashMessages(value: mac, hasher: &hasher)
+    deepHashMessages(value: recognition, hasher: &hasher)
+  }
+}
+
+/// Generated class from Pigeon that represents data sent in messages.
+struct LocalConnectedDevice: Hashable {
+  var deviceName: String? = nil
+  var deviceIp: String? = nil
+  var deviceMacAddress: String? = nil
+  var manufacturer: String? = nil
+  var packetsDropped: Double? = nil
+  var numPacketsSent: Int64? = nil
+  var pingValues: [Double]? = nil
+  var isSubscriberPhone: Bool? = nil
+  /// `0` (not null) when [pingValues] is empty.
+  var averagePingTime: Double? = nil
+  var connectionQualityColor: QualityColor? = nil
+  var isSubscriberRouter: Bool? = nil
+  /// Null when device recognition did not run.
+  var deviceDetails: DeviceRecognition? = nil
+
+
+  // swift-format-ignore: AlwaysUseLowerCamelCase
+  static func fromList(_ pigeonVar_list: [Any?]) -> LocalConnectedDevice? {
+    let deviceName: String? = nilOrValue(pigeonVar_list[0])
+    let deviceIp: String? = nilOrValue(pigeonVar_list[1])
+    let deviceMacAddress: String? = nilOrValue(pigeonVar_list[2])
+    let manufacturer: String? = nilOrValue(pigeonVar_list[3])
+    let packetsDropped: Double? = nilOrValue(pigeonVar_list[4])
+    let numPacketsSent: Int64? = nilOrValue(pigeonVar_list[5])
+    let pingValues: [Double]? = nilOrValue(pigeonVar_list[6])
+    let isSubscriberPhone: Bool? = nilOrValue(pigeonVar_list[7])
+    let averagePingTime: Double? = nilOrValue(pigeonVar_list[8])
+    let connectionQualityColor: QualityColor? = nilOrValue(pigeonVar_list[9])
+    let isSubscriberRouter: Bool? = nilOrValue(pigeonVar_list[10])
+    let deviceDetails: DeviceRecognition? = nilOrValue(pigeonVar_list[11])
+
+    return LocalConnectedDevice(
+      deviceName: deviceName,
+      deviceIp: deviceIp,
+      deviceMacAddress: deviceMacAddress,
+      manufacturer: manufacturer,
+      packetsDropped: packetsDropped,
+      numPacketsSent: numPacketsSent,
+      pingValues: pingValues,
+      isSubscriberPhone: isSubscriberPhone,
+      averagePingTime: averagePingTime,
+      connectionQualityColor: connectionQualityColor,
+      isSubscriberRouter: isSubscriberRouter,
+      deviceDetails: deviceDetails
+    )
+  }
+  func toList() -> [Any?] {
+    return [
+      deviceName,
+      deviceIp,
+      deviceMacAddress,
+      manufacturer,
+      packetsDropped,
+      numPacketsSent,
+      pingValues,
+      isSubscriberPhone,
+      averagePingTime,
+      connectionQualityColor,
+      isSubscriberRouter,
+      deviceDetails,
+    ]
+  }
+  static func == (lhs: LocalConnectedDevice, rhs: LocalConnectedDevice) -> Bool {
+    if Swift.type(of: lhs) != Swift.type(of: rhs) {
+      return false
+    }
+    return deepEqualsMessages(lhs.deviceName, rhs.deviceName) && deepEqualsMessages(lhs.deviceIp, rhs.deviceIp) && deepEqualsMessages(lhs.deviceMacAddress, rhs.deviceMacAddress) && deepEqualsMessages(lhs.manufacturer, rhs.manufacturer) && deepEqualsMessages(lhs.packetsDropped, rhs.packetsDropped) && deepEqualsMessages(lhs.numPacketsSent, rhs.numPacketsSent) && deepEqualsMessages(lhs.pingValues, rhs.pingValues) && deepEqualsMessages(lhs.isSubscriberPhone, rhs.isSubscriberPhone) && deepEqualsMessages(lhs.averagePingTime, rhs.averagePingTime) && deepEqualsMessages(lhs.connectionQualityColor, rhs.connectionQualityColor) && deepEqualsMessages(lhs.isSubscriberRouter, rhs.isSubscriberRouter) && deepEqualsMessages(lhs.deviceDetails, rhs.deviceDetails)
+  }
+
+  func hash(into hasher: inout Hasher) {
+    hasher.combine("LocalConnectedDevice")
+    deepHashMessages(value: deviceName, hasher: &hasher)
+    deepHashMessages(value: deviceIp, hasher: &hasher)
+    deepHashMessages(value: deviceMacAddress, hasher: &hasher)
+    deepHashMessages(value: manufacturer, hasher: &hasher)
+    deepHashMessages(value: packetsDropped, hasher: &hasher)
+    deepHashMessages(value: numPacketsSent, hasher: &hasher)
+    deepHashMessages(value: pingValues, hasher: &hasher)
+    deepHashMessages(value: isSubscriberPhone, hasher: &hasher)
+    deepHashMessages(value: averagePingTime, hasher: &hasher)
+    deepHashMessages(value: connectionQualityColor, hasher: &hasher)
+    deepHashMessages(value: isSubscriberRouter, hasher: &hasher)
+    deepHashMessages(value: deviceDetails, hasher: &hasher)
+  }
+}
+
+/// Generated class from Pigeon that represents data sent in messages.
+struct CustomerRouterDetails: Hashable {
+  var make: String? = nil
+  var model: String? = nil
+  var encryption: String? = nil
+  var protocols: String? = nil
+  var mesh: String? = nil
+  var routerIpAddress: String? = nil
+  var routerMacAddress: String? = nil
+  var manufacturer: String? = nil
+  var hostname: String? = nil
+  var modelDescription: String? = nil
+  var modelNumber: String? = nil
+  var friendlyName: String? = nil
+  var deviceType: String? = nil
+  /// Present only when [routerMacAddress] is non-null.
+  var routerDetails: DeviceRecognition? = nil
+
+
+  // swift-format-ignore: AlwaysUseLowerCamelCase
+  static func fromList(_ pigeonVar_list: [Any?]) -> CustomerRouterDetails? {
+    let make: String? = nilOrValue(pigeonVar_list[0])
+    let model: String? = nilOrValue(pigeonVar_list[1])
+    let encryption: String? = nilOrValue(pigeonVar_list[2])
+    let protocols: String? = nilOrValue(pigeonVar_list[3])
+    let mesh: String? = nilOrValue(pigeonVar_list[4])
+    let routerIpAddress: String? = nilOrValue(pigeonVar_list[5])
+    let routerMacAddress: String? = nilOrValue(pigeonVar_list[6])
+    let manufacturer: String? = nilOrValue(pigeonVar_list[7])
+    let hostname: String? = nilOrValue(pigeonVar_list[8])
+    let modelDescription: String? = nilOrValue(pigeonVar_list[9])
+    let modelNumber: String? = nilOrValue(pigeonVar_list[10])
+    let friendlyName: String? = nilOrValue(pigeonVar_list[11])
+    let deviceType: String? = nilOrValue(pigeonVar_list[12])
+    let routerDetails: DeviceRecognition? = nilOrValue(pigeonVar_list[13])
+
+    return CustomerRouterDetails(
+      make: make,
+      model: model,
+      encryption: encryption,
+      protocols: protocols,
+      mesh: mesh,
+      routerIpAddress: routerIpAddress,
+      routerMacAddress: routerMacAddress,
+      manufacturer: manufacturer,
+      hostname: hostname,
+      modelDescription: modelDescription,
+      modelNumber: modelNumber,
+      friendlyName: friendlyName,
+      deviceType: deviceType,
+      routerDetails: routerDetails
+    )
+  }
+  func toList() -> [Any?] {
+    return [
+      make,
+      model,
+      encryption,
+      protocols,
+      mesh,
+      routerIpAddress,
+      routerMacAddress,
+      manufacturer,
+      hostname,
+      modelDescription,
+      modelNumber,
+      friendlyName,
+      deviceType,
+      routerDetails,
+    ]
+  }
+  static func == (lhs: CustomerRouterDetails, rhs: CustomerRouterDetails) -> Bool {
+    if Swift.type(of: lhs) != Swift.type(of: rhs) {
+      return false
+    }
+    return deepEqualsMessages(lhs.make, rhs.make) && deepEqualsMessages(lhs.model, rhs.model) && deepEqualsMessages(lhs.encryption, rhs.encryption) && deepEqualsMessages(lhs.protocols, rhs.protocols) && deepEqualsMessages(lhs.mesh, rhs.mesh) && deepEqualsMessages(lhs.routerIpAddress, rhs.routerIpAddress) && deepEqualsMessages(lhs.routerMacAddress, rhs.routerMacAddress) && deepEqualsMessages(lhs.manufacturer, rhs.manufacturer) && deepEqualsMessages(lhs.hostname, rhs.hostname) && deepEqualsMessages(lhs.modelDescription, rhs.modelDescription) && deepEqualsMessages(lhs.modelNumber, rhs.modelNumber) && deepEqualsMessages(lhs.friendlyName, rhs.friendlyName) && deepEqualsMessages(lhs.deviceType, rhs.deviceType) && deepEqualsMessages(lhs.routerDetails, rhs.routerDetails)
+  }
+
+  func hash(into hasher: inout Hasher) {
+    hasher.combine("CustomerRouterDetails")
+    deepHashMessages(value: make, hasher: &hasher)
+    deepHashMessages(value: model, hasher: &hasher)
+    deepHashMessages(value: encryption, hasher: &hasher)
+    deepHashMessages(value: protocols, hasher: &hasher)
+    deepHashMessages(value: mesh, hasher: &hasher)
+    deepHashMessages(value: routerIpAddress, hasher: &hasher)
+    deepHashMessages(value: routerMacAddress, hasher: &hasher)
+    deepHashMessages(value: manufacturer, hasher: &hasher)
+    deepHashMessages(value: hostname, hasher: &hasher)
+    deepHashMessages(value: modelDescription, hasher: &hasher)
+    deepHashMessages(value: modelNumber, hasher: &hasher)
+    deepHashMessages(value: friendlyName, hasher: &hasher)
+    deepHashMessages(value: deviceType, hasher: &hasher)
+    deepHashMessages(value: routerDetails, hasher: &hasher)
+  }
+}
+
+/// Generated class from Pigeon that represents data sent in messages.
+struct OtherRouterDetail: Hashable {
+  var ip: String? = nil
+  /// Autonomous system number. Null for private hops and until the GeoLite2-ASN
+  /// database is provisioned server-side.
+  var asn: Int64? = nil
+  /// `"Private"` for RFC-1918 addresses regardless of database state; null for
+  /// public addresses until the ASN database is provisioned.
+  var owner: String? = nil
+
+
+  // swift-format-ignore: AlwaysUseLowerCamelCase
+  static func fromList(_ pigeonVar_list: [Any?]) -> OtherRouterDetail? {
+    let ip: String? = nilOrValue(pigeonVar_list[0])
+    let asn: Int64? = nilOrValue(pigeonVar_list[1])
+    let owner: String? = nilOrValue(pigeonVar_list[2])
+
+    return OtherRouterDetail(
+      ip: ip,
+      asn: asn,
+      owner: owner
+    )
+  }
+  func toList() -> [Any?] {
+    return [
+      ip,
+      asn,
+      owner,
+    ]
+  }
+  static func == (lhs: OtherRouterDetail, rhs: OtherRouterDetail) -> Bool {
+    if Swift.type(of: lhs) != Swift.type(of: rhs) {
+      return false
+    }
+    return deepEqualsMessages(lhs.ip, rhs.ip) && deepEqualsMessages(lhs.asn, rhs.asn) && deepEqualsMessages(lhs.owner, rhs.owner)
+  }
+
+  func hash(into hasher: inout Hasher) {
+    hasher.combine("OtherRouterDetail")
+    deepHashMessages(value: ip, hasher: &hasher)
+    deepHashMessages(value: asn, hasher: &hasher)
+    deepHashMessages(value: owner, hasher: &hasher)
+  }
+}
+
+/// Generated class from Pigeon that represents data sent in messages.
+struct DoubleNat: Hashable {
+  var isDoubleNat: Bool? = nil
+  var doubleNatHop: [String]? = nil
+
+
+  // swift-format-ignore: AlwaysUseLowerCamelCase
+  static func fromList(_ pigeonVar_list: [Any?]) -> DoubleNat? {
+    let isDoubleNat: Bool? = nilOrValue(pigeonVar_list[0])
+    let doubleNatHop: [String]? = nilOrValue(pigeonVar_list[1])
+
+    return DoubleNat(
+      isDoubleNat: isDoubleNat,
+      doubleNatHop: doubleNatHop
+    )
+  }
+  func toList() -> [Any?] {
+    return [
+      isDoubleNat,
+      doubleNatHop,
+    ]
+  }
+  static func == (lhs: DoubleNat, rhs: DoubleNat) -> Bool {
+    if Swift.type(of: lhs) != Swift.type(of: rhs) {
+      return false
+    }
+    return deepEqualsMessages(lhs.isDoubleNat, rhs.isDoubleNat) && deepEqualsMessages(lhs.doubleNatHop, rhs.doubleNatHop)
+  }
+
+  func hash(into hasher: inout Hasher) {
+    hasher.combine("DoubleNat")
+    deepHashMessages(value: isDoubleNat, hasher: &hasher)
+    deepHashMessages(value: doubleNatHop, hasher: &hasher)
+  }
+}
+
+/// Generated class from Pigeon that represents data sent in messages.
+struct NetworkTopology: Hashable {
+  var routerIpAddress: String? = nil
+  /// De-duplicated, ordered by first appearance across traceroute hops.
+  var otherRouters: [String]? = nil
+  var otherRoutersDetails: [OtherRouterDetail]? = nil
+  /// Null means NO double NAT — the key is absent in that case, not false.
+  var doubleNatDetected: DoubleNat? = nil
+
+
+  // swift-format-ignore: AlwaysUseLowerCamelCase
+  static func fromList(_ pigeonVar_list: [Any?]) -> NetworkTopology? {
+    let routerIpAddress: String? = nilOrValue(pigeonVar_list[0])
+    let otherRouters: [String]? = nilOrValue(pigeonVar_list[1])
+    let otherRoutersDetails: [OtherRouterDetail]? = nilOrValue(pigeonVar_list[2])
+    let doubleNatDetected: DoubleNat? = nilOrValue(pigeonVar_list[3])
+
+    return NetworkTopology(
+      routerIpAddress: routerIpAddress,
+      otherRouters: otherRouters,
+      otherRoutersDetails: otherRoutersDetails,
+      doubleNatDetected: doubleNatDetected
+    )
+  }
+  func toList() -> [Any?] {
+    return [
+      routerIpAddress,
+      otherRouters,
+      otherRoutersDetails,
+      doubleNatDetected,
+    ]
+  }
+  static func == (lhs: NetworkTopology, rhs: NetworkTopology) -> Bool {
+    if Swift.type(of: lhs) != Swift.type(of: rhs) {
+      return false
+    }
+    return deepEqualsMessages(lhs.routerIpAddress, rhs.routerIpAddress) && deepEqualsMessages(lhs.otherRouters, rhs.otherRouters) && deepEqualsMessages(lhs.otherRoutersDetails, rhs.otherRoutersDetails) && deepEqualsMessages(lhs.doubleNatDetected, rhs.doubleNatDetected)
+  }
+
+  func hash(into hasher: inout Hasher) {
+    hasher.combine("NetworkTopology")
+    deepHashMessages(value: routerIpAddress, hasher: &hasher)
+    deepHashMessages(value: otherRouters, hasher: &hasher)
+    deepHashMessages(value: otherRoutersDetails, hasher: &hasher)
+    deepHashMessages(value: doubleNatDetected, hasher: &hasher)
+  }
+}
+
+/// [frequency] is GHz. [signalStrength] is dBm (negative).
+///
+/// Generated class from Pigeon that represents data sent in messages.
+struct WifiNetworkResult: Hashable {
+  var ssid: String? = nil
+  var ssidIp: String? = nil
+  var bssid: String? = nil
+  var encryption: String? = nil
+  var frequency: Double? = nil
+  var wpsAvailability: Bool? = nil
+  var signalStrength: Int64? = nil
+  var numWifiChannels: Int64? = nil
+  var channelWidth: Int64? = nil
+  var currentChannel: Int64? = nil
+  var isSubscriberSsid: Bool? = nil
+
+
+  // swift-format-ignore: AlwaysUseLowerCamelCase
+  static func fromList(_ pigeonVar_list: [Any?]) -> WifiNetworkResult? {
+    let ssid: String? = nilOrValue(pigeonVar_list[0])
+    let ssidIp: String? = nilOrValue(pigeonVar_list[1])
+    let bssid: String? = nilOrValue(pigeonVar_list[2])
+    let encryption: String? = nilOrValue(pigeonVar_list[3])
+    let frequency: Double? = nilOrValue(pigeonVar_list[4])
+    let wpsAvailability: Bool? = nilOrValue(pigeonVar_list[5])
+    let signalStrength: Int64? = nilOrValue(pigeonVar_list[6])
+    let numWifiChannels: Int64? = nilOrValue(pigeonVar_list[7])
+    let channelWidth: Int64? = nilOrValue(pigeonVar_list[8])
+    let currentChannel: Int64? = nilOrValue(pigeonVar_list[9])
+    let isSubscriberSsid: Bool? = nilOrValue(pigeonVar_list[10])
+
+    return WifiNetworkResult(
+      ssid: ssid,
+      ssidIp: ssidIp,
+      bssid: bssid,
+      encryption: encryption,
+      frequency: frequency,
+      wpsAvailability: wpsAvailability,
+      signalStrength: signalStrength,
+      numWifiChannels: numWifiChannels,
+      channelWidth: channelWidth,
+      currentChannel: currentChannel,
+      isSubscriberSsid: isSubscriberSsid
+    )
+  }
+  func toList() -> [Any?] {
+    return [
+      ssid,
+      ssidIp,
+      bssid,
+      encryption,
+      frequency,
+      wpsAvailability,
+      signalStrength,
+      numWifiChannels,
+      channelWidth,
+      currentChannel,
+      isSubscriberSsid,
+    ]
+  }
+  static func == (lhs: WifiNetworkResult, rhs: WifiNetworkResult) -> Bool {
+    if Swift.type(of: lhs) != Swift.type(of: rhs) {
+      return false
+    }
+    return deepEqualsMessages(lhs.ssid, rhs.ssid) && deepEqualsMessages(lhs.ssidIp, rhs.ssidIp) && deepEqualsMessages(lhs.bssid, rhs.bssid) && deepEqualsMessages(lhs.encryption, rhs.encryption) && deepEqualsMessages(lhs.frequency, rhs.frequency) && deepEqualsMessages(lhs.wpsAvailability, rhs.wpsAvailability) && deepEqualsMessages(lhs.signalStrength, rhs.signalStrength) && deepEqualsMessages(lhs.numWifiChannels, rhs.numWifiChannels) && deepEqualsMessages(lhs.channelWidth, rhs.channelWidth) && deepEqualsMessages(lhs.currentChannel, rhs.currentChannel) && deepEqualsMessages(lhs.isSubscriberSsid, rhs.isSubscriberSsid)
+  }
+
+  func hash(into hasher: inout Hasher) {
+    hasher.combine("WifiNetworkResult")
+    deepHashMessages(value: ssid, hasher: &hasher)
+    deepHashMessages(value: ssidIp, hasher: &hasher)
+    deepHashMessages(value: bssid, hasher: &hasher)
+    deepHashMessages(value: encryption, hasher: &hasher)
+    deepHashMessages(value: frequency, hasher: &hasher)
+    deepHashMessages(value: wpsAvailability, hasher: &hasher)
+    deepHashMessages(value: signalStrength, hasher: &hasher)
+    deepHashMessages(value: numWifiChannels, hasher: &hasher)
+    deepHashMessages(value: channelWidth, hasher: &hasher)
+    deepHashMessages(value: currentChannel, hasher: &hasher)
+    deepHashMessages(value: isSubscriberSsid, hasher: &hasher)
+  }
+}
+
+/// [numPhoneWifiChannel] is the COUNT of congestion entries, not a channel
+/// number — the channel is [phoneWifiChannel].
+///
+/// Generated class from Pigeon that represents data sent in messages.
+struct UserConnection: Hashable {
+  var phoneWifiFrequency: Double? = nil
+  var numPhoneWifiChannel: Int64? = nil
+  var numNetworksOnChannel: Int64? = nil
+  var phoneWifiChannel: Int64? = nil
+
+
+  // swift-format-ignore: AlwaysUseLowerCamelCase
+  static func fromList(_ pigeonVar_list: [Any?]) -> UserConnection? {
+    let phoneWifiFrequency: Double? = nilOrValue(pigeonVar_list[0])
+    let numPhoneWifiChannel: Int64? = nilOrValue(pigeonVar_list[1])
+    let numNetworksOnChannel: Int64? = nilOrValue(pigeonVar_list[2])
+    let phoneWifiChannel: Int64? = nilOrValue(pigeonVar_list[3])
+
+    return UserConnection(
+      phoneWifiFrequency: phoneWifiFrequency,
+      numPhoneWifiChannel: numPhoneWifiChannel,
+      numNetworksOnChannel: numNetworksOnChannel,
+      phoneWifiChannel: phoneWifiChannel
+    )
+  }
+  func toList() -> [Any?] {
+    return [
+      phoneWifiFrequency,
+      numPhoneWifiChannel,
+      numNetworksOnChannel,
+      phoneWifiChannel,
+    ]
+  }
+  static func == (lhs: UserConnection, rhs: UserConnection) -> Bool {
+    if Swift.type(of: lhs) != Swift.type(of: rhs) {
+      return false
+    }
+    return deepEqualsMessages(lhs.phoneWifiFrequency, rhs.phoneWifiFrequency) && deepEqualsMessages(lhs.numPhoneWifiChannel, rhs.numPhoneWifiChannel) && deepEqualsMessages(lhs.numNetworksOnChannel, rhs.numNetworksOnChannel) && deepEqualsMessages(lhs.phoneWifiChannel, rhs.phoneWifiChannel)
+  }
+
+  func hash(into hasher: inout Hasher) {
+    hasher.combine("UserConnection")
+    deepHashMessages(value: phoneWifiFrequency, hasher: &hasher)
+    deepHashMessages(value: numPhoneWifiChannel, hasher: &hasher)
+    deepHashMessages(value: numNetworksOnChannel, hasher: &hasher)
+    deepHashMessages(value: phoneWifiChannel, hasher: &hasher)
+  }
+}
+
+/// [index] is a STRING in the payload, not an int.
+///
+/// Generated class from Pigeon that represents data sent in messages.
+struct ChannelCongestion: Hashable {
+  var index: String? = nil
+  var numNetworks: Int64? = nil
+
+
+  // swift-format-ignore: AlwaysUseLowerCamelCase
+  static func fromList(_ pigeonVar_list: [Any?]) -> ChannelCongestion? {
+    let index: String? = nilOrValue(pigeonVar_list[0])
+    let numNetworks: Int64? = nilOrValue(pigeonVar_list[1])
+
+    return ChannelCongestion(
+      index: index,
+      numNetworks: numNetworks
+    )
+  }
+  func toList() -> [Any?] {
+    return [
+      index,
+      numNetworks,
+    ]
+  }
+  static func == (lhs: ChannelCongestion, rhs: ChannelCongestion) -> Bool {
+    if Swift.type(of: lhs) != Swift.type(of: rhs) {
+      return false
+    }
+    return deepEqualsMessages(lhs.index, rhs.index) && deepEqualsMessages(lhs.numNetworks, rhs.numNetworks)
+  }
+
+  func hash(into hasher: inout Hasher) {
+    hasher.combine("ChannelCongestion")
+    deepHashMessages(value: index, hasher: &hasher)
+    deepHashMessages(value: numNetworks, hasher: &hasher)
+  }
+}
+
+/// Generated class from Pigeon that represents data sent in messages.
+struct CongestionEnvironment: Hashable {
+  var channelCongestion: [ChannelCongestion]? = nil
+  /// Excludes the subscriber's own SSID.
+  var surroundingWifiNetworks: [WifiNetworkResult]? = nil
+
+
+  // swift-format-ignore: AlwaysUseLowerCamelCase
+  static func fromList(_ pigeonVar_list: [Any?]) -> CongestionEnvironment? {
+    let channelCongestion: [ChannelCongestion]? = nilOrValue(pigeonVar_list[0])
+    let surroundingWifiNetworks: [WifiNetworkResult]? = nilOrValue(pigeonVar_list[1])
+
+    return CongestionEnvironment(
+      channelCongestion: channelCongestion,
+      surroundingWifiNetworks: surroundingWifiNetworks
+    )
+  }
+  func toList() -> [Any?] {
+    return [
+      channelCongestion,
+      surroundingWifiNetworks,
+    ]
+  }
+  static func == (lhs: CongestionEnvironment, rhs: CongestionEnvironment) -> Bool {
+    if Swift.type(of: lhs) != Swift.type(of: rhs) {
+      return false
+    }
+    return deepEqualsMessages(lhs.channelCongestion, rhs.channelCongestion) && deepEqualsMessages(lhs.surroundingWifiNetworks, rhs.surroundingWifiNetworks)
+  }
+
+  func hash(into hasher: inout Hasher) {
+    hasher.combine("CongestionEnvironment")
+    deepHashMessages(value: channelCongestion, hasher: &hasher)
+    deepHashMessages(value: surroundingWifiNetworks, hasher: &hasher)
+  }
+}
+
+/// Generated class from Pigeon that represents data sent in messages.
+struct NetworkCongestion: Hashable {
+  var userConnection: UserConnection? = nil
+  var environment: CongestionEnvironment? = nil
+
+
+  // swift-format-ignore: AlwaysUseLowerCamelCase
+  static func fromList(_ pigeonVar_list: [Any?]) -> NetworkCongestion? {
+    let userConnection: UserConnection? = nilOrValue(pigeonVar_list[0])
+    let environment: CongestionEnvironment? = nilOrValue(pigeonVar_list[1])
+
+    return NetworkCongestion(
+      userConnection: userConnection,
+      environment: environment
+    )
+  }
+  func toList() -> [Any?] {
+    return [
+      userConnection,
+      environment,
+    ]
+  }
+  static func == (lhs: NetworkCongestion, rhs: NetworkCongestion) -> Bool {
+    if Swift.type(of: lhs) != Swift.type(of: rhs) {
+      return false
+    }
+    return deepEqualsMessages(lhs.userConnection, rhs.userConnection) && deepEqualsMessages(lhs.environment, rhs.environment)
+  }
+
+  func hash(into hasher: inout Hasher) {
+    hasher.combine("NetworkCongestion")
+    deepHashMessages(value: userConnection, hasher: &hasher)
+    deepHashMessages(value: environment, hasher: &hasher)
+  }
+}
+
+/// [layerRanking] is 1 (local), 2 (unknown/default) or 3 (external).
+///
+/// Generated class from Pigeon that represents data sent in messages.
+struct DnsQuality: Hashable {
+  var dnsName: String? = nil
+  var dnsIp: String? = nil
+  var packetsDropped: Double? = nil
+  var numPacketsSent: Int64? = nil
+  var pingValues: [Double]? = nil
+  /// True for the subscriber's own router.
+  var isSubscriberRouter: Bool? = nil
+  var jitter: Double? = nil
+  var averagePingTime: Double? = nil
+  var connectionQualityColor: QualityColor? = nil
+  var layerRanking: Int64? = nil
+
+
+  // swift-format-ignore: AlwaysUseLowerCamelCase
+  static func fromList(_ pigeonVar_list: [Any?]) -> DnsQuality? {
+    let dnsName: String? = nilOrValue(pigeonVar_list[0])
+    let dnsIp: String? = nilOrValue(pigeonVar_list[1])
+    let packetsDropped: Double? = nilOrValue(pigeonVar_list[2])
+    let numPacketsSent: Int64? = nilOrValue(pigeonVar_list[3])
+    let pingValues: [Double]? = nilOrValue(pigeonVar_list[4])
+    let isSubscriberRouter: Bool? = nilOrValue(pigeonVar_list[5])
+    let jitter: Double? = nilOrValue(pigeonVar_list[6])
+    let averagePingTime: Double? = nilOrValue(pigeonVar_list[7])
+    let connectionQualityColor: QualityColor? = nilOrValue(pigeonVar_list[8])
+    let layerRanking: Int64? = nilOrValue(pigeonVar_list[9])
+
+    return DnsQuality(
+      dnsName: dnsName,
+      dnsIp: dnsIp,
+      packetsDropped: packetsDropped,
+      numPacketsSent: numPacketsSent,
+      pingValues: pingValues,
+      isSubscriberRouter: isSubscriberRouter,
+      jitter: jitter,
+      averagePingTime: averagePingTime,
+      connectionQualityColor: connectionQualityColor,
+      layerRanking: layerRanking
+    )
+  }
+  func toList() -> [Any?] {
+    return [
+      dnsName,
+      dnsIp,
+      packetsDropped,
+      numPacketsSent,
+      pingValues,
+      isSubscriberRouter,
+      jitter,
+      averagePingTime,
+      connectionQualityColor,
+      layerRanking,
+    ]
+  }
+  static func == (lhs: DnsQuality, rhs: DnsQuality) -> Bool {
+    if Swift.type(of: lhs) != Swift.type(of: rhs) {
+      return false
+    }
+    return deepEqualsMessages(lhs.dnsName, rhs.dnsName) && deepEqualsMessages(lhs.dnsIp, rhs.dnsIp) && deepEqualsMessages(lhs.packetsDropped, rhs.packetsDropped) && deepEqualsMessages(lhs.numPacketsSent, rhs.numPacketsSent) && deepEqualsMessages(lhs.pingValues, rhs.pingValues) && deepEqualsMessages(lhs.isSubscriberRouter, rhs.isSubscriberRouter) && deepEqualsMessages(lhs.jitter, rhs.jitter) && deepEqualsMessages(lhs.averagePingTime, rhs.averagePingTime) && deepEqualsMessages(lhs.connectionQualityColor, rhs.connectionQualityColor) && deepEqualsMessages(lhs.layerRanking, rhs.layerRanking)
+  }
+
+  func hash(into hasher: inout Hasher) {
+    hasher.combine("DnsQuality")
+    deepHashMessages(value: dnsName, hasher: &hasher)
+    deepHashMessages(value: dnsIp, hasher: &hasher)
+    deepHashMessages(value: packetsDropped, hasher: &hasher)
+    deepHashMessages(value: numPacketsSent, hasher: &hasher)
+    deepHashMessages(value: pingValues, hasher: &hasher)
+    deepHashMessages(value: isSubscriberRouter, hasher: &hasher)
+    deepHashMessages(value: jitter, hasher: &hasher)
+    deepHashMessages(value: averagePingTime, hasher: &hasher)
+    deepHashMessages(value: connectionQualityColor, hasher: &hasher)
+    deepHashMessages(value: layerRanking, hasher: &hasher)
+  }
+}
+
+/// [rttValues] are integers in milliseconds.
+///
+/// Generated class from Pigeon that represents data sent in messages.
+struct TracerouteHop: Hashable {
+  var dnsIp: String? = nil
+  var dnsName: String? = nil
+  var rttValues: [Int64]? = nil
+
+
+  // swift-format-ignore: AlwaysUseLowerCamelCase
+  static func fromList(_ pigeonVar_list: [Any?]) -> TracerouteHop? {
+    let dnsIp: String? = nilOrValue(pigeonVar_list[0])
+    let dnsName: String? = nilOrValue(pigeonVar_list[1])
+    let rttValues: [Int64]? = nilOrValue(pigeonVar_list[2])
+
+    return TracerouteHop(
+      dnsIp: dnsIp,
+      dnsName: dnsName,
+      rttValues: rttValues
+    )
+  }
+  func toList() -> [Any?] {
+    return [
+      dnsIp,
+      dnsName,
+      rttValues,
+    ]
+  }
+  static func == (lhs: TracerouteHop, rhs: TracerouteHop) -> Bool {
+    if Swift.type(of: lhs) != Swift.type(of: rhs) {
+      return false
+    }
+    return deepEqualsMessages(lhs.dnsIp, rhs.dnsIp) && deepEqualsMessages(lhs.dnsName, rhs.dnsName) && deepEqualsMessages(lhs.rttValues, rhs.rttValues)
+  }
+
+  func hash(into hasher: inout Hasher) {
+    hasher.combine("TracerouteHop")
+    deepHashMessages(value: dnsIp, hasher: &hasher)
+    deepHashMessages(value: dnsName, hasher: &hasher)
+    deepHashMessages(value: rttValues, hasher: &hasher)
+  }
+}
+
+/// Generated class from Pigeon that represents data sent in messages.
+struct TracerouteEntry: Hashable {
+  var dnsDestinationIp: String? = nil
+  var hops: [TracerouteHop]? = nil
+
+
+  // swift-format-ignore: AlwaysUseLowerCamelCase
+  static func fromList(_ pigeonVar_list: [Any?]) -> TracerouteEntry? {
+    let dnsDestinationIp: String? = nilOrValue(pigeonVar_list[0])
+    let hops: [TracerouteHop]? = nilOrValue(pigeonVar_list[1])
+
+    return TracerouteEntry(
+      dnsDestinationIp: dnsDestinationIp,
+      hops: hops
+    )
+  }
+  func toList() -> [Any?] {
+    return [
+      dnsDestinationIp,
+      hops,
+    ]
+  }
+  static func == (lhs: TracerouteEntry, rhs: TracerouteEntry) -> Bool {
+    if Swift.type(of: lhs) != Swift.type(of: rhs) {
+      return false
+    }
+    return deepEqualsMessages(lhs.dnsDestinationIp, rhs.dnsDestinationIp) && deepEqualsMessages(lhs.hops, rhs.hops)
+  }
+
+  func hash(into hasher: inout Hasher) {
+    hasher.combine("TracerouteEntry")
+    deepHashMessages(value: dnsDestinationIp, hasher: &hasher)
+    deepHashMessages(value: hops, hasher: &hasher)
+  }
+}
+
+/// The full report payload. Mirrors the FE contract and evolves with it — this
+/// is NOT a stable versioned schema.
+///
+/// Generated class from Pigeon that represents data sent in messages.
+struct ReportData: Hashable {
+  var customerDetails: CustomerDetails? = nil
+  var sdkDetails: SdkDetails? = nil
+  var routerUsageDuringScan: RouterUsage? = nil
+  var customerInternetSpeed: InternetSpeed? = nil
+  var basicConnectivity: BasicConnectivity? = nil
+  var localConnectedDevices: [LocalConnectedDevice]? = nil
+  var customerRouterDetails: CustomerRouterDetails? = nil
+  var networkTopology: NetworkTopology? = nil
+  var userWifiNetwork: WifiNetworkResult? = nil
+  var networkCongestion: NetworkCongestion? = nil
+  var connectionQuality: [DnsQuality]? = nil
+  var traceroute: [TracerouteEntry]? = nil
+  var alerts: [ReportAlert]? = nil
+  var actions: [ReportAction]? = nil
+  /// True when both `missing_upnp` and `incomplete_speed_test` fired — present
+  /// the scan as unreliable.
+  var incompleteAnalysis: Bool? = nil
+
+
+  // swift-format-ignore: AlwaysUseLowerCamelCase
+  static func fromList(_ pigeonVar_list: [Any?]) -> ReportData? {
+    let customerDetails: CustomerDetails? = nilOrValue(pigeonVar_list[0])
+    let sdkDetails: SdkDetails? = nilOrValue(pigeonVar_list[1])
+    let routerUsageDuringScan: RouterUsage? = nilOrValue(pigeonVar_list[2])
+    let customerInternetSpeed: InternetSpeed? = nilOrValue(pigeonVar_list[3])
+    let basicConnectivity: BasicConnectivity? = nilOrValue(pigeonVar_list[4])
+    let localConnectedDevices: [LocalConnectedDevice]? = nilOrValue(pigeonVar_list[5])
+    let customerRouterDetails: CustomerRouterDetails? = nilOrValue(pigeonVar_list[6])
+    let networkTopology: NetworkTopology? = nilOrValue(pigeonVar_list[7])
+    let userWifiNetwork: WifiNetworkResult? = nilOrValue(pigeonVar_list[8])
+    let networkCongestion: NetworkCongestion? = nilOrValue(pigeonVar_list[9])
+    let connectionQuality: [DnsQuality]? = nilOrValue(pigeonVar_list[10])
+    let traceroute: [TracerouteEntry]? = nilOrValue(pigeonVar_list[11])
+    let alerts: [ReportAlert]? = nilOrValue(pigeonVar_list[12])
+    let actions: [ReportAction]? = nilOrValue(pigeonVar_list[13])
+    let incompleteAnalysis: Bool? = nilOrValue(pigeonVar_list[14])
+
+    return ReportData(
+      customerDetails: customerDetails,
+      sdkDetails: sdkDetails,
+      routerUsageDuringScan: routerUsageDuringScan,
+      customerInternetSpeed: customerInternetSpeed,
+      basicConnectivity: basicConnectivity,
+      localConnectedDevices: localConnectedDevices,
+      customerRouterDetails: customerRouterDetails,
+      networkTopology: networkTopology,
+      userWifiNetwork: userWifiNetwork,
+      networkCongestion: networkCongestion,
+      connectionQuality: connectionQuality,
+      traceroute: traceroute,
+      alerts: alerts,
+      actions: actions,
+      incompleteAnalysis: incompleteAnalysis
+    )
+  }
+  func toList() -> [Any?] {
+    return [
+      customerDetails,
+      sdkDetails,
+      routerUsageDuringScan,
+      customerInternetSpeed,
+      basicConnectivity,
+      localConnectedDevices,
+      customerRouterDetails,
+      networkTopology,
+      userWifiNetwork,
+      networkCongestion,
+      connectionQuality,
+      traceroute,
+      alerts,
+      actions,
+      incompleteAnalysis,
+    ]
+  }
+  static func == (lhs: ReportData, rhs: ReportData) -> Bool {
+    if Swift.type(of: lhs) != Swift.type(of: rhs) {
+      return false
+    }
+    return deepEqualsMessages(lhs.customerDetails, rhs.customerDetails) && deepEqualsMessages(lhs.sdkDetails, rhs.sdkDetails) && deepEqualsMessages(lhs.routerUsageDuringScan, rhs.routerUsageDuringScan) && deepEqualsMessages(lhs.customerInternetSpeed, rhs.customerInternetSpeed) && deepEqualsMessages(lhs.basicConnectivity, rhs.basicConnectivity) && deepEqualsMessages(lhs.localConnectedDevices, rhs.localConnectedDevices) && deepEqualsMessages(lhs.customerRouterDetails, rhs.customerRouterDetails) && deepEqualsMessages(lhs.networkTopology, rhs.networkTopology) && deepEqualsMessages(lhs.userWifiNetwork, rhs.userWifiNetwork) && deepEqualsMessages(lhs.networkCongestion, rhs.networkCongestion) && deepEqualsMessages(lhs.connectionQuality, rhs.connectionQuality) && deepEqualsMessages(lhs.traceroute, rhs.traceroute) && deepEqualsMessages(lhs.alerts, rhs.alerts) && deepEqualsMessages(lhs.actions, rhs.actions) && deepEqualsMessages(lhs.incompleteAnalysis, rhs.incompleteAnalysis)
+  }
+
+  func hash(into hasher: inout Hasher) {
+    hasher.combine("ReportData")
+    deepHashMessages(value: customerDetails, hasher: &hasher)
+    deepHashMessages(value: sdkDetails, hasher: &hasher)
+    deepHashMessages(value: routerUsageDuringScan, hasher: &hasher)
+    deepHashMessages(value: customerInternetSpeed, hasher: &hasher)
+    deepHashMessages(value: basicConnectivity, hasher: &hasher)
+    deepHashMessages(value: localConnectedDevices, hasher: &hasher)
+    deepHashMessages(value: customerRouterDetails, hasher: &hasher)
+    deepHashMessages(value: networkTopology, hasher: &hasher)
+    deepHashMessages(value: userWifiNetwork, hasher: &hasher)
+    deepHashMessages(value: networkCongestion, hasher: &hasher)
+    deepHashMessages(value: connectionQuality, hasher: &hasher)
+    deepHashMessages(value: traceroute, hasher: &hasher)
+    deepHashMessages(value: alerts, hasher: &hasher)
+    deepHashMessages(value: actions, hasher: &hasher)
+    deepHashMessages(value: incompleteAnalysis, hasher: &hasher)
+  }
+}
+
 private class MessagesPigeonCodecReader: FlutterStandardReader {
   override func readValue(ofType type: UInt8) -> Any? {
     switch type {
@@ -536,6 +2080,64 @@ private class MessagesPigeonCodecReader: FlutterStandardReader {
       return ScanError.fromList(self.readValue() as! [Any?])
     case 137:
       return ScanReport.fromList(self.readValue() as! [Any?])
+    case 138:
+      return QualityColor.fromList(self.readValue() as! [Any?])
+    case 139:
+      return StatusColor.fromList(self.readValue() as! [Any?])
+    case 140:
+      return ReportAlert.fromList(self.readValue() as! [Any?])
+    case 141:
+      return ReportAction.fromList(self.readValue() as! [Any?])
+    case 142:
+      return CustomerDetails.fromList(self.readValue() as! [Any?])
+    case 143:
+      return SdkDetails.fromList(self.readValue() as! [Any?])
+    case 144:
+      return RouterUsage.fromList(self.readValue() as! [Any?])
+    case 145:
+      return InternetSpeed.fromList(self.readValue() as! [Any?])
+    case 146:
+      return ServerConnectivityResult.fromList(self.readValue() as! [Any?])
+    case 147:
+      return PortCheckResult.fromList(self.readValue() as! [Any?])
+    case 148:
+      return DnsLookupResult.fromList(self.readValue() as! [Any?])
+    case 149:
+      return ConnectivitySummary.fromList(self.readValue() as! [Any?])
+    case 150:
+      return ToggleState.fromList(self.readValue() as! [Any?])
+    case 151:
+      return BasicConnectivity.fromList(self.readValue() as! [Any?])
+    case 152:
+      return DeviceRecognition.fromList(self.readValue() as! [Any?])
+    case 153:
+      return LocalConnectedDevice.fromList(self.readValue() as! [Any?])
+    case 154:
+      return CustomerRouterDetails.fromList(self.readValue() as! [Any?])
+    case 155:
+      return OtherRouterDetail.fromList(self.readValue() as! [Any?])
+    case 156:
+      return DoubleNat.fromList(self.readValue() as! [Any?])
+    case 157:
+      return NetworkTopology.fromList(self.readValue() as! [Any?])
+    case 158:
+      return WifiNetworkResult.fromList(self.readValue() as! [Any?])
+    case 159:
+      return UserConnection.fromList(self.readValue() as! [Any?])
+    case 160:
+      return ChannelCongestion.fromList(self.readValue() as! [Any?])
+    case 161:
+      return CongestionEnvironment.fromList(self.readValue() as! [Any?])
+    case 162:
+      return NetworkCongestion.fromList(self.readValue() as! [Any?])
+    case 163:
+      return DnsQuality.fromList(self.readValue() as! [Any?])
+    case 164:
+      return TracerouteHop.fromList(self.readValue() as! [Any?])
+    case 165:
+      return TracerouteEntry.fromList(self.readValue() as! [Any?])
+    case 166:
+      return ReportData.fromList(self.readValue() as! [Any?])
     default:
       return super.readValue(ofType: type)
     }
@@ -570,6 +2172,93 @@ private class MessagesPigeonCodecWriter: FlutterStandardWriter {
       super.writeValue(value.toList())
     } else if let value = value as? ScanReport {
       super.writeByte(137)
+      super.writeValue(value.toList())
+    } else if let value = value as? QualityColor {
+      super.writeByte(138)
+      super.writeValue(value.toList())
+    } else if let value = value as? StatusColor {
+      super.writeByte(139)
+      super.writeValue(value.toList())
+    } else if let value = value as? ReportAlert {
+      super.writeByte(140)
+      super.writeValue(value.toList())
+    } else if let value = value as? ReportAction {
+      super.writeByte(141)
+      super.writeValue(value.toList())
+    } else if let value = value as? CustomerDetails {
+      super.writeByte(142)
+      super.writeValue(value.toList())
+    } else if let value = value as? SdkDetails {
+      super.writeByte(143)
+      super.writeValue(value.toList())
+    } else if let value = value as? RouterUsage {
+      super.writeByte(144)
+      super.writeValue(value.toList())
+    } else if let value = value as? InternetSpeed {
+      super.writeByte(145)
+      super.writeValue(value.toList())
+    } else if let value = value as? ServerConnectivityResult {
+      super.writeByte(146)
+      super.writeValue(value.toList())
+    } else if let value = value as? PortCheckResult {
+      super.writeByte(147)
+      super.writeValue(value.toList())
+    } else if let value = value as? DnsLookupResult {
+      super.writeByte(148)
+      super.writeValue(value.toList())
+    } else if let value = value as? ConnectivitySummary {
+      super.writeByte(149)
+      super.writeValue(value.toList())
+    } else if let value = value as? ToggleState {
+      super.writeByte(150)
+      super.writeValue(value.toList())
+    } else if let value = value as? BasicConnectivity {
+      super.writeByte(151)
+      super.writeValue(value.toList())
+    } else if let value = value as? DeviceRecognition {
+      super.writeByte(152)
+      super.writeValue(value.toList())
+    } else if let value = value as? LocalConnectedDevice {
+      super.writeByte(153)
+      super.writeValue(value.toList())
+    } else if let value = value as? CustomerRouterDetails {
+      super.writeByte(154)
+      super.writeValue(value.toList())
+    } else if let value = value as? OtherRouterDetail {
+      super.writeByte(155)
+      super.writeValue(value.toList())
+    } else if let value = value as? DoubleNat {
+      super.writeByte(156)
+      super.writeValue(value.toList())
+    } else if let value = value as? NetworkTopology {
+      super.writeByte(157)
+      super.writeValue(value.toList())
+    } else if let value = value as? WifiNetworkResult {
+      super.writeByte(158)
+      super.writeValue(value.toList())
+    } else if let value = value as? UserConnection {
+      super.writeByte(159)
+      super.writeValue(value.toList())
+    } else if let value = value as? ChannelCongestion {
+      super.writeByte(160)
+      super.writeValue(value.toList())
+    } else if let value = value as? CongestionEnvironment {
+      super.writeByte(161)
+      super.writeValue(value.toList())
+    } else if let value = value as? NetworkCongestion {
+      super.writeByte(162)
+      super.writeValue(value.toList())
+    } else if let value = value as? DnsQuality {
+      super.writeByte(163)
+      super.writeValue(value.toList())
+    } else if let value = value as? TracerouteHop {
+      super.writeByte(164)
+      super.writeValue(value.toList())
+    } else if let value = value as? TracerouteEntry {
+      super.writeByte(165)
+      super.writeValue(value.toList())
+    } else if let value = value as? ReportData {
+      super.writeByte(166)
       super.writeValue(value.toList())
     } else {
       super.writeValue(value)

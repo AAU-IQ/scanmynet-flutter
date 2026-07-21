@@ -36,11 +36,10 @@ import 'package:pigeon/pigeon.dart';
 // ENUMS
 // ---------------------------------------------------------------------------
 
-/// iOS `ScanMyNetConfiguration.Environment`. Android has no environment enum —
-/// it takes an explicit [ScanConfig.baseUrl] string instead.
-/// TODO(confirm): how iOS `environment` maps to an Android baseUrl, and whether
-/// the host passes baseUrl OR environment. Native code maps explicitly; do NOT
-/// rely on index parity.
+/// Selects the backend both platforms talk to. iOS maps it onto
+/// `ScanMyNetConfiguration.Environment`; Android maps it to the matching
+/// Retrofit base URL internally. Null defaults to [ScanEnvironment.production].
+/// Native code maps explicitly by case — do NOT rely on index parity.
 enum ScanEnvironment {
   staging,
   production,
@@ -100,7 +99,6 @@ class ScanConfig {
     required this.apiKey,
     this.userKey,
     this.appName,
-    this.baseUrl,
     this.requestKey,
     this.environment,
   });
@@ -115,16 +113,17 @@ class ScanConfig {
   /// Android `AppName.appName` (ReportParamDto.app). iOS: not used.
   String? appName;
 
-  /// Android `BaseUrl.baseUrl` (Retrofit base). iOS selects backend via
-  /// [environment] instead.
-  String? baseUrl;
-
   /// iOS `ScanMyNetConfiguration.requestKey`. Android: not used.
   String? requestKey;
 
-  /// iOS only. If null on iOS, native defaults to [ScanEnvironment.production].
-  /// TODO(confirm) default environment.
+  /// Backend selector, honoured on both platforms. Null defaults to
+  /// [ScanEnvironment.production].
   ScanEnvironment? environment;
+
+  /// Pigeon schema version, set by the Dart layer. Native compares it against
+  /// its own compiled-in constant and throws on mismatch — codecs are
+  /// positional, so a skewed pair misreads fields silently rather than failing.
+  int? schemaVersion;
 }
 
 /// Progress payload — superset of both platforms.
@@ -165,6 +164,9 @@ class ScanResult {
     required this.reportUrl,
     this.status,
     this.totalDurationMs,
+    this.reportId,
+    this.customerId,
+    this.report,
   });
 
   /// The online report URL (Android value may carry a `verification_token`
@@ -176,6 +178,16 @@ class ScanResult {
 
   /// Android `NetworkScanResult.duration` (total ms). Null on iOS.
   int? totalDurationMs;
+
+  /// Backend report identifier. Lets you correlate a scan without parsing the
+  /// JWT in [reportUrl]. Null on backends predating the payload.
+  String? reportId;
+
+  /// Subscriber/customer key the report was filed under.
+  String? customerId;
+
+  /// The full report payload. Null when the backend omitted it.
+  ReportData? report;
 }
 
 /// Error payload. `Throwable`/`Error`/`HTTPURLResponse` are not channel-
@@ -211,6 +223,360 @@ class ScanReport {
 
   /// Android `ReportParamDto.toJson()`. Empty/unused on iOS.
   String reportJson;
+}
+
+// ---------------------------------------------------------------------------
+// REPORT PAYLOAD (response) — mirrors POST /report/ `report` object.
+//
+// NOTE: this is the RESPONSE report. `ScanReport` above is the REQUEST payload
+// that was submitted. They are different objects; do not merge them.
+//
+// Every field is nullable: sections are built from whatever the scan submitted,
+// and several keys are absent entirely rather than null.
+// ---------------------------------------------------------------------------
+
+/// A `{quality, color}` pair. NOT the same shape as
+/// [InternetSpeed.connectionQuality], which is a single-entry map.
+class QualityColor {
+  QualityColor({this.quality, this.color});
+  String? quality;
+  String? color;
+}
+
+/// A `{status, color}` roll-up pair.
+class StatusColor {
+  StatusColor({this.status, this.color});
+  String? status;
+  String? color;
+}
+
+/// A report alert. [alertType] is a String, never an enum — new members ship
+/// without an API version bump. Branch on [alertType], never [alertValue].
+class ReportAlert {
+  ReportAlert({this.alertType, this.alertValue});
+  String? alertType;
+  String? alertValue;
+}
+
+/// A report recommendation. Field names differ from [ReportAlert]:
+/// actions use `action_*`, alerts use `alert_*`.
+class ReportAction {
+  ReportAction({this.actionType, this.actionValue});
+  String? actionType;
+  String? actionValue;
+}
+
+class CustomerDetails {
+  CustomerDetails({this.key, this.lastKnownPublicIp, this.lastKnownPublicIpDetails});
+  String? key;
+  String? lastKnownPublicIp;
+  /// Capitalised keys (`Country`, `Region`, `ISP`). Passed through verbatim.
+  Map<String, String>? lastKnownPublicIpDetails;
+}
+
+class SdkDetails {
+  SdkDetails({
+    this.start, this.duration, this.platform, this.app, this.routeThisSdk,
+    this.userPublicUpAddress, this.gpsLatitude, this.gpsLongitude,
+  });
+  String? start;
+  /// Seconds.
+  int? duration;
+  String? platform;
+  String? app;
+  String? routeThisSdk;
+  String? userPublicUpAddress;
+  double? gpsLatitude;
+  double? gpsLongitude;
+}
+
+/// Mbps.
+class RouterUsage {
+  RouterUsage({this.networkUsageDown, this.networkUsageUp});
+  double? networkUsageDown;
+  double? networkUsageUp;
+}
+
+class InternetSpeed {
+  InternetSpeed({
+    this.networkSpeedDown, this.networkSpeedUp, this.currentNegotiatedLinkSpeed,
+    this.maximumLinkSupportedByPhone, this.networkSpeedUpSegments,
+    this.networkSpeedDownSegments, this.connectionQuality,
+  });
+  double? networkSpeedDown;
+  double? networkSpeedUp;
+  double? currentNegotiatedLinkSpeed;
+  String? maximumLinkSupportedByPhone;
+  List<double>? networkSpeedUpSegments;
+  List<double>? networkSpeedDownSegments;
+  /// SINGLE-ENTRY map keyed by the quality label, e.g. `{"good": "green"}`.
+  /// NOT a [QualityColor] struct.
+  Map<String, String>? connectionQuality;
+}
+
+class ServerConnectivityResult {
+  ServerConnectivityResult({this.name, this.serverStatus});
+  String? name;
+  bool? serverStatus;
+}
+
+class PortCheckResult {
+  PortCheckResult({this.port, this.portType, this.description, this.portStatus});
+  int? port;
+  String? portType;
+  String? description;
+  bool? portStatus;
+}
+
+class DnsLookupResult {
+  DnsLookupResult({this.dnsIp, this.alias, this.reverseDns});
+  String? dnsIp;
+  String? alias;
+  String? reverseDns;
+}
+
+/// The three entries do NOT share a type: [dnsLookup] is a list of alias
+/// strings while its siblings are objects.
+class ConnectivitySummary {
+  ConnectivitySummary({this.serverConnectivity, this.portChecks, this.dnsLookup});
+  StatusColor? serverConnectivity;
+  StatusColor? portChecks;
+  List<String>? dnsLookup;
+}
+
+/// Firewall / client isolation / multicast. [value] is the STRING
+/// `"Enabled"` / `"Disabled"`, never a bool.
+class ToggleState {
+  ToggleState({this.value, this.color, this.status, this.alert});
+  String? value;
+  String? color;
+  String? status;
+  /// Single alert object, not a list. Null when no alert applies.
+  ReportAlert? alert;
+}
+
+class BasicConnectivity {
+  BasicConnectivity({
+    this.ipAssignedViaDhcp, this.serverConnectivity, this.portChecks,
+    this.dnsLookup, this.summary, this.blockedServers, this.blockedUdpPorts,
+    this.blockedTcpPorts, this.firewall, this.clientIsolation, this.multicast,
+  });
+  bool? ipAssignedViaDhcp;
+  List<ServerConnectivityResult>? serverConnectivity;
+  List<PortCheckResult>? portChecks;
+  List<DnsLookupResult>? dnsLookup;
+  ConnectivitySummary? summary;
+  /// Blocked server names (payload key `servers`).
+  List<String>? blockedServers;
+  /// Blocked UDP ports (payload key `udp`).
+  List<int>? blockedUdpPorts;
+  /// Blocked TCP ports (payload key `tcp`).
+  List<int>? blockedTcpPorts;
+  ToggleState? firewall;
+  ToggleState? clientIsolation;
+  ToggleState? multicast;
+  // NOTE: the payload's `basic_connectivity.alerts` is always empty — real
+  // alerts are promoted to ReportData.alerts. Deliberately not modelled.
+}
+
+/// Third-party (Fing) recognition. [recognition] is an open payload.
+class DeviceRecognition {
+  DeviceRecognition({this.mac, this.recognition});
+  String? mac;
+  Map<String, Object?>? recognition;
+}
+
+class LocalConnectedDevice {
+  LocalConnectedDevice({
+    this.deviceName, this.deviceIp, this.deviceMacAddress, this.manufacturer,
+    this.packetsDropped, this.numPacketsSent, this.pingValues,
+    this.isSubscriberPhone, this.averagePingTime, this.connectionQualityColor,
+    this.isSubscriberRouter, this.deviceDetails,
+  });
+  String? deviceName;
+  String? deviceIp;
+  String? deviceMacAddress;
+  String? manufacturer;
+  double? packetsDropped;
+  int? numPacketsSent;
+  List<double>? pingValues;
+  bool? isSubscriberPhone;
+  /// `0` (not null) when [pingValues] is empty.
+  double? averagePingTime;
+  QualityColor? connectionQualityColor;
+  bool? isSubscriberRouter;
+  /// Null when device recognition did not run.
+  DeviceRecognition? deviceDetails;
+}
+
+class CustomerRouterDetails {
+  CustomerRouterDetails({
+    this.make, this.model, this.encryption, this.protocols, this.mesh,
+    this.routerIpAddress, this.routerMacAddress, this.manufacturer,
+    this.hostname, this.modelDescription, this.modelNumber, this.friendlyName,
+    this.deviceType, this.routerDetails,
+  });
+  String? make;
+  String? model;
+  String? encryption;
+  String? protocols;
+  String? mesh;
+  String? routerIpAddress;
+  String? routerMacAddress;
+  String? manufacturer;
+  String? hostname;
+  String? modelDescription;
+  String? modelNumber;
+  String? friendlyName;
+  String? deviceType;
+  /// Present only when [routerMacAddress] is non-null.
+  DeviceRecognition? routerDetails;
+}
+
+class OtherRouterDetail {
+  OtherRouterDetail({this.ip, this.asn, this.owner});
+  String? ip;
+  /// Autonomous system number. Null for private hops and until the GeoLite2-ASN
+  /// database is provisioned server-side.
+  int? asn;
+  /// `"Private"` for RFC-1918 addresses regardless of database state; null for
+  /// public addresses until the ASN database is provisioned.
+  String? owner;
+}
+
+class DoubleNat {
+  DoubleNat({this.isDoubleNat, this.doubleNatHop});
+  bool? isDoubleNat;
+  List<String>? doubleNatHop;
+}
+
+class NetworkTopology {
+  NetworkTopology({
+    this.routerIpAddress, this.otherRouters, this.otherRoutersDetails,
+    this.doubleNatDetected,
+  });
+  String? routerIpAddress;
+  /// De-duplicated, ordered by first appearance across traceroute hops.
+  List<String>? otherRouters;
+  List<OtherRouterDetail>? otherRoutersDetails;
+  /// Null means NO double NAT — the key is absent in that case, not false.
+  DoubleNat? doubleNatDetected;
+}
+
+/// [frequency] is GHz. [signalStrength] is dBm (negative).
+class WifiNetworkResult {
+  WifiNetworkResult({
+    this.ssid, this.ssidIp, this.bssid, this.encryption, this.frequency,
+    this.wpsAvailability, this.signalStrength, this.numWifiChannels,
+    this.channelWidth, this.currentChannel, this.isSubscriberSsid,
+  });
+  String? ssid;
+  String? ssidIp;
+  String? bssid;
+  String? encryption;
+  double? frequency;
+  bool? wpsAvailability;
+  int? signalStrength;
+  int? numWifiChannels;
+  int? channelWidth;
+  int? currentChannel;
+  bool? isSubscriberSsid;
+}
+
+/// [numPhoneWifiChannel] is the COUNT of congestion entries, not a channel
+/// number — the channel is [phoneWifiChannel].
+class UserConnection {
+  UserConnection({
+    this.phoneWifiFrequency, this.numPhoneWifiChannel,
+    this.numNetworksOnChannel, this.phoneWifiChannel,
+  });
+  double? phoneWifiFrequency;
+  int? numPhoneWifiChannel;
+  int? numNetworksOnChannel;
+  int? phoneWifiChannel;
+}
+
+/// [index] is a STRING in the payload, not an int.
+class ChannelCongestion {
+  ChannelCongestion({this.index, this.numNetworks});
+  String? index;
+  int? numNetworks;
+}
+
+class CongestionEnvironment {
+  CongestionEnvironment({this.channelCongestion, this.surroundingWifiNetworks});
+  List<ChannelCongestion>? channelCongestion;
+  /// Excludes the subscriber's own SSID.
+  List<WifiNetworkResult>? surroundingWifiNetworks;
+}
+
+class NetworkCongestion {
+  NetworkCongestion({this.userConnection, this.environment});
+  UserConnection? userConnection;
+  CongestionEnvironment? environment;
+}
+
+/// [layerRanking] is 1 (local), 2 (unknown/default) or 3 (external).
+class DnsQuality {
+  DnsQuality({
+    this.dnsName, this.dnsIp, this.packetsDropped, this.numPacketsSent,
+    this.pingValues, this.isSubscriberRouter, this.jitter, this.averagePingTime,
+    this.connectionQualityColor, this.layerRanking,
+  });
+  String? dnsName;
+  String? dnsIp;
+  double? packetsDropped;
+  int? numPacketsSent;
+  List<double>? pingValues;
+  /// True for the subscriber's own router.
+  bool? isSubscriberRouter;
+  double? jitter;
+  double? averagePingTime;
+  QualityColor? connectionQualityColor;
+  int? layerRanking;
+}
+
+/// [rttValues] are integers in milliseconds.
+class TracerouteHop {
+  TracerouteHop({this.dnsIp, this.dnsName, this.rttValues});
+  String? dnsIp;
+  String? dnsName;
+  List<int>? rttValues;
+}
+
+class TracerouteEntry {
+  TracerouteEntry({this.dnsDestinationIp, this.hops});
+  String? dnsDestinationIp;
+  List<TracerouteHop>? hops;
+}
+
+/// The full report payload. Mirrors the FE contract and evolves with it — this
+/// is NOT a stable versioned schema.
+class ReportData {
+  ReportData({
+    this.customerDetails, this.sdkDetails, this.routerUsageDuringScan,
+    this.customerInternetSpeed, this.basicConnectivity,
+    this.localConnectedDevices, this.customerRouterDetails, this.networkTopology,
+    this.userWifiNetwork, this.networkCongestion, this.connectionQuality,
+    this.traceroute, this.alerts, this.actions, this.incompleteAnalysis,
+  });
+  CustomerDetails? customerDetails;
+  SdkDetails? sdkDetails;
+  RouterUsage? routerUsageDuringScan;
+  InternetSpeed? customerInternetSpeed;
+  BasicConnectivity? basicConnectivity;
+  List<LocalConnectedDevice>? localConnectedDevices;
+  CustomerRouterDetails? customerRouterDetails;
+  NetworkTopology? networkTopology;
+  WifiNetworkResult? userWifiNetwork;
+  NetworkCongestion? networkCongestion;
+  List<DnsQuality>? connectionQuality;
+  List<TracerouteEntry>? traceroute;
+  List<ReportAlert>? alerts;
+  List<ReportAction>? actions;
+  /// True when both `missing_upnp` and `incomplete_speed_test` fired — present
+  /// the scan as unreliable.
+  bool? incompleteAnalysis;
 }
 
 // ---------------------------------------------------------------------------

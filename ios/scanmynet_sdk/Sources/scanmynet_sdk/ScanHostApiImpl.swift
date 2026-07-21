@@ -24,6 +24,9 @@ final class ScanHostApiImpl: NSObject, ScanHostApi {
   /// the last known percent so every `ScanProgress` we emit carries both.
   private var lastPercent: Double = 0
 
+  /// Must match `.schemaVersion` in Dart.
+  private static let schemaVersion: Int64 = 2
+
   init(flutterApi: ScanFlutterApi) {
     self.flutterApi = flutterApi
     super.init()
@@ -32,6 +35,15 @@ final class ScanHostApiImpl: NSObject, ScanHostApi {
   // MARK: - ScanHostApi (Dart -> native)
 
   func configure(config: ScanConfig) throws {
+    if let incoming = config.schemaVersion, incoming != Self.schemaVersion {
+      throw PigeonError(
+        code: "SCHEMA_MISMATCH",
+        message: "Pigeon schema mismatch: Dart sent v\(incoming), native expects "
+          + "v\(Self.schemaVersion). Codecs are positional — a mismatched pair "
+          + "misreads fields silently. Rebuild the plugin's native binaries.",
+        details: nil
+      )
+    }
     lastPercent = 0
     let configuration = ScanMyNetConfiguration(
       apiKey: config.apiKey,
@@ -94,8 +106,25 @@ extension ScanHostApiImpl: ScanMyNetDelegate {
     onMain { self.flutterApi.onProgress(progress: progress) { _ in } }
   }
 
+  /// Required protocol method. The SDK now delivers the payload through
+  /// `scanFinished(reportUrl:report:)` below, so this URL-only variant is only
+  /// reached on the (unused) default path — emit a result with no report rather
+  /// than dropping it.
   func scanFinished(reportUrl: String) {
     let result = ScanResult(reportUrl: reportUrl, status: .success)
+    onMain { self.flutterApi.onFinished(result: result) { _ in } }
+  }
+
+  /// Carries the decoded report payload. `reportId`/`customerId` are the report
+  /// response's siblings of `report`, but the SDK delegate forwards only the
+  /// `report` object — so on iOS those two stay nil (they are populated on
+  /// Android). Mapping is null-in/null-out via `ReportMapper`.
+  func scanFinished(reportUrl: String, report: SMNReportPayload?) {
+    let result = ScanResult(
+      reportUrl: reportUrl,
+      status: .success,
+      report: report?.toPigeon()
+    )
     onMain { self.flutterApi.onFinished(result: result) { _ in } }
   }
 

@@ -20,6 +20,10 @@ class _FakeScanHostApi extends ScanHostApi {
 }
 
 void main() {
+  // ScanmynetSdk()'s constructor calls ScanFlutterApi.setUp, which reaches for
+  // the binary messenger and therefore needs the test binding initialized.
+  TestWidgetsFlutterBinding.ensureInitialized();
+
   late _FakeScanHostApi fake;
   late ScanmynetSdk sdk;
 
@@ -42,5 +46,11 @@ void main() {
   test('cancel forwards to the host API', () async {
     await sdk.cancel();
     expect(fake.canceled, isTrue);
+  });
+
+  test('configure stamps the schema version onto the config', () async {
+    final config = ScanConfig(apiKey: 'key');
+    await sdk.configure(config);
+    expect(fake.configuredWith!.schemaVersion, ScanmynetSdk.schemaVersion);
   });
 }

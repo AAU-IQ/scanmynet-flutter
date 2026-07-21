@@ -7,5 +7,4 @@ framework module ScanMyNet {
 
 module ScanMyNet.Swift {
   header "ScanMyNet-Swift.h"
-  requires objc
 }
