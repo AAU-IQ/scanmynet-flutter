@@ -106,8 +106,25 @@ extension ScanHostApiImpl: ScanMyNetDelegate {
     onMain { self.flutterApi.onProgress(progress: progress) { _ in } }
   }
 
+  /// Required protocol method. The SDK now delivers the payload through
+  /// `scanFinished(reportUrl:report:)` below, so this URL-only variant is only
+  /// reached on the (unused) default path — emit a result with no report rather
+  /// than dropping it.
   func scanFinished(reportUrl: String) {
     let result = ScanResult(reportUrl: reportUrl, status: .success)
+    onMain { self.flutterApi.onFinished(result: result) { _ in } }
+  }
+
+  /// Carries the decoded report payload. `reportId`/`customerId` are the report
+  /// response's siblings of `report`, but the SDK delegate forwards only the
+  /// `report` object — so on iOS those two stay nil (they are populated on
+  /// Android). Mapping is null-in/null-out via `ReportMapper`.
+  func scanFinished(reportUrl: String, report: SMNReportPayload?) {
+    let result = ScanResult(
+      reportUrl: reportUrl,
+      status: .success,
+      report: report?.toPigeon()
+    )
     onMain { self.flutterApi.onFinished(result: result) { _ in } }
   }
 
