@@ -178,11 +178,10 @@ func deepHashMessages(value: Any?, hasher: inout Hasher) {
 }
 
 
-/// iOS `ScanMyNetConfiguration.Environment`. Android has no environment enum —
-/// it takes an explicit [ScanConfig.baseUrl] string instead.
-/// TODO(confirm): how iOS `environment` maps to an Android baseUrl, and whether
-/// the host passes baseUrl OR environment. Native code maps explicitly; do NOT
-/// rely on index parity.
+/// Selects the backend both platforms talk to. iOS maps it onto
+/// `ScanMyNetConfiguration.Environment`; Android maps it to the matching
+/// Retrofit base URL internally. Null defaults to [ScanEnvironment.production].
+/// Native code maps explicitly by case — do NOT rely on index parity.
 enum ScanEnvironment: Int {
   case staging = 0
   case production = 1
@@ -241,13 +240,10 @@ struct ScanConfig: Hashable {
   var userKey: String? = nil
   /// Android `AppName.appName` (ReportParamDto.app). iOS: not used.
   var appName: String? = nil
-  /// Android `BaseUrl.baseUrl` (Retrofit base). iOS selects backend via
-  /// [environment] instead.
-  var baseUrl: String? = nil
   /// iOS `ScanMyNetConfiguration.requestKey`. Android: not used.
   var requestKey: String? = nil
-  /// iOS only. If null on iOS, native defaults to [ScanEnvironment.production].
-  /// TODO(confirm) default environment.
+  /// Backend selector, honoured on both platforms. Null defaults to
+  /// [ScanEnvironment.production].
   var environment: ScanEnvironment? = nil
   /// Pigeon schema version, set by the Dart layer. Native compares it against
   /// its own compiled-in constant and throws on mismatch — codecs are
@@ -260,16 +256,14 @@ struct ScanConfig: Hashable {
     let apiKey = pigeonVar_list[0] as! String
     let userKey: String? = nilOrValue(pigeonVar_list[1])
     let appName: String? = nilOrValue(pigeonVar_list[2])
-    let baseUrl: String? = nilOrValue(pigeonVar_list[3])
-    let requestKey: String? = nilOrValue(pigeonVar_list[4])
-    let environment: ScanEnvironment? = nilOrValue(pigeonVar_list[5])
-    let schemaVersion: Int64? = nilOrValue(pigeonVar_list[6])
+    let requestKey: String? = nilOrValue(pigeonVar_list[3])
+    let environment: ScanEnvironment? = nilOrValue(pigeonVar_list[4])
+    let schemaVersion: Int64? = nilOrValue(pigeonVar_list[5])
 
     return ScanConfig(
       apiKey: apiKey,
       userKey: userKey,
       appName: appName,
-      baseUrl: baseUrl,
       requestKey: requestKey,
       environment: environment,
       schemaVersion: schemaVersion
@@ -280,7 +274,6 @@ struct ScanConfig: Hashable {
       apiKey,
       userKey,
       appName,
-      baseUrl,
       requestKey,
       environment,
       schemaVersion,
@@ -290,7 +283,7 @@ struct ScanConfig: Hashable {
     if Swift.type(of: lhs) != Swift.type(of: rhs) {
       return false
     }
-    return deepEqualsMessages(lhs.apiKey, rhs.apiKey) && deepEqualsMessages(lhs.userKey, rhs.userKey) && deepEqualsMessages(lhs.appName, rhs.appName) && deepEqualsMessages(lhs.baseUrl, rhs.baseUrl) && deepEqualsMessages(lhs.requestKey, rhs.requestKey) && deepEqualsMessages(lhs.environment, rhs.environment) && deepEqualsMessages(lhs.schemaVersion, rhs.schemaVersion)
+    return deepEqualsMessages(lhs.apiKey, rhs.apiKey) && deepEqualsMessages(lhs.userKey, rhs.userKey) && deepEqualsMessages(lhs.appName, rhs.appName) && deepEqualsMessages(lhs.requestKey, rhs.requestKey) && deepEqualsMessages(lhs.environment, rhs.environment) && deepEqualsMessages(lhs.schemaVersion, rhs.schemaVersion)
   }
 
   func hash(into hasher: inout Hasher) {
@@ -298,7 +291,6 @@ struct ScanConfig: Hashable {
     deepHashMessages(value: apiKey, hasher: &hasher)
     deepHashMessages(value: userKey, hasher: &hasher)
     deepHashMessages(value: appName, hasher: &hasher)
-    deepHashMessages(value: baseUrl, hasher: &hasher)
     deepHashMessages(value: requestKey, hasher: &hasher)
     deepHashMessages(value: environment, hasher: &hasher)
     deepHashMessages(value: schemaVersion, hasher: &hasher)

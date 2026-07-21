@@ -196,11 +196,10 @@ class FlutterError (
 ) : RuntimeException()
 
 /**
- * iOS `ScanMyNetConfiguration.Environment`. Android has no environment enum —
- * it takes an explicit [ScanConfig.baseUrl] string instead.
- * TODO(confirm): how iOS `environment` maps to an Android baseUrl, and whether
- * the host passes baseUrl OR environment. Native code maps explicitly; do NOT
- * rely on index parity.
+ * Selects the backend both platforms talk to. iOS maps it onto
+ * `ScanMyNetConfiguration.Environment`; Android maps it to the matching
+ * Retrofit base URL internally. Null defaults to [ScanEnvironment.production].
+ * Native code maps explicitly by case — do NOT rely on index parity.
  */
 enum class ScanEnvironment(val raw: Int) {
   STAGING(0),
@@ -296,16 +295,11 @@ data class ScanConfig (
   val userKey: String? = null,
   /** Android `AppName.appName` (ReportParamDto.app). iOS: not used. */
   val appName: String? = null,
-  /**
-   * Android `BaseUrl.baseUrl` (Retrofit base). iOS selects backend via
-   * [environment] instead.
-   */
-  val baseUrl: String? = null,
   /** iOS `ScanMyNetConfiguration.requestKey`. Android: not used. */
   val requestKey: String? = null,
   /**
-   * iOS only. If null on iOS, native defaults to [ScanEnvironment.production].
-   * TODO(confirm) default environment.
+   * Backend selector, honoured on both platforms. Null defaults to
+   * [ScanEnvironment.production].
    */
   val environment: ScanEnvironment? = null,
   /**
@@ -321,11 +315,10 @@ data class ScanConfig (
       val apiKey = pigeonVar_list[0] as String
       val userKey = pigeonVar_list[1] as String?
       val appName = pigeonVar_list[2] as String?
-      val baseUrl = pigeonVar_list[3] as String?
-      val requestKey = pigeonVar_list[4] as String?
-      val environment = pigeonVar_list[5] as ScanEnvironment?
-      val schemaVersion = pigeonVar_list[6] as Long?
-      return ScanConfig(apiKey, userKey, appName, baseUrl, requestKey, environment, schemaVersion)
+      val requestKey = pigeonVar_list[3] as String?
+      val environment = pigeonVar_list[4] as ScanEnvironment?
+      val schemaVersion = pigeonVar_list[5] as Long?
+      return ScanConfig(apiKey, userKey, appName, requestKey, environment, schemaVersion)
     }
   }
   fun toList(): List<Any?> {
@@ -333,7 +326,6 @@ data class ScanConfig (
       apiKey,
       userKey,
       appName,
-      baseUrl,
       requestKey,
       environment,
       schemaVersion,
@@ -347,7 +339,7 @@ data class ScanConfig (
       return true
     }
     val other = other as ScanConfig
-    return MessagesPigeonUtils.deepEquals(this.apiKey, other.apiKey) && MessagesPigeonUtils.deepEquals(this.userKey, other.userKey) && MessagesPigeonUtils.deepEquals(this.appName, other.appName) && MessagesPigeonUtils.deepEquals(this.baseUrl, other.baseUrl) && MessagesPigeonUtils.deepEquals(this.requestKey, other.requestKey) && MessagesPigeonUtils.deepEquals(this.environment, other.environment) && MessagesPigeonUtils.deepEquals(this.schemaVersion, other.schemaVersion)
+    return MessagesPigeonUtils.deepEquals(this.apiKey, other.apiKey) && MessagesPigeonUtils.deepEquals(this.userKey, other.userKey) && MessagesPigeonUtils.deepEquals(this.appName, other.appName) && MessagesPigeonUtils.deepEquals(this.requestKey, other.requestKey) && MessagesPigeonUtils.deepEquals(this.environment, other.environment) && MessagesPigeonUtils.deepEquals(this.schemaVersion, other.schemaVersion)
   }
 
   override fun hashCode(): Int {
@@ -355,7 +347,6 @@ data class ScanConfig (
     result = 31 * result + MessagesPigeonUtils.deepHash(this.apiKey)
     result = 31 * result + MessagesPigeonUtils.deepHash(this.userKey)
     result = 31 * result + MessagesPigeonUtils.deepHash(this.appName)
-    result = 31 * result + MessagesPigeonUtils.deepHash(this.baseUrl)
     result = 31 * result + MessagesPigeonUtils.deepHash(this.requestKey)
     result = 31 * result + MessagesPigeonUtils.deepHash(this.environment)
     result = 31 * result + MessagesPigeonUtils.deepHash(this.schemaVersion)

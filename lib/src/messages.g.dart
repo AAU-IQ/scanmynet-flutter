@@ -107,11 +107,10 @@ int _deepHash(Object? value) {
 }
 
 
-/// iOS `ScanMyNetConfiguration.Environment`. Android has no environment enum —
-/// it takes an explicit [ScanConfig.baseUrl] string instead.
-/// TODO(confirm): how iOS `environment` maps to an Android baseUrl, and whether
-/// the host passes baseUrl OR environment. Native code maps explicitly; do NOT
-/// rely on index parity.
+/// Selects the backend both platforms talk to. iOS maps it onto
+/// `ScanMyNetConfiguration.Environment`; Android maps it to the matching
+/// Retrofit base URL internally. Null defaults to [ScanEnvironment.production].
+/// Native code maps explicitly by case — do NOT rely on index parity.
 enum ScanEnvironment {
   staging,
   production,
@@ -165,7 +164,6 @@ class ScanConfig {
     required this.apiKey,
     this.userKey,
     this.appName,
-    this.baseUrl,
     this.requestKey,
     this.environment,
     this.schemaVersion,
@@ -181,15 +179,11 @@ class ScanConfig {
   /// Android `AppName.appName` (ReportParamDto.app). iOS: not used.
   String? appName;
 
-  /// Android `BaseUrl.baseUrl` (Retrofit base). iOS selects backend via
-  /// [environment] instead.
-  String? baseUrl;
-
   /// iOS `ScanMyNetConfiguration.requestKey`. Android: not used.
   String? requestKey;
 
-  /// iOS only. If null on iOS, native defaults to [ScanEnvironment.production].
-  /// TODO(confirm) default environment.
+  /// Backend selector, honoured on both platforms. Null defaults to
+  /// [ScanEnvironment.production].
   ScanEnvironment? environment;
 
   /// Pigeon schema version, set by the Dart layer. Native compares it against
@@ -202,7 +196,6 @@ class ScanConfig {
       apiKey,
       userKey,
       appName,
-      baseUrl,
       requestKey,
       environment,
       schemaVersion,
@@ -218,10 +211,9 @@ class ScanConfig {
       apiKey: result[0]! as String,
       userKey: result[1] as String?,
       appName: result[2] as String?,
-      baseUrl: result[3] as String?,
-      requestKey: result[4] as String?,
-      environment: result[5] as ScanEnvironment?,
-      schemaVersion: result[6] as int?,
+      requestKey: result[3] as String?,
+      environment: result[4] as ScanEnvironment?,
+      schemaVersion: result[5] as int?,
     );
   }
 
@@ -234,7 +226,7 @@ class ScanConfig {
     if (identical(this, other)) {
       return true;
     }
-    return _deepEquals(apiKey, other.apiKey) && _deepEquals(userKey, other.userKey) && _deepEquals(appName, other.appName) && _deepEquals(baseUrl, other.baseUrl) && _deepEquals(requestKey, other.requestKey) && _deepEquals(environment, other.environment) && _deepEquals(schemaVersion, other.schemaVersion);
+    return _deepEquals(apiKey, other.apiKey) && _deepEquals(userKey, other.userKey) && _deepEquals(appName, other.appName) && _deepEquals(requestKey, other.requestKey) && _deepEquals(environment, other.environment) && _deepEquals(schemaVersion, other.schemaVersion);
   }
 
   @override
