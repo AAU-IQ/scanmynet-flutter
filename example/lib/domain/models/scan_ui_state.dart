@@ -1,4 +1,5 @@
 import 'package:flutter/foundation.dart';
+import 'package:scanmynet_sdk/scanmynet_sdk.dart';
 
 /// Lifecycle phase of a scan, used to drive the UI.
 enum ScanPhase { idle, running, finished, failed }
@@ -11,6 +12,7 @@ class ScanUiState {
     this.percent = 0,
     this.stepLabel,
     this.reportUrl,
+    this.report,
     this.errorMessage,
   });
 
@@ -28,6 +30,9 @@ class ScanUiState {
   /// URL of the generated report, when finished.
   final String? reportUrl;
 
+  /// The full typed report payload, when finished and the backend returned it.
+  final ReportData? report;
+
   /// Terminal error message, when failed.
   final String? errorMessage;
 
@@ -40,6 +45,7 @@ class ScanUiState {
     double? percent,
     String? stepLabel,
     String? reportUrl,
+    ReportData? report,
     String? errorMessage,
   }) {
     return ScanUiState(
@@ -47,6 +53,7 @@ class ScanUiState {
       percent: percent ?? this.percent,
       stepLabel: stepLabel ?? this.stepLabel,
       reportUrl: reportUrl ?? this.reportUrl,
+      report: report ?? this.report,
       errorMessage: errorMessage ?? this.errorMessage,
     );
   }

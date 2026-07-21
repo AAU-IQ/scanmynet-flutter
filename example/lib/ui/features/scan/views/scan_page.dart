@@ -4,6 +4,7 @@ import 'package:scanmynet_sdk_example/domain/models/scan_ui_state.dart';
 import 'package:scanmynet_sdk_example/ui/features/scan/view_models/scan_view_model.dart';
 import 'package:scanmynet_sdk_example/ui/features/scan/views/widgets/customer_key_field.dart';
 import 'package:scanmynet_sdk_example/ui/features/scan/views/widgets/report_link_card.dart';
+import 'package:scanmynet_sdk_example/ui/features/scan/views/widgets/report_summary_card.dart';
 import 'package:scanmynet_sdk_example/ui/features/scan/views/widgets/scan_progress_card.dart';
 
 /// Home screen: collect a customer key, run a scan, show animated progress and
@@ -116,9 +117,15 @@ class _ScanPageState extends State<ScanPage> {
       return ScanProgressCard(key: const ValueKey('progress'), state: state);
     }
     if (state.isFinished && state.reportUrl != null) {
-      return ReportLinkCard(
+      return Column(
         key: const ValueKey('report'),
-        reportUrl: state.reportUrl!,
+        children: [
+          ReportLinkCard(reportUrl: state.reportUrl!),
+          if (state.report != null) ...[
+            const SizedBox(height: 12),
+            ReportSummaryCard(report: state.report!),
+          ],
+        ],
       );
     }
     if (state.hasFailed) {

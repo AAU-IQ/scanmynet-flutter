@@ -140,13 +140,15 @@ class ScanViewModel extends ChangeNotifier {
           ),
         );
       case ScanCompleted(:final result):
-        _log('✓ finished: ${result.reportUrl}');
+        _log('✓ finished: ${result.reportUrl}'
+            '${result.report != null ? ' (+report payload)' : ''}');
         final raw = result.reportUrl;
         _emit(
           ScanUiState(
             phase: ScanPhase.finished,
             percent: 100,
             reportUrl: raw.isEmpty ? null : raw,
+            report: result.report,
           ),
         );
       case ScanFailed(:final error):
