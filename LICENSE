@@ -1,1 +1,32 @@
-TODO: Add your license here.
+Copyright (c) 2026 AAU. All rights reserved.
+
+This software and its associated files (the "SDK") are proprietary and
+confidential. The SDK is licensed, not sold, and is made available solely to
+licensed and authorized customers of AAU for the sole purpose of integrating
+ScanMyNet network-diagnostics services into their own authorized applications.
+
+Subject to a valid authorization (including a valid API key), you MAY:
+  - install the SDK as a dependency of your application; and
+  - distribute the SDK only as an embedded, non-extractable part of your
+    compiled application.
+
+You MAY NOT:
+  - use the SDK without valid authorization from AAU;
+  - copy, redistribute, publish, sublicense, sell, rent, lease, or transfer the
+    SDK except as embedded in an authorized application;
+  - modify, adapt, translate, or create derivative works of the SDK; or
+  - reverse engineer, decompile, or disassemble the SDK or its bundled native
+    binaries, except to the extent this restriction is prohibited by applicable
+    law.
+
+AAU retains all right, title, and interest in and to the SDK, including all
+intellectual property rights therein.
+
+THE SDK IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED,
+INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A
+PARTICULAR PURPOSE, AND NONINFRINGEMENT. IN NO EVENT SHALL AAU BE LIABLE FOR ANY
+CLAIM, DAMAGES, OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT, OR
+OTHERWISE, ARISING FROM, OUT OF, OR IN CONNECTION WITH THE SDK OR THE USE OR
+OTHER DEALINGS IN THE SDK.
+
+For licensing inquiries, contact info@aau.iq.
