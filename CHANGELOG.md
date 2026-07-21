@@ -1,3 +1,9 @@
+## 1.0.1
+
+* Docs: expanded the README with a full `Usage` / API section and a "Building
+  your own UI from the report" guide mapping all 15 `ReportData` sections, plus
+  a pointer to the example's `ReportSummaryCard`. No code changes.
+
 ## 1.0.0
 
 * First stable release.
