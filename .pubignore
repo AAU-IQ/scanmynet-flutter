@@ -1,6 +1,4 @@
-# Internal SDD planning/spec artifacts — not for package consumers.
-# These also referenced a committed (now rotated) API key; keep them off pub.dev.
-docs/superpowers/
+# Agent scratch — not for package consumers.
 .superpowers/
 
 # Transient staging area for verifying a Bitrise framework build. Never ship it.
