@@ -1,6 +1,6 @@
 name: scanmynet_sdk
 description: "Flutter plugin for the ScanMyNet network diagnostics SDK — runs a full home-network scan and returns a structured report."
-version: 1.0.0
+version: 1.0.2
 homepage: https://bitbucket.org/creativeadvtech/scanmynet_sdk
 repository: https://bitbucket.org/creativeadvtech/scanmynet_sdk
 

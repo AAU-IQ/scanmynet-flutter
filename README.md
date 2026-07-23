@@ -9,7 +9,7 @@ backend.
 
 ```yaml
 dependencies:
-  scanmynet_sdk: ^1.0.0
+  scanmynet_sdk: ^1.0.2
 ```
 
 ## Prerequisites
@@ -27,8 +27,50 @@ dependencies:
 
 ### Android
 
-No extra setup required — the private native AARs are bundled in
-[android/local-maven-repo/](android/local-maven-repo/) and resolved automatically at build time.
+The private native AARs are bundled in
+[android/local-maven-repo/](android/local-maven-repo/). The plugin registers that
+repository with your build automatically (along with JitPack, which serves a
+transitive dependency of the native SDK) — **no Gradle changes needed on your
+side**. Your app must be on `minSdk 24` or higher.
+
+Two things you do have to add to your app:
+
+**1. Location permissions.** Declare them in
+`android/app/src/main/AndroidManifest.xml` and request `ACCESS_FINE_LOCATION` at
+runtime (e.g. with `permission_handler`):
+
+```xml
+<uses-permission android:name="android.permission.ACCESS_FINE_LOCATION"/>
+<uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION"/>
+```
+
+Without location **granted at runtime**, Android anonymises Wi-Fi data and the
+report's `userWifiNetwork` section comes back with placeholder values.
+
+**2. Cleartext HTTP, for router identification.** The UPnP/SSDP step fetches the
+router's device-description XML over plain HTTP (e.g.
+`http://192.168.0.1/rootDesc.xml`). Android 9+ blocks cleartext by default,
+which silently leaves `customerRouterDetails.make`/`model` as "Unknown" (SSDP
+itself is raw UDP and still works, so the router IP appears but its identity does
+not).
+
+Create `android/app/src/main/res/xml/network_security_config.xml`:
+
+```xml
+<network-security-config>
+    <base-config cleartextTrafficPermitted="true">
+        <trust-anchors><certificates src="system" /></trust-anchors>
+    </base-config>
+</network-security-config>
+```
+
+and reference it from your `<application>` tag:
+
+```xml
+<application android:networkSecurityConfig="@xml/network_security_config" ... >
+```
+
+Cleartext is *permitted*, not forced — the HTTPS report backend still uses TLS.
 
 ### iOS
 
@@ -98,45 +140,112 @@ fvm flutter build ios --release "--dart-define=SMN_API_KEY=<your-api-key>"
 
 Pass via `--dart-define=SMN_API_KEY=...` — **never** hardcode in source.
 
-## Quickstart
+## Usage
+
+The plugin exposes a single class, `ScanmynetSdk`. Commands flow Dart → native
+(`configure` / `startScan` / `cancel`); lifecycle updates come back as a
+broadcast stream of `ScanEvent`s. A typical flow:
 
 ```dart
 final sdk = ScanmynetSdk();
 
-sdk.events.listen((event) {
+// 1. Subscribe BEFORE starting, so you catch every event.
+final sub = sdk.events.listen((event) {
   switch (event) {
-    case ScanProgressed(:final progress):
-      print('${progress.percent}%');
-    case ScanCompleted(:final result):
-      print('Hosted report: ${result.reportUrl}');
-      final report = result.report;
-      if (report != null) {
-        print('Down: ${report.customerInternetSpeed?.networkSpeedDown} Mbps');
-        for (final alert in report.alerts ?? []) {
-          switch (alert.type) {
-            case AlertType.oldRouter: /* localise your own copy */
-            case AlertType.unknown:   /* forward-compatible fallback */
-            default: break;
-          }
-        }
-      }
-    case ScanFailed(:final error):
-      print('Failed: ${error.message}');
     case ScanStarted():
+      // the scan has begun
+    case ScanProgressed(:final progress):
+      // progress.percent (0..100); progress.label / progress.currentStep
+    case ScanCompleted(:final result):
+      // result.reportUrl -> hosted web report (always present)
+      // result.report    -> typed ReportData for your own UI (see below)
+    case ScanFailed(:final error):
+      // error.kind (perStep | submission | canceled), error.message
     case ScanDataPersisted():
+      // Android-only debug snapshot; most apps can ignore it
     case ScanCanceled():
+      // cancel() completed
   }
 });
 
-await sdk.configure(ScanConfig(apiKey: 'your-key'));
+// 2. Configure (choose the backend with `environment`), then start.
+await sdk.configure(ScanConfig(
+  apiKey: 'your-key',
+  environment: ScanEnvironment.production, // .dev | .staging | .production
+));
 await sdk.startScan();
+
+// 3. Optionally cancel an in-flight scan (iOS; best-effort no-op on Android).
+await sdk.cancel();
+
+// 4. When you're done with the SDK, release the native handler.
+await sub.cancel();
+sdk.dispose();
 ```
 
-## Reading the report
+| Member | Purpose |
+|---|---|
+| `sdk.events` | broadcast `Stream<ScanEvent>` — the six lifecycle events above |
+| `sdk.progress` | convenience `Stream<ScanProgress>` if you only want progress |
+| `configure(ScanConfig)` | set API key + `environment`; call before `startScan` |
+| `startScan()` | begin a scan; results arrive via `events` |
+| `cancel()` | cancel an in-flight scan (iOS) |
+| `dispose()` | detach the native handler and close the streams |
 
-`result.reportUrl` opens the hosted report and is always present.
-`result.report` is the same data as structured Dart objects, for building your
-own UI. It is null on backends predating the payload.
+## Building your own UI from the report
+
+Every completed scan returns the report **two ways**:
+
+- **`result.reportUrl`** — the hosted web report, always present. Open it in a
+  browser or `WebView` for a zero-effort display.
+- **`result.report`** — the *same data as typed Dart objects* (`ReportData`), so
+  you can render it however you like. Null only on backends predating the payload.
+
+`ReportData` has 15 optional sections. **Every field is nullable** — read
+defensively with `?.` and treat `null` as "not measured":
+
+| Section | Type | Contains |
+|---|---|---|
+| `customerInternetSpeed` | `InternetSpeed?` | download / upload Mbps, link speed, segments |
+| `localConnectedDevices` | `List<LocalConnectedDevice>?` | discovered devices — name, IP, MAC, ping |
+| `userWifiNetwork` | `WifiNetworkResult?` | SSID, BSSID, frequency, channel, signal |
+| `customerRouterDetails` | `CustomerRouterDetails?` | make / model, encryption, mesh |
+| `networkTopology` | `NetworkTopology?` | other routers, double-NAT detection |
+| `networkCongestion` | `NetworkCongestion?` | channel congestion, surrounding networks |
+| `basicConnectivity` | `BasicConnectivity?` | server / port / DNS checks, firewall |
+| `connectionQuality` | `List<DnsQuality>?` | per-DNS ping / jitter quality |
+| `traceroute` | `List<TracerouteEntry>?` | hops per destination |
+| `alerts` / `actions` | `List<ReportAlert>?` / `List<ReportAction>?` | issues found + recommended fixes |
+| `customerDetails`, `sdkDetails`, `routerUsageDuringScan`, `incompleteAnalysis` | | metadata + reliability flag |
+
+Read whichever sections your UI needs:
+
+```dart
+final report = result.report;
+if (report != null) {
+  final downMbps = report.customerInternetSpeed?.networkSpeedDown; // double?
+  final deviceCount = report.localConnectedDevices?.length ?? 0;   // int
+  final ssid = report.userWifiNetwork?.ssid;                       // String?
+  final router = report.customerRouterDetails;                     // object?
+
+  for (final device in report.localConnectedDevices ?? const []) {
+    print('${device.deviceName} @ ${device.deviceIp}');
+  }
+
+  for (final alert in report.alerts ?? const []) {
+    switch (alert.type) {            // typed enum — never throws
+      case AlertType.oldRouter:      // show your own localized copy
+      case AlertType.unknown:        // forward-compatible fallback
+      default: break;
+    }
+  }
+}
+```
+
+> **Complete, runnable example:** the example app renders a custom report card
+> at [`example/lib/ui/features/scan/views/widgets/report_summary_card.dart`](example/lib/ui/features/scan/views/widgets/report_summary_card.dart)
+> — it pulls speed, device count, Wi-Fi, router, and alerts out of `ReportData`.
+> Copy it as a starting point for your own UI.
 
 ### Gotchas
 
