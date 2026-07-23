@@ -1,11 +1,11 @@
 ## 1.0.2
 
-* **Fix (Android, build-blocking):** consuming apps failed with
-  `Could not find org.bitbucket.creativeadvtech:tools:1.1`. The bundled AAR
-  repository was only registered on the plugin's own project, but the app
-  resolves that dependency on its own runtime classpath. The repository (and
-  JitPack, for a transitive dependency) is now registered with the whole
-  consuming build, so no Gradle changes are needed in the host app.
+* **Fix (Android, build-blocking):** consuming apps failed to resolve one of the
+  native SDK's bundled dependencies. The bundled AAR repository was only
+  registered on the plugin's own project, but the app resolves that dependency
+  on its own runtime classpath. The repository (and JitPack, for a transitive
+  dependency) is now registered with the whole consuming build, so no Gradle
+  changes are needed in the host app.
 * Docs: corrected the Android setup section — it previously claimed "no extra
   setup required". Consuming apps must declare location permissions (and grant
   `ACCESS_FINE_LOCATION` at runtime) and permit cleartext HTTP via a
