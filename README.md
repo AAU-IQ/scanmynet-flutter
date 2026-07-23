@@ -9,7 +9,7 @@ backend.
 
 ```yaml
 dependencies:
-  scanmynet_sdk: ^1.0.0
+  scanmynet_sdk: ^1.0.2
 ```
 
 ## Prerequisites
@@ -27,8 +27,50 @@ dependencies:
 
 ### Android
 
-No extra setup required — the private native AARs are bundled in
-[android/local-maven-repo/](android/local-maven-repo/) and resolved automatically at build time.
+The private native AARs are bundled in
+[android/local-maven-repo/](android/local-maven-repo/). The plugin registers that
+repository with your build automatically (along with JitPack, which serves a
+transitive dependency of the native SDK) — **no Gradle changes needed on your
+side**. Your app must be on `minSdk 24` or higher.
+
+Two things you do have to add to your app:
+
+**1. Location permissions.** Declare them in
+`android/app/src/main/AndroidManifest.xml` and request `ACCESS_FINE_LOCATION` at
+runtime (e.g. with `permission_handler`):
+
+```xml
+<uses-permission android:name="android.permission.ACCESS_FINE_LOCATION"/>
+<uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION"/>
+```
+
+Without location **granted at runtime**, Android anonymises Wi-Fi data and the
+report's `userWifiNetwork` section comes back with placeholder values.
+
+**2. Cleartext HTTP, for router identification.** The UPnP/SSDP step fetches the
+router's device-description XML over plain HTTP (e.g.
+`http://192.168.0.1/rootDesc.xml`). Android 9+ blocks cleartext by default,
+which silently leaves `customerRouterDetails.make`/`model` as "Unknown" (SSDP
+itself is raw UDP and still works, so the router IP appears but its identity does
+not).
+
+Create `android/app/src/main/res/xml/network_security_config.xml`:
+
+```xml
+<network-security-config>
+    <base-config cleartextTrafficPermitted="true">
+        <trust-anchors><certificates src="system" /></trust-anchors>
+    </base-config>
+</network-security-config>
+```
+
+and reference it from your `<application>` tag:
+
+```xml
+<application android:networkSecurityConfig="@xml/network_security_config" ... >
+```
+
+Cleartext is *permitted*, not forced — the HTTPS report backend still uses TLS.
 
 ### iOS
 
