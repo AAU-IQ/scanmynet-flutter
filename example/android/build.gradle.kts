@@ -1,12 +1,12 @@
+// Deliberately only the stock repositories a `flutter create` app ships with.
+// The plugin registers its own bundled AAR repo (and JitPack) with the build,
+// so the example exercises the exact resolution path a pub.dev consumer gets.
+// Do NOT add the plugin's local-maven-repo here — doing so previously masked a
+// bug where consumers could not resolve `tools` at all.
 allprojects {
     repositories {
         google()
         mavenCentral()
-        // Private AARs bundled in the SDK repo — no local Maven install needed.
-        maven { url = uri("${rootProject.projectDir}/../../android/local-maven-repo") }
-        // `tools` pulls JitPack-hosted transitive deps (AndroidNetworkTools,
-        // traceroute) — mirror the repos the scanmynet-android build uses.
-        maven { url = uri("https://jitpack.io") }
     }
 }
 

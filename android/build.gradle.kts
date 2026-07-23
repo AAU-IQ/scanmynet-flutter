@@ -14,12 +14,23 @@ buildscript {
     }
 }
 
-allprojects {
+// The bundled `tools` AAR is an `implementation` dependency of this library, so
+// the CONSUMING app resolves it on its own runtime classpath — not us. Declaring
+// these repositories only on this project (plain `allprojects`) therefore left a
+// pub.dev consumer with "Could not find org.bitbucket.creativeadvtech:tools",
+// because `:app` is our sibling, not our descendant.
+//
+// Inject them into every project of the consuming build instead. `projectDir` is
+// captured here (this script's project) so the URL points at THIS package
+// wherever pub unpacked it, rather than at whichever project is being configured.
+val bundledMavenRepo = uri("$projectDir/local-maven-repo")
+
+rootProject.allprojects {
     repositories {
         google()
         mavenCentral()
         // Private AARs bundled in android/local-maven-repo/ — no external server needed.
-        maven { url = uri("$projectDir/local-maven-repo") }
+        maven { url = bundledMavenRepo }
         // Required for com.github.stealthcopter:AndroidNetworkTools (transitive dep of tools).
         maven { url = uri("https://jitpack.io") }
     }
