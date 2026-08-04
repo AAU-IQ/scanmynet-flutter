@@ -186,6 +186,17 @@ enum ScanEnvironment: Int {
   case staging = 0
   case production = 1
   case dev = 2
+  /// A self-hosted deployment — an operator running their own ScanMyNet backend
+  /// rather than ours. Requires [ScanConfig.customBaseUrl]; [configure] rejects
+  /// the pair if it is missing.
+  ///
+  /// Pigeon enums cannot carry associated values, so the URL travels alongside
+  /// the selector rather than inside it. The iOS SDK's own `Environment` does
+  /// have an associated value — the bridge recombines the two into
+  /// `.custom(baseUrl:frontendUrl:)`.
+  ///
+  /// Declared LAST so the existing wire values 0/1/2 keep their meaning.
+  case custom = 3
 }
 
 /// Android `NetworkScanStep` — 13 values in source declaration order.
@@ -248,7 +259,25 @@ struct ScanConfig: Hashable {
   /// Pigeon schema version, set by the Dart layer. Native compares it against
   /// its own compiled-in constant and throws on mismatch — codecs are
   /// positional, so a skewed pair misreads fields silently rather than failing.
+  ///
+  /// Keep this field's POSITION stable when adding to this class: a stale native
+  /// binary reads the version by index, and if a newly-inserted field shifted it,
+  /// the mismatch check would read null and pass silently — defeating the very
+  /// guard it exists to be. New fields go below.
   var schemaVersion: Int64? = nil
+  /// Server root for [ScanEnvironment.custom] — e.g. `https://smn.example.com/`.
+  /// Not an endpoint: each SDK still appends its own `/api/v1/…` paths, so the
+  /// deployment must expose the same endpoint names ours does. The trailing
+  /// slash is optional; native normalizes it.
+  ///
+  /// Ignored unless [environment] is [ScanEnvironment.custom].
+  var customBaseUrl: String? = nil
+  /// Report-viewer root for [ScanEnvironment.custom]. The backend returns a
+  /// report's `verification_token` but not a usable viewer link, so the
+  /// shareable URL is assembled client-side from this root plus the token.
+  ///
+  /// Optional — defaults to [customBaseUrl] when the same host serves both.
+  var customFrontendUrl: String? = nil
 
 
   // swift-format-ignore: AlwaysUseLowerCamelCase
@@ -259,6 +288,8 @@ struct ScanConfig: Hashable {
     let requestKey: String? = nilOrValue(pigeonVar_list[3])
     let environment: ScanEnvironment? = nilOrValue(pigeonVar_list[4])
     let schemaVersion: Int64? = nilOrValue(pigeonVar_list[5])
+    let customBaseUrl: String? = nilOrValue(pigeonVar_list[6])
+    let customFrontendUrl: String? = nilOrValue(pigeonVar_list[7])
 
     return ScanConfig(
       apiKey: apiKey,
@@ -266,7 +297,9 @@ struct ScanConfig: Hashable {
       appName: appName,
       requestKey: requestKey,
       environment: environment,
-      schemaVersion: schemaVersion
+      schemaVersion: schemaVersion,
+      customBaseUrl: customBaseUrl,
+      customFrontendUrl: customFrontendUrl
     )
   }
   func toList() -> [Any?] {
@@ -277,13 +310,15 @@ struct ScanConfig: Hashable {
       requestKey,
       environment,
       schemaVersion,
+      customBaseUrl,
+      customFrontendUrl,
     ]
   }
   static func == (lhs: ScanConfig, rhs: ScanConfig) -> Bool {
     if Swift.type(of: lhs) != Swift.type(of: rhs) {
       return false
     }
-    return deepEqualsMessages(lhs.apiKey, rhs.apiKey) && deepEqualsMessages(lhs.userKey, rhs.userKey) && deepEqualsMessages(lhs.appName, rhs.appName) && deepEqualsMessages(lhs.requestKey, rhs.requestKey) && deepEqualsMessages(lhs.environment, rhs.environment) && deepEqualsMessages(lhs.schemaVersion, rhs.schemaVersion)
+    return deepEqualsMessages(lhs.apiKey, rhs.apiKey) && deepEqualsMessages(lhs.userKey, rhs.userKey) && deepEqualsMessages(lhs.appName, rhs.appName) && deepEqualsMessages(lhs.requestKey, rhs.requestKey) && deepEqualsMessages(lhs.environment, rhs.environment) && deepEqualsMessages(lhs.schemaVersion, rhs.schemaVersion) && deepEqualsMessages(lhs.customBaseUrl, rhs.customBaseUrl) && deepEqualsMessages(lhs.customFrontendUrl, rhs.customFrontendUrl)
   }
 
   func hash(into hasher: inout Hasher) {
@@ -294,6 +329,8 @@ struct ScanConfig: Hashable {
     deepHashMessages(value: requestKey, hasher: &hasher)
     deepHashMessages(value: environment, hasher: &hasher)
     deepHashMessages(value: schemaVersion, hasher: &hasher)
+    deepHashMessages(value: customBaseUrl, hasher: &hasher)
+    deepHashMessages(value: customFrontendUrl, hasher: &hasher)
   }
 }
 

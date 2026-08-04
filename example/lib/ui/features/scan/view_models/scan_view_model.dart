@@ -31,19 +31,32 @@ class ScanViewModel extends ChangeNotifier {
   final String _requestKey;
   final String _appName;
   ScanEnvironment _environment;
+  String _customBaseUrl = '';
   late final StreamSubscription<ScanEvent> _subscription;
 
   ScanUiState _state = ScanUiState.idle;
   ScanUiState get state => _state;
 
-  /// Currently selected target environment (`staging` / `production` / `dev`).
+  /// Currently selected target environment.
   ScanEnvironment get environment => _environment;
+
+  /// Server root used when [environment] is [ScanEnvironment.custom]; empty
+  /// otherwise. The example serves the report viewer from the same host, so it
+  /// leaves `customFrontendUrl` unset.
+  String get customBaseUrl => _customBaseUrl;
 
   /// Switches the target environment (ignored mid-scan).
   void selectEnvironment(ScanEnvironment env) {
     if (_state.isRunning || env == _environment) return;
     _environment = env;
     notifyListeners();
+  }
+
+  /// Sets the self-hosted server root (ignored mid-scan). Does not notify — the
+  /// value comes from a `TextField` that already holds its own text.
+  void setCustomBaseUrl(String url) {
+    if (_state.isRunning) return;
+    _customBaseUrl = url;
   }
 
   /// Rolling, timestamped feed of native scan events — useful for diagnosing
@@ -95,7 +108,11 @@ class ScanViewModel extends ChangeNotifier {
     _emit(const ScanUiState(phase: ScanPhase.running, stepLabel: 'starting…'));
 
     try {
-      _log('configure (env: ${_environment.name})');
+      final isCustom = _environment == ScanEnvironment.custom;
+      _log(
+        'configure (env: ${_environment.name}'
+        '${isCustom ? ' -> $_customBaseUrl' : ''})',
+      );
       await _sdk.configure(
         ScanConfig(
           apiKey: _apiKey,
@@ -103,6 +120,7 @@ class ScanViewModel extends ChangeNotifier {
           userKey: customerKey,
           appName: _appName,
           environment: _environment,
+          customBaseUrl: isCustom ? _customBaseUrl : null,
         ),
       );
       _log('startScan()');

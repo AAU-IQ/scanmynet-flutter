@@ -33,7 +33,7 @@ class ScanmynetSdk {
       StreamController<ScanEvent>.broadcast();
 
   /// Pigeon schema version. Bump whenever fields are added to the schema.
-  static const int schemaVersion = 2;
+  static const int schemaVersion = 3;
 
   /// Native scan lifecycle as a broadcast stream. Subscribe before calling
   /// [startScan] to receive every event.
@@ -46,7 +46,24 @@ class ScanmynetSdk {
 
   /// Configures the native SDK. Android builds the `NetworkScan`; iOS builds
   /// the `ScanMyNetManager`. Must be called before [startScan].
-  Future<void> configure(ScanConfig config) {
+  ///
+  /// Throws [ArgumentError] if [ScanEnvironment.custom] is selected without a
+  /// [ScanConfig.customBaseUrl]. Checked here rather than natively so the error
+  /// surfaces at the call site instead of as a platform exception.
+  ///
+  /// `async` so that validation failure arrives as a rejected Future like every
+  /// other error from this method — a synchronous throw would slip past
+  /// `.catchError` and only be caught by callers who happen to use `await`.
+  Future<void> configure(ScanConfig config) async {
+    if (config.environment == ScanEnvironment.custom &&
+        (config.customBaseUrl?.trim() ?? '').isEmpty) {
+      throw ArgumentError.value(
+        config.customBaseUrl,
+        'customBaseUrl',
+        'ScanEnvironment.custom requires a server root, e.g. '
+            'https://smn.example.com/',
+      );
+    }
     config.schemaVersion = schemaVersion;
     return _host.configure(config);
   }

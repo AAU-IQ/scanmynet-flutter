@@ -53,4 +53,56 @@ void main() {
     await sdk.configure(config);
     expect(fake.configuredWith!.schemaVersion, ScanmynetSdk.schemaVersion);
   });
+
+  group('ScanEnvironment.custom', () {
+    test('forwards the server root to the host API', () async {
+      final config = ScanConfig(
+        apiKey: 'key',
+        environment: ScanEnvironment.custom,
+        customBaseUrl: 'https://smn.example.com/',
+        customFrontendUrl: 'https://portal.example.com/',
+      );
+      await sdk.configure(config);
+      expect(fake.configuredWith!.customBaseUrl, 'https://smn.example.com/');
+      expect(
+        fake.configuredWith!.customFrontendUrl,
+        'https://portal.example.com/',
+      );
+    });
+
+    test('is rejected without a base URL', () async {
+      final config = ScanConfig(
+        apiKey: 'key',
+        environment: ScanEnvironment.custom,
+      );
+      await expectLater(
+        sdk.configure(config),
+        throwsA(isA<ArgumentError>()),
+      );
+      expect(fake.configuredWith, isNull);
+    });
+
+    test('is rejected when the base URL is only whitespace', () async {
+      final config = ScanConfig(
+        apiKey: 'key',
+        environment: ScanEnvironment.custom,
+        customBaseUrl: '   ',
+      );
+      await expectLater(
+        sdk.configure(config),
+        throwsA(isA<ArgumentError>()),
+      );
+      expect(fake.configuredWith, isNull);
+    });
+
+    test('a blank base URL is allowed for the built-in environments', () async {
+      // Only .custom carries the requirement — the others resolve their own URL.
+      final config = ScanConfig(
+        apiKey: 'key',
+        environment: ScanEnvironment.staging,
+      );
+      await sdk.configure(config);
+      expect(fake.configuredWith, same(config));
+    });
+  });
 }

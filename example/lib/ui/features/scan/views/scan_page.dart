@@ -65,6 +65,8 @@ class _ScanPageState extends State<ScanPage> {
                     selected: widget.viewModel.environment,
                     enabled: !state.isRunning,
                     onChanged: widget.viewModel.selectEnvironment,
+                    customBaseUrl: widget.viewModel.customBaseUrl,
+                    onCustomBaseUrlChanged: widget.viewModel.setCustomBaseUrl,
                   ),
                   const SizedBox(height: 20),
                   CustomerKeyField(
@@ -220,18 +222,40 @@ class _LogPanel extends StatelessWidget {
   }
 }
 
-/// Environment picker (staging / production / dev). Disabled while a scan runs.
-/// Backed by the SDK's `ScanEnvironment` enum (the former `AppEnvironment`).
-class _EnvironmentSelector extends StatelessWidget {
+/// Environment picker. Disabled while a scan runs. Backed by the SDK's
+/// `ScanEnvironment` enum (the former `AppEnvironment`).
+///
+/// Picking `Custom` reveals a server-root field: unlike the built-in
+/// environments, that case carries no URL of its own, and the SDK rejects it
+/// without one.
+class _EnvironmentSelector extends StatefulWidget {
   const _EnvironmentSelector({
     required this.selected,
     required this.enabled,
     required this.onChanged,
+    required this.customBaseUrl,
+    required this.onCustomBaseUrlChanged,
   });
 
   final ScanEnvironment selected;
   final bool enabled;
   final ValueChanged<ScanEnvironment> onChanged;
+  final String customBaseUrl;
+  final ValueChanged<String> onCustomBaseUrlChanged;
+
+  @override
+  State<_EnvironmentSelector> createState() => _EnvironmentSelectorState();
+}
+
+class _EnvironmentSelectorState extends State<_EnvironmentSelector> {
+  late final TextEditingController _urlController =
+      TextEditingController(text: widget.customBaseUrl);
+
+  @override
+  void dispose() {
+    _urlController.dispose();
+    super.dispose();
+  }
 
   static String _label(ScanEnvironment env) =>
       env.name[0].toUpperCase() + env.name.substring(1);
@@ -255,12 +279,29 @@ class _EnvironmentSelector extends StatelessWidget {
               for (final env in ScanEnvironment.values)
                 ButtonSegment(value: env, label: Text(_label(env))),
             ],
-            selected: {selected},
+            selected: {widget.selected},
             showSelectedIcon: false,
-            onSelectionChanged:
-                enabled ? (selection) => onChanged(selection.first) : null,
+            onSelectionChanged: widget.enabled
+                ? (selection) => widget.onChanged(selection.first)
+                : null,
           ),
         ),
+        if (widget.selected == ScanEnvironment.custom) ...[
+          const SizedBox(height: 12),
+          TextField(
+            controller: _urlController,
+            enabled: widget.enabled,
+            keyboardType: TextInputType.url,
+            autocorrect: false,
+            onChanged: widget.onCustomBaseUrlChanged,
+            decoration: const InputDecoration(
+              labelText: 'Server root',
+              hintText: 'https://smn.example.com/',
+              helperText: 'The SDK appends /api/v1/… itself.',
+              border: OutlineInputBorder(),
+            ),
+          ),
+        ],
       ],
     );
   }

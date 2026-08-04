@@ -44,6 +44,18 @@ enum ScanEnvironment {
   staging,
   production,
   dev,
+
+  /// A self-hosted deployment — an operator running their own ScanMyNet backend
+  /// rather than ours. Requires [ScanConfig.customBaseUrl]; [configure] rejects
+  /// the pair if it is missing.
+  ///
+  /// Pigeon enums cannot carry associated values, so the URL travels alongside
+  /// the selector rather than inside it. The iOS SDK's own `Environment` does
+  /// have an associated value — the bridge recombines the two into
+  /// `.custom(baseUrl:frontendUrl:)`.
+  ///
+  /// Declared LAST so the existing wire values 0/1/2 keep their meaning.
+  custom,
 }
 
 /// Android `NetworkScanStep` — 13 values in source declaration order.
@@ -123,7 +135,27 @@ class ScanConfig {
   /// Pigeon schema version, set by the Dart layer. Native compares it against
   /// its own compiled-in constant and throws on mismatch — codecs are
   /// positional, so a skewed pair misreads fields silently rather than failing.
+  ///
+  /// Keep this field's POSITION stable when adding to this class: a stale native
+  /// binary reads the version by index, and if a newly-inserted field shifted it,
+  /// the mismatch check would read null and pass silently — defeating the very
+  /// guard it exists to be. New fields go below.
   int? schemaVersion;
+
+  /// Server root for [ScanEnvironment.custom] — e.g. `https://smn.example.com/`.
+  /// Not an endpoint: each SDK still appends its own `/api/v1/…` paths, so the
+  /// deployment must expose the same endpoint names ours does. The trailing
+  /// slash is optional; native normalizes it.
+  ///
+  /// Ignored unless [environment] is [ScanEnvironment.custom].
+  String? customBaseUrl;
+
+  /// Report-viewer root for [ScanEnvironment.custom]. The backend returns a
+  /// report's `verification_token` but not a usable viewer link, so the
+  /// shareable URL is assembled client-side from this root plus the token.
+  ///
+  /// Optional — defaults to [customBaseUrl] when the same host serves both.
+  String? customFrontendUrl;
 }
 
 /// Progress payload — superset of both platforms.
