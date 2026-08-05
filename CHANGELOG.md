@@ -1,5 +1,19 @@
 ## 1.1.0
 
+* **Fix (Android, build-blocking):** an app combining this plugin with another
+  obfuscated AAR failed to build with
+  `Duplicate class a.a … in modules <other>.aar and tools-1.1.aar`.
+
+  The bundled `tools-1.1.aar` was published obfuscated, which renamed 61 of its
+  classes into single-letter root packages (`a.a`, `b.a`, `c.a` …) — names any
+  other obfuscated AAR also claims. The native SDK now publishes unobfuscated
+  (`tools:1.3`); shrinking is the consuming app's job, and the keep rules it
+  needs still ship via `consumerProguardFiles`. No API or behaviour change.
+
+  Reported against `babylai_flutter`, and verified there: the duplicate-class
+  check fails on `tools:1.1` and passes on `tools:1.3` with both AARs on the
+  same runtime classpath.
+
 * **Feature:** `ScanEnvironment.custom` points a scan at a self-hosted ScanMyNet
   deployment instead of ours. Pass the server root as `ScanConfig.customBaseUrl`
   — not an endpoint, since each SDK still appends its own `/api/v1/…` paths, so
@@ -24,7 +38,7 @@
   rather than a synchronous throw that would slip past `.catchError`.
 
 * Android backend URLs now come from the native SDK's `Environment`
-  (`tools:1.2`) instead of a table duplicated in this plugin, so a URL changes
+  (`tools:1.3`) instead of a table duplicated in this plugin, so a URL changes
   in one place. No Dart API change.
 
 * Pigeon `schemaVersion` 2 → 3 (`ScanConfig` gained two fields). The native
