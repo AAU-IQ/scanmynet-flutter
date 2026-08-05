@@ -291,11 +291,8 @@ public struct SMNChannelCongestion : Swift.Codable {
 }
 public enum Environment {
   case staging, production, testing
-  public static func == (a: ScanMyNet.Environment, b: ScanMyNet.Environment) -> Swift.Bool
-  public func hash(into hasher: inout Swift.Hasher)
-  public var hashValue: Swift.Int {
-    get
-  }
+  case custom(baseUrl: Swift.String, frontendUrl: Swift.String?)
+  public static func custom(_ baseUrl: Swift.String) -> ScanMyNet.Environment
 }
 public class ScanMyNetConfiguration {
   public init(apiKey: Swift.String? = nil, requestKey: Swift.String? = nil, environment: ScanMyNet.Environment)
@@ -323,5 +320,3 @@ public class ScanMyNetManager {
   public func cancel()
   @objc deinit
 }
-extension ScanMyNet.Environment : Swift.Equatable {}
-extension ScanMyNet.Environment : Swift.Hashable {}
