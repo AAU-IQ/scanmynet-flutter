@@ -1,3 +1,38 @@
+## 1.1.0
+
+* **Feature:** `ScanEnvironment.custom` points a scan at a self-hosted ScanMyNet
+  deployment instead of ours. Pass the server root as `ScanConfig.customBaseUrl`
+  — not an endpoint, since each SDK still appends its own `/api/v1/…` paths, so
+  the deployment must expose the same endpoint names ours does. A trailing slash
+  is optional.
+
+  ```dart
+  await sdk.configure(ScanConfig(
+    apiKey: 'your-key',
+    environment: ScanEnvironment.custom,
+    customBaseUrl: 'https://smn.example.com/',
+  ));
+  ```
+
+* `ScanConfig.customFrontendUrl` sets the report-viewer root when a different
+  host serves it. Omitted, the viewer is served from `customBaseUrl` — never
+  from our production host, which would put an operator's `verification_token`
+  on our domain.
+
+* `configure` throws `ArgumentError` when `custom` is selected without a base
+  URL, and is now `async`, so that validation arrives as a rejected Future
+  rather than a synchronous throw that would slip past `.catchError`.
+
+* Android backend URLs now come from the native SDK's `Environment`
+  (`tools:1.2`) instead of a table duplicated in this plugin, so a URL changes
+  in one place. No Dart API change.
+
+* Pigeon `schemaVersion` 2 → 3 (`ScanConfig` gained two fields). The native
+  binaries must be rebuilt in step; a skewed pair throws on `configure`.
+
+* Requires the rebuilt `ScanMyNet.xcframework` on iOS, which adds the native
+  `Environment.custom(baseUrl:frontendUrl:)` case. Bundled.
+
 ## 1.0.2
 
 * **Fix (Android, build-blocking):** consuming apps failed to resolve one of the
