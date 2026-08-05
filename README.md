@@ -171,7 +171,7 @@ final sub = sdk.events.listen((event) {
 // 2. Configure (choose the backend with `environment`), then start.
 await sdk.configure(ScanConfig(
   apiKey: 'your-key',
-  environment: ScanEnvironment.production, // .dev | .staging | .production
+  environment: ScanEnvironment.production, // .dev | .staging | .production | .custom
 ));
 await sdk.startScan();
 
@@ -191,6 +191,41 @@ sdk.dispose();
 | `startScan()` | begin a scan; results arrive via `events` |
 | `cancel()` | cancel an in-flight scan (iOS) |
 | `dispose()` | detach the native handler and close the streams |
+
+### Pointing the SDK at your own backend
+
+`ScanEnvironment.custom` targets a self-hosted ScanMyNet deployment instead of
+ours — for operators who run the backend on their own infrastructure:
+
+```dart
+await sdk.configure(ScanConfig(
+  apiKey: 'your-key',
+  environment: ScanEnvironment.custom,
+  customBaseUrl: 'https://smn.example.com/',
+));
+```
+
+`customBaseUrl` is the **server root**, not an endpoint. The SDK still appends
+its own paths (`/api/v1/report/`, `/api/v1/scan_configs/dns_config`), so your
+deployment must expose the same endpoint names ours does. The trailing slash is
+optional.
+
+The shareable report link is assembled client-side from a separate viewer root,
+because the backend returns a report's `verification_token` but not a usable
+link. It defaults to `customBaseUrl`; set `customFrontendUrl` when a different
+host serves the viewer:
+
+```dart
+await sdk.configure(ScanConfig(
+  apiKey: 'your-key',
+  environment: ScanEnvironment.custom,
+  customBaseUrl: 'https://api.example.com/',
+  customFrontendUrl: 'https://portal.example.com/',   // optional
+));
+```
+
+Both fields are ignored unless `environment` is `.custom`, and `configure`
+throws `ArgumentError` if `.custom` is selected without a `customBaseUrl`.
 
 ## Building your own UI from the report
 

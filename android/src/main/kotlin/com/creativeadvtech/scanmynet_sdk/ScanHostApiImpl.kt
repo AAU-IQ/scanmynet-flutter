@@ -43,7 +43,7 @@ class ScanHostApiImpl(
      * but not a usable viewer URL, so the terminal [ScanResult.reportUrl] is built
      * here from this base + the token — matching the native app (TestDebugActivity).
      */
-    private var frontendBaseUrl: String = (null as ScanEnvironment?).toFrontendUrl()
+    private var frontendBaseUrl: String = DEFAULT_FRONTEND_URL
 
     override fun configure(config: ScanConfig) {
         val incoming = config.schemaVersion
@@ -54,30 +54,18 @@ class ScanHostApiImpl(
                     "misreads fields silently. Rebuild the plugin's native binaries.",
             )
         }
-        frontendBaseUrl = config.environment.toFrontendUrl()
+        frontendBaseUrl = config.toFrontendUrl()
         networkScan = NetworkScan.builder()
             .context(context)
             .userKey(config.userKey.orEmpty())
             .apiKey(config.apiKey)
             .appName(config.appName.orEmpty())
-            .baseUrl(config.environment.toBaseUrl())
+            .baseUrl(config.toBaseUrl())
             .progressCallback { progress -> onMain { flutterApi.onProgress(progress.toPigeon()) {} } }
             .resultCallback { result -> lastResult = result }
             .debugCallback { report -> onMain { flutterApi.onDataPersisted(ScanReport(report.toJson())) {} } }
             .errorCallback { error -> onMain { flutterApi.onError(error.toPigeon()) {} } }
             .build()
-    }
-
-    private fun ScanEnvironment?.toBaseUrl(): String = when (this) {
-        ScanEnvironment.DEV -> "https://scanmynet-backend.dev.kvm.creativeadvtech.ml/"
-        ScanEnvironment.STAGING -> "https://scanmynet-backend.stg.kvm.creativeadvtech.ml/"
-        ScanEnvironment.PRODUCTION, null -> "https://scanmynet.earthlink.iq/"
-    }
-
-    private fun ScanEnvironment?.toFrontendUrl(): String = when (this) {
-        ScanEnvironment.DEV -> "https://scanmynet.dev.kvm.creativeadvtech.ml/"
-        ScanEnvironment.STAGING -> "https://scanmynet.stg.kvm.creativeadvtech.ml/"
-        ScanEnvironment.PRODUCTION, null -> "https://scanmynet.earthlink.iq/"
     }
 
     override fun startScan() {
@@ -184,6 +172,6 @@ class ScanHostApiImpl(
 
     companion object {
         /** Must match `.schemaVersion` in Dart. */
-        const val SCHEMA_VERSION = 2L
+        const val SCHEMA_VERSION = 3L
     }
 }

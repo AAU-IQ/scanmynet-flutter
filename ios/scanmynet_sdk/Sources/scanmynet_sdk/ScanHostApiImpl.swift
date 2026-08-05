@@ -25,7 +25,7 @@ final class ScanHostApiImpl: NSObject, ScanHostApi {
   private var lastPercent: Double = 0
 
   /// Must match `.schemaVersion` in Dart.
-  private static let schemaVersion: Int64 = 2
+  private static let schemaVersion: Int64 = 3
 
   init(flutterApi: ScanFlutterApi) {
     self.flutterApi = flutterApi
@@ -48,7 +48,7 @@ final class ScanHostApiImpl: NSObject, ScanHostApi {
     let configuration = ScanMyNetConfiguration(
       apiKey: config.apiKey,
       requestKey: config.requestKey,
-      environment: config.environment.toNative()
+      environment: try config.toNativeEnvironment()
     )
     let manager = ScanMyNetManager(configuration: configuration)
     manager.delegate = self
@@ -154,16 +154,43 @@ extension ScanHostApiImpl: ScanMyNetDelegate {
 
 // MARK: - Enum mapping (Pigeon -> native)
 
-private extension Optional where Wrapped == ScanEnvironment {
+private extension ScanConfig {
   /// Maps the Pigeon environment onto the SDK's `Environment`. The schema
   /// documents production as the default when the host sends nil.
-  func toNative() -> Environment {
-    switch self {
+  ///
+  /// Unlike Pigeon enums, the native `Environment` carries its URLs as an
+  /// associated value, so `.custom` recombines the selector with the separate
+  /// `customBaseUrl` / `customFrontendUrl` fields the wire format forces apart.
+  func toNativeEnvironment() throws -> Environment {
+    switch environment {
     case .staging: return .staging
     case .production: return .production
     // Pigeon `.dev` maps to the SDK's `testing` backend (the dev server).
     case .dev: return .testing
     case .none: return .production
+    case .custom:
+      // Dart's `configure` rejects this pairing first; this is the backstop for
+      // a host that reaches the Pigeon API without going through `ScanmynetSdk`.
+      guard let baseUrl = customBaseUrl?.trimmed, !baseUrl.isEmpty else {
+        throw PigeonError(
+          code: "MISSING_CUSTOM_BASE_URL",
+          message: "ScanEnvironment.custom requires customBaseUrl, e.g. "
+            + "https://smn.example.com/",
+          details: nil
+        )
+      }
+      // A blank frontend URL means "same host serves the viewer" — the SDK
+      // falls back to baseUrl, never to our production domain, which would
+      // leak the operator's report tokens onto it.
+      let frontendUrl = customFrontendUrl?.trimmed
+      return .custom(
+        baseUrl: baseUrl,
+        frontendUrl: (frontendUrl?.isEmpty ?? true) ? nil : frontendUrl
+      )
     }
   }
+}
+
+private extension String {
+  var trimmed: String { trimmingCharacters(in: .whitespacesAndNewlines) }
 }

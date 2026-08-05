@@ -204,7 +204,20 @@ class FlutterError (
 enum class ScanEnvironment(val raw: Int) {
   STAGING(0),
   PRODUCTION(1),
-  DEV(2);
+  DEV(2),
+  /**
+   * A self-hosted deployment — an operator running their own ScanMyNet backend
+   * rather than ours. Requires [ScanConfig.customBaseUrl]; [configure] rejects
+   * the pair if it is missing.
+   *
+   * Pigeon enums cannot carry associated values, so the URL travels alongside
+   * the selector rather than inside it. The iOS SDK's own `Environment` does
+   * have an associated value — the bridge recombines the two into
+   * `.custom(baseUrl:frontendUrl:)`.
+   *
+   * Declared LAST so the existing wire values 0/1/2 keep their meaning.
+   */
+  CUSTOM(3);
 
   companion object {
     fun ofRaw(raw: Int): ScanEnvironment? {
@@ -306,8 +319,30 @@ data class ScanConfig (
    * Pigeon schema version, set by the Dart layer. Native compares it against
    * its own compiled-in constant and throws on mismatch — codecs are
    * positional, so a skewed pair misreads fields silently rather than failing.
+   *
+   * Keep this field's POSITION stable when adding to this class: a stale native
+   * binary reads the version by index, and if a newly-inserted field shifted it,
+   * the mismatch check would read null and pass silently — defeating the very
+   * guard it exists to be. New fields go below.
    */
-  val schemaVersion: Long? = null
+  val schemaVersion: Long? = null,
+  /**
+   * Server root for [ScanEnvironment.custom] — e.g. `https://smn.example.com/`.
+   * Not an endpoint: each SDK still appends its own `/api/v1/…` paths, so the
+   * deployment must expose the same endpoint names ours does. The trailing
+   * slash is optional; native normalizes it.
+   *
+   * Ignored unless [environment] is [ScanEnvironment.custom].
+   */
+  val customBaseUrl: String? = null,
+  /**
+   * Report-viewer root for [ScanEnvironment.custom]. The backend returns a
+   * report's `verification_token` but not a usable viewer link, so the
+   * shareable URL is assembled client-side from this root plus the token.
+   *
+   * Optional — defaults to [customBaseUrl] when the same host serves both.
+   */
+  val customFrontendUrl: String? = null
 )
  {
   companion object {
@@ -318,7 +353,9 @@ data class ScanConfig (
       val requestKey = pigeonVar_list[3] as String?
       val environment = pigeonVar_list[4] as ScanEnvironment?
       val schemaVersion = pigeonVar_list[5] as Long?
-      return ScanConfig(apiKey, userKey, appName, requestKey, environment, schemaVersion)
+      val customBaseUrl = pigeonVar_list[6] as String?
+      val customFrontendUrl = pigeonVar_list[7] as String?
+      return ScanConfig(apiKey, userKey, appName, requestKey, environment, schemaVersion, customBaseUrl, customFrontendUrl)
     }
   }
   fun toList(): List<Any?> {
@@ -329,6 +366,8 @@ data class ScanConfig (
       requestKey,
       environment,
       schemaVersion,
+      customBaseUrl,
+      customFrontendUrl,
     )
   }
   override fun equals(other: Any?): Boolean {
@@ -339,7 +378,7 @@ data class ScanConfig (
       return true
     }
     val other = other as ScanConfig
-    return MessagesPigeonUtils.deepEquals(this.apiKey, other.apiKey) && MessagesPigeonUtils.deepEquals(this.userKey, other.userKey) && MessagesPigeonUtils.deepEquals(this.appName, other.appName) && MessagesPigeonUtils.deepEquals(this.requestKey, other.requestKey) && MessagesPigeonUtils.deepEquals(this.environment, other.environment) && MessagesPigeonUtils.deepEquals(this.schemaVersion, other.schemaVersion)
+    return MessagesPigeonUtils.deepEquals(this.apiKey, other.apiKey) && MessagesPigeonUtils.deepEquals(this.userKey, other.userKey) && MessagesPigeonUtils.deepEquals(this.appName, other.appName) && MessagesPigeonUtils.deepEquals(this.requestKey, other.requestKey) && MessagesPigeonUtils.deepEquals(this.environment, other.environment) && MessagesPigeonUtils.deepEquals(this.schemaVersion, other.schemaVersion) && MessagesPigeonUtils.deepEquals(this.customBaseUrl, other.customBaseUrl) && MessagesPigeonUtils.deepEquals(this.customFrontendUrl, other.customFrontendUrl)
   }
 
   override fun hashCode(): Int {
@@ -350,6 +389,8 @@ data class ScanConfig (
     result = 31 * result + MessagesPigeonUtils.deepHash(this.requestKey)
     result = 31 * result + MessagesPigeonUtils.deepHash(this.environment)
     result = 31 * result + MessagesPigeonUtils.deepHash(this.schemaVersion)
+    result = 31 * result + MessagesPigeonUtils.deepHash(this.customBaseUrl)
+    result = 31 * result + MessagesPigeonUtils.deepHash(this.customFrontendUrl)
     return result
   }
 }
