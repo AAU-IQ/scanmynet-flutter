@@ -4,6 +4,7 @@ import android.content.Context
 import android.os.Handler
 import android.os.Looper
 import com.creative.tools.network.scan.NetworkScan
+import com.creative.tools.network.scan.builder.Environment
 import com.creative.tools.network.scan.models.NetworkScanError
 import com.creative.tools.network.scan.models.NetworkScanProgress
 import com.creative.tools.network.scan.models.NetworkScanResult
@@ -43,7 +44,7 @@ class ScanHostApiImpl(
      * but not a usable viewer URL, so the terminal [ScanResult.reportUrl] is built
      * here from this base + the token — matching the native app (TestDebugActivity).
      */
-    private var frontendBaseUrl: String = DEFAULT_FRONTEND_URL
+    private var frontendBaseUrl: String = Environment.Production.frontendUrl
 
     override fun configure(config: ScanConfig) {
         val incoming = config.schemaVersion
@@ -54,13 +55,14 @@ class ScanHostApiImpl(
                     "misreads fields silently. Rebuild the plugin's native binaries.",
             )
         }
-        frontendBaseUrl = config.toFrontendUrl()
+        val environment = config.toNativeEnvironment()
+        frontendBaseUrl = environment.frontendUrl
         networkScan = NetworkScan.builder()
             .context(context)
             .userKey(config.userKey.orEmpty())
             .apiKey(config.apiKey)
             .appName(config.appName.orEmpty())
-            .baseUrl(config.toBaseUrl())
+            .environment(environment)
             .progressCallback { progress -> onMain { flutterApi.onProgress(progress.toPigeon()) {} } }
             .resultCallback { result -> lastResult = result }
             .debugCallback { report -> onMain { flutterApi.onDataPersisted(ScanReport(report.toJson())) {} } }

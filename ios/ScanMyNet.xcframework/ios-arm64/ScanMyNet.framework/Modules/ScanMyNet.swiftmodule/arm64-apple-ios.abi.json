@@ -12436,99 +12436,106 @@
             "moduleName": "ScanMyNet"
           },
           {
-            "kind": "Function",
-            "name": "==",
-            "printedName": "==(_:_:)",
-            "children": [
-              {
-                "kind": "TypeNominal",
-                "name": "Bool",
-                "printedName": "Swift.Bool",
-                "usr": "s:Sb"
-              },
-              {
-                "kind": "TypeNominal",
-                "name": "Environment",
-                "printedName": "ScanMyNet.Environment",
-                "usr": "s:9ScanMyNet11EnvironmentO"
-              },
-              {
-                "kind": "TypeNominal",
-                "name": "Environment",
-                "printedName": "ScanMyNet.Environment",
-                "usr": "s:9ScanMyNet11EnvironmentO"
-              }
-            ],
-            "declKind": "Func",
-            "usr": "s:9ScanMyNet11EnvironmentO2eeoiySbAC_ACtFZ",
-            "mangledName": "$s9ScanMyNet11EnvironmentO2eeoiySbAC_ACtFZ",
-            "moduleName": "ScanMyNet",
-            "static": true,
-            "implicit": true,
-            "funcSelfKind": "NonMutating"
-          },
-          {
             "kind": "Var",
-            "name": "hashValue",
-            "printedName": "hashValue",
+            "name": "custom",
+            "printedName": "custom",
             "children": [
               {
-                "kind": "TypeNominal",
-                "name": "Int",
-                "printedName": "Swift.Int",
-                "usr": "s:Si"
-              }
-            ],
-            "declKind": "Var",
-            "usr": "s:9ScanMyNet11EnvironmentO9hashValueSivp",
-            "mangledName": "$s9ScanMyNet11EnvironmentO9hashValueSivp",
-            "moduleName": "ScanMyNet",
-            "implicit": true,
-            "accessors": [
-              {
-                "kind": "Accessor",
-                "name": "Get",
-                "printedName": "Get()",
+                "kind": "TypeFunc",
+                "name": "Function",
+                "printedName": "(ScanMyNet.Environment.Type) -> (Swift.String, Swift.String?) -> ScanMyNet.Environment",
                 "children": [
                   {
+                    "kind": "TypeFunc",
+                    "name": "Function",
+                    "printedName": "(Swift.String, Swift.String?) -> ScanMyNet.Environment",
+                    "children": [
+                      {
+                        "kind": "TypeNominal",
+                        "name": "Environment",
+                        "printedName": "ScanMyNet.Environment",
+                        "usr": "s:9ScanMyNet11EnvironmentO"
+                      },
+                      {
+                        "kind": "TypeNominal",
+                        "name": "Tuple",
+                        "printedName": "(baseUrl: Swift.String, frontendUrl: Swift.String?)",
+                        "children": [
+                          {
+                            "kind": "TypeNominal",
+                            "name": "String",
+                            "printedName": "Swift.String",
+                            "usr": "s:SS"
+                          },
+                          {
+                            "kind": "TypeNominal",
+                            "name": "Optional",
+                            "printedName": "Swift.String?",
+                            "children": [
+                              {
+                                "kind": "TypeNominal",
+                                "name": "String",
+                                "printedName": "Swift.String",
+                                "usr": "s:SS"
+                              }
+                            ],
+                            "usr": "s:Sq"
+                          }
+                        ]
+                      }
+                    ]
+                  },
+                  {
                     "kind": "TypeNominal",
-                    "name": "Int",
-                    "printedName": "Swift.Int",
-                    "usr": "s:Si"
+                    "name": "Metatype",
+                    "printedName": "ScanMyNet.Environment.Type",
+                    "children": [
+                      {
+                        "kind": "TypeNominal",
+                        "name": "Environment",
+                        "printedName": "ScanMyNet.Environment",
+                        "usr": "s:9ScanMyNet11EnvironmentO"
+                      }
+                    ]
                   }
-                ],
-                "declKind": "Accessor",
-                "usr": "s:9ScanMyNet11EnvironmentO9hashValueSivg",
-                "mangledName": "$s9ScanMyNet11EnvironmentO9hashValueSivg",
-                "moduleName": "ScanMyNet",
-                "implicit": true,
-                "accessorKind": "get"
+                ]
               }
+            ],
+            "declKind": "EnumElement",
+            "usr": "s:9ScanMyNet11EnvironmentO6customyACSS_SSSgtcACmF",
+            "mangledName": "$s9ScanMyNet11EnvironmentO6customyACSS_SSSgtcACmF",
+            "moduleName": "ScanMyNet",
+            "declAttributes": [
+              "RawDocComment"
             ]
           },
           {
             "kind": "Function",
-            "name": "hash",
-            "printedName": "hash(into:)",
+            "name": "custom",
+            "printedName": "custom(_:)",
             "children": [
               {
                 "kind": "TypeNominal",
-                "name": "Void",
-                "printedName": "()"
+                "name": "Environment",
+                "printedName": "ScanMyNet.Environment",
+                "usr": "s:9ScanMyNet11EnvironmentO"
               },
               {
                 "kind": "TypeNominal",
-                "name": "Hasher",
-                "printedName": "Swift.Hasher",
-                "paramValueOwnership": "InOut",
-                "usr": "s:s6HasherV"
+                "name": "String",
+                "printedName": "Swift.String",
+                "usr": "s:SS"
               }
             ],
             "declKind": "Func",
-            "usr": "s:9ScanMyNet11EnvironmentO4hash4intoys6HasherVz_tF",
-            "mangledName": "$s9ScanMyNet11EnvironmentO4hash4intoys6HasherVz_tF",
+            "usr": "s:9ScanMyNet11EnvironmentO6customyACSSFZ",
+            "mangledName": "$s9ScanMyNet11EnvironmentO6customyACSSFZ",
             "moduleName": "ScanMyNet",
-            "implicit": true,
+            "static": true,
+            "declAttributes": [
+              "AccessControl",
+              "RawDocComment"
+            ],
             "funcSelfKind": "NonMutating"
           }
         ],
@@ -12549,24 +12556,10 @@
           },
           {
             "kind": "Conformance",
-            "name": "Equatable",
-            "printedName": "Equatable",
-            "usr": "s:SQ",
-            "mangledName": "$sSQ"
-          },
-          {
-            "kind": "Conformance",
             "name": "Escapable",
             "printedName": "Escapable",
             "usr": "s:s9EscapableP",
             "mangledName": "$ss9EscapableP"
-          },
-          {
-            "kind": "Conformance",
-            "name": "Hashable",
-            "printedName": "Hashable",
-            "usr": "s:SH",
-            "mangledName": "$sSH"
           }
         ]
       },
@@ -14567,70 +14560,70 @@
     {
       "filePath": "\/Users\/vagrant\/git\/ScanMyNet\/ReportManager.swift",
       "kind": "StringLiteral",
-      "offset": 1378,
+      "offset": 3288,
       "length": 2,
       "value": "\"\""
     },
     {
       "filePath": "\/Users\/vagrant\/git\/ScanMyNet\/ReportManager.swift",
       "kind": "IntegerLiteral",
-      "offset": 1470,
+      "offset": 3380,
       "length": 1,
       "value": "0"
     },
     {
       "filePath": "\/Users\/vagrant\/git\/ScanMyNet\/ReportManager.swift",
       "kind": "BooleanLiteral",
-      "offset": 2377,
+      "offset": 4287,
       "length": 5,
       "value": "false"
     },
     {
       "filePath": "\/Users\/vagrant\/git\/ScanMyNet\/ReportManager.swift",
       "kind": "BooleanLiteral",
-      "offset": 2413,
+      "offset": 4323,
       "length": 5,
       "value": "false"
     },
     {
       "filePath": "\/Users\/vagrant\/git\/ScanMyNet\/ReportManager.swift",
       "kind": "BooleanLiteral",
-      "offset": 2441,
+      "offset": 4351,
       "length": 5,
       "value": "false"
     },
     {
       "filePath": "\/Users\/vagrant\/git\/ScanMyNet\/ReportManager.swift",
       "kind": "BooleanLiteral",
-      "offset": 2463,
+      "offset": 4373,
       "length": 5,
       "value": "false"
     },
     {
       "filePath": "\/Users\/vagrant\/git\/ScanMyNet\/ReportManager.swift",
       "kind": "BooleanLiteral",
-      "offset": 2489,
+      "offset": 4399,
       "length": 5,
       "value": "false"
     },
     {
       "filePath": "\/Users\/vagrant\/git\/ScanMyNet\/ReportManager.swift",
       "kind": "BooleanLiteral",
-      "offset": 2524,
+      "offset": 4434,
       "length": 5,
       "value": "false"
     },
     {
       "filePath": "\/Users\/vagrant\/git\/ScanMyNet\/ReportManager.swift",
       "kind": "BooleanLiteral",
-      "offset": 2554,
+      "offset": 4464,
       "length": 5,
       "value": "false"
     },
     {
       "filePath": "\/Users\/vagrant\/git\/ScanMyNet\/ReportManager.swift",
       "kind": "BooleanLiteral",
-      "offset": 2586,
+      "offset": 4496,
       "length": 5,
       "value": "false"
     },

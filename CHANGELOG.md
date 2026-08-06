@@ -1,3 +1,52 @@
+## 1.1.0
+
+* **Fix (Android, build-blocking):** an app combining this plugin with another
+  obfuscated AAR failed to build with
+  `Duplicate class a.a … in modules <other>.aar and tools-1.1.aar`.
+
+  The bundled `tools-1.1.aar` was published obfuscated, which renamed 61 of its
+  classes into single-letter root packages (`a.a`, `b.a`, `c.a` …) — names any
+  other obfuscated AAR also claims. The native SDK now publishes unobfuscated
+  (`tools:1.3`); shrinking is the consuming app's job, and the keep rules it
+  needs still ship via `consumerProguardFiles`. No API or behaviour change.
+
+  Reported against `babylai_flutter`, and verified there: the duplicate-class
+  check fails on `tools:1.1` and passes on `tools:1.3` with both AARs on the
+  same runtime classpath.
+
+* **Feature:** `ScanEnvironment.custom` points a scan at a self-hosted ScanMyNet
+  deployment instead of ours. Pass the server root as `ScanConfig.customBaseUrl`
+  — not an endpoint, since each SDK still appends its own `/api/v1/…` paths, so
+  the deployment must expose the same endpoint names ours does. A trailing slash
+  is optional.
+
+  ```dart
+  await sdk.configure(ScanConfig(
+    apiKey: 'your-key',
+    environment: ScanEnvironment.custom,
+    customBaseUrl: 'https://smn.example.com/',
+  ));
+  ```
+
+* `ScanConfig.customFrontendUrl` sets the report-viewer root when a different
+  host serves it. Omitted, the viewer is served from `customBaseUrl` — never
+  from our production host, which would put an operator's `verification_token`
+  on our domain.
+
+* `configure` throws `ArgumentError` when `custom` is selected without a base
+  URL, and is now `async`, so that validation arrives as a rejected Future
+  rather than a synchronous throw that would slip past `.catchError`.
+
+* Android backend URLs now come from the native SDK's `Environment`
+  (`tools:1.3`) instead of a table duplicated in this plugin, so a URL changes
+  in one place. No Dart API change.
+
+* Pigeon `schemaVersion` 2 → 3 (`ScanConfig` gained two fields). The native
+  binaries must be rebuilt in step; a skewed pair throws on `configure`.
+
+* Requires the rebuilt `ScanMyNet.xcframework` on iOS, which adds the native
+  `Environment.custom(baseUrl:frontendUrl:)` case. Bundled.
+
 ## 1.0.2
 
 * **Fix (Android, build-blocking):** consuming apps failed to resolve one of the
