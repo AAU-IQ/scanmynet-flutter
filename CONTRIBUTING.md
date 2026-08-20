@@ -36,33 +36,47 @@ fvm flutter build apk --release "--dart-define=SMN_API_KEY=<api-key>"
 
 ## Updating the bundled AARs
 
-The private AARs live in `android/local-maven-repo/` in standard Maven layout.
-They must be updated manually whenever a new version of the native `tools` SDK
-is released.
+The private AARs live in `android/local-maven-repo/` in standard Maven layout —
+not just the `.aar` files but a `.pom`, a `.module`, four checksums per file,
+and a `maven-metadata.xml` listing every version. Hand-copying an AAR leaves
+all of those stale, and Gradle then either rejects the artifact or silently
+resolves the previous version.
 
-### Update `tools-X.Y.aar`
+So publish into this directory rather than copying into it. `:tools` has a
+`bundled` Maven repository for exactly that:
 
 ```bash
-# In the scanmynet-android repo:
-./gradlew :tools:assembleRelease
-# Copy AAR to the local Maven repo:
-cp tools/build/outputs/aar/tools-release.aar \
-   ../scanmynet_sdk/android/local-maven-repo/org/bitbucket/creativeadvtech/tools/1.0/tools-1.0.aar
+# In the scanmynet-android repo, after bumping `version` in tools/build.gradle:
+./gradlew :tools:publishReleasePublicationToBundledRepository     -PbundledRepoDir=/absolute/path/to/scanmynet_sdk/android/local-maven-repo
 ```
 
-If the version number changes, create a new Maven directory for the new version,
-copy the AAR and POM there, and update the version string in
-`android/build.gradle.kts`.
+That writes the new version directory, its checksums, and an updated
+`maven-metadata.xml`. Then point the plugin at it:
 
-### Update `traceroute-X.Y.Z.aar`
+```kotlin
+// android/build.gradle.kts
+implementation("org.bitbucket.creativeadvtech:tools:X.Y")
+```
 
-The `traceroute` AAR is a transitive dependency resolved from the `tools` POM —
-you normally do not need to update it independently. If a new version is required,
-place it at:
-```
-android/local-maven-repo/com/synaptic-tools/traceroute/<version>/traceroute-<version>.aar
-```
-and add a matching `.pom` file alongside it.
+Delete the superseded version directory in the same commit — the plugin
+resolves exactly one version, and every other one is dead weight shipped to
+every consumer. Re-run the publish afterwards so `maven-metadata.xml` stops
+advertising versions that are no longer present.
+
+Finally, rebuild a consuming app (`flutter build apk --debug`) before
+committing. Resolution failures here surface in the consumer, not in this
+package's own analysis.
+
+### `traceroute`
+
+`com.synaptic-tools:traceroute` is a transitive dependency declared in the
+`tools` POM, so the publish above brings the right version across on its own.
+
+It is **not** the upstream JitPack artifact. Upstream 1.0.0 ships `.so` files
+aligned to 4 KB pages, which Android 15+ cannot load on a 16 KB-page device, so
+`scanmynet-android` vendors a rebuilt 1.0.1 in its own `local-maven-repo/`.
+See that directory's `README.md` for the source commit, the build flags, and
+how to reproduce it — that is the only place the rebuild is documented.
 
 ## Updating the bundled iOS framework
 

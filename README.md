@@ -301,13 +301,13 @@ identifiers. Unrecognised values resolve to `unknown` rather than throwing.
 
 | Artifact | Maven coordinates | Source |
 |----------|-------------------|--------|
-| `tools-1.1.aar` | `org.bitbucket.creativeadvtech:tools:1.1` | `scanmynet-android` `:tools` module |
-| `traceroute-1.0.0.aar` | `com.synaptic-tools:traceroute:1.0.0` | `com.synaptic-tools` vendor |
+| `tools-1.4.aar` | `org.bitbucket.creativeadvtech:tools:1.4` | `scanmynet-android` `:tools` module |
+| `traceroute-1.0.1.aar` | `com.synaptic-tools:traceroute:1.0.1` | rebuilt from upstream sources for 16 KB page alignment |
 
 AARs are served from `android/local-maven-repo/` using standard Maven layout.
-When a new version is released, run `./gradlew :tools:assembleRelease` in
-`scanmynet-android` and replace the AAR file.
-See [CONTRIBUTING.md](CONTRIBUTING.md) for the full update guide.
+A new version is *published* into that directory rather than copied over it, so
+that checksums and `maven-metadata.xml` stay consistent — see
+[CONTRIBUTING.md](CONTRIBUTING.md) for the command.
 
 ## Bundled iOS framework
 
