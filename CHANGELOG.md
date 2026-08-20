@@ -7,12 +7,27 @@
   The bundled `tools-1.1.aar` was published obfuscated, which renamed 61 of its
   classes into single-letter root packages (`a.a`, `b.a`, `c.a` …) — names any
   other obfuscated AAR also claims. The native SDK now publishes unobfuscated
-  (`tools:1.3`); shrinking is the consuming app's job, and the keep rules it
+  (`tools:1.4`); shrinking is the consuming app's job, and the keep rules it
   needs still ship via `consumerProguardFiles`. No API or behaviour change.
 
   Reported against `babylai_flutter`, and verified there: the duplicate-class
-  check fails on `tools:1.1` and passes on `tools:1.3` with both AARs on the
-  same runtime classpath.
+  check fails on the obfuscated `tools:1.1` and passes on its replacement,
+  with both AARs on the same runtime classpath.
+
+* **Fix (Android, ship-blocking):** Android Studio and Play Console flagged
+  apps using this plugin — two bundled native libraries had `LOAD` segments
+  aligned to 4 KB, which Android 15+ cannot map on a 16 KB-page device.
+
+  Both came from the native SDK's `com.synaptic-tools:traceroute` dependency:
+  `libtraceroute.so` and the `libc++_shared.so` beside it, in `arm64-v8a` and
+  `x86_64`. Upstream has shipped no rebuild since 2021, and the ELF headers
+  could not be patched in place, so the library was rebuilt from the same
+  sources with NDK 28.2 and `-Wl,-z,max-page-size=16384`. Nothing else in the
+  plugin was affected. No API or behaviour change.
+
+  Verified in a consuming app: the final APK has zero unaligned 64-bit
+  libraries, and all 56 `Java_*` JNI entry points are byte-identical to the
+  previous build in every ABI.
 
 * **Feature:** `ScanEnvironment.custom` points a scan at a self-hosted ScanMyNet
   deployment instead of ours. Pass the server root as `ScanConfig.customBaseUrl`
@@ -38,7 +53,7 @@
   rather than a synchronous throw that would slip past `.catchError`.
 
 * Android backend URLs now come from the native SDK's `Environment`
-  (`tools:1.3`) instead of a table duplicated in this plugin, so a URL changes
+  (`tools:1.4`) instead of a table duplicated in this plugin, so a URL changes
   in one place. No Dart API change.
 
 * Pigeon `schemaVersion` 2 → 3 (`ScanConfig` gained two fields). The native
