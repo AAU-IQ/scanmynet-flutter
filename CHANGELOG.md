@@ -29,6 +29,12 @@
   libraries, and all 56 `Java_*` JNI entry points are byte-identical to the
   previous build in every ABI.
 
+* Dropped the four superseded `tools` AARs and the old `traceroute` AAR from
+  the bundled Maven repository — the plugin resolves exactly one version of
+  each, so the rest were dead weight downloaded by every consumer. Halves the
+  package (5.3 MB → 2.4 MB) and stops shipping the obfuscated `tools-1.1.aar`
+  named in the duplicate-class failure above.
+
 * **Feature:** `ScanEnvironment.custom` points a scan at a self-hosted ScanMyNet
   deployment instead of ours. Pass the server root as `ScanConfig.customBaseUrl`
   — not an endpoint, since each SDK still appends its own `/api/v1/…` paths, so
