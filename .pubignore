@@ -9,6 +9,3 @@ ios_sdk_ignore_for_github_for_test_and_check_only/
 # them (e.g. build/test_cache holds ~90 MB of Dart compilation cache).
 build/
 .dart_tool/
-
-# Repo infrastructure, not package content.
-bitbucket-pipelines.yml

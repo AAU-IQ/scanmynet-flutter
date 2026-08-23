@@ -173,4 +173,36 @@ publishing:
    git tag -a v<version> -m "scanmynet_sdk <version>" && git push origin v<version>
    ```
 
-The GitHub mirror updates itself — see `bitbucket-pipelines.yml`.
+## Mirroring to GitHub
+
+pub.dev's `repository:` link points at https://github.com/AAU-IQ/scanmynet-flutter,
+because this Bitbucket repo is private and 404s for anyone outside the org. That
+mirror has to be pushed by hand after every merge:
+
+```bash
+git mirror
+```
+
+which is an alias for:
+
+```bash
+git fetch --quiet origin main && git push --follow-tags github origin/main:refs/heads/main
+```
+
+It pushes Bitbucket's `main` ref straight through, so it works from any branch
+and never touches your working tree. A fresh clone needs the remote and alias
+set up once:
+
+```bash
+git remote add github https://github.com/AAU-IQ/scanmynet-flutter.git
+git config alias.mirror '!git fetch --quiet origin main && git push --follow-tags github origin/main:refs/heads/main'
+```
+
+Check it landed with `git rev-list --count github/main..origin/main` — `0` means
+GitHub is current.
+
+This is manual because automating it server-side needs repo admin on one side or
+the other: Bitbucket Pipelines SSH keys and repository variables, GitHub deploy
+keys and Actions secrets are all admin-only. If you get admin, automate it — the
+mirror fell a month and 19 commits behind while it depended on someone
+remembering.
