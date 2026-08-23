@@ -147,3 +147,47 @@ it must also be added to `android/build.gradle.kts` here (since flat AAR
 references don't carry a POM). Add it under the `// Public transitive deps`
 section matching its original scope (`api` → compile scope, `implementation` →
 runtime scope).
+
+## Releasing to pub.dev
+
+A published version is frozen and its number can never be reused, so check
+before you push the button:
+
+1. Bump `version` in `pubspec.yaml`.
+2. Bump the install snippet in `README.md` — it is a hand-written literal and
+   does not follow `version`.
+3. Add a `CHANGELOG.md` entry. Don't edit entries already on pub.dev; those are
+   frozen, and editing here just makes the two disagree.
+4. `flutter pub publish --dry-run` — expect `0 warnings`. Commit first, or it
+   warns about the dirty tree.
+5. Merge to `main`, then:
+
+   ```bash
+   git checkout main && git pull
+   flutter pub publish
+   git tag -a v<version> -m "scanmynet_sdk <version>" && git push origin v<version>
+   git mirror
+   ```
+
+## Mirroring to GitHub
+
+`repository:` points at https://github.com/AAU-IQ/scanmynet-flutter because this
+repo is private. Push the mirror after every merge:
+
+```bash
+git mirror
+```
+
+It works from any branch and never touches your working tree. Verify with
+`git rev-list --count github/main..origin/main` — `0` means GitHub is current.
+
+One-time setup in a fresh clone:
+
+```bash
+git remote add github https://github.com/AAU-IQ/scanmynet-flutter.git
+git config alias.mirror '!git fetch --quiet origin main && git push --follow-tags github origin/main:refs/heads/main'
+```
+
+Automating this server-side needs repo admin (Bitbucket Pipelines keys, GitHub
+deploy keys) which we don't have. If that changes, restore the pipeline from
+commit 41d5750.

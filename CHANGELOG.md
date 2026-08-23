@@ -1,3 +1,11 @@
+## 1.1.2
+
+Metadata only — no code, API, or behaviour change.
+
+* `repository`/`homepage` now point at https://github.com/AAU-IQ/scanmynet-flutter.
+  They previously pointed at a private URL that returned 404, so the links from
+  pub.dev went nowhere. `issue_tracker` added.
+
 ## 1.1.1
 
 * **Fix (Android, ship-blocking):** Android Studio and Play Console flagged apps
