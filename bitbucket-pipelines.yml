@@ -7,24 +7,30 @@
 #
 # This runs in CI rather than as a local git config because PR merges happen
 # server-side in the Bitbucket UI and never reach a developer's machine. A
-# second push URL on `origin` would only cover pushes made by hand.
+# second push URL on `origin` would only cover pushes made by hand, which is
+# how the mirror previously fell 19 commits behind.
 #
-# Setup — Repository settings -> Repository variables:
+# Setup — one key, two pages, no access token:
 #
-#   GITHUB_TOKEN   secured. A GitHub PAT with `repo` scope, or a fine-grained
-#                  token scoped to AAU-IQ/scanmynet-flutter with
-#                  Contents: read & write.
+#   1. Bitbucket -> Repository settings -> Pipelines -> SSH keys -> Generate
+#      keys. Bitbucket keeps the private half encrypted and injects it into the
+#      build container; it is never exposed here or in the logs.
+#   2. Copy the public key it shows into https://github.com/settings/keys.
+#      That is a personal account key, so it needs no org permission — the
+#      account only has to have push access to the repo.
+#   3. Same Bitbucket page, under Known hosts: enter `github.com` and Fetch.
+#      Without this the push fails host verification.
+#
+# An access token would work too, but a classic PAT reaches every repo the
+# account can see and expires on a date nobody remembers — the mirror would go
+# quietly stale again. This key is scoped to one destination and does not
+# expire.
 #
 # If the push is ever rejected as non-fast-forward, someone has committed
-# directly to GitHub. Reconcile by hand — do not add --force here, or that work
+# directly on GitHub. Reconcile by hand — do not add --force here, or that work
 # is destroyed silently on the next merge.
 
 image: atlassian/default-image:4
-
-clone:
-  # A mirror needs the real history. The default shallow clone (depth 50) makes
-  # the push to GitHub non-fast-forward as soon as the repo outgrows it.
-  depth: full
 
 pipelines:
   branches:
@@ -32,8 +38,11 @@ pipelines:
       - step:
           name: Mirror main to GitHub
           clone:
+            # A mirror needs the real history. The default shallow clone
+            # (depth 50) makes the push non-fast-forward once the repo
+            # outgrows it.
             depth: full
           script:
             - git push --follow-tags
-              "https://x-access-token:$GITHUB_TOKEN@github.com/AAU-IQ/scanmynet-flutter.git"
+              git@github.com:AAU-IQ/scanmynet-flutter.git
               HEAD:main
