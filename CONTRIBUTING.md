@@ -150,59 +150,44 @@ runtime scope).
 
 ## Releasing to pub.dev
 
-pub.dev freezes each version's `pubspec.yaml` and `README.md` at upload time and
-renders the README verbatim as the package landing page. Nothing about a
-published version can be edited afterwards, and a version number can never be
-reused — a mistake costs a whole release. Work through this list before
-publishing:
+A published version is frozen and its number can never be reused, so check
+before you push the button:
 
 1. Bump `version` in `pubspec.yaml`.
-2. Bump the install snippet in `README.md` under **Install** to match. It is a
-   hand-written literal, so it does not follow the version on its own — it sat
-   at `^1.0.2` for three releases because of this.
-3. Add a `CHANGELOG.md` entry under the new heading. Do **not** edit entries for
-   versions already on pub.dev: what is published there is frozen, so an edit
-   here makes the two disagree about what shipped.
-4. `flutter pub publish --dry-run` — expect `Package has 0 warnings`. It warns
-   about an unclean working tree, so commit first.
-5. Merge to `main`, then publish from `main`:
+2. Bump the install snippet in `README.md` — it is a hand-written literal and
+   does not follow `version`.
+3. Add a `CHANGELOG.md` entry. Don't edit entries already on pub.dev; those are
+   frozen, and editing here just makes the two disagree.
+4. `flutter pub publish --dry-run` — expect `0 warnings`. Commit first, or it
+   warns about the dirty tree.
+5. Merge to `main`, then:
 
    ```bash
    git checkout main && git pull
    flutter pub publish
    git tag -a v<version> -m "scanmynet_sdk <version>" && git push origin v<version>
+   git mirror
    ```
 
 ## Mirroring to GitHub
 
-pub.dev's `repository:` link points at https://github.com/AAU-IQ/scanmynet-flutter,
-because this Bitbucket repo is private and 404s for anyone outside the org. That
-mirror has to be pushed by hand after every merge:
+`repository:` points at https://github.com/AAU-IQ/scanmynet-flutter because this
+repo is private. Push the mirror after every merge:
 
 ```bash
 git mirror
 ```
 
-which is an alias for:
+It works from any branch and never touches your working tree. Verify with
+`git rev-list --count github/main..origin/main` — `0` means GitHub is current.
 
-```bash
-git fetch --quiet origin main && git push --follow-tags github origin/main:refs/heads/main
-```
-
-It pushes Bitbucket's `main` ref straight through, so it works from any branch
-and never touches your working tree. A fresh clone needs the remote and alias
-set up once:
+One-time setup in a fresh clone:
 
 ```bash
 git remote add github https://github.com/AAU-IQ/scanmynet-flutter.git
 git config alias.mirror '!git fetch --quiet origin main && git push --follow-tags github origin/main:refs/heads/main'
 ```
 
-Check it landed with `git rev-list --count github/main..origin/main` — `0` means
-GitHub is current.
-
-This is manual because automating it server-side needs repo admin on one side or
-the other: Bitbucket Pipelines SSH keys and repository variables, GitHub deploy
-keys and Actions secrets are all admin-only. If you get admin, automate it — the
-mirror fell a month and 19 commits behind while it depended on someone
-remembering.
+Automating this server-side needs repo admin (Bitbucket Pipelines keys, GitHub
+deploy keys) which we don't have. If that changes, restore the pipeline from
+commit 41d5750.
