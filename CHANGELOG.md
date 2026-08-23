@@ -1,3 +1,17 @@
+## 1.1.2
+
+Metadata only — no code, API, or behaviour change.
+
+* `repository`/`homepage` pointed at
+  `https://bitbucket.org/creativeadvtech/scanmynet_sdk`, which 404s for
+  everyone: the slug is wrong (the repo is `scanmynet-flutter`) and the
+  Bitbucket repo is private regardless. Both now point at the public mirror,
+  https://github.com/AAU-IQ/scanmynet-flutter, and `issue_tracker` is set.
+
+* The install snippet in the README still read `^1.0.2`. pub.dev renders the
+  README verbatim as the landing page, so it had been advertising a version
+  three releases old.
+
 ## 1.1.1
 
 * **Fix (Android, ship-blocking):** Android Studio and Play Console flagged apps

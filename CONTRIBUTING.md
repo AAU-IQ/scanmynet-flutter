@@ -147,3 +147,30 @@ it must also be added to `android/build.gradle.kts` here (since flat AAR
 references don't carry a POM). Add it under the `// Public transitive deps`
 section matching its original scope (`api` → compile scope, `implementation` →
 runtime scope).
+
+## Releasing to pub.dev
+
+pub.dev freezes each version's `pubspec.yaml` and `README.md` at upload time and
+renders the README verbatim as the package landing page. Nothing about a
+published version can be edited afterwards, and a version number can never be
+reused — a mistake costs a whole release. Work through this list before
+publishing:
+
+1. Bump `version` in `pubspec.yaml`.
+2. Bump the install snippet in `README.md` under **Install** to match. It is a
+   hand-written literal, so it does not follow the version on its own — it sat
+   at `^1.0.2` for three releases because of this.
+3. Add a `CHANGELOG.md` entry under the new heading. Do **not** edit entries for
+   versions already on pub.dev: what is published there is frozen, so an edit
+   here makes the two disagree about what shipped.
+4. `flutter pub publish --dry-run` — expect `Package has 0 warnings`. It warns
+   about an unclean working tree, so commit first.
+5. Merge to `main`, then publish from `main`:
+
+   ```bash
+   git checkout main && git pull
+   flutter pub publish
+   git tag -a v<version> -m "scanmynet_sdk <version>" && git push origin v<version>
+   ```
+
+The GitHub mirror updates itself — see `bitbucket-pipelines.yml`.
