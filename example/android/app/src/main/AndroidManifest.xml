@@ -3,9 +3,20 @@
          instead of anonymized placeholders. Must also be granted at runtime. -->
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION"/>
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION"/>
+    <!--
+        allowBackup is false for SMN-70, finding 3.29: with it on, `adb backup`
+        and Auto Backup copy the app's private data directory off the device.
+
+        Set here in the example app rather than in the plugin's own manifest.
+        A library manifest wins the merge for any app that does not state its
+        own value, so declaring it in the plugin would silently make this
+        decision for every app that embeds the SDK. It is the app's call; see
+        the note in README.md.
+    -->
     <application
         android:label="SMN"
         android:name="${applicationName}"
+        android:allowBackup="false"
         android:icon="@mipmap/ic_launcher"
         android:networkSecurityConfig="@xml/network_security_config">
         <activity

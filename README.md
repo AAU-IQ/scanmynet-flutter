@@ -72,6 +72,25 @@ and reference it from your `<application>` tag:
 
 Cleartext is *permitted*, not forced — the HTTPS report backend still uses TLS.
 
+**3. Decide what Android may back up.** Recommended, not required:
+
+```xml
+<application android:allowBackup="false" ... >
+```
+
+With backup on — which is the platform default — `adb backup` and Auto Backup
+copy your app's private data directory off the device. That matters here because
+whatever you persist alongside a scan goes with it: your API key, if you cache
+it, and any report data you keep locally.
+
+The plugin deliberately does **not** set this in its own manifest. A library's
+value wins the merge for any app that states no value of its own, so setting it
+here would make the decision for every app embedding the SDK — including apps
+that legitimately want backup. If your app does want it, prefer
+`android:dataExtractionRules` (API 31+) or `android:fullBackupContent` to exclude
+the files the SDK writes, and note that those work by exclusion: anything added
+later is backed up by default.
+
 ### iOS
 
 The native iOS SDK ships as the bundled `ios/ScanMyNet.xcframework` (the
