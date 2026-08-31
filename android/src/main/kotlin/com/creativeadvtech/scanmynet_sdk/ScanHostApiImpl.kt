@@ -87,8 +87,13 @@ class ScanHostApiImpl(
 
     override fun cancel() {
         // This SDK fork has no native cancel; disposing the subscription stops
-        // event delivery as a best-effort cancel (the native tests keep running
-        // to completion in the background but their results are dropped).
+        // event delivery as a best-effort cancel. The native tests keep running
+        // and their results are dropped — and so are their errors, which used to
+        // be the dangerous half: a disposed emitter drops onSuccess silently but
+        // routed onError to the thread's uncaught handler, killing the app.
+        // Cancelling closes the tests' sockets, so cancelling is exactly what
+        // made them fail. Fixed natively in tools:1.5; this comment is here
+        // because the asymmetry is not obvious from the call.
         disposables.clear()
     }
 

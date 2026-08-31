@@ -1,3 +1,17 @@
+## 1.1.3
+
+* **Fix (Android, crash):** cancelling a scan while the download speed test was
+  running could kill the host app. Reproduces by starting a scan and turning
+  Wi-Fi off from the notification shade during the download speed test.
+
+  A cancelled scan disposes the native SDK's Rx chain, but the speed test keeps
+  running — and cancelling closes its sockets, which makes it fail. That late
+  error reached the thread's uncaught exception handler and took the process
+  down. Fixed in the native SDK (`tools:1.5`); no API or behaviour change here.
+
+  `ScanmynetSdk.cancel()` is the call that triggered it, so any app cancelling a
+  scan — including on backgrounding — is affected.
+
 ## 1.1.2
 
 Metadata only — no code, API, or behaviour change.
