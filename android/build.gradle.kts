@@ -91,7 +91,7 @@ dependencies {
     // Private AARs served from android/local-maven-repo/ (proper Maven layout avoids the
     // "direct local .aar deps not supported when building an AAR" AGP restriction).
     // Gradle reads the tools POM and resolves all transitive deps automatically.
-    implementation("org.bitbucket.creativeadvtech:tools:1.4")
+    implementation("org.bitbucket.creativeadvtech:tools:1.5")
 
     testImplementation("org.jetbrains.kotlin:kotlin-test")
     testImplementation("org.mockito:mockito-core:5.0.0")

@@ -320,7 +320,7 @@ identifiers. Unrecognised values resolve to `unknown` rather than throwing.
 
 | Artifact | Maven coordinates | Source |
 |----------|-------------------|--------|
-| `tools-1.4.aar` | `org.bitbucket.creativeadvtech:tools:1.4` | `scanmynet-android` `:tools` module |
+| `tools-1.5.aar` | `org.bitbucket.creativeadvtech:tools:1.5` | `scanmynet-android` `:tools` module |
 | `traceroute-1.0.1.aar` | `com.synaptic-tools:traceroute:1.0.1` | rebuilt from upstream sources for 16 KB page alignment |
 
 AARs are served from `android/local-maven-repo/` using standard Maven layout.

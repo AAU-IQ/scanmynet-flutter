@@ -9,7 +9,7 @@
   <modelVersion>4.0.0</modelVersion>
   <groupId>org.bitbucket.creativeadvtech</groupId>
   <artifactId>tools</artifactId>
-  <version>1.4</version>
+  <version>1.5</version>
   <packaging>aar</packaging>
   <dependencies>
     <dependency>
