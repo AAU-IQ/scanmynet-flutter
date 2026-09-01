@@ -34,8 +34,8 @@ public struct SMNBasicConnectivity : Swift.Codable {
   public let clientIsolation: ScanMyNet.SMNToggleState?
   public let multicast: ScanMyNet.SMNToggleState?
   public let alerts: [ScanMyNet.SMNReportAlert]?
-  public func encode(to encoder: any Swift.Encoder) throws
   public init(from decoder: any Swift.Decoder) throws
+  public func encode(to encoder: any Swift.Encoder) throws
 }
 public struct SMNServerConnectivityResult : Swift.Codable {
   public let name: Swift.String?
@@ -48,8 +48,8 @@ public struct SMNPortCheckResult : Swift.Codable {
   public let portType: Swift.String?
   public let description: Swift.String?
   public let portStatus: Swift.Bool?
-  public func encode(to encoder: any Swift.Encoder) throws
   public init(from decoder: any Swift.Decoder) throws
+  public func encode(to encoder: any Swift.Encoder) throws
 }
 public struct SMNDNSLookupResult : Swift.Codable {
   public let dnsIP: Swift.String?

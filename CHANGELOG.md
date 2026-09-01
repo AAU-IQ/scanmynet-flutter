@@ -1,3 +1,18 @@
+## 1.1.4
+
+* **Fix (iOS):** a scan whose report the server accepted could still arrive as
+  `ScanFailed` with `kind: submission`, carrying the successful response body as
+  its message. Reports listing blocked ports hit this, so it showed up on any
+  network with a firewall.
+
+  The backend serializes ports as numeric strings (`"20"`). Android's Gson
+  coerces them; iOS's `JSONDecoder` threw, and the native SDK routed that decode
+  error to its failure path. Fixed in the bundled `ScanMyNet.xcframework` — the
+  report payload now also decodes fail-safe, so future drift yields
+  `ScanResult.report == null` instead of failing a scan that succeeded.
+
+  Binary only: no Dart or Swift API change. Android was never affected.
+
 ## 1.1.3
 
 * **Fix (Android, crash):** cancelling a scan while the download speed test was

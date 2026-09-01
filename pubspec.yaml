@@ -1,6 +1,6 @@
 name: scanmynet_sdk
 description: "Flutter plugin for the ScanMyNet network diagnostics SDK — runs a full home-network scan and returns a structured report."
-version: 1.1.3
+version: 1.1.4
 homepage: https://github.com/AAU-IQ/scanmynet-flutter
 repository: https://github.com/AAU-IQ/scanmynet-flutter
 issue_tracker: https://github.com/AAU-IQ/scanmynet-flutter/issues
