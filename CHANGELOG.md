@@ -12,8 +12,10 @@
   ignores progress arriving when no scan is running.
 
 * **iOS setup:** apps now need `com.apple.developer.networking.multicast` and
-  `com.apple.developer.networking.wifi-info` entitlements plus
-  `NSBonjourServices`, or router and LAN discovery silently find nothing. The
+  `com.apple.developer.networking.wifi-info` entitlements, plus
+  `NSBonjourServices` and an `NSAllowsLocalNetworking` ATS exception - a
+  router's UPnP description is served over plain HTTP, which ATS blocks by
+  default. Without these, router and LAN discovery silently find nothing. The
   README lists every key and what each one breaks. Multicast is not self-serve -
   Apple grants it per App ID on request.
 

@@ -4,6 +4,16 @@
 <dict>
 	<key>NSLocationWhenInUseUsageDescription</key>
 	<string>Location is used to read WiFi and router details during a network scan.</string>
+	<!-- A router's UPnP description is fetched over plain HTTP at the address
+	     its SSDP response advertises (http://192.168.x.x:port/...), which ATS
+	     blocks by default. This key permits cleartext to private and .local
+	     addresses only - unlike NSAllowsArbitraryLoads, it needs no App Review
+	     justification, and every other endpoint the SDK uses is HTTPS. -->
+	<key>NSAppTransportSecurity</key>
+	<dict>
+		<key>NSAllowsLocalNetworking</key>
+		<true/>
+	</dict>
 	<key>NSLocalNetworkUsageDescription</key>
 	<string>Local network access is used to discover devices and your router during a network scan.</string>
 	<!-- iOS 14+ returns zero results for any Bonjour type not listed here, with

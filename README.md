@@ -126,6 +126,11 @@ Declare all three of these in your app's `Info.plist`:
 <string>Location is used to read WiFi and router details during a network scan.</string>
 <key>NSLocalNetworkUsageDescription</key>
 <string>Local network access is used to discover devices and your router during a network scan.</string>
+<key>NSAppTransportSecurity</key>
+<dict>
+  <key>NSAllowsLocalNetworking</key>
+  <true/>
+</dict>
 <key>NSBonjourServices</key>
 <array>
   <string>_workstation._tcp</string>
@@ -162,6 +167,7 @@ if you want to copy them.
 | `NSLocationWhenInUseUsageDescription` | report's `userWifiNetwork` (`user_wifi_network`) is empty |
 | `NSLocalNetworkUsageDescription` | no local-network prompt, so nothing on the LAN is reachable |
 | `NSBonjourServices` | Bonjour browsing returns zero devices, with no error |
+| `NSAllowsLocalNetworking` | the router is found but its description can't be read, so no make/model |
 | `com.apple.developer.networking.multicast` | router (SSDP/UPnP) discovery finds nothing |
 | `com.apple.developer.networking.wifi-info` | SSID/BSSID come back empty |
 
