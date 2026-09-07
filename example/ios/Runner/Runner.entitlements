@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<!-- Router discovery sends an SSDP M-SEARCH to 239.255.255.250. Since iOS
+	     14 that write fails without this entitlement, and the scan's first step
+	     never finds a router. Apple grants it on request, per App ID:
+	     https://developer.apple.com/contact/request/networking-multicast -->
+	<key>com.apple.developer.networking.multicast</key>
+	<true/>
+	<!-- Reads the current SSID/BSSID for the report. Without it the WiFi
+	     details come back empty or redacted. -->
+	<key>com.apple.developer.networking.wifi-info</key>
+	<true/>
+</dict>
+</plist>

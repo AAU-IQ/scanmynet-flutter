@@ -119,19 +119,61 @@ counterpart of the Android AARs). Its four third-party Swift dependencies
 
 ### Permissions (iOS)
 
-Declare both of these in your app's `Info.plist` — both are read at runtime:
+Declare all three of these in your app's `Info.plist`:
 
 ```xml
 <key>NSLocationWhenInUseUsageDescription</key>
 <string>Location is used to read WiFi and router details during a network scan.</string>
 <key>NSLocalNetworkUsageDescription</key>
 <string>Local network access is used to discover devices and your router during a network scan.</string>
+<key>NSBonjourServices</key>
+<array>
+  <string>_workstation._tcp</string>
+  <string>_companion-link._tcp</string>
+  <string>_device-info._tcp</string>
+  <string>_airplay._tcp</string>
+  <string>_raop._tcp</string>
+  <string>_homekit._tcp</string>
+  <string>_hap._tcp</string>
+  <string>_googlecast._tcp</string>
+  <string>_ipp._tcp</string>
+  <string>_printer._tcp</string>
+  <string>_smb._tcp</string>
+  <string>_ssh._tcp</string>
+  <string>_http._tcp</string>
+</array>
 ```
 
-**Without `NSLocationWhenInUseUsageDescription`, the report's
-`userWifiNetwork` section (`user_wifi_network`) comes back empty** — iOS
-withholds Wi-Fi/router details when location access hasn't been granted.
-`NSLocalNetworkUsageDescription` is required for LAN/SSDP device discovery.
+And two entitlements, in `ios/Runner/Runner.entitlements`:
+
+```xml
+<key>com.apple.developer.networking.multicast</key>
+<true/>
+<key>com.apple.developer.networking.wifi-info</key>
+<true/>
+```
+
+Adding that file through Xcode's **Signing & Capabilities** tab sets the
+target's `CODE_SIGN_ENTITLEMENTS` for you. `example/ios/Runner` has both files
+if you want to copy them.
+
+| Missing | What breaks |
+|---|---|
+| `NSLocationWhenInUseUsageDescription` | report's `userWifiNetwork` (`user_wifi_network`) is empty |
+| `NSLocalNetworkUsageDescription` | no local-network prompt, so nothing on the LAN is reachable |
+| `NSBonjourServices` | Bonjour browsing returns zero devices, with no error |
+| `com.apple.developer.networking.multicast` | router (SSDP/UPnP) discovery finds nothing |
+| `com.apple.developer.networking.wifi-info` | SSID/BSSID come back empty |
+
+Two things worth knowing before you file a bug about missing router details:
+
+`com.apple.developer.networking.multicast` is **not self-serve**. Apple grants
+it per App ID on request — <https://developer.apple.com/contact/request/networking-multicast>
+— and it takes a few days. Until it is granted *and* in your provisioning
+profile, router discovery finds nothing.
+
+Entitlements are applied at code-signing time, so they only exist in a **signed**
+build. An unsigned `.ipa` carries none of them, whoever re-signs it afterwards.
 
 ## Building the example app
 
