@@ -148,6 +148,12 @@ class ScanViewModel extends ChangeNotifier {
         _log('▶ started');
         _emit(_state.copyWith(phase: ScanPhase.running, stepLabel: 'started'));
       case ScanProgressed(:final progress):
+        // Cancelling emits a trailing 0% progress event, so without this a
+        // cancel that had in fact worked flipped the UI straight back to
+        // "Scanning...". Nothing legitimate is dropped: start() sets the
+        // running phase before the SDK is called, so the first progress event
+        // - which arrives before ScanStarted - still lands.
+        if (!_state.isRunning) break;
         final detail = progress.currentStep?.name ?? progress.label ?? '';
         _log('· ${progress.percent.toStringAsFixed(0)}% $detail'.trimRight());
         _emit(

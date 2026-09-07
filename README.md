@@ -9,7 +9,7 @@ backend.
 
 ```yaml
 dependencies:
-  scanmynet_sdk: ^1.1.4
+  scanmynet_sdk: ^1.1.5
 ```
 
 ## Prerequisites
@@ -119,19 +119,87 @@ counterpart of the Android AARs). Its four third-party Swift dependencies
 
 ### Permissions (iOS)
 
-Declare both of these in your app's `Info.plist` — both are read at runtime:
+Declare these in your app's `Info.plist`:
 
 ```xml
 <key>NSLocationWhenInUseUsageDescription</key>
 <string>Location is used to read WiFi and router details during a network scan.</string>
 <key>NSLocalNetworkUsageDescription</key>
 <string>Local network access is used to discover devices and your router during a network scan.</string>
+<key>NSAppTransportSecurity</key>
+<dict>
+  <key>NSAllowsLocalNetworking</key>
+  <true/>
+</dict>
+<key>NSBonjourServices</key>
+<array>
+  <string>_workstation._tcp</string>
+  <string>_companion-link._tcp</string>
+  <string>_device-info._tcp</string>
+  <string>_airplay._tcp</string>
+  <string>_raop._tcp</string>
+  <string>_homekit._tcp</string>
+  <string>_hap._tcp</string>
+  <string>_googlecast._tcp</string>
+  <string>_ipp._tcp</string>
+  <string>_printer._tcp</string>
+  <string>_smb._tcp</string>
+  <string>_ssh._tcp</string>
+  <string>_http._tcp</string>
+</array>
 ```
 
-**Without `NSLocationWhenInUseUsageDescription`, the report's
-`userWifiNetwork` section (`user_wifi_network`) comes back empty** — iOS
-withholds Wi-Fi/router details when location access hasn't been granted.
-`NSLocalNetworkUsageDescription` is required for LAN/SSDP device discovery.
+And two entitlements, in `ios/Runner/Runner.entitlements`:
+
+```xml
+<key>com.apple.developer.networking.multicast</key>
+<true/>
+<key>com.apple.developer.networking.wifi-info</key>
+<true/>
+```
+
+Adding that file through Xcode's **Signing & Capabilities** tab sets the
+target's `CODE_SIGN_ENTITLEMENTS` for you. `example/ios/Runner` has both files
+if you want to copy them.
+
+| Missing | What breaks |
+|---|---|
+| `NSLocationWhenInUseUsageDescription` | report's `userWifiNetwork` (`user_wifi_network`) is empty |
+| `NSLocalNetworkUsageDescription` | no local-network prompt, so nothing on the LAN is reachable |
+| `NSBonjourServices` | Bonjour browsing returns zero devices, with no error |
+| `NSAllowsLocalNetworking` | the router is found but its description can't be read, so no make/model |
+| `com.apple.developer.networking.multicast` | router (SSDP/UPnP) discovery finds nothing |
+| `com.apple.developer.networking.wifi-info` | SSID/BSSID come back empty |
+
+Writing the two entitlements into the file is only half of it — each also has to
+be enabled on your App ID in the Apple Developer portal, or signing fails:
+
+| Entitlement | How to enable it |
+|---|---|
+| `wifi-info` | Self-serve. Tick **Access WiFi Information** on the App ID. |
+| `multicast` | [Request form](https://developer.apple.com/contact/request/networking-multicast). Free, takes a few days. |
+
+Regenerate your provisioning profile afterwards — an existing one does not pick
+up newly granted entitlements on its own.
+
+Three more things worth knowing before you file a bug about missing router
+details:
+
+Entitlements are applied at code-signing time, so they only exist in a **signed**
+build. An unsigned `.ipa` carries none of them, whoever re-signs it afterwards.
+
+Only *raw* multicast — the SSDP search that finds your router — needs the
+multicast entitlement. Bonjour device discovery needs `NSBonjourServices` and
+the local-network permission, but not the entitlement, so the two fail
+independently.
+
+**The first scan after a user grants local network access may not find the
+router.** iOS answers that prompt asynchronously, and the SSDP search is already
+under way and refused by the time they tap Allow; it is not retried. Call
+`configure()` early — at app start, or when the scan screen opens — rather than
+immediately before `startScan()`, so the prompt has been dealt with before a
+scan begins. A scan that hits this still completes; the report just has no
+router section.
 
 ## Building the example app
 

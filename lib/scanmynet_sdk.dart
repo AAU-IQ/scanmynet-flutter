@@ -47,6 +47,13 @@ class ScanmynetSdk {
   /// Configures the native SDK. Android builds the `NetworkScan`; iOS builds
   /// the `ScanMyNetManager`. Must be called before [startScan].
   ///
+  /// On iOS, call this **early** — at app start, or when your scan screen opens
+  /// — rather than immediately before [startScan]. Building the native manager
+  /// is what triggers the local network permission prompt, and iOS answers that
+  /// prompt asynchronously: a scan begun in the same moment is refused before
+  /// the user taps Allow, and their first report comes back with no router
+  /// details. The scan itself still completes.
+  ///
   /// Throws [ArgumentError] if [ScanEnvironment.custom] is selected without a
   /// [ScanConfig.customBaseUrl]. Checked here rather than natively so the error
   /// surfaces at the call site instead of as a platform exception.
