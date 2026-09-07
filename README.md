@@ -119,7 +119,7 @@ counterpart of the Android AARs). Its four third-party Swift dependencies
 
 ### Permissions (iOS)
 
-Declare all three of these in your app's `Info.plist`:
+Declare these in your app's `Info.plist`:
 
 ```xml
 <key>NSLocationWhenInUseUsageDescription</key>
@@ -171,15 +171,35 @@ if you want to copy them.
 | `com.apple.developer.networking.multicast` | router (SSDP/UPnP) discovery finds nothing |
 | `com.apple.developer.networking.wifi-info` | SSID/BSSID come back empty |
 
-Two things worth knowing before you file a bug about missing router details:
+Writing the two entitlements into the file is only half of it — each also has to
+be enabled on your App ID in the Apple Developer portal, or signing fails:
 
-`com.apple.developer.networking.multicast` is **not self-serve**. Apple grants
-it per App ID on request — <https://developer.apple.com/contact/request/networking-multicast>
-— and it takes a few days. Until it is granted *and* in your provisioning
-profile, router discovery finds nothing.
+| Entitlement | How to enable it |
+|---|---|
+| `wifi-info` | Self-serve. Tick **Access WiFi Information** on the App ID. |
+| `multicast` | [Request form](https://developer.apple.com/contact/request/networking-multicast). Free, takes a few days. |
+
+Regenerate your provisioning profile afterwards — an existing one does not pick
+up newly granted entitlements on its own.
+
+Three more things worth knowing before you file a bug about missing router
+details:
 
 Entitlements are applied at code-signing time, so they only exist in a **signed**
 build. An unsigned `.ipa` carries none of them, whoever re-signs it afterwards.
+
+Only *raw* multicast — the SSDP search that finds your router — needs the
+multicast entitlement. Bonjour device discovery needs `NSBonjourServices` and
+the local-network permission, but not the entitlement, so the two fail
+independently.
+
+**The first scan after a user grants local network access may not find the
+router.** iOS answers that prompt asynchronously, and the SSDP search is already
+under way and refused by the time they tap Allow; it is not retried. Call
+`configure()` early — at app start, or when the scan screen opens — rather than
+immediately before `startScan()`, so the prompt has been dealt with before a
+scan begins. A scan that hits this still completes; the report just has no
+router section.
 
 ## Building the example app
 
