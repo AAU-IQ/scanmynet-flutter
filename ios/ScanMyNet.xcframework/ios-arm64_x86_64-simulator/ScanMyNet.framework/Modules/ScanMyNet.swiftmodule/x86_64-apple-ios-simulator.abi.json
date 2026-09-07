@@ -14695,6 +14695,13 @@
       "value": "false"
     },
     {
+      "filePath": "\/Users\/vagrant\/git\/ScanMyNet\/Services\/SSDP\/SSDPService.swift",
+      "kind": "BooleanLiteral",
+      "offset": 714,
+      "length": 5,
+      "value": "false"
+    },
+    {
       "filePath": "\/Users\/vagrant\/git\/ScanMyNet\/Models\/Server.swift",
       "kind": "StringLiteral",
       "offset": 79,
@@ -14829,22 +14836,29 @@
     },
     {
       "filePath": "\/Users\/vagrant\/git\/ScanMyNet\/frameworks\/SSDP Client\/SSDPDiscovery.swift",
+      "kind": "BooleanLiteral",
+      "offset": 1559,
+      "length": 5,
+      "value": "false"
+    },
+    {
+      "filePath": "\/Users\/vagrant\/git\/ScanMyNet\/frameworks\/SSDP Client\/SSDPDiscovery.swift",
       "kind": "IntegerLiteral",
-      "offset": 3150,
+      "offset": 4487,
       "length": 2,
       "value": "10"
     },
     {
       "filePath": "\/Users\/vagrant\/git\/ScanMyNet\/frameworks\/SSDP Client\/SSDPDiscovery.swift",
       "kind": "StringLiteral",
-      "offset": 3177,
+      "offset": 4514,
       "length": 10,
       "value": "\"ssdp:all\""
     },
     {
       "filePath": "\/Users\/vagrant\/git\/ScanMyNet\/frameworks\/SSDP Client\/SSDPDiscovery.swift",
       "kind": "IntegerLiteral",
-      "offset": 3203,
+      "offset": 4540,
       "length": 4,
       "value": "1900"
     },

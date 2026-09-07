@@ -1,3 +1,22 @@
+## 1.1.5
+
+* **Fix (iOS):** a scan could stall on its first step indefinitely, showing
+  `0% Working on Router UPNP` until the app was restarted. Router discovery
+  sends an SSDP M-SEARCH to a multicast address, and every way that could fail
+  was a dead end that never told the scan to move on - including the 10s
+  watchdog, which was disarmed by the very errors it existed to catch.
+  Discovery now always ends, within its timeout at worst.
+
+* **Fix (iOS):** cancelling a scan left the UI on "Scanning...". The SDK emitted
+  a progress event *after* the cancel; that order is fixed, and the example
+  ignores progress arriving when no scan is running.
+
+* **iOS setup:** apps now need `com.apple.developer.networking.multicast` and
+  `com.apple.developer.networking.wifi-info` entitlements plus
+  `NSBonjourServices`, or router and LAN discovery silently find nothing. The
+  README lists every key and what each one breaks. Multicast is not self-serve -
+  Apple grants it per App ID on request.
+
 ## 1.1.4
 
 * **Fix (iOS):** a scan whose report the server accepted could still arrive as
