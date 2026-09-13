@@ -37,7 +37,6 @@ structured diagnostics report to Flutter.
   # rebuilt against the new versions.
   s.dependency 'Alamofire', '5.11.1'
   s.dependency 'BlueSocket', '2.0.4'
-  s.dependency 'NDT7', '0.0.4'
   s.dependency 'XMLCoder', '0.13.1'
 
   # Flutter.framework does not contain a i386 slice.

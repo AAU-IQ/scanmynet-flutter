@@ -9,7 +9,7 @@ backend.
 
 ```yaml
 dependencies:
-  scanmynet_sdk: ^1.1.5
+  scanmynet_sdk: ^1.1.6
 ```
 
 ## Prerequisites
@@ -94,10 +94,13 @@ later is backed up by default.
 ### iOS
 
 The native iOS SDK ships as the bundled `ios/ScanMyNet.xcframework` (the
-counterpart of the Android AARs). Its four third-party Swift dependencies
-(`Alamofire`, `XMLCoder`, `BlueSocket`, `NDT7`) are declared in
+counterpart of the Android AARs). Its three third-party Swift dependencies
+(`Alamofire`, `XMLCoder`, `BlueSocket`) are declared in
 `ios/scanmynet_sdk.podspec` and resolved from the public CocoaPods trunk during
 `pod install`.
+
+> **Upgrading from 1.1.5 or earlier:** `NDT7` is no longer a dependency — run
+> `pod install` and drop it from your `post_install` list if you named it there.
 
 > **Required:** the framework is compiled with library evolution, so its Swift
 > dependencies must be rebuilt the same way in the host app — otherwise the app
@@ -108,7 +111,7 @@ counterpart of the Android AARs). Its four third-party Swift dependencies
 > post_install do |installer|
 >   installer.pods_project.targets.each do |target|
 >     flutter_additional_ios_build_settings(target)
->     if %w[Alamofire XMLCoder BlueSocket NDT7].include?(target.name)
+>     if %w[Alamofire XMLCoder BlueSocket].include?(target.name)
 >       target.build_configurations.each do |config|
 >         config.build_settings['BUILD_LIBRARY_FOR_DISTRIBUTION'] = 'YES'
 >       end
@@ -244,8 +247,10 @@ final sub = sdk.events.listen((event) {
     case ScanProgressed(:final progress):
       // progress.percent (0..100); progress.label / progress.currentStep
     case ScanCompleted(:final result):
-      // result.reportUrl -> hosted web report (always present)
-      // result.report    -> typed ReportData for your own UI (see below)
+      // result.reportUrl  -> hosted web report (always present)
+      // result.report     -> typed ReportData for your own UI (see below)
+      // result.reportId   -> correlate the scan without parsing reportUrl's JWT
+      // result.customerId -> the subscriber key the report was filed under
     case ScanFailed(:final error):
       // error.kind (perStep | submission | canceled), error.message
     case ScanDataPersisted():
@@ -323,8 +328,18 @@ Every completed scan returns the report **two ways**:
 - **`result.report`** — the *same data as typed Dart objects* (`ReportData`), so
   you can render it however you like. Null only on backends predating the payload.
 
+`result.reportId` and `result.customerId` come alongside, for correlating a scan
+against your own records without parsing the JWT in `reportUrl`. Both are
+populated on Android and on iOS from 1.1.6 — earlier iOS releases left them null.
+
 `ReportData` has 15 optional sections. **Every field is nullable** — read
 defensively with `?.` and treat `null` as "not measured":
+
+> **Speed figures are comparable across platforms.** From 1.1.6 both SDKs run
+> the same measurement — same server, same file sizes, same sampling — so an
+> iOS and an Android reading on one network can be compared directly. Earlier
+> iOS releases measured against a different server and produced numbers that
+> had no reason to agree with Android's.
 
 | Section | Type | Contains |
 |---|---|---|

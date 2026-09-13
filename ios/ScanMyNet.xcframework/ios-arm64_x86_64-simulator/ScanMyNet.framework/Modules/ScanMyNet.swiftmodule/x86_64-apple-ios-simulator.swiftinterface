@@ -8,7 +8,6 @@ import Combine
 import CoreLocation
 import Darwin
 import Foundation
-import NDT7
 import Network
 import NetworkExtension
 @_exported import ScanMyNet
@@ -289,6 +288,13 @@ public struct SMNChannelCongestion : Swift.Codable {
   public func encode(to encoder: any Swift.Encoder) throws
   public init(from decoder: any Swift.Decoder) throws
 }
+public enum ReportSubmissionError : Foundation.LocalizedError {
+  case rejected(status: Swift.Int)
+  case empty
+  public var errorDescription: Swift.String? {
+    get
+  }
+}
 public enum Environment {
   case staging, production, testing
   case custom(baseUrl: Swift.String, frontendUrl: Swift.String?)
@@ -302,6 +308,7 @@ public protocol ScanMyNetDelegate {
   func scanStarted()
   func scanFinished(reportUrl: Swift.String)
   func scanFinished(reportUrl: Swift.String, report: ScanMyNet.SMNReportPayload?)
+  func scanFinished(reportUrl: Swift.String, reportId: Swift.String?, customerId: Swift.String?, report: ScanMyNet.SMNReportPayload?)
   func nextScanStarted(value: Swift.String)
   func scanProgress(value: Swift.Float)
   func scanServiceFailed(type: Swift.String, with error: any Swift.Error)
@@ -312,6 +319,7 @@ public protocol ScanMyNetDelegate {
 }
 extension ScanMyNet.ScanMyNetDelegate {
   public func scanFinished(reportUrl: Swift.String, report: ScanMyNet.SMNReportPayload?)
+  public func scanFinished(reportUrl: Swift.String, reportId: Swift.String?, customerId: Swift.String?, report: ScanMyNet.SMNReportPayload?)
 }
 public class ScanMyNetManager {
   public var delegate: (any ScanMyNet.ScanMyNetDelegate)?

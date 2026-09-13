@@ -115,14 +115,34 @@ extension ScanHostApiImpl: ScanMyNetDelegate {
     onMain { self.flutterApi.onFinished(result: result) { _ in } }
   }
 
-  /// Carries the decoded report payload. `reportId`/`customerId` are the report
-  /// response's siblings of `report`, but the SDK delegate forwards only the
-  /// `report` object — so on iOS those two stay nil (they are populated on
-  /// Android). Mapping is null-in/null-out via `ReportMapper`.
+  /// Superseded by the variant below, which the SDK calls instead. Kept because
+  /// the protocol still declares it, and reached only if an older framework is
+  /// linked — in which case `reportId`/`customerId` are simply unavailable.
   func scanFinished(reportUrl: String, report: SMNReportPayload?) {
     let result = ScanResult(
       reportUrl: reportUrl,
       status: .success,
+      report: report?.toPigeon()
+    )
+    onMain { self.flutterApi.onFinished(result: result) { _ in } }
+  }
+
+  /// Carries the decoded report payload together with the report response's
+  /// `reportId` and `customerId` siblings. Those two were nil on iOS until the
+  /// SDK started forwarding them, while Android had populated them all along,
+  /// so a Flutter app reading `result.reportId` got an answer on one platform
+  /// and nothing on the other. Mapping is null-in/null-out via `ReportMapper`.
+  func scanFinished(
+    reportUrl: String,
+    reportId: String?,
+    customerId: String?,
+    report: SMNReportPayload?
+  ) {
+    let result = ScanResult(
+      reportUrl: reportUrl,
+      status: .success,
+      reportId: reportId,
+      customerId: customerId,
       report: report?.toPigeon()
     )
     onMain { self.flutterApi.onFinished(result: result) { _ in } }
