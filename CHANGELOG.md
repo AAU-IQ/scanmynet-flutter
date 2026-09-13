@@ -1,3 +1,35 @@
+## 1.1.6
+
+* **Fix (iOS):** packet loss and ping readings were partly invented. The
+  "dropped" counter started at its maximum and counted down on each reply, and
+  "sent" reported the number of packets intended rather than the number sent -
+  so "everything was dropped" was the starting state, not a measurement. A host
+  that answered 8 of 10 pings before the run ended early was reported as 73%
+  packet loss instead of 20%. Ping targets that failed the reachability check
+  were reported too, each carrying a full set of dropped packets without one
+  having left the device. Both the per-host and per-device readings now report
+  what actually happened.
+
+* **Fix (iOS):** a second scan in the same session could sit on Connection
+  Quality for 90 seconds and then submit the *previous* scan's ping results as
+  its own. Per-scan state was only cleared on cancel, never on a scan that ran
+  to completion.
+
+* **Fix (iOS):** on networks that block ICMP outright, Connection Quality waited
+  out its full 90-second timeout with nothing left to do. It now finishes as
+  soon as every host is accounted for.
+
+* **Changed (iOS):** the speed test now measures against the same server, with
+  the same file sizes and the same sampling, as the Android SDK. It previously
+  used NDT7, which measured against whichever M-Lab server it was handed - Tel
+  Aviv, for scans run from Iraq - while Android measured against Scaleway in
+  Paris. The same device on the same network got two numbers with no reason to
+  agree. The `NDT7` pod dependency is gone; run `pod install` after upgrading.
+
+* **Added (iOS):** `ScanResult.reportId` and `ScanResult.customerId` are now
+  populated. They had been Android-only, so a Flutter app reading either got an
+  answer on one platform and null on the other.
+
 ## 1.1.5
 
 * **Fix (iOS):** a scan could stall on its first step indefinitely, showing

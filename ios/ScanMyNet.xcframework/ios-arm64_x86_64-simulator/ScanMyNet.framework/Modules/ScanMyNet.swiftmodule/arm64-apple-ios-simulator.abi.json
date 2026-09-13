@@ -12325,6 +12325,221 @@
       },
       {
         "kind": "TypeDecl",
+        "name": "ReportSubmissionError",
+        "printedName": "ReportSubmissionError",
+        "children": [
+          {
+            "kind": "Var",
+            "name": "rejected",
+            "printedName": "rejected",
+            "children": [
+              {
+                "kind": "TypeFunc",
+                "name": "Function",
+                "printedName": "(ScanMyNet.ReportSubmissionError.Type) -> (Swift.Int) -> ScanMyNet.ReportSubmissionError",
+                "children": [
+                  {
+                    "kind": "TypeFunc",
+                    "name": "Function",
+                    "printedName": "(Swift.Int) -> ScanMyNet.ReportSubmissionError",
+                    "children": [
+                      {
+                        "kind": "TypeNominal",
+                        "name": "ReportSubmissionError",
+                        "printedName": "ScanMyNet.ReportSubmissionError",
+                        "usr": "s:9ScanMyNet21ReportSubmissionErrorO"
+                      },
+                      {
+                        "kind": "TypeNominal",
+                        "name": "Tuple",
+                        "printedName": "(status: Swift.Int)",
+                        "children": [
+                          {
+                            "kind": "TypeNominal",
+                            "name": "Int",
+                            "printedName": "Swift.Int",
+                            "usr": "s:Si"
+                          }
+                        ]
+                      }
+                    ]
+                  },
+                  {
+                    "kind": "TypeNominal",
+                    "name": "Metatype",
+                    "printedName": "ScanMyNet.ReportSubmissionError.Type",
+                    "children": [
+                      {
+                        "kind": "TypeNominal",
+                        "name": "ReportSubmissionError",
+                        "printedName": "ScanMyNet.ReportSubmissionError",
+                        "usr": "s:9ScanMyNet21ReportSubmissionErrorO"
+                      }
+                    ]
+                  }
+                ]
+              }
+            ],
+            "declKind": "EnumElement",
+            "usr": "s:9ScanMyNet21ReportSubmissionErrorO8rejectedyACSi_tcACmF",
+            "mangledName": "$s9ScanMyNet21ReportSubmissionErrorO8rejectedyACSi_tcACmF",
+            "moduleName": "ScanMyNet",
+            "declAttributes": [
+              "RawDocComment"
+            ]
+          },
+          {
+            "kind": "Var",
+            "name": "empty",
+            "printedName": "empty",
+            "children": [
+              {
+                "kind": "TypeFunc",
+                "name": "Function",
+                "printedName": "(ScanMyNet.ReportSubmissionError.Type) -> ScanMyNet.ReportSubmissionError",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "ReportSubmissionError",
+                    "printedName": "ScanMyNet.ReportSubmissionError",
+                    "usr": "s:9ScanMyNet21ReportSubmissionErrorO"
+                  },
+                  {
+                    "kind": "TypeNominal",
+                    "name": "Metatype",
+                    "printedName": "ScanMyNet.ReportSubmissionError.Type",
+                    "children": [
+                      {
+                        "kind": "TypeNominal",
+                        "name": "ReportSubmissionError",
+                        "printedName": "ScanMyNet.ReportSubmissionError",
+                        "usr": "s:9ScanMyNet21ReportSubmissionErrorO"
+                      }
+                    ]
+                  }
+                ]
+              }
+            ],
+            "declKind": "EnumElement",
+            "usr": "s:9ScanMyNet21ReportSubmissionErrorO5emptyyA2CmF",
+            "mangledName": "$s9ScanMyNet21ReportSubmissionErrorO5emptyyA2CmF",
+            "moduleName": "ScanMyNet",
+            "declAttributes": [
+              "RawDocComment"
+            ]
+          },
+          {
+            "kind": "Var",
+            "name": "errorDescription",
+            "printedName": "errorDescription",
+            "children": [
+              {
+                "kind": "TypeNominal",
+                "name": "Optional",
+                "printedName": "Swift.String?",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "String",
+                    "printedName": "Swift.String",
+                    "usr": "s:SS"
+                  }
+                ],
+                "usr": "s:Sq"
+              }
+            ],
+            "declKind": "Var",
+            "usr": "s:9ScanMyNet21ReportSubmissionErrorO16errorDescriptionSSSgvp",
+            "mangledName": "$s9ScanMyNet21ReportSubmissionErrorO16errorDescriptionSSSgvp",
+            "moduleName": "ScanMyNet",
+            "declAttributes": [
+              "AccessControl"
+            ],
+            "accessors": [
+              {
+                "kind": "Accessor",
+                "name": "Get",
+                "printedName": "Get()",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "Optional",
+                    "printedName": "Swift.String?",
+                    "children": [
+                      {
+                        "kind": "TypeNominal",
+                        "name": "String",
+                        "printedName": "Swift.String",
+                        "usr": "s:SS"
+                      }
+                    ],
+                    "usr": "s:Sq"
+                  }
+                ],
+                "declKind": "Accessor",
+                "usr": "s:9ScanMyNet21ReportSubmissionErrorO16errorDescriptionSSSgvg",
+                "mangledName": "$s9ScanMyNet21ReportSubmissionErrorO16errorDescriptionSSSgvg",
+                "moduleName": "ScanMyNet",
+                "accessorKind": "get"
+              }
+            ]
+          }
+        ],
+        "declKind": "Enum",
+        "usr": "s:9ScanMyNet21ReportSubmissionErrorO",
+        "mangledName": "$s9ScanMyNet21ReportSubmissionErrorO",
+        "moduleName": "ScanMyNet",
+        "declAttributes": [
+          "AccessControl",
+          "RawDocComment"
+        ],
+        "conformances": [
+          {
+            "kind": "Conformance",
+            "name": "LocalizedError",
+            "printedName": "LocalizedError",
+            "usr": "s:10Foundation14LocalizedErrorP",
+            "mangledName": "$s10Foundation14LocalizedErrorP"
+          },
+          {
+            "kind": "Conformance",
+            "name": "Copyable",
+            "printedName": "Copyable",
+            "usr": "s:s8CopyableP",
+            "mangledName": "$ss8CopyableP"
+          },
+          {
+            "kind": "Conformance",
+            "name": "Error",
+            "printedName": "Error",
+            "usr": "s:s5ErrorP",
+            "mangledName": "$ss5ErrorP"
+          },
+          {
+            "kind": "Conformance",
+            "name": "Escapable",
+            "printedName": "Escapable",
+            "usr": "s:s9EscapableP",
+            "mangledName": "$ss9EscapableP"
+          },
+          {
+            "kind": "Conformance",
+            "name": "Sendable",
+            "printedName": "Sendable",
+            "usr": "s:s8SendableP",
+            "mangledName": "$ss8SendableP"
+          },
+          {
+            "kind": "Conformance",
+            "name": "SendableMetatype",
+            "printedName": "SendableMetatype",
+            "usr": "s:s16SendableMetatypeP",
+            "mangledName": "$ss16SendableMetatypeP"
+          }
+        ]
+      },
+      {
+        "kind": "TypeDecl",
         "name": "Environment",
         "printedName": "Environment",
         "children": [
@@ -12827,13 +13042,6 @@
       },
       {
         "kind": "Import",
-        "name": "NDT7",
-        "printedName": "NDT7",
-        "declKind": "Import",
-        "moduleName": "ScanMyNet"
-      },
-      {
-        "kind": "Import",
         "name": "Foundation",
         "printedName": "Foundation",
         "declKind": "Import",
@@ -12926,6 +13134,78 @@
             "declKind": "Func",
             "usr": "s:9ScanMyNet0abC8DelegateP12scanFinished9reportUrl0G0ySS_AA16SMNReportPayloadVSgtF",
             "mangledName": "$s9ScanMyNet0abC8DelegateP12scanFinished9reportUrl0G0ySS_AA16SMNReportPayloadVSgtF",
+            "moduleName": "ScanMyNet",
+            "genericSig": "<τ_0_0 where τ_0_0 : ScanMyNet.ScanMyNetDelegate>",
+            "sugared_genericSig": "<Self where Self : ScanMyNet.ScanMyNetDelegate>",
+            "protocolReq": true,
+            "declAttributes": [
+              "RawDocComment"
+            ],
+            "reqNewWitnessTableEntry": true,
+            "funcSelfKind": "NonMutating"
+          },
+          {
+            "kind": "Function",
+            "name": "scanFinished",
+            "printedName": "scanFinished(reportUrl:reportId:customerId:report:)",
+            "children": [
+              {
+                "kind": "TypeNominal",
+                "name": "Void",
+                "printedName": "()"
+              },
+              {
+                "kind": "TypeNominal",
+                "name": "String",
+                "printedName": "Swift.String",
+                "usr": "s:SS"
+              },
+              {
+                "kind": "TypeNominal",
+                "name": "Optional",
+                "printedName": "Swift.String?",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "String",
+                    "printedName": "Swift.String",
+                    "usr": "s:SS"
+                  }
+                ],
+                "usr": "s:Sq"
+              },
+              {
+                "kind": "TypeNominal",
+                "name": "Optional",
+                "printedName": "Swift.String?",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "String",
+                    "printedName": "Swift.String",
+                    "usr": "s:SS"
+                  }
+                ],
+                "usr": "s:Sq"
+              },
+              {
+                "kind": "TypeNominal",
+                "name": "Optional",
+                "printedName": "ScanMyNet.SMNReportPayload?",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "SMNReportPayload",
+                    "printedName": "ScanMyNet.SMNReportPayload",
+                    "usr": "s:9ScanMyNet16SMNReportPayloadV"
+                  }
+                ],
+                "usr": "s:Sq"
+              }
+            ],
+            "declKind": "Func",
+            "usr": "s:9ScanMyNet0abC8DelegateP12scanFinished9reportUrl0G2Id08customerI00G0ySS_SSSgAiA16SMNReportPayloadVSgtF",
+            "mangledName": "$s9ScanMyNet0abC8DelegateP12scanFinished9reportUrl0G2Id08customerI00G0ySS_SSSgAiA16SMNReportPayloadVSgtF",
             "moduleName": "ScanMyNet",
             "genericSig": "<τ_0_0 where τ_0_0 : ScanMyNet.ScanMyNetDelegate>",
             "sugared_genericSig": "<Self where Self : ScanMyNet.ScanMyNetDelegate>",
@@ -13201,6 +13481,74 @@
             "declKind": "Func",
             "usr": "s:9ScanMyNet0abC8DelegatePAAE12scanFinished9reportUrl0G0ySS_AA16SMNReportPayloadVSgtF",
             "mangledName": "$s9ScanMyNet0abC8DelegatePAAE12scanFinished9reportUrl0G0ySS_AA16SMNReportPayloadVSgtF",
+            "moduleName": "ScanMyNet",
+            "genericSig": "<τ_0_0 where τ_0_0 : ScanMyNet.ScanMyNetDelegate>",
+            "sugared_genericSig": "<Self where Self : ScanMyNet.ScanMyNetDelegate>",
+            "isFromExtension": true,
+            "funcSelfKind": "NonMutating"
+          },
+          {
+            "kind": "Function",
+            "name": "scanFinished",
+            "printedName": "scanFinished(reportUrl:reportId:customerId:report:)",
+            "children": [
+              {
+                "kind": "TypeNominal",
+                "name": "Void",
+                "printedName": "()"
+              },
+              {
+                "kind": "TypeNominal",
+                "name": "String",
+                "printedName": "Swift.String",
+                "usr": "s:SS"
+              },
+              {
+                "kind": "TypeNominal",
+                "name": "Optional",
+                "printedName": "Swift.String?",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "String",
+                    "printedName": "Swift.String",
+                    "usr": "s:SS"
+                  }
+                ],
+                "usr": "s:Sq"
+              },
+              {
+                "kind": "TypeNominal",
+                "name": "Optional",
+                "printedName": "Swift.String?",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "String",
+                    "printedName": "Swift.String",
+                    "usr": "s:SS"
+                  }
+                ],
+                "usr": "s:Sq"
+              },
+              {
+                "kind": "TypeNominal",
+                "name": "Optional",
+                "printedName": "ScanMyNet.SMNReportPayload?",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "SMNReportPayload",
+                    "printedName": "ScanMyNet.SMNReportPayload",
+                    "usr": "s:9ScanMyNet16SMNReportPayloadV"
+                  }
+                ],
+                "usr": "s:Sq"
+              }
+            ],
+            "declKind": "Func",
+            "usr": "s:9ScanMyNet0abC8DelegatePAAE12scanFinished9reportUrl0G2Id08customerI00G0ySS_SSSgAiA16SMNReportPayloadVSgtF",
+            "mangledName": "$s9ScanMyNet0abC8DelegatePAAE12scanFinished9reportUrl0G2Id08customerI00G0ySS_SSSgAiA16SMNReportPayloadVSgtF",
             "moduleName": "ScanMyNet",
             "genericSig": "<τ_0_0 where τ_0_0 : ScanMyNet.ScanMyNetDelegate>",
             "sugared_genericSig": "<Self where Self : ScanMyNet.ScanMyNetDelegate>",
@@ -14557,70 +14905,70 @@
     {
       "filePath": "\/Users\/vagrant\/git\/ScanMyNet\/ReportManager.swift",
       "kind": "StringLiteral",
-      "offset": 3288,
+      "offset": 3884,
       "length": 2,
       "value": "\"\""
     },
     {
       "filePath": "\/Users\/vagrant\/git\/ScanMyNet\/ReportManager.swift",
       "kind": "IntegerLiteral",
-      "offset": 3380,
+      "offset": 3976,
       "length": 1,
       "value": "0"
     },
     {
       "filePath": "\/Users\/vagrant\/git\/ScanMyNet\/ReportManager.swift",
       "kind": "BooleanLiteral",
-      "offset": 4287,
+      "offset": 4883,
       "length": 5,
       "value": "false"
     },
     {
       "filePath": "\/Users\/vagrant\/git\/ScanMyNet\/ReportManager.swift",
       "kind": "BooleanLiteral",
-      "offset": 4323,
+      "offset": 4919,
       "length": 5,
       "value": "false"
     },
     {
       "filePath": "\/Users\/vagrant\/git\/ScanMyNet\/ReportManager.swift",
       "kind": "BooleanLiteral",
-      "offset": 4351,
+      "offset": 4947,
       "length": 5,
       "value": "false"
     },
     {
       "filePath": "\/Users\/vagrant\/git\/ScanMyNet\/ReportManager.swift",
       "kind": "BooleanLiteral",
-      "offset": 4373,
+      "offset": 4969,
       "length": 5,
       "value": "false"
     },
     {
       "filePath": "\/Users\/vagrant\/git\/ScanMyNet\/ReportManager.swift",
       "kind": "BooleanLiteral",
-      "offset": 4399,
+      "offset": 4995,
       "length": 5,
       "value": "false"
     },
     {
       "filePath": "\/Users\/vagrant\/git\/ScanMyNet\/ReportManager.swift",
       "kind": "BooleanLiteral",
-      "offset": 4434,
+      "offset": 5030,
       "length": 5,
       "value": "false"
     },
     {
       "filePath": "\/Users\/vagrant\/git\/ScanMyNet\/ReportManager.swift",
       "kind": "BooleanLiteral",
-      "offset": 4464,
+      "offset": 5060,
       "length": 5,
       "value": "false"
     },
     {
       "filePath": "\/Users\/vagrant\/git\/ScanMyNet\/ReportManager.swift",
       "kind": "BooleanLiteral",
-      "offset": 4496,
+      "offset": 5092,
       "length": 5,
       "value": "false"
     },
@@ -14774,63 +15122,63 @@
     {
       "filePath": "\/Users\/vagrant\/git\/ScanMyNet\/Models\/QualityResult.swift",
       "kind": "BooleanLiteral",
-      "offset": 845,
+      "offset": 1830,
       "length": 5,
       "value": "false"
     },
     {
       "filePath": "\/Users\/vagrant\/git\/ScanMyNet\/Models\/QualityResult.swift",
       "kind": "StringLiteral",
-      "offset": 875,
+      "offset": 1860,
       "length": 9,
       "value": "\"Unknown\""
     },
     {
       "filePath": "\/Users\/vagrant\/git\/ScanMyNet\/Models\/QualityResult.swift",
       "kind": "BooleanLiteral",
-      "offset": 965,
+      "offset": 1950,
       "length": 5,
       "value": "false"
     },
     {
       "filePath": "\/Users\/vagrant\/git\/ScanMyNet\/Models\/QualityResult.swift",
       "kind": "IntegerLiteral",
-      "offset": 1117,
+      "offset": 2102,
       "length": 1,
       "value": "0"
     },
     {
       "filePath": "\/Users\/vagrant\/git\/ScanMyNet\/Models\/QualityResult.swift",
       "kind": "IntegerLiteral",
-      "offset": 1152,
-      "length": 2,
-      "value": "30"
+      "offset": 2139,
+      "length": 1,
+      "value": "0"
     },
     {
       "filePath": "\/Users\/vagrant\/git\/ScanMyNet\/Models\/QualityResult.swift",
       "kind": "Array",
-      "offset": 1185,
+      "offset": 2171,
       "length": 2,
       "value": "[]"
     },
     {
       "filePath": "\/Users\/vagrant\/git\/ScanMyNet\/Models\/QualityResult.swift",
       "kind": "IntegerLiteral",
-      "offset": 1226,
+      "offset": 2212,
       "length": 2,
       "value": "30"
     },
     {
       "filePath": "\/Users\/vagrant\/git\/ScanMyNet\/Models\/QualityResult.swift",
       "kind": "IntegerLiteral",
-      "offset": 1461,
+      "offset": 2447,
       "length": 1,
       "value": "8"
     },
     {
       "filePath": "\/Users\/vagrant\/git\/ScanMyNet\/Models\/QualityResult.swift",
       "kind": "StringLiteral",
-      "offset": 1606,
+      "offset": 2592,
       "length": 7,
       "value": "\"https\""
     },
@@ -14956,14 +15304,14 @@
     {
       "filePath": "\/Users\/vagrant\/git\/ScanMyNet\/Services\/LAN Scanner\/LANDevice.swift",
       "kind": "IntegerLiteral",
-      "offset": 400,
-      "length": 2,
-      "value": "30"
+      "offset": 402,
+      "length": 1,
+      "value": "0"
     },
     {
       "filePath": "\/Users\/vagrant\/git\/ScanMyNet\/Services\/LAN Scanner\/LANDevice.swift",
       "kind": "IntegerLiteral",
-      "offset": 441,
+      "offset": 442,
       "length": 2,
       "value": "30"
     },
@@ -15004,106 +15352,169 @@
     },
     {
       "filePath": "\/Users\/vagrant\/git\/ScanMyNet\/Services\/SpeedCheck\/SpeedCheck.swift",
+      "kind": "StringLiteral",
+      "offset": 1422,
+      "length": 46,
+      "value": "\"https:\/\/ipv4.scaleway.testdebit.info\/50M.iso\""
+    },
+    {
+      "filePath": "\/Users\/vagrant\/git\/ScanMyNet\/Services\/SpeedCheck\/SpeedCheck.swift",
+      "kind": "StringLiteral",
+      "offset": 1518,
+      "length": 39,
+      "value": "\"https:\/\/ipv4.scaleway.testdebit.info\/\""
+    },
+    {
+      "filePath": "\/Users\/vagrant\/git\/ScanMyNet\/Services\/SpeedCheck\/SpeedCheck.swift",
+      "kind": "IntegerLiteral",
+      "offset": 1601,
+      "length": 2,
+      "value": "10"
+    },
+    {
+      "filePath": "\/Users\/vagrant\/git\/ScanMyNet\/Services\/SpeedCheck\/SpeedCheck.swift",
+      "kind": "IntegerLiteral",
+      "offset": 1606,
+      "length": 4,
+      "value": "1024"
+    },
+    {
+      "filePath": "\/Users\/vagrant\/git\/ScanMyNet\/Services\/SpeedCheck\/SpeedCheck.swift",
+      "kind": "IntegerLiteral",
+      "offset": 1613,
+      "length": 4,
+      "value": "1024"
+    },
+    {
+      "filePath": "\/Users\/vagrant\/git\/ScanMyNet\/Services\/SpeedCheck\/SpeedCheck.swift",
+      "kind": "IntegerLiteral",
+      "offset": 1702,
+      "length": 2,
+      "value": "25"
+    },
+    {
+      "filePath": "\/Users\/vagrant\/git\/ScanMyNet\/Services\/SpeedCheck\/SpeedCheck.swift",
+      "kind": "FloatLiteral",
+      "offset": 1895,
+      "length": 4,
+      "value": "0.25"
+    },
+    {
+      "filePath": "\/Users\/vagrant\/git\/ScanMyNet\/Services\/SpeedCheck\/SpeedCheck.swift",
+      "kind": "IntegerLiteral",
+      "offset": 2122,
+      "length": 2,
+      "value": "60"
+    },
+    {
+      "filePath": "\/Users\/vagrant\/git\/ScanMyNet\/Services\/SpeedCheck\/SpeedCheck.swift",
       "kind": "Array",
-      "offset": 244,
+      "offset": 2246,
       "length": 2,
       "value": "[]"
     },
     {
       "filePath": "\/Users\/vagrant\/git\/ScanMyNet\/Services\/SpeedCheck\/SpeedCheck.swift",
       "kind": "Array",
-      "offset": 280,
+      "offset": 2291,
       "length": 2,
       "value": "[]"
     },
     {
       "filePath": "\/Users\/vagrant\/git\/ScanMyNet\/Services\/SpeedCheck\/SpeedCheck.swift",
       "kind": "IntegerLiteral",
-      "offset": 323,
+      "offset": 2336,
       "length": 1,
       "value": "0"
     },
     {
       "filePath": "\/Users\/vagrant\/git\/ScanMyNet\/Services\/SpeedCheck\/SpeedCheck.swift",
+      "kind": "BooleanLiteral",
+      "offset": 2409,
+      "length": 5,
+      "value": "false"
+    },
+    {
+      "filePath": "\/Users\/vagrant\/git\/ScanMyNet\/Services\/SpeedCheck\/SpeedCheck.swift",
+      "kind": "BooleanLiteral",
+      "offset": 2539,
+      "length": 5,
+      "value": "false"
+    },
+    {
+      "filePath": "\/Users\/vagrant\/git\/ScanMyNet\/ScanMyNet.swift",
       "kind": "IntegerLiteral",
-      "offset": 363,
+      "offset": 1863,
       "length": 1,
       "value": "0"
     },
     {
       "filePath": "\/Users\/vagrant\/git\/ScanMyNet\/ScanMyNet.swift",
       "kind": "IntegerLiteral",
-      "offset": 1138,
-      "length": 1,
-      "value": "0"
-    },
-    {
-      "filePath": "\/Users\/vagrant\/git\/ScanMyNet\/ScanMyNet.swift",
-      "kind": "IntegerLiteral",
-      "offset": 1174,
+      "offset": 1899,
       "length": 1,
       "value": "0"
     },
     {
       "filePath": "\/Users\/vagrant\/git\/ScanMyNet\/ScanMyNet.swift",
       "kind": "BooleanLiteral",
-      "offset": 1218,
+      "offset": 1943,
       "length": 5,
       "value": "false"
     },
     {
       "filePath": "\/Users\/vagrant\/git\/ScanMyNet\/ScanMyNet.swift",
       "kind": "BooleanLiteral",
-      "offset": 1922,
+      "offset": 2647,
       "length": 5,
       "value": "false"
     },
     {
       "filePath": "\/Users\/vagrant\/git\/ScanMyNet\/ScanMyNet.swift",
       "kind": "BooleanLiteral",
-      "offset": 1958,
+      "offset": 2683,
       "length": 5,
       "value": "false"
     },
     {
       "filePath": "\/Users\/vagrant\/git\/ScanMyNet\/ScanMyNet.swift",
       "kind": "BooleanLiteral",
-      "offset": 1986,
+      "offset": 2711,
       "length": 5,
       "value": "false"
     },
     {
       "filePath": "\/Users\/vagrant\/git\/ScanMyNet\/ScanMyNet.swift",
       "kind": "BooleanLiteral",
-      "offset": 2008,
+      "offset": 2733,
       "length": 5,
       "value": "false"
     },
     {
       "filePath": "\/Users\/vagrant\/git\/ScanMyNet\/ScanMyNet.swift",
       "kind": "BooleanLiteral",
-      "offset": 2034,
+      "offset": 2759,
       "length": 5,
       "value": "false"
     },
     {
       "filePath": "\/Users\/vagrant\/git\/ScanMyNet\/ScanMyNet.swift",
       "kind": "BooleanLiteral",
-      "offset": 2069,
+      "offset": 2794,
       "length": 5,
       "value": "false"
     },
     {
       "filePath": "\/Users\/vagrant\/git\/ScanMyNet\/ScanMyNet.swift",
       "kind": "BooleanLiteral",
-      "offset": 2099,
+      "offset": 2824,
       "length": 5,
       "value": "false"
     },
     {
       "filePath": "\/Users\/vagrant\/git\/ScanMyNet\/ScanMyNet.swift",
       "kind": "BooleanLiteral",
-      "offset": 2131,
+      "offset": 2856,
       "length": 5,
       "value": "false"
     },
