@@ -42,7 +42,7 @@ end
 # the resilient witness symbols ScanMyNet links against and crashes the app at
 # launch with a dyld "Symbol not found" error. Rebuild them the same way to match
 # the framework's ABI. (Mirrors the post_install in scanmynet-ios/Podfile.)
-SCANMYNET_LIBRARY_EVOLUTION_PODS = %w[Alamofire XMLCoder BlueSocket NDT7].freeze
+SCANMYNET_LIBRARY_EVOLUTION_PODS = %w[Alamofire XMLCoder BlueSocket].freeze
 
 post_install do |installer|
   installer.pods_project.targets.each do |target|

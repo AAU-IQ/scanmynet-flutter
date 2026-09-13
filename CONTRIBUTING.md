@@ -81,8 +81,8 @@ how to reproduce it — that is the only place the rebuild is documented.
 ## Updating the bundled iOS framework
 
 Unlike the self-contained Android AARs, the iOS SDK is **not** standalone — it
-links four third-party frameworks (`Alamofire`, `XMLCoder`, `BlueSocket`,
-`NDT7`). These are declared as `s.dependency` lines in `ios/scanmynet_sdk.podspec`
+links three third-party frameworks (`Alamofire`, `XMLCoder`, `BlueSocket`).
+These are declared as `s.dependency` lines in `ios/scanmynet_sdk.podspec`
 and resolved from the public CocoaPods trunk during `pod install`, so they are
 **not** bundled. Only the proprietary `ScanMyNet.xcframework` is vendored.
 
@@ -118,8 +118,8 @@ against the **resilient** ABI of its Swift dependencies. The host app must
 therefore rebuild those same pods with library evolution, or the app crashes at
 launch with a dyld `Symbol not found` error (e.g. a missing Alamofire witness
 symbol). This is enforced by the `post_install` hook in `example/ios/Podfile`,
-which sets `BUILD_LIBRARY_FOR_DISTRIBUTION=YES` on `Alamofire`, `XMLCoder`,
-`BlueSocket`, and `NDT7`. Any app consuming this plugin needs the same hook — see
+which sets `BUILD_LIBRARY_FOR_DISTRIBUTION=YES` on `Alamofire`, `XMLCoder`, and
+`BlueSocket`. Any app consuming this plugin needs the same hook — see
 the [iOS setup section in the README](README.md#ios-setup).
 
 Dependency versions are pinned **exactly** in the podspec because a precompiled
