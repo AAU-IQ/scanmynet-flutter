@@ -1,3 +1,32 @@
+## 1.1.8
+
+All iOS, and **strongly recommended for anyone on 1.1.7** — on that release an
+iOS scan could finish and then be thrown away.
+
+* **Fix (iOS):** a completed scan was rejected by the backend with
+  `local_devices - manufacturer: ensure this value has at least 1 characters`,
+  and the whole report was discarded. Submission is all-or-nothing, so one blank
+  field on one device cost every measurement in the scan — speed, ping,
+  traceroute and all. Introduced in 1.1.7, where the manufacturer stopped being
+  a fixed string and started being read for real.
+
+* **Fix (iOS):** device manufacturers now resolve, for the first time. The SDK
+  looks each one up from the MAC's OUI prefix in a 22,857-entry table that ships
+  inside `ScanMyNet.framework` — but it was searching the *host app's* bundle
+  for that table, where it has never been. The lookup therefore missed in every
+  app that has ever embedded the SDK, and every device came back unnamed. That
+  empty value is what 1.1.7 then submitted.
+
+* **Fix (iOS):** `make` and `model_number` are now sent. The Android SDK reports
+  the router's manufacturer as both `make` and `manufacturer`; iOS filled only
+  the second. `model_number` was parsed out of the UPnP description and then
+  dropped.
+
+* **Fix (iOS):** an unresolvable DNS host submitted a blank `dns_ip` instead of
+  falling back to its hostname, and an unreadable Wi-Fi address submitted a
+  blank `ssid_ip` — the same blank-versus-absent confusion as above, at three
+  more report boundaries.
+
 ## 1.1.7
 
 All iOS. Nothing on the Dart side changed; every fix here is in the bundled

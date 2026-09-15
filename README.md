@@ -9,7 +9,7 @@ backend.
 
 ```yaml
 dependencies:
-  scanmynet_sdk: ^1.1.7
+  scanmynet_sdk: ^1.1.8
 ```
 
 ## Prerequisites
@@ -336,7 +336,8 @@ populated on Android and on iOS from 1.1.6 — earlier iOS releases left them nu
 `routerMacAddress` and `networkUsageDown` / `networkUsageUp` were Android-only
 and arrived null on iOS until 1.1.7; the router section of a report was empty on
 iOS for the same reason, because the backend only returns it once the router's
-MAC is known.
+MAC is known. `localConnectedDevices[].manufacturer` read "unknown" for every
+device on iOS until 1.1.8.
 
 `ReportData` has 15 optional sections. **Every field is nullable** — read
 defensively with `?.` and treat `null` as "not measured":
@@ -356,7 +357,7 @@ defensively with `?.` and treat `null` as "not measured":
 | Section | Type | Contains |
 |---|---|---|
 | `customerInternetSpeed` | `InternetSpeed?` | download / upload Mbps, link speed, segments |
-| `localConnectedDevices` | `List<LocalConnectedDevice>?` | discovered devices — name, IP, MAC, ping |
+| `localConnectedDevices` | `List<LocalConnectedDevice>?` | discovered devices — name, IP, MAC, manufacturer, ping |
 | `userWifiNetwork` | `WifiNetworkResult?` | SSID, BSSID, frequency, channel, signal |
 | `customerRouterDetails` | `CustomerRouterDetails?` | make / model, encryption, mesh |
 | `networkTopology` | `NetworkTopology?` | other routers, double-NAT detection |
