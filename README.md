@@ -9,7 +9,7 @@ backend.
 
 ```yaml
 dependencies:
-  scanmynet_sdk: ^1.1.6
+  scanmynet_sdk: ^1.1.7
 ```
 
 ## Prerequisites
@@ -332,14 +332,26 @@ Every completed scan returns the report **two ways**:
 against your own records without parsing the JWT in `reportUrl`. Both are
 populated on Android and on iOS from 1.1.6 — earlier iOS releases left them null.
 
+`ReportData` fields fill in the same way over time. `customerRouterDetails`,
+`routerMacAddress` and `networkUsageDown` / `networkUsageUp` were Android-only
+and arrived null on iOS until 1.1.7; the router section of a report was empty on
+iOS for the same reason, because the backend only returns it once the router's
+MAC is known.
+
 `ReportData` has 15 optional sections. **Every field is nullable** — read
 defensively with `?.` and treat `null` as "not measured":
 
-> **Speed figures are comparable across platforms.** From 1.1.6 both SDKs run
-> the same measurement — same server, same file sizes, same sampling — so an
-> iOS and an Android reading on one network can be compared directly. Earlier
-> iOS releases measured against a different server and produced numbers that
-> had no reason to agree with Android's.
+> **Download figures are comparable across platforms.** Both SDKs measure
+> against the same server, with the same file size and sampling, so an iOS and
+> an Android download reading on one network can be compared directly.
+>
+> **Upload figures are not, yet.** From 1.1.7 iOS uploads to an endpoint that
+> consumes the whole request body; Android still posts to one that discards it
+> after the first TCP window, so Android measures how fast the socket accepted
+> the write rather than how fast the data crossed the link, and reads high —
+> several times the download figure on the same connection. **Expect iOS to
+> report the lower and more accurate of the two** until the Android SDK moves to
+> the same endpoint.
 
 | Section | Type | Contains |
 |---|---|---|
@@ -383,6 +395,26 @@ if (report != null) {
 > at [`example/lib/ui/features/scan/views/widgets/report_summary_card.dart`](example/lib/ui/features/scan/views/widgets/report_summary_card.dart)
 > — it pulls speed, device count, Wi-Fi, router, and alerts out of `ReportData`.
 > Copy it as a starting point for your own UI.
+
+### What iOS cannot measure
+
+Some sections are thinner on iOS, permanently. Apple exposes no API to an app
+for scanning nearby Wi-Fi networks, reading the link layer, or inspecting the
+DHCP lease, so these arrive null or near-empty on iOS however healthy the
+network is. Treat them as "not available on this platform", not as a failed
+scan:
+
+| Field | iOS | Why |
+|---|---|---|
+| `networkCongestion` — channel congestion, surrounding networks | not measured | needs a Wi-Fi scan; no public API |
+| `userWifiNetwork` — frequency, channel, encryption, signal strength | SSID, BSSID and IP only | same |
+| `customerRouterDetails.protocols` (e.g. 802.11ax) | not measured | no Wi-Fi standard API |
+| link speed on `customerInternetSpeed` | not measured | no negotiated-link-speed API |
+| `ip_assigned_via_dhcp` | not measured | no DHCP lease API |
+
+Everything else — speed, LAN devices, ping, jitter, packet loss, traceroute,
+DNS, port checks, router identity — is measured the same way on both platforms
+and can be compared directly, with the upload caveat noted above.
 
 ### Gotchas
 

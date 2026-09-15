@@ -1,3 +1,58 @@
+## 1.1.7
+
+All iOS. Nothing on the Dart side changed; every fix here is in the bundled
+native SDK.
+
+* **Fix (iOS):** the router was whichever device answered an SSDP search first.
+  On a network with a TV or a set-top box, three consecutive scans could name
+  three different "routers", and a gateway that answers no SSDP — most of them —
+  was never among them. Since the connection-quality and server-connectivity
+  steps both measure against that address, the whole link-quality measurement
+  could be aimed at someone's television. The router is now the default route,
+  which is what the Android SDK has always used.
+
+* **Fix (iOS):** `routerMacAddress` is now reported. The backend only returns
+  the router section of a report once it knows the router's MAC, and resolves
+  the connected Wi-Fi network from it — so on iOS the router details and the
+  Wi-Fi details were empty no matter what the scan found.
+
+* **Fix (iOS):** a UPnP description missing any one field was discarded whole,
+  so a router that omits, say, `modelDescription` produced no make, model or
+  friendly name at all rather than the fields it did send. A gateway that
+  answers no SSDP now falls back to the best other device that did, matching
+  how the Android SDK picks.
+
+* **Fix (iOS):** traceroute submitted nothing on every scan. Six traceroutes
+  shared one serial queue against a 20-second budget, so the first consumed it
+  and the rest never started. They now run concurrently, and whatever has been
+  measured is reported when the budget expires rather than discarded.
+
+* **Fix (iOS):** the speed test reported an upload of 0. It was posting to a URL
+  that discards the request body after the first TCP window, so almost none of
+  the payload left the device. See the README on comparing upload figures with
+  Android — they will not match until Android moves to the same endpoint.
+
+* **Fix (iOS):** ping, jitter and packet-loss readings. A reply was timed
+  against whichever packet was sent most recently rather than the one it
+  answered, so on a link where replies take longer than the send interval every
+  latency was wrong. Lost packets are now recorded in the position they were
+  lost, which is what the backend derives jitter from.
+
+* **Fix (iOS):** every device in `localConnectedDevices` reported its
+  manufacturer as "Unknown". The lookup had been resolving the real
+  manufacturer from the MAC all along; the result was being dropped.
+
+* **Fix (iOS):** the scan's `start` timestamp used the ISO week-numbering year
+  and the device's local time zone, where Android sends the calendar year in
+  UTC. Around New Year a scan was filed under the wrong year, and everywhere
+  else it disagreed with Android by the device's UTC offset.
+
+* **Added (iOS):** `networkUsageDown` / `networkUsageUp` — the traffic the scan
+  itself moved. Previously Android-only.
+
+* **Docs:** the README now lists what iOS cannot measure and why, so a thin
+  Wi-Fi or congestion section can be told apart from a failed scan.
+
 ## 1.1.6
 
 * **Fix (iOS):** packet loss and ping readings were partly invented. The
