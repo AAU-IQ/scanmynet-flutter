@@ -1,3 +1,34 @@
+## 1.1.9
+
+All Android, and **required if your app uses Jetpack Compose** — on every
+earlier release the SDK could crash a Compose host app that never called
+ScanMyNet at all.
+
+* **Fix (Android):** the SDK shipped `xmlpull:xmlpull:1.1.3.1`, a 2003 jar that
+  redeclares `org.xmlpull.v1.XmlPullParser` — a class Android already provides.
+  Shipping it moved the type into R8's *program* set, so R8 renamed it and
+  rewrote Compose's call sites to the renamed type. At runtime the framework
+  returns a parser implementing the real interface, the call has no valid
+  target, and **any `painterResource()` anywhere in the host app** — any Compose
+  vector icon — died with an NPE inside `loadVectorResource`. No ScanMyNet call
+  was needed to trigger it; adding the dependency was enough. Debug builds hit
+  the same defect differently, as `XmlPullParserException:
+  defineEntityReplacementText() not supported`.
+
+* **Fix (Android):** the SDK also exposed `retrofit2:converter-jaxb` at `api`
+  scope, which references `javax.xml.stream.*` — absent on Android. Consumers
+  enabling R8 got a hard build failure until they added `-dontwarn` rules for a
+  library they never asked for. Those rules are no longer needed.
+
+* **Fix (Android):** five further dependencies with no code references are gone
+  — Volley, WorkManager, AppCompat, Material and the Firebase Crashlytics
+  *build* tool, which was being shipped as a runtime dependency. Smaller dex,
+  and five fewer jars whose contents nobody had inspected.
+
+Nothing in the SDK's behaviour or API changes. If you applied the
+`exclude group: 'xmlpull'` workaround in your app's `build.gradle`, you can
+remove it after upgrading.
+
 ## 1.1.8
 
 All iOS, and **strongly recommended for anyone on 1.1.7** — on that release an
