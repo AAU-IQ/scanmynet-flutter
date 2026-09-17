@@ -128,8 +128,10 @@ class ScanConfig {
   /// platforms now read this first.
   String? userKey;
 
-  /// Android `AppName.appName` (ReportParamDto.app). iOS: not used - the
-  /// framework hardcodes `app = "ScanMyNet"`, so this is dropped there.
+  /// The embedding app's name, sent as the report's `app` field on both
+  /// platforms. Android `AppName.appName`, iOS `ScanMyNetConfiguration.appName`.
+  /// iOS had no way to carry it until SDK 1.2.0, and reported "ScanMyNet" for
+  /// every host app instead.
   String? appName;
 
   /// Deprecated alias for [userKey], read only when [userKey] is unset.

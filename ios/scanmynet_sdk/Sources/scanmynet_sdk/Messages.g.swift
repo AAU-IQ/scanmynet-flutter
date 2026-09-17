@@ -253,8 +253,10 @@ struct ScanConfig: Hashable {
   /// app that set just this got the right key on Android and the native
   /// fallback on iOS. Both platforms now read this first.
   var userKey: String? = nil
-  /// Android `AppName.appName` (ReportParamDto.app). iOS: not used - the
-  /// framework hardcodes `app = "ScanMyNet"`, so this is dropped there.
+  /// The embedding app's name, sent as the report's `app` field on both
+  /// platforms. Android `AppName.appName`, iOS `ScanMyNetConfiguration.appName`.
+  /// iOS had no way to carry it until SDK 1.2.0, and reported "ScanMyNet" for
+  /// every host app instead.
   var appName: String? = nil
   /// Deprecated alias for the customer key, read only when `userKey` is unset.
   /// It fed iOS while `userKey` fed Android, though both end up in the report's

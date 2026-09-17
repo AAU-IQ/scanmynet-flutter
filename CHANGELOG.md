@@ -15,6 +15,14 @@ figure in all of them was wrong.
   platforms now read `userKey` first and fall back to `requestKey`, so either
   name works on both and apps setting only one keep working.
 
+* **Fix (iOS, bundled SDK):** reports named the wrong app. `Report.init()` set
+  `app = "ScanMyNet"` and nothing ever set it again, because the native
+  configuration had no way for a caller to say what its app was called — so
+  every iOS report claimed to come from an app called ScanMyNet whoever had
+  actually embedded the SDK, while Android sent the embedding app's name.
+  `ScanConfig.appName` now reaches iOS and is applied when non-blank; unset, the
+  old value stands.
+
 * **Fix (iOS, bundled SDK):** the scan stopped at 25% on every scan after the
   first in a session. The connectivity step counts completed server checks
   against the server count to know when it is done, and that counter was reset

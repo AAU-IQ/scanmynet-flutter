@@ -12954,7 +12954,7 @@
           {
             "kind": "Constructor",
             "name": "init",
-            "printedName": "init(apiKey:requestKey:environment:)",
+            "printedName": "init(apiKey:requestKey:appName:environment:)",
             "children": [
               {
                 "kind": "TypeNominal",
@@ -12994,14 +12994,29 @@
               },
               {
                 "kind": "TypeNominal",
+                "name": "Optional",
+                "printedName": "Swift.String?",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "String",
+                    "printedName": "Swift.String",
+                    "usr": "s:SS"
+                  }
+                ],
+                "hasDefaultArg": true,
+                "usr": "s:Sq"
+              },
+              {
+                "kind": "TypeNominal",
                 "name": "Environment",
                 "printedName": "ScanMyNet.Environment",
                 "usr": "s:9ScanMyNet11EnvironmentO"
               }
             ],
             "declKind": "Constructor",
-            "usr": "s:9ScanMyNet0abC13ConfigurationC6apiKey07requestF011environmentACSSSg_AgA11EnvironmentOtcfc",
-            "mangledName": "$s9ScanMyNet0abC13ConfigurationC6apiKey07requestF011environmentACSSSg_AgA11EnvironmentOtcfc",
+            "usr": "s:9ScanMyNet0abC13ConfigurationC6apiKey07requestF07appName11environmentACSSSg_A2hA11EnvironmentOtcfc",
+            "mangledName": "$s9ScanMyNet0abC13ConfigurationC6apiKey07requestF07appName11environmentACSSSg_A2hA11EnvironmentOtcfc",
             "moduleName": "ScanMyNet",
             "declAttributes": [
               "AccessControl"
@@ -14100,154 +14115,154 @@
     {
       "filePath": "\/Users\/vagrant\/git\/ScanMyNet\/Models\/Report.swift",
       "kind": "StringLiteral",
-      "offset": 7605,
+      "offset": 7862,
       "length": 22,
       "value": "\"last_known_public_ip\""
     },
     {
       "filePath": "\/Users\/vagrant\/git\/ScanMyNet\/Models\/Report.swift",
       "kind": "StringLiteral",
-      "offset": 7663,
+      "offset": 7920,
       "length": 24,
       "value": "\"user_public_up_address\""
     },
     {
       "filePath": "\/Users\/vagrant\/git\/ScanMyNet\/Models\/Report.swift",
       "kind": "StringLiteral",
-      "offset": 7791,
+      "offset": 8048,
       "length": 14,
       "value": "\"model_number\""
     },
     {
       "filePath": "\/Users\/vagrant\/git\/ScanMyNet\/Models\/Report.swift",
       "kind": "StringLiteral",
-      "offset": 7837,
+      "offset": 8094,
       "length": 19,
       "value": "\"router_ip_address\""
     },
     {
       "filePath": "\/Users\/vagrant\/git\/ScanMyNet\/Models\/Report.swift",
       "kind": "StringLiteral",
-      "offset": 7889,
+      "offset": 8146,
       "length": 20,
       "value": "\"router_mac_address\""
     },
     {
       "filePath": "\/Users\/vagrant\/git\/ScanMyNet\/Models\/Report.swift",
       "kind": "StringLiteral",
-      "offset": 7942,
+      "offset": 8199,
       "length": 20,
       "value": "\"network_usage_down\""
     },
     {
       "filePath": "\/Users\/vagrant\/git\/ScanMyNet\/Models\/Report.swift",
       "kind": "StringLiteral",
-      "offset": 7993,
+      "offset": 8250,
       "length": 18,
       "value": "\"network_usage_up\""
     },
     {
       "filePath": "\/Users\/vagrant\/git\/ScanMyNet\/Models\/Report.swift",
       "kind": "StringLiteral",
-      "offset": 8092,
+      "offset": 8349,
       "length": 19,
       "value": "\"model_description\""
     },
     {
       "filePath": "\/Users\/vagrant\/git\/ScanMyNet\/Models\/Report.swift",
       "kind": "StringLiteral",
-      "offset": 8140,
+      "offset": 8397,
       "length": 15,
       "value": "\"friendly_name\""
     },
     {
       "filePath": "\/Users\/vagrant\/git\/ScanMyNet\/Models\/Report.swift",
       "kind": "StringLiteral",
-      "offset": 8182,
+      "offset": 8439,
       "length": 13,
       "value": "\"device_type\""
     },
     {
       "filePath": "\/Users\/vagrant\/git\/ScanMyNet\/Models\/Report.swift",
       "kind": "StringLiteral",
-      "offset": 8224,
+      "offset": 8481,
       "length": 16,
       "value": "\"route_this_sdk\""
     },
     {
       "filePath": "\/Users\/vagrant\/git\/ScanMyNet\/Models\/Report.swift",
       "kind": "StringLiteral",
-      "offset": 8271,
+      "offset": 8528,
       "length": 18,
       "value": "\"network_speed_up\""
     },
     {
       "filePath": "\/Users\/vagrant\/git\/ScanMyNet\/Models\/Report.swift",
       "kind": "StringLiteral",
-      "offset": 8322,
+      "offset": 8579,
       "length": 20,
       "value": "\"network_speed_down\""
     },
     {
       "filePath": "\/Users\/vagrant\/git\/ScanMyNet\/Models\/Report.swift",
       "kind": "StringLiteral",
-      "offset": 8370,
+      "offset": 8627,
       "length": 14,
       "value": "\"gps_latitude\""
     },
     {
       "filePath": "\/Users\/vagrant\/git\/ScanMyNet\/Models\/Report.swift",
       "kind": "StringLiteral",
-      "offset": 8413,
+      "offset": 8670,
       "length": 15,
       "value": "\"gps_longitude\""
     },
     {
       "filePath": "\/Users\/vagrant\/git\/ScanMyNet\/Models\/Report.swift",
       "kind": "StringLiteral",
-      "offset": 8463,
+      "offset": 8720,
       "length": 21,
       "value": "\"server_connectivity\""
     },
     {
       "filePath": "\/Users\/vagrant\/git\/ScanMyNet\/Models\/Report.swift",
       "kind": "StringLiteral",
-      "offset": 8523,
+      "offset": 8780,
       "length": 27,
       "value": "\"network_speed_up_segments\""
     },
     {
       "filePath": "\/Users\/vagrant\/git\/ScanMyNet\/Models\/Report.swift",
       "kind": "StringLiteral",
-      "offset": 8591,
+      "offset": 8848,
       "length": 29,
       "value": "\"network_speed_down_segments\""
     },
     {
       "filePath": "\/Users\/vagrant\/git\/ScanMyNet\/Models\/Report.swift",
       "kind": "StringLiteral",
-      "offset": 8647,
+      "offset": 8904,
       "length": 13,
       "value": "\"port_checks\""
     },
     {
       "filePath": "\/Users\/vagrant\/git\/ScanMyNet\/Models\/Report.swift",
       "kind": "StringLiteral",
-      "offset": 8686,
+      "offset": 8943,
       "length": 12,
       "value": "\"dns_lookup\""
     },
     {
       "filePath": "\/Users\/vagrant\/git\/ScanMyNet\/Models\/Report.swift",
       "kind": "StringLiteral",
-      "offset": 8727,
+      "offset": 8984,
       "length": 15,
       "value": "\"local_devices\""
     },
     {
       "filePath": "\/Users\/vagrant\/git\/ScanMyNet\/Models\/Report.swift",
       "kind": "StringLiteral",
-      "offset": 8776,
+      "offset": 9033,
       "length": 22,
       "value": "\"dns_raw_ping_results\""
     },

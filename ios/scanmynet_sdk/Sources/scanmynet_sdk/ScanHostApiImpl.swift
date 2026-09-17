@@ -48,6 +48,7 @@ final class ScanHostApiImpl: NSObject, ScanHostApi {
     let configuration = ScanMyNetConfiguration(
       apiKey: config.apiKey,
       requestKey: Self.customerKey(from: config),
+      appName: config.appName,
       environment: try config.toNativeEnvironment()
     )
     let manager = ScanMyNetManager(configuration: configuration)
