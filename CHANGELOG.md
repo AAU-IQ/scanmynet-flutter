@@ -1,3 +1,40 @@
+## 1.2.0
+
+All iOS. One plugin fix, plus a rebuilt native SDK carrying two more — every
+iOS report so far has been filed under the wrong customer key, and the upload
+figure in all of them was wrong.
+
+* **Fix (iOS):** the customer key never reached the native SDK, so reports were
+  filed against another customer and could not be found in the dashboard.
+  `ScanConfig.userKey` and `ScanConfig.requestKey` are the same field on the
+  wire — both become the report's `key` — but each bridge read only one of them:
+  Android took `userKey`, iOS took `requestKey`. An app setting just `userKey`,
+  the documented customer key, left iOS with nothing, and the native
+  `ScanMyNetConfiguration` then substituted its own built-in fallback key. The
+  submission still returned 200 with a report id, so nothing looked wrong. Both
+  platforms now read `userKey` first and fall back to `requestKey`, so either
+  name works on both and apps setting only one keep working.
+
+* **Fix (iOS, bundled SDK):** the scan stopped at 25% on every scan after the
+  first in a session. The connectivity step counts completed server checks
+  against the server count to know when it is done, and that counter was reset
+  only on `cancel()` — never on a scan that completed. The second scan began
+  counting from the first one's leftovers, the count started past the total, the
+  comparison never came true and nothing handed the step on. Two narrower stalls
+  in the same step are closed with it: an empty server list, and a completion
+  arriving late from a cancelled scan.
+
+* **Fix (iOS, bundled SDK):** the upload reading was pinned to 1–3 Mbit/s
+  whatever connection it ran over, while the download on the same scan was
+  accurate. URLSession offers `h2` in ALPN and the speed-test host accepts it,
+  and an HTTP/2 stream is bounded by the peer's flow-control window — that host
+  never raises it from the 65535-byte default, so a 10 MB upload spent 98% of
+  its time blocked waiting for `WINDOW_UPDATE`. The upload ran at window/RTT
+  rather than at the line rate, which is why the number never moved and why it
+  fell further the further a user was from the server. The upload leg now writes
+  HTTP/1.1 over its own connection with ALPN pinned, the way the Android SDK
+  always has. Downloads are unaffected and unchanged.
+
 ## 1.1.9
 
 All Android, and **required if your app uses Jetpack Compose** — on every
