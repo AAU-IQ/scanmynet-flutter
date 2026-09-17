@@ -13056,6 +13056,13 @@
       },
       {
         "kind": "Import",
+        "name": "Network",
+        "printedName": "Network",
+        "declKind": "Import",
+        "moduleName": "ScanMyNet"
+      },
+      {
+        "kind": "Import",
         "name": "Foundation",
         "printedName": "Foundation",
         "declKind": "Import",
@@ -15408,99 +15415,141 @@
     },
     {
       "filePath": "\/Users\/vagrant\/git\/ScanMyNet\/Services\/Server Connectivity\/ServerConnectivityService.swift",
+      "kind": "BooleanLiteral",
+      "offset": 555,
+      "length": 5,
+      "value": "false"
+    },
+    {
+      "filePath": "\/Users\/vagrant\/git\/ScanMyNet\/Services\/Server Connectivity\/ServerConnectivityService.swift",
       "kind": "StringLiteral",
-      "offset": 358,
+      "offset": 588,
       "length": 35,
       "value": "\"com.creativeadvtech.scanmynet-ios\""
     },
     {
       "filePath": "\/Users\/vagrant\/git\/ScanMyNet\/Services\/SpeedCheck\/SpeedCheck.swift",
       "kind": "StringLiteral",
-      "offset": 1417,
+      "offset": 1432,
       "length": 46,
       "value": "\"https:\/\/ipv4.scaleway.testdebit.info\/50M.iso\""
     },
     {
       "filePath": "\/Users\/vagrant\/git\/ScanMyNet\/Services\/SpeedCheck\/SpeedCheck.swift",
       "kind": "StringLiteral",
-      "offset": 2134,
+      "offset": 2015,
       "length": 48,
       "value": "\"https:\/\/ipv4.scaleway.testdebit.info\/empty.php\""
     },
     {
       "filePath": "\/Users\/vagrant\/git\/ScanMyNet\/Services\/SpeedCheck\/SpeedCheck.swift",
       "kind": "IntegerLiteral",
-      "offset": 2226,
+      "offset": 2107,
       "length": 2,
       "value": "10"
     },
     {
       "filePath": "\/Users\/vagrant\/git\/ScanMyNet\/Services\/SpeedCheck\/SpeedCheck.swift",
       "kind": "IntegerLiteral",
-      "offset": 2231,
+      "offset": 2112,
       "length": 4,
       "value": "1024"
     },
     {
       "filePath": "\/Users\/vagrant\/git\/ScanMyNet\/Services\/SpeedCheck\/SpeedCheck.swift",
       "kind": "IntegerLiteral",
-      "offset": 2238,
+      "offset": 2119,
       "length": 4,
       "value": "1024"
     },
     {
       "filePath": "\/Users\/vagrant\/git\/ScanMyNet\/Services\/SpeedCheck\/SpeedCheck.swift",
       "kind": "IntegerLiteral",
-      "offset": 2327,
+      "offset": 2208,
       "length": 2,
       "value": "25"
     },
     {
       "filePath": "\/Users\/vagrant\/git\/ScanMyNet\/Services\/SpeedCheck\/SpeedCheck.swift",
       "kind": "FloatLiteral",
-      "offset": 2520,
+      "offset": 2401,
       "length": 4,
       "value": "0.25"
     },
     {
       "filePath": "\/Users\/vagrant\/git\/ScanMyNet\/Services\/SpeedCheck\/SpeedCheck.swift",
       "kind": "IntegerLiteral",
-      "offset": 2747,
+      "offset": 2628,
       "length": 2,
       "value": "60"
     },
     {
       "filePath": "\/Users\/vagrant\/git\/ScanMyNet\/Services\/SpeedCheck\/SpeedCheck.swift",
       "kind": "Array",
-      "offset": 2871,
+      "offset": 2789,
       "length": 2,
       "value": "[]"
     },
     {
       "filePath": "\/Users\/vagrant\/git\/ScanMyNet\/Services\/SpeedCheck\/SpeedCheck.swift",
       "kind": "Array",
-      "offset": 2916,
+      "offset": 2834,
       "length": 2,
       "value": "[]"
     },
     {
       "filePath": "\/Users\/vagrant\/git\/ScanMyNet\/Services\/SpeedCheck\/SpeedCheck.swift",
       "kind": "IntegerLiteral",
-      "offset": 2961,
+      "offset": 2879,
       "length": 1,
       "value": "0"
     },
     {
       "filePath": "\/Users\/vagrant\/git\/ScanMyNet\/Services\/SpeedCheck\/SpeedCheck.swift",
       "kind": "BooleanLiteral",
-      "offset": 3034,
+      "offset": 2952,
       "length": 5,
       "value": "false"
     },
     {
       "filePath": "\/Users\/vagrant\/git\/ScanMyNet\/Services\/SpeedCheck\/SpeedCheck.swift",
       "kind": "BooleanLiteral",
-      "offset": 3164,
+      "offset": 3082,
+      "length": 5,
+      "value": "false"
+    },
+    {
+      "filePath": "\/Users\/vagrant\/git\/ScanMyNet\/Services\/SpeedCheck\/SpeedCheck.swift",
+      "kind": "IntegerLiteral",
+      "offset": 13454,
+      "length": 2,
+      "value": "64"
+    },
+    {
+      "filePath": "\/Users\/vagrant\/git\/ScanMyNet\/Services\/SpeedCheck\/SpeedCheck.swift",
+      "kind": "IntegerLiteral",
+      "offset": 13459,
+      "length": 4,
+      "value": "1024"
+    },
+    {
+      "filePath": "\/Users\/vagrant\/git\/ScanMyNet\/Services\/SpeedCheck\/SpeedCheck.swift",
+      "kind": "StringLiteral",
+      "offset": 13605,
+      "length": 38,
+      "value": "\"com.creativeadvtech.scanmynet.upload\""
+    },
+    {
+      "filePath": "\/Users\/vagrant\/git\/ScanMyNet\/Services\/SpeedCheck\/SpeedCheck.swift",
+      "kind": "IntegerLiteral",
+      "offset": 13822,
+      "length": 1,
+      "value": "0"
+    },
+    {
+      "filePath": "\/Users\/vagrant\/git\/ScanMyNet\/Services\/SpeedCheck\/SpeedCheck.swift",
+      "kind": "BooleanLiteral",
+      "offset": 13855,
       "length": 5,
       "value": "false"
     },
