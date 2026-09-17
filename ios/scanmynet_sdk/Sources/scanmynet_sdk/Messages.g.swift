@@ -246,12 +246,21 @@ enum ScanErrorKind: Int {
 struct ScanConfig: Hashable {
   /// MANDATORY on both. Android `ApiKey.apiKey`; iOS `configuration.apiKey`.
   var apiKey: String
-  /// Android `UserKey.userKey` (sent as ReportParamDto.key). iOS: not used.
-  /// TODO(confirm): is iOS `requestKey` the same concept as Android `userKey`?
+  /// The customer key. Reports are filed and searched by it, so set this one.
+  ///
+  /// Android `UserKey.userKey`, iOS `ScanMyNetConfiguration.requestKey` - the
+  /// same field on the wire. Each bridge used to read only its own name, so an
+  /// app that set just this got the right key on Android and the native
+  /// fallback on iOS. Both platforms now read this first.
   var userKey: String? = nil
-  /// Android `AppName.appName` (ReportParamDto.app). iOS: not used.
+  /// The embedding app's name, sent as the report's `app` field on both
+  /// platforms. Android `AppName.appName`, iOS `ScanMyNetConfiguration.appName`.
+  /// iOS had no way to carry it until SDK 1.1.11, and reported "ScanMyNet" for
+  /// every host app instead.
   var appName: String? = nil
-  /// iOS `ScanMyNetConfiguration.requestKey`. Android: not used.
+  /// Deprecated alias for the customer key, read only when `userKey` is unset.
+  /// It fed iOS while `userKey` fed Android, though both end up in the report's
+  /// `key`. New callers should set `userKey` instead.
   var requestKey: String? = nil
   /// Backend selector, honoured on both platforms. Null defaults to
   /// [ScanEnvironment.production].

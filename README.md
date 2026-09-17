@@ -9,7 +9,7 @@ backend.
 
 ```yaml
 dependencies:
-  scanmynet_sdk: ^1.1.9
+  scanmynet_sdk: ^1.1.11
 ```
 
 ## Prerequisites
@@ -263,6 +263,8 @@ final sub = sdk.events.listen((event) {
 // 2. Configure (choose the backend with `environment`), then start.
 await sdk.configure(ScanConfig(
   apiKey: 'your-key',
+  userKey: 'your-customer-key', // reports are filed and searched by this
+  appName: 'Your App',          // shown on the report as the originating app
   environment: ScanEnvironment.production, // .dev | .staging | .production | .custom
 ));
 await sdk.startScan();
@@ -283,6 +285,24 @@ sdk.dispose();
 | `startScan()` | begin a scan; results arrive via `events` |
 | `cancel()` | cancel an in-flight scan (iOS) |
 | `dispose()` | detach the native handler and close the streams |
+
+`ScanConfig` fields worth setting explicitly:
+
+| Field | Purpose |
+|---|---|
+| `apiKey` | **Mandatory.** Authenticates the submission; a missing or wrong key is a 401 |
+| `userKey` | The customer key. Reports are filed and searched by it — set it, or you will not find your scans |
+| `appName` | The embedding app's name, shown on the report as its origin |
+| `requestKey` | Deprecated alias for `userKey`, read only when `userKey` is unset |
+
+> **Before 1.1.11, `userKey` reached Android only.** iOS read `requestKey`
+> instead, and where that was unset the native SDK substituted a built-in
+> fallback key of its own — so iOS reports were filed against a different
+> customer and could not be found, while the submission still returned 200 with
+> a report id and nothing looked wrong. From 1.1.11 both platforms read
+> `userKey` first and fall back to `requestKey`, so either name works on both.
+> `appName` reached Android only over the same period; iOS reported every scan
+> as coming from an app called `ScanMyNet`.
 
 ### Pointing the SDK at your own backend
 
@@ -346,13 +366,15 @@ defensively with `?.` and treat `null` as "not measured":
 > against the same server, with the same file size and sampling, so an iOS and
 > an Android download reading on one network can be compared directly.
 >
-> **Upload figures are not, yet.** From 1.1.7 iOS uploads to an endpoint that
-> consumes the whole request body; Android still posts to one that discards it
-> after the first TCP window, so Android measures how fast the socket accepted
-> the write rather than how fast the data crossed the link, and reads high —
-> several times the download figure on the same connection. **Expect iOS to
-> report the lower and more accurate of the two** until the Android SDK moves to
-> the same endpoint.
+> **Upload figures are comparable from 1.1.11.** Before that, iOS read 1–3 Mbps
+> on every connection however fast it was — one report read 131 down and 2.4 up,
+> where Android on the same network matched a reference speed test. iOS uploaded
+> through URLSession, which negotiates HTTP/2, and the speed-test host never
+> raises the HTTP/2 stream window from its 65535-byte default: the transfer ran
+> at window ÷ round-trip rather than at the line rate, so the figure barely moved
+> with the connection and fell the further a user was from the server. **Discard
+> iOS upload readings from 1.1.7–1.1.10**; downloads over the same period were
+> unaffected and remain comparable.
 
 | Section | Type | Contains |
 |---|---|---|

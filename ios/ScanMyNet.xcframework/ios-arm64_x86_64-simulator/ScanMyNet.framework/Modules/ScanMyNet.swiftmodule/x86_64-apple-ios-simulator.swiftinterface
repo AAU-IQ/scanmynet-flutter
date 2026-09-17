@@ -301,7 +301,7 @@ public enum Environment {
   public static func custom(_ baseUrl: Swift.String) -> ScanMyNet.Environment
 }
 public class ScanMyNetConfiguration {
-  public init(apiKey: Swift.String? = nil, requestKey: Swift.String? = nil, environment: ScanMyNet.Environment)
+  public init(apiKey: Swift.String? = nil, requestKey: Swift.String? = nil, appName: Swift.String? = nil, environment: ScanMyNet.Environment)
   @objc deinit
 }
 public protocol ScanMyNetDelegate {
