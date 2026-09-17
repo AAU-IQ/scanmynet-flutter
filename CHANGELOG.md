@@ -1,4 +1,4 @@
-## 1.2.0
+## 1.1.11
 
 All iOS. One plugin fix, plus a rebuilt native SDK carrying two more — every
 iOS report so far has been filed under the wrong customer key, and the upload

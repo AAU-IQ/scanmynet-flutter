@@ -313,7 +313,7 @@ data class ScanConfig (
   /**
    * The embedding app's name, sent as the report's `app` field on both
    * platforms. Android `AppName.appName`, iOS `ScanMyNetConfiguration.appName`.
-   * iOS had no way to carry it until SDK 1.2.0, and reported "ScanMyNet" for
+   * iOS had no way to carry it until SDK 1.1.11, and reported "ScanMyNet" for
    * every host app instead.
    */
   val appName: String? = null,
