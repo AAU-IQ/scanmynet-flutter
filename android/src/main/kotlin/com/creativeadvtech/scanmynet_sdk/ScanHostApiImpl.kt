@@ -59,7 +59,7 @@ class ScanHostApiImpl(
         frontendBaseUrl = environment.frontendUrl
         networkScan = NetworkScan.builder()
             .context(context)
-            .userKey(config.userKey.orEmpty())
+            .userKey(customerKey(config))
             .apiKey(config.apiKey)
             .appName(config.appName.orEmpty())
             .environment(environment)
@@ -69,6 +69,20 @@ class ScanHostApiImpl(
             .errorCallback { error -> onMain { flutterApi.onError(error.toPigeon()) {} } }
             .build()
     }
+
+    /**
+     * The customer key, from whichever property the host app filled in.
+     *
+     * `userKey` and `requestKey` are the same field on the wire - both become
+     * the report's `key` - but the bridges read one each, so whichever name an
+     * app set, the other platform sent something else. `userKey` wins here too,
+     * so both platforms agree on which one is authoritative; `requestKey` is
+     * honoured only when `userKey` is unset.
+     */
+    private fun customerKey(config: ScanConfig): String =
+        config.userKey?.takeIf { it.isNotBlank() }
+            ?: config.requestKey?.takeIf { it.isNotBlank() }
+            ?: ""
 
     override fun startScan() {
         val scan = networkScan

@@ -47,12 +47,36 @@ final class ScanHostApiImpl: NSObject, ScanHostApi {
     lastPercent = 0
     let configuration = ScanMyNetConfiguration(
       apiKey: config.apiKey,
-      requestKey: config.requestKey,
+      requestKey: Self.customerKey(from: config),
       environment: try config.toNativeEnvironment()
     )
     let manager = ScanMyNetManager(configuration: configuration)
     manager.delegate = self
     self.manager = manager
+  }
+
+  /// The customer key, from whichever property the host app filled in.
+  ///
+  /// `userKey` and `requestKey` are the same field on the wire - both become the
+  /// report's `key`, which is what reports are filed and searched by - but the
+  /// bridges read one each: Android took `userKey`, iOS took `requestKey`. An
+  /// app that set only `userKey`, the documented customer key, left this side
+  /// with nil, and ScanMyNetConfiguration then quietly substituted its built-in
+  /// fallback key. The submission still returned 200 with a report id, so
+  /// nothing looked wrong - the reports were simply filed against another
+  /// customer and could not be found.
+  ///
+  /// `userKey` wins because it is the name Android has always used and the one
+  /// the dashboard searches by. `requestKey` is honoured only when `userKey` is
+  /// unset, so apps that set just that keep working.
+  private static func customerKey(from config: ScanConfig) -> String? {
+    for candidate in [config.userKey, config.requestKey] {
+      if let key = candidate,
+         !key.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty {
+        return key
+      }
+    }
+    return nil
   }
 
   func startScan() throws {
