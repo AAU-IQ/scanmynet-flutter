@@ -3,7 +3,7 @@
   "component": {
     "group": "org.bitbucket.creativeadvtech",
     "module": "tools",
-    "version": "1.6",
+    "version": "1.7",
     "attributes": {
       "org.gradle.status": "release"
     }
@@ -68,13 +68,13 @@
       ],
       "files": [
         {
-          "name": "tools-1.6.aar",
-          "url": "tools-1.6.aar",
-          "size": 321719,
-          "sha512": "aa32f9325ff278b2e9ebf5b203c97319d09d7f8745462f2502e1373ae87d2d1b89f6bf5fd825859431d0f2ae1f1a4814209f357e4a2a9ad327c93b9cd82bbf6a",
-          "sha256": "5b047f1cb0f65031ba42d97a5b5cb6cf9bb0a377bd267bbacea8695f6db1989c",
-          "sha1": "8a03534f8895db9ab017f267db7689ced050443b",
-          "md5": "88820b63228744035a76e3100cc11208"
+          "name": "tools-1.7.aar",
+          "url": "tools-1.7.aar",
+          "size": 325986,
+          "sha512": "927d23c1548511a3014362372bb6a4a48deae1a2fbfbeb915aa78c83ebc92fd190b7b16409fd57c7e8c6e846e30f7692937d6cb2055a1c931f2df7020a7d5e37",
+          "sha256": "be2d2e4f1f7c4541eb223b013c20729619f0fee028946fba9e06cdb72e79ae5a",
+          "sha1": "55a8044a1dbf3779a81c5f23e18ae3b73edd0430",
+          "md5": "278b3bfe46ad7d36dfa1492f85a5c589"
         }
       ]
     },
@@ -113,13 +113,6 @@
           "module": "rxjava",
           "version": {
             "requires": "3.1.12"
-          }
-        },
-        {
-          "group": "fr.bmartel",
-          "module": "jspeedtest",
-          "version": {
-            "requires": "1.32.1"
           }
         },
         {
@@ -188,13 +181,13 @@
       ],
       "files": [
         {
-          "name": "tools-1.6.aar",
-          "url": "tools-1.6.aar",
-          "size": 321719,
-          "sha512": "aa32f9325ff278b2e9ebf5b203c97319d09d7f8745462f2502e1373ae87d2d1b89f6bf5fd825859431d0f2ae1f1a4814209f357e4a2a9ad327c93b9cd82bbf6a",
-          "sha256": "5b047f1cb0f65031ba42d97a5b5cb6cf9bb0a377bd267bbacea8695f6db1989c",
-          "sha1": "8a03534f8895db9ab017f267db7689ced050443b",
-          "md5": "88820b63228744035a76e3100cc11208"
+          "name": "tools-1.7.aar",
+          "url": "tools-1.7.aar",
+          "size": 325986,
+          "sha512": "927d23c1548511a3014362372bb6a4a48deae1a2fbfbeb915aa78c83ebc92fd190b7b16409fd57c7e8c6e846e30f7692937d6cb2055a1c931f2df7020a7d5e37",
+          "sha256": "be2d2e4f1f7c4541eb223b013c20729619f0fee028946fba9e06cdb72e79ae5a",
+          "sha1": "55a8044a1dbf3779a81c5f23e18ae3b73edd0430",
+          "md5": "278b3bfe46ad7d36dfa1492f85a5c589"
         }
       ]
     },
@@ -208,13 +201,13 @@
       },
       "files": [
         {
-          "name": "tools-1.6-sources.jar",
-          "url": "tools-1.6-sources.jar",
-          "size": 74030,
-          "sha512": "dbcdd3daaa1514c707b07eebe648ca2ad032310b641d664585fe9bf6930ee5ad928f5d3f26ed325e3b09ac2b3f03fcfa24ec1548e78808ac90f93c0ad56ee669",
-          "sha256": "388bb12db592bef3ab67a14e45b131eefb63dd13e405c539e06534ea082d2655",
-          "sha1": "0a3ddbcdde84852aa0338877e042bd42ff5a3139",
-          "md5": "2207f37dc1fe05d580db2c6083e31a83"
+          "name": "tools-1.7-sources.jar",
+          "url": "tools-1.7-sources.jar",
+          "size": 77110,
+          "sha512": "6b847aca0b721e0efea3b55e26f12bb96de6082849b6fa139ffb0a5d3232ee55110a419fbab8e601a5d28384962f2764596885e1cf6e20dc3f552c752c2d3118",
+          "sha256": "eeab0c788d5d8172c70790e7c2105715f43fd49e627c9e724f27ae63a6339d88",
+          "sha1": "6af747e07c2d97fbd6b01c4fb55c5b57a9908458",
+          "md5": "a651a56c80c23806139abb25df49290c"
         }
       ]
     }

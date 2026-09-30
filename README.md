@@ -9,7 +9,7 @@ backend.
 
 ```yaml
 dependencies:
-  scanmynet_sdk: ^1.1.11
+  scanmynet_sdk: ^1.2.0
 ```
 
 ## Prerequisites
@@ -19,7 +19,7 @@ dependencies:
 | Flutter / Dart | ≥ 3.3.0 / ^3.12.0 |
 | Android SDK | compileSdk 36, minSdk 24 |
 | Java | 17 |
-| iOS / CocoaPods | deployment target ≥ 13.0 |
+| iOS / CocoaPods | deployment target ≥ 15.0 |
 | Xcode | 15+ |
 | FVM (recommended) | any |
 
@@ -98,6 +98,11 @@ counterpart of the Android AARs). Its three third-party Swift dependencies
 (`Alamofire`, `XMLCoder`, `BlueSocket`) are declared in
 `ios/scanmynet_sdk.podspec` and resolved from the public CocoaPods trunk during
 `pod install`.
+
+> **Upgrading from 1.1.11 or earlier:** the SDK now needs **iOS 15**. Set
+> `platform :ios, '15.0'` in your app's `ios/Podfile` and raise the Runner
+> target's deployment target to match — with either left at 13.0, `pod install`
+> fails with "required a higher minimum deployment target".
 
 > **Upgrading from 1.1.5 or earlier:** `NDT7` is no longer a dependency — run
 > `pod install` and drop it from your `post_install` list if you named it there.
@@ -362,9 +367,17 @@ device on iOS until 1.1.8.
 `ReportData` has 15 optional sections. **Every field is nullable** — read
 defensively with `?.` and treat `null` as "not measured":
 
-> **Download figures are comparable across platforms.** Both SDKs measure
-> against the same server, with the same file size and sampling, so an iOS and
-> an Android download reading on one network can be compared directly.
+> **Speed figures are comparable across platforms.** Both SDKs measure against
+> `speed.cloudflare.com` with the same plan: payloads grow from 100 KB until a
+> request takes a second, each direction stops at 150 MB or 45 s, and the figure
+> is the 90th percentile of the per-request rates. A slow connection therefore
+> finishes the speed test in about a minute and a half instead of stalling the
+> scan.
+>
+> **Readings from 1.2.0 on are not comparable with earlier ones.** They are in
+> decimal Mbps; earlier releases reported Mibit/s, which reads 4.86% low, and
+> measured a single large download against another server. Don't trend a
+> customer's speed across the upgrade.
 >
 > **Upload figures are comparable from 1.1.11.** Before that, iOS read 1–3 Mbps
 > on every connection however fast it was — one report read 131 down and 2.4 up,
@@ -458,7 +471,7 @@ identifiers. Unrecognised values resolve to `unknown` rather than throwing.
 
 | Artifact | Maven coordinates | Source |
 |----------|-------------------|--------|
-| `tools-1.5.aar` | `org.bitbucket.creativeadvtech:tools:1.5` | `scanmynet-android` `:tools` module |
+| `tools-1.7.aar` | `org.bitbucket.creativeadvtech:tools:1.7` | `scanmynet-android` `:tools` module |
 | `traceroute-1.0.1.aar` | `com.synaptic-tools:traceroute:1.0.1` | rebuilt from upstream sources for 16 KB page alignment |
 
 AARs are served from `android/local-maven-repo/` using standard Maven layout.
