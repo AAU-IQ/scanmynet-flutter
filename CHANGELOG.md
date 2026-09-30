@@ -1,3 +1,9 @@
+## 1.2.1
+
+Documentation only; no code change from 1.2.0.
+
+* **Docs:** reworded the 1.2.0 entry below.
+
 ## 1.2.0
 
 Both platforms. A new speed test, and **iOS 15 is now the minimum** — raise your
