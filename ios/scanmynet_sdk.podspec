@@ -16,7 +16,7 @@ structured diagnostics report to Flutter.
   s.source           = { :path => '.' }
   s.source_files = 'scanmynet_sdk/Sources/scanmynet_sdk/**/*'
   s.dependency 'Flutter'
-  s.platform = :ios, '13.0'
+  s.platform = :ios, '15.0'
 
   # The native ScanMyNet SDK, bundled as a prebuilt binary (the iOS counterpart
   # of the Android `tools` AAR). Rebuild it from scanmynet-ios via:

@@ -60,8 +60,10 @@ implementation("org.bitbucket.creativeadvtech:tools:X.Y")
 
 Delete the superseded version directory in the same commit — the plugin
 resolves exactly one version, and every other one is dead weight shipped to
-every consumer. Re-run the publish afterwards so `maven-metadata.xml` stops
-advertising versions that are no longer present.
+every consumer. Then delete `tools/maven-metadata.xml*` and publish again.
+Re-running the publish alone is not enough: Gradle merges into the existing
+`maven-metadata.xml` rather than rewriting it, so it keeps advertising the
+version you just deleted.
 
 Finally, rebuild a consuming app (`flutter build apk --debug`) before
 committing. Resolution failures here surface in the consumer, not in this
@@ -110,6 +112,12 @@ xcodebuild -create-xcframework \
 
 If the SDK's own dependency set changes, update the `s.dependency` lines in
 `ios/scanmynet_sdk.podspec` to match `scanmynet-ios/Podfile.lock`.
+
+That lock file is not committed to `scanmynet-ios`, and its `Podfile` leaves
+`Alamofire` and `BlueSocket` unpinned, so the versions a framework was built
+against exist only on the machine that built it. Whoever rebuilds the framework
+must send their `Podfile.lock` with it, and the pins here must be checked
+against it before release.
 
 ### Library evolution (important)
 
