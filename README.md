@@ -9,7 +9,7 @@ backend.
 
 ```yaml
 dependencies:
-  scanmynet_sdk: ^1.2.0
+  scanmynet_sdk: ^1.2.1
 ```
 
 ## Prerequisites

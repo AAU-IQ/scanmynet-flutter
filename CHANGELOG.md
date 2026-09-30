@@ -1,14 +1,20 @@
+## 1.2.1
+
+Documentation only; no code change from 1.2.0.
+
+* **Docs:** reworded the 1.2.0 entry below.
+
 ## 1.2.0
 
 Both platforms. A new speed test, and **iOS 15 is now the minimum** — raise your
 app's iOS deployment target before upgrading.
 
-* **Changed (both, bundled SDKs):** the speed test now measures against
-  `speed.cloudflare.com`, with the same plan on Android and iOS so a customer
-  gets the same number on either phone. Payloads grow from 100 KB and stop
-  growing once a request takes a second; each direction is capped at 150 MB and
-  45 s; the figure is the 90th percentile of the per-request rates, timed from
-  when each request's headers go out, minus Cloudflare's own processing time.
+* **Changed (both, bundled SDKs):** a new speed test, with the same plan on
+  Android and iOS so a customer gets the same number on either phone. Payloads
+  grow from 100 KB and stop growing once a request takes a second; each
+  direction is capped at 150 MB and 45 s; the figure is the 90th percentile of
+  the per-request rates, timed from when each request's headers go out, minus
+  the server's own processing time.
   The old test downloaded a fixed 50 MB file with no time limit, so on a slow
   line one scan could run for over a quarter of an hour, and a host that could
   not be reached cost two minutes before it failed.
