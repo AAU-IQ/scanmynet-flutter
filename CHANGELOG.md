@@ -1,3 +1,33 @@
+## 1.2.0
+
+Both platforms. A new speed test, and **iOS 15 is now the minimum** — raise your
+app's iOS deployment target before upgrading.
+
+* **Changed (both, bundled SDKs):** the speed test now measures against
+  `speed.cloudflare.com`, with the same plan on Android and iOS so a customer
+  gets the same number on either phone. Payloads grow from 100 KB and stop
+  growing once a request takes a second; each direction is capped at 150 MB and
+  45 s; the figure is the 90th percentile of the per-request rates, timed from
+  when each request's headers go out, minus Cloudflare's own processing time.
+  The old test downloaded a fixed 50 MB file with no time limit, so on a slow
+  line one scan could run for over a quarter of an hour, and a host that could
+  not be reached cost two minutes before it failed.
+
+* **Changed (both):** speeds are in decimal Mbps. The old figure was Mibit/s,
+  which reads 4.86% low, so readings from this release are not comparable with
+  earlier ones for the same connection.
+
+* **Breaking (iOS):** the bundled framework now targets iOS 15.0 (was 12.0), as
+  Xcode 27 rejects anything lower, and the podspec follows. An app still on 13.0
+  or 14.0 fails `pod install` with "required a higher minimum deployment target".
+
+* **Internal (Android):** `tools:1.7`. It drops `fr.bmartel:jspeedtest`, last
+  released in 2018; the new test uses OkHttp, which was already a dependency.
+
+The public API, the report fields and the platform channel are unchanged. The
+new test measures latency and jitter too, but the report has no field for them
+yet, so neither reaches Flutter.
+
 ## 1.1.11
 
 All iOS. One plugin fix, plus a rebuilt native SDK carrying two more — every
