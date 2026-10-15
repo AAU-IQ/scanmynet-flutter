@@ -236,8 +236,8 @@ enum ScanErrorKind: Int {
   case submission = 1
   /// iOS `scanCanceled()`. Android has no cancel in this fork.
   case canceled = 2
-  /// The scan was refused before it started because the device is not on an
-  /// Al-Watani Wi-Fi network (on 4G, or on another provider's Wi-Fi). Terminal:
+  /// The scan was refused before it started because the device is on the wrong
+  /// network (on 4G, or on another provider's Wi-Fi). Terminal:
   /// nothing was measured or submitted. Android `ScanPreconditionException`;
   /// iOS `ScanPreconditionError`. [ScanError.message] carries the English
   /// customer message; localise it in the host app by switching on this kind.

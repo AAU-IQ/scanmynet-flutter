@@ -291,12 +291,12 @@ sdk.dispose();
 | `cancel()` | cancel an in-flight scan (iOS) |
 | `dispose()` | detach the native handler and close the streams |
 
-### Not on an Al-Watani network
+### Scans on the wrong network
 
-A scan started on 4G, or on a network that is not Al-Watani's, used to hang or
-come back empty. Before any measurement the SDK now checks that the device is on
-Wi-Fi and asks the backend whether that Wi-Fi is an Al-Watani network. If not,
-the scan stops at once with a `ScanFailed` whose `error.kind` is
+A scan started on 4G, or on a network that is not the provider's own, used to
+hang or come back empty. Before any measurement the SDK now checks that the
+device is on Wi-Fi and asks the backend whether that Wi-Fi is the provider's
+network. If not, the scan stops at once with a `ScanFailed` whose `error.kind` is
 `ScanErrorKind.notAlWatani`: nothing is measured, nothing is submitted, and no
 `ScanProgressed` events fire (`ScanStarted` still arrives first).
 
@@ -305,17 +305,15 @@ switching on the kind:
 
 ```dart
 case ScanFailed(:final error) when error.kind == ScanErrorKind.notAlWatani:
-  // en: You are not connected to Al-Watani network. Please connect to your
-  //     Al-Watani Wi-Fi network and run the test again.
-  // ar: أنت غير متصل بشبكة الوطني. يرجى الاتصال بشبكة Wi-Fi الخاصة بالوطني
-  //     وإعادة إجراء الفحص.
+  // error.message is English: it asks the user to connect to the provider's
+  // Wi-Fi network and run the test again. Show your own translation here.
   showWifiHelp(context); // a statement: an empty case falls through in Dart 3
 ```
 
 The check only refuses on positive evidence. If the backend errors, is
-unreachable, does not answer within 5 seconds, or has not been given Al-Watani's
-address ranges (or is still in its default observe-only mode), the scan **proceeds**: a customer is never turned away because of
-our own outage. `notAlWatani` is terminal; the user fixes their network and
+unreachable, does not answer within 5 seconds, or has not been given the
+provider's address ranges (or is still in its default observe-only mode), the
+scan **proceeds**: a customer is never turned away because of our own outage. `notAlWatani` is terminal; the user fixes their network and
 calls `startScan()` again.
 
 What counts as "on Wi-Fi" is the device's *default* network. So a phone whose

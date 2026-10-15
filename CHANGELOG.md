@@ -4,11 +4,11 @@ Both platforms. **Pigeon schema 4: rebuild both native binaries together** (the
 bundled Android `tools:1.8` and the iOS xcframework); `configure()` throws on a
 mismatch.
 
-* **Added (both):** a scan started off an Al-Watani Wi-Fi network (on 4G, or
-  another provider's Wi-Fi) is now refused before it starts, instead of hanging
-  or returning empty data. It arrives as `ScanFailed` with the new
+* **Added (both):** a scan started on the wrong network (on 4G, or on another
+  provider's Wi-Fi) is now refused before it starts, instead of hanging or
+  returning empty data. It arrives as `ScanFailed` with the new
   `ScanErrorKind.notAlWatani`, whose `message` is the English customer text; see
-  the README ("Not on an Al-Watani network"). Fails open: a backend that is down,
+  the README ("Scans on the wrong network"). Fails open: a backend that is down,
   slow or unconfigured never blocks a scan.
 * **Added (both):** `ScanConfig.packageSpeedMbps`, optional. When the app knows
   the customer's subscribed speed, the report rates the download speed by the
