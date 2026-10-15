@@ -4,7 +4,7 @@
 #
 Pod::Spec.new do |s|
   s.name             = 'scanmynet_sdk'
-  s.version          = '1.0.0'
+  s.version          = '1.3.0'
   s.summary          = 'Flutter plugin for the ScanMyNet network diagnostics SDK.'
   s.description      = <<-DESC
 Runs a full home-network scan through the native ScanMyNet SDK and returns a

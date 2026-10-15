@@ -63,6 +63,7 @@ class ScanHostApiImpl(
             .apiKey(config.apiKey)
             .appName(config.appName.orEmpty())
             .environment(environment)
+            .packageSpeedMbps(config.packageSpeedMbps)
             .progressCallback { progress -> onMain { flutterApi.onProgress(progress.toPigeon()) {} } }
             .resultCallback { result -> lastResult = result }
             .debugCallback { report -> onMain { flutterApi.onDataPersisted(ScanReport(report.toJson())) {} } }
@@ -94,7 +95,7 @@ class ScanHostApiImpl(
                 .subscribeOn(Schedulers.io())
                 .subscribe(
                     { response -> onMain { flutterApi.onFinished(response.toPigeon(lastResult)) {} } },
-                    { error -> onMain { flutterApi.onError(error.toSubmissionError()) {} } },
+                    { error -> onMain { flutterApi.onError(error.toTerminalScanError()) {} } },
                 ),
         )
     }
@@ -163,13 +164,6 @@ class ScanHostApiImpl(
         serviceType = null,
     )
 
-    private fun Throwable.toSubmissionError() = ScanError(
-        kind = ScanErrorKind.SUBMISSION,
-        message = message ?: toString(),
-        step = null,
-        serviceType = null,
-    )
-
     private fun NetworkScanResultStatus.toPigeon() = when (this) {
         NetworkScanResultStatus.SUCCESS -> ScanResultStatus.SUCCESS
         NetworkScanResultStatus.ERROR_SUBMISSION_FAILED -> ScanResultStatus.SUBMISSION_FAILED
@@ -193,6 +187,6 @@ class ScanHostApiImpl(
 
     companion object {
         /** Must match `.schemaVersion` in Dart. */
-        const val SCHEMA_VERSION = 3L
+        const val SCHEMA_VERSION = 4L
     }
 }

@@ -5,6 +5,22 @@ import 'package:permission_handler/permission_handler.dart';
 import 'package:scanmynet_sdk/scanmynet_sdk.dart';
 import 'package:scanmynet_sdk_example/domain/models/scan_ui_state.dart';
 
+/// The speed the customer pays for, from what was typed into the optional field.
+///
+/// `null` for anything that is not a positive, finite number (empty, "abc", 0, "-5"): the
+/// native SDK drops such a value too, and without a package the report rates the speed on
+/// the fixed bands.
+double? parsePackageSpeed(String text) {
+  final value = double.tryParse(text.trim());
+  if (value == null || !value.isFinite || value <= 0) return null;
+  return value;
+}
+
+/// What the customer is told when a scan is refused for not being on an Al-Watani
+/// network. The SDK's `error.message` is the English; this is the Arabic draft from its README.
+const notAlWataniArabic =
+    'أنت غير متصل بشبكة الوطني. يرجى الاتصال بشبكة Wi-Fi الخاصة بالوطني وإعادة إجراء الفحص.';
+
 /// Owns scan state and orchestrates the [ScanmynetSdk].
 ///
 /// Subscribes to the SDK's [ScanEvent] stream and translates each event into an
@@ -32,6 +48,7 @@ class ScanViewModel extends ChangeNotifier {
   final String _appName;
   ScanEnvironment _environment;
   String _customBaseUrl = '';
+  double? _packageSpeedMbps;
   late final StreamSubscription<ScanEvent> _subscription;
 
   ScanUiState _state = ScanUiState.idle;
@@ -57,6 +74,16 @@ class ScanViewModel extends ChangeNotifier {
   void setCustomBaseUrl(String url) {
     if (_state.isRunning) return;
     _customBaseUrl = url;
+  }
+
+  /// The customer's subscribed speed in Mbps, or null for none (ignored mid-scan).
+  double? get packageSpeedMbps => _packageSpeedMbps;
+
+  /// Sets the optional package speed from the text field. Does not notify — the value
+  /// comes from a `TextField` that already holds its own text.
+  void setPackageSpeed(String text) {
+    if (_state.isRunning) return;
+    _packageSpeedMbps = parsePackageSpeed(text);
   }
 
   /// Rolling, timestamped feed of native scan events — useful for diagnosing
@@ -121,6 +148,7 @@ class ScanViewModel extends ChangeNotifier {
           appName: _appName,
           environment: _environment,
           customBaseUrl: isCustom ? _customBaseUrl : null,
+          packageSpeedMbps: _packageSpeedMbps,
         ),
       );
       _log('startScan()');
@@ -181,12 +209,21 @@ class ScanViewModel extends ChangeNotifier {
         _log('✕ error[${error.kind.name}]'
             '${error.serviceType != null ? ' ${error.serviceType}' : ''}: '
             '${error.message}');
+        // `submission` and `notAlWatani` end the scan; the other kinds are per-step.
         if (error.kind == ScanErrorKind.submission) {
           _emit(
             ScanUiState(
               phase: ScanPhase.failed,
               percent: _state.percent,
               errorMessage: error.message,
+            ),
+          );
+        } else if (error.kind == ScanErrorKind.notAlWatani) {
+          _emit(
+            ScanUiState(
+              phase: ScanPhase.failed,
+              percent: _state.percent,
+              errorMessage: '${error.message}\n\n$notAlWataniArabic',
             ),
           );
         }

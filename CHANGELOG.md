@@ -1,3 +1,62 @@
+## 1.3.0
+
+Both platforms. **Pigeon schema 4: rebuild both native binaries together** (the
+bundled Android `tools:1.8` and the iOS xcframework); `configure()` throws on a
+mismatch.
+
+* **Added (both):** a scan started off an Al-Watani Wi-Fi network (on 4G, or
+  another provider's Wi-Fi) is now refused before it starts, instead of hanging
+  or returning empty data. It arrives as `ScanFailed` with the new
+  `ScanErrorKind.notAlWatani`, whose `message` is the English customer text; see
+  the README ("Not on an Al-Watani network"). Fails open: a backend that is down,
+  slow or unconfigured never blocks a scan.
+* **Added (both):** `ScanConfig.packageSpeedMbps`, optional. When the app knows
+  the customer's subscribed speed, the report rates the download speed by the
+  share of it delivered (Good from 80%, Moderate from 50%) instead of the fixed
+  bands. Unset, nothing changes. Values that cannot be a speed are dropped by the
+  native SDK rather than sent. It rides the same schema 4 as the network guard,
+  as the last field of `ScanConfig`.
+* **Changed (Android, bundled SDK):** `tools:1.8` (was 1.7), which carries the
+  check above. It calls the backend's new `GET /api/v1/network/check`.
+* **Changed (iOS, bundled SDK):** `ScanMyNet.xcframework` rebuilt from
+  `scanmynet-ios` v1.1.0, with the same check and package speed.
+* **Fixed (both):** `sdkDetails.start`, the scan's start time, went out on a
+  12-hour clock with no AM/PM marker, so any scan from 13:00 to 23:59 UTC arrived
+  12 hours early and midnight arrived as `12:xx`. It is now UTC on a 24-hour
+  clock (`yyyy-MM-dd HH:mm:ss`). Reports already stored keep the old, ambiguous
+  value, and nothing in a report says which format it carries. The portal
+  derives their start from the report's creation time minus `duration`, when
+  that duration is plausible for one scan (up to 30 minutes).
+* **Fixed (iOS):** every scan after the first in the same app session reported
+  the *first* scan's `start`, an ever-growing `duration` and duplicated
+  traceroute entries, because the report was built once per process. Each scan
+  now starts a fresh report, keeping only the key, the app name and the location.
+* **Changed (backend, no SDK upgrade needed):** the download-speed rating in
+  `customerInternetSpeed.connectionQuality` is now Good above 30 Mbps, Moderate
+  15 to 30 and Poor below 15. It was Good from 7.5 and Poor below 5. Applies to
+  reports submitted after the backend is deployed; stored reports keep their old
+  label.
+* **Changed:** `sdkDetails.routeThisSDK` now says `v1.8.0` from Android and
+  `v1.1.0` from iOS. Every earlier build said `v1.6.0` (Android) or `v1.0.0`
+  (iOS), whatever it contained, so those two values mean "before the 24-hour
+  `start` fix".
+* **Changed (backend, no SDK upgrade needed):** a connected device's
+  `connectionQualityColor` is now the worse of its packet loss and its average
+  ping. It used to look at packet loss only, so a device that answered every ping
+  slowly was "Good" beside a graph showing a high ping. Applies to reports
+  submitted after the backend is deployed; stored reports keep their old rating.
+* **Changed (backend, no SDK upgrade needed):** each router and DNS entry of
+  `connectionQuality` is also rated on its own for the web report (excellent,
+  good, moderate or poor, for ping and for packet loss). `DnsQuality` does not
+  carry those ratings; `connectionQualityColor` is unchanged. A device's
+  rating now ignores a ping of 0 from a lost packet.
+* **Changed:** `ScanErrorKind` gained `notAlWatani` as its last value. A
+  `switch` over `ScanErrorKind` with no default branch needs a new case.
+* **Docs:** `DnsQuality.layerRanking` was documented as 1 local, 2 unknown, 3
+  external. It is the layer the portal's DNS config gives the server (0 router, 1
+  or 2 as the admin set it, 2 when the server has no config); nothing in the
+  backend treats it as local or external. No code change.
+
 ## 1.2.1
 
 Documentation only; no code change from 1.2.0.

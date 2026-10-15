@@ -33,7 +33,7 @@ class ScanmynetSdk {
       StreamController<ScanEvent>.broadcast();
 
   /// Pigeon schema version. Bump whenever fields are added to the schema.
-  static const int schemaVersion = 3;
+  static const int schemaVersion = 4;
 
   /// Native scan lifecycle as a broadcast stream. Subscribe before calling
   /// [startScan] to receive every event.

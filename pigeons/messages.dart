@@ -97,6 +97,16 @@ enum ScanErrorKind {
 
   /// iOS `scanCanceled()`. Android has no cancel in this fork.
   canceled,
+
+  /// The scan was refused before it started because the device is not on an
+  /// Al-Watani Wi-Fi network (on 4G, or on another provider's Wi-Fi). Terminal:
+  /// nothing was measured or submitted. Android `ScanPreconditionException`;
+  /// iOS `ScanPreconditionError`. [ScanError.message] carries the English
+  /// customer message; localise it in the host app by switching on this kind.
+  ///
+  /// Appended LAST: enums travel by index, so inserting earlier would be read
+  /// as a different kind by an older or newer native binary.
+  notAlWatani,
 }
 
 // ---------------------------------------------------------------------------
@@ -169,6 +179,17 @@ class ScanConfig {
   ///
   /// Optional — defaults to [customBaseUrl] when the same host serves both.
   String? customFrontendUrl;
+
+  /// The customer's subscribed (package) speed in Mbps, when the host app knows
+  /// it, so the report can rate the measured download speed against what the
+  /// customer pays for: Good from 80% of it, Moderate from 50%.
+  ///
+  /// Optional. Without one the download speed is rated on fixed bands: Good above
+  /// 30 Mbps, Moderate 15 to 30, Poor below 15. A value that cannot be a speed
+  /// (zero, negative, NaN, infinite, above 100,000) is dropped by the native SDK
+  /// rather than sent, because the backend refuses a report carrying one.
+  /// Android `Build.packageSpeedMbps`, iOS `ScanMyNetConfiguration.packageSpeedMbps`.
+  double? packageSpeedMbps;
 }
 
 /// Progress payload — superset of both platforms.
@@ -324,6 +345,13 @@ class SdkDetails {
     this.start, this.duration, this.platform, this.app, this.routeThisSdk,
     this.userPublicUpAddress, this.gpsLatitude, this.gpsLongitude,
   });
+  /// When the scan began, in **UTC** as `yyyy-MM-dd HH:mm:ss` (24-hour clock,
+  /// no zone suffix), e.g. `2026-09-09 15:30:00`. Convert to local time for
+  /// display. Before the fix (Android `tools:1.8` and the iOS framework bundled
+  /// with SDK 1.3.0) this used a 12-hour clock with no AM/PM, so an afternoon scan
+  /// arrived 12 hours early and cannot be told apart from a morning one; for
+  /// those reports derive the start from the report's creation time minus
+  /// [duration] instead.
   String? start;
   /// Seconds.
   int? duration;
@@ -355,7 +383,12 @@ class InternetSpeed {
   List<double>? networkSpeedUpSegments;
   List<double>? networkSpeedDownSegments;
   /// SINGLE-ENTRY map keyed by the quality label, e.g. `{"good": "green"}`.
-  /// NOT a [QualityColor] struct.
+  /// NOT a [QualityColor] struct. Empty when [networkSpeedDown] is null.
+  ///
+  /// The backend rates the download speed, not the SDK: Good above 30 Mbps,
+  /// Moderate 15 to 30, Poor below 15 - or, when [ScanConfig.packageSpeedMbps]
+  /// was set, by the share of it delivered (Good from 80%, Moderate from 50%).
+  /// A report stored earlier keeps the label it was given.
   Map<String, String>? connectionQuality;
 }
 
@@ -448,6 +481,9 @@ class LocalConnectedDevice {
   bool? isSubscriberPhone;
   /// `0` (not null) when [pingValues] is empty.
   double? averagePingTime;
+  /// The server's rating: the worse of packet loss and [averagePingTime]. The ping
+  /// counts only for a real ping series ([numPacketsSent] > 1); a device found only
+  /// by the TCP sweep carries one connect time and is rated on loss alone.
   QualityColor? connectionQualityColor;
   bool? isSubscriberRouter;
   /// Null when device recognition did not run.
@@ -561,7 +597,11 @@ class NetworkCongestion {
   CongestionEnvironment? environment;
 }
 
-/// [layerRanking] is 1 (local), 2 (unknown/default) or 3 (external).
+/// [layerRanking] is the layer the portal's DNS config gives the server: 0 for the router (when a
+/// router config exists), 1 or 2 as the admin set it, and 2 for a server with no config; a config
+/// saved without a layer, or before layers were limited to 0-2, can give 3. The agent portal's
+/// diagram groups servers by it, and the backend leaves layer 1 out of its "poor connection
+/// outside the home" action. It is not a local / external flag.
 class DnsQuality {
   DnsQuality({
     this.dnsName, this.dnsIp, this.packetsDropped, this.numPacketsSent,

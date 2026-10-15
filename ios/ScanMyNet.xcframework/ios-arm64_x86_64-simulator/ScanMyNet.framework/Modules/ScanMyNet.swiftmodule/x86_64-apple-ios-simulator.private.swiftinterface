@@ -301,7 +301,7 @@ public enum Environment {
   public static func custom(_ baseUrl: Swift.String) -> ScanMyNet.Environment
 }
 public class ScanMyNetConfiguration {
-  public init(apiKey: Swift.String? = nil, requestKey: Swift.String? = nil, appName: Swift.String? = nil, environment: ScanMyNet.Environment)
+  public init(apiKey: Swift.String? = nil, requestKey: Swift.String? = nil, appName: Swift.String? = nil, environment: ScanMyNet.Environment, packageSpeedMbps: Swift.Double? = nil)
   @objc deinit
 }
 public protocol ScanMyNetDelegate {
@@ -321,6 +321,18 @@ extension ScanMyNet.ScanMyNetDelegate {
   public func scanFinished(reportUrl: Swift.String, report: ScanMyNet.SMNReportPayload?)
   public func scanFinished(reportUrl: Swift.String, reportId: Swift.String?, customerId: Swift.String?, report: ScanMyNet.SMNReportPayload?)
 }
+public enum ScanPreconditionError : Swift.Error, Foundation.LocalizedError, Swift.Equatable {
+  case notOnWiFi
+  case notAlWatani
+  public var errorDescription: Swift.String? {
+    get
+  }
+  public static func == (a: ScanMyNet.ScanPreconditionError, b: ScanMyNet.ScanPreconditionError) -> Swift.Bool
+  public func hash(into hasher: inout Swift.Hasher)
+  public var hashValue: Swift.Int {
+    get
+  }
+}
 public class ScanMyNetManager {
   public var delegate: (any ScanMyNet.ScanMyNetDelegate)?
   public init(configuration: ScanMyNet.ScanMyNetConfiguration)
@@ -328,3 +340,4 @@ public class ScanMyNetManager {
   public func cancel()
   @objc deinit
 }
+extension ScanMyNet.ScanPreconditionError : Swift.Hashable {}

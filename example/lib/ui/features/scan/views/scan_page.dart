@@ -20,10 +20,12 @@ class ScanPage extends StatefulWidget {
 
 class _ScanPageState extends State<ScanPage> {
   final _keyController = TextEditingController(text: 'flutter-demo');
+  final _packageController = TextEditingController();
 
   @override
   void dispose() {
     _keyController.dispose();
+    _packageController.dispose();
     super.dispose();
   }
 
@@ -72,6 +74,21 @@ class _ScanPageState extends State<ScanPage> {
                   CustomerKeyField(
                     controller: _keyController,
                     enabled: !state.isRunning,
+                  ),
+                  const SizedBox(height: 12),
+                  TextField(
+                    controller: _packageController,
+                    enabled: !state.isRunning,
+                    keyboardType:
+                        const TextInputType.numberWithOptions(decimal: true),
+                    onChanged: widget.viewModel.setPackageSpeed,
+                    decoration: const InputDecoration(
+                      labelText: 'Package speed in Mbps (optional)',
+                      hintText: 'e.g. 50',
+                      helperText:
+                          'What the customer pays for. Empty: the speed is rated on the fixed bands.',
+                      prefixIcon: Icon(Icons.speed_outlined),
+                    ),
                   ),
                   const SizedBox(height: 16),
                   FilledButton.icon(
