@@ -25,7 +25,7 @@ final class ScanHostApiImpl: NSObject, ScanHostApi {
   private var lastPercent: Double = 0
 
   /// Must match `.schemaVersion` in Dart.
-  private static let schemaVersion: Int64 = 3
+  private static let schemaVersion: Int64 = 4
 
   init(flutterApi: ScanFlutterApi) {
     self.flutterApi = flutterApi
@@ -49,7 +49,8 @@ final class ScanHostApiImpl: NSObject, ScanHostApi {
       apiKey: config.apiKey,
       requestKey: Self.customerKey(from: config),
       appName: config.appName,
-      environment: try config.toNativeEnvironment()
+      environment: try config.toNativeEnvironment(),
+      packageSpeedMbps: config.packageSpeedMbps
     )
     let manager = ScanMyNetManager(configuration: configuration)
     manager.delegate = self
@@ -183,8 +184,15 @@ extension ScanHostApiImpl: ScanMyNetDelegate {
   }
 
   func scanFailed(with error: Error, response: String) {
-    let message = response.isEmpty ? error.localizedDescription : response
-    let scanError = ScanError(kind: .submission, message: message)
+    let scanError: ScanError
+    if error is ScanPreconditionError {
+      // Refused before any step ran (not on an Al-Watani Wi-Fi network). Not a
+      // submission failure, so the host app can tell the customer what to do.
+      scanError = ScanError(kind: .notAlWatani, message: error.localizedDescription)
+    } else {
+      let message = response.isEmpty ? error.localizedDescription : response
+      scanError = ScanError(kind: .submission, message: message)
+    }
     onMain { self.flutterApi.onError(error: scanError) { _ in } }
   }
 

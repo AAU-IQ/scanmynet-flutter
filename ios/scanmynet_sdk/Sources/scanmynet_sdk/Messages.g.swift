@@ -236,6 +236,15 @@ enum ScanErrorKind: Int {
   case submission = 1
   /// iOS `scanCanceled()`. Android has no cancel in this fork.
   case canceled = 2
+  /// The scan was refused before it started because the device is on the wrong
+  /// network (on 4G, or on another provider's Wi-Fi). Terminal:
+  /// nothing was measured or submitted. Android `ScanPreconditionException`;
+  /// iOS `ScanPreconditionError`. [ScanError.message] carries the English
+  /// customer message; localise it in the host app by switching on this kind.
+  ///
+  /// Appended LAST: enums travel by index, so inserting earlier would be read
+  /// as a different kind by an older or newer native binary.
+  case notAlWatani = 3
 }
 
 /// Flat configuration collapsing the Android 6-step builder and the iOS
@@ -249,18 +258,22 @@ struct ScanConfig: Hashable {
   /// The customer key. Reports are filed and searched by it, so set this one.
   ///
   /// Android `UserKey.userKey`, iOS `ScanMyNetConfiguration.requestKey` - the
-  /// same field on the wire. Each bridge used to read only its own name, so an
-  /// app that set just this got the right key on Android and the native
-  /// fallback on iOS. Both platforms now read this first.
+  /// same field on the wire, `ReportParamDto.key` / `Report.key`. Each bridge
+  /// used to read only its own name, so an app that set just this got the right
+  /// key on Android and, on iOS, the native default that stands in for a missing
+  /// requestKey - a 200 and a report id, filed against another customer. Both
+  /// platforms now read this first.
   var userKey: String? = nil
   /// The embedding app's name, sent as the report's `app` field on both
   /// platforms. Android `AppName.appName`, iOS `ScanMyNetConfiguration.appName`.
   /// iOS had no way to carry it until SDK 1.1.11, and reported "ScanMyNet" for
   /// every host app instead.
   var appName: String? = nil
-  /// Deprecated alias for the customer key, read only when `userKey` is unset.
-  /// It fed iOS while `userKey` fed Android, though both end up in the report's
-  /// `key`. New callers should set `userKey` instead.
+  /// Deprecated alias for [userKey], read only when [userKey] is unset.
+  ///
+  /// It fed iOS while [userKey] fed Android, though both end up in the report's
+  /// `key`. Kept working so apps that set only this one keep working; new
+  /// callers should set [userKey] instead.
   var requestKey: String? = nil
   /// Backend selector, honoured on both platforms. Null defaults to
   /// [ScanEnvironment.production].
@@ -287,6 +300,16 @@ struct ScanConfig: Hashable {
   ///
   /// Optional — defaults to [customBaseUrl] when the same host serves both.
   var customFrontendUrl: String? = nil
+  /// The customer's subscribed (package) speed in Mbps, when the host app knows
+  /// it, so the report can rate the measured download speed against what the
+  /// customer pays for: Good from 80% of it, Moderate from 50%.
+  ///
+  /// Optional. Without one the download speed is rated on fixed bands: Good above
+  /// 30 Mbps, Moderate 15 to 30, Poor below 15. A value that cannot be a speed
+  /// (zero, negative, NaN, infinite, above 100,000) is dropped by the native SDK
+  /// rather than sent, because the backend refuses a report carrying one.
+  /// Android `Build.packageSpeedMbps`, iOS `ScanMyNetConfiguration.packageSpeedMbps`.
+  var packageSpeedMbps: Double? = nil
 
 
   // swift-format-ignore: AlwaysUseLowerCamelCase
@@ -299,6 +322,7 @@ struct ScanConfig: Hashable {
     let schemaVersion: Int64? = nilOrValue(pigeonVar_list[5])
     let customBaseUrl: String? = nilOrValue(pigeonVar_list[6])
     let customFrontendUrl: String? = nilOrValue(pigeonVar_list[7])
+    let packageSpeedMbps: Double? = nilOrValue(pigeonVar_list[8])
 
     return ScanConfig(
       apiKey: apiKey,
@@ -308,7 +332,8 @@ struct ScanConfig: Hashable {
       environment: environment,
       schemaVersion: schemaVersion,
       customBaseUrl: customBaseUrl,
-      customFrontendUrl: customFrontendUrl
+      customFrontendUrl: customFrontendUrl,
+      packageSpeedMbps: packageSpeedMbps
     )
   }
   func toList() -> [Any?] {
@@ -321,13 +346,14 @@ struct ScanConfig: Hashable {
       schemaVersion,
       customBaseUrl,
       customFrontendUrl,
+      packageSpeedMbps,
     ]
   }
   static func == (lhs: ScanConfig, rhs: ScanConfig) -> Bool {
     if Swift.type(of: lhs) != Swift.type(of: rhs) {
       return false
     }
-    return deepEqualsMessages(lhs.apiKey, rhs.apiKey) && deepEqualsMessages(lhs.userKey, rhs.userKey) && deepEqualsMessages(lhs.appName, rhs.appName) && deepEqualsMessages(lhs.requestKey, rhs.requestKey) && deepEqualsMessages(lhs.environment, rhs.environment) && deepEqualsMessages(lhs.schemaVersion, rhs.schemaVersion) && deepEqualsMessages(lhs.customBaseUrl, rhs.customBaseUrl) && deepEqualsMessages(lhs.customFrontendUrl, rhs.customFrontendUrl)
+    return deepEqualsMessages(lhs.apiKey, rhs.apiKey) && deepEqualsMessages(lhs.userKey, rhs.userKey) && deepEqualsMessages(lhs.appName, rhs.appName) && deepEqualsMessages(lhs.requestKey, rhs.requestKey) && deepEqualsMessages(lhs.environment, rhs.environment) && deepEqualsMessages(lhs.schemaVersion, rhs.schemaVersion) && deepEqualsMessages(lhs.customBaseUrl, rhs.customBaseUrl) && deepEqualsMessages(lhs.customFrontendUrl, rhs.customFrontendUrl) && deepEqualsMessages(lhs.packageSpeedMbps, rhs.packageSpeedMbps)
   }
 
   func hash(into hasher: inout Hasher) {
@@ -340,6 +366,7 @@ struct ScanConfig: Hashable {
     deepHashMessages(value: schemaVersion, hasher: &hasher)
     deepHashMessages(value: customBaseUrl, hasher: &hasher)
     deepHashMessages(value: customFrontendUrl, hasher: &hasher)
+    deepHashMessages(value: packageSpeedMbps, hasher: &hasher)
   }
 }
 
@@ -763,6 +790,13 @@ struct CustomerDetails: Hashable {
 
 /// Generated class from Pigeon that represents data sent in messages.
 struct SdkDetails: Hashable {
+  /// When the scan began, in **UTC** as `yyyy-MM-dd HH:mm:ss` (24-hour clock,
+  /// no zone suffix), e.g. `2026-09-09 15:30:00`. Convert to local time for
+  /// display. Before the fix (Android `tools:1.8` and the iOS framework bundled
+  /// with SDK 1.3.0) this used a 12-hour clock with no AM/PM, so an afternoon scan
+  /// arrived 12 hours early and cannot be told apart from a morning one; for
+  /// those reports derive the start from the report's creation time minus
+  /// [duration] instead.
   var start: String? = nil
   /// Seconds.
   var duration: Int64? = nil
@@ -875,7 +909,12 @@ struct InternetSpeed: Hashable {
   var networkSpeedUpSegments: [Double]? = nil
   var networkSpeedDownSegments: [Double]? = nil
   /// SINGLE-ENTRY map keyed by the quality label, e.g. `{"good": "green"}`.
-  /// NOT a [QualityColor] struct.
+  /// NOT a [QualityColor] struct. Empty when [networkSpeedDown] is null.
+  ///
+  /// The backend rates the download speed, not the SDK: Good above 30 Mbps,
+  /// Moderate 15 to 30, Poor below 15 - or, when [ScanConfig.packageSpeedMbps]
+  /// was set, by the share of it delivered (Good from 80%, Moderate from 50%).
+  /// A report stored earlier keeps the label it was given.
   var connectionQuality: [String: String]? = nil
 
 
@@ -1280,6 +1319,9 @@ struct LocalConnectedDevice: Hashable {
   var isSubscriberPhone: Bool? = nil
   /// `0` (not null) when [pingValues] is empty.
   var averagePingTime: Double? = nil
+  /// The server's rating: the worse of packet loss and [averagePingTime]. The ping
+  /// counts only for a real ping series ([numPacketsSent] > 1); a device found only
+  /// by the TCP sweep carries one connect time and is rated on loss alone.
   var connectionQualityColor: QualityColor? = nil
   var isSubscriberRouter: Bool? = nil
   /// Null when device recognition did not run.
@@ -1825,7 +1867,11 @@ struct NetworkCongestion: Hashable {
   }
 }
 
-/// [layerRanking] is 1 (local), 2 (unknown/default) or 3 (external).
+/// [layerRanking] is the layer the portal's DNS config gives the server: 0 for the router (when a
+/// router config exists), 1 or 2 as the admin set it, and 2 for a server with no config; a config
+/// saved without a layer, or before layers were limited to 0-2, can give 3. The agent portal's
+/// diagram groups servers by it, and the backend leaves layer 1 out of its "poor connection
+/// outside the home" action. It is not a local / external flag.
 ///
 /// Generated class from Pigeon that represents data sent in messages.
 struct DnsQuality: Hashable {

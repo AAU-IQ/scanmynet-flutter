@@ -9,7 +9,7 @@ backend.
 
 ```yaml
 dependencies:
-  scanmynet_sdk: ^1.2.1
+  scanmynet_sdk: ^1.3.0
 ```
 
 ## Prerequisites
@@ -257,7 +257,7 @@ final sub = sdk.events.listen((event) {
       // result.reportId   -> correlate the scan without parsing reportUrl's JWT
       // result.customerId -> the subscriber key the report was filed under
     case ScanFailed(:final error):
-      // error.kind (perStep | submission | canceled), error.message
+      // error.kind (perStep | submission | canceled | notAlWatani), error.message
     case ScanDataPersisted():
       // Android-only debug snapshot; most apps can ignore it
     case ScanCanceled():
@@ -291,6 +291,39 @@ sdk.dispose();
 | `cancel()` | cancel an in-flight scan (iOS) |
 | `dispose()` | detach the native handler and close the streams |
 
+### Scans on the wrong network
+
+A scan started on 4G, or on a network that is not the provider's own, used to
+hang or come back empty. Before any measurement the SDK now checks that the
+device is on Wi-Fi and asks the backend whether that Wi-Fi is the provider's
+network. If not, the scan stops at once with a `ScanFailed` whose `error.kind` is
+`ScanErrorKind.notAlWatani`: nothing is measured, nothing is submitted, and no
+`ScanProgressed` events fire (`ScanStarted` still arrives first).
+
+`error.message` is an English customer message; localise it in your app by
+switching on the kind:
+
+```dart
+case ScanFailed(:final error) when error.kind == ScanErrorKind.notAlWatani:
+  // error.message is English: it asks the user to connect to the provider's
+  // Wi-Fi network and run the test again. Show your own translation here.
+  showWifiHelp(context); // a statement: an empty case falls through in Dart 3
+```
+
+The check only refuses on positive evidence. If the backend errors, is
+unreachable, does not answer within 5 seconds, or has not been given the
+provider's address ranges (or is still in its default observe-only mode), the
+scan **proceeds**: a customer is never turned away because of our own outage. `notAlWatani` is terminal; the user fixes their network and
+calls `startScan()` again.
+
+What counts as "on Wi-Fi" is the device's *default* network. So a phone whose
+Wi-Fi has lost its internet and fell back to mobile data is refused (a scan
+would otherwise measure mobile data and file it as the customer's line); wired
+Ethernet counts as "not Wi-Fi", which matters for an iOS Simulator on a wired
+Mac; and an Android emulator image that exposes only a cellular network is
+refused, so use one with Wi-Fi. A VPN makes the backend see the VPN's address,
+so with the server verdict enforced a VPN user is refused as `notAlWatani`.
+
 `ScanConfig` fields worth setting explicitly:
 
 | Field | Purpose |
@@ -299,6 +332,15 @@ sdk.dispose();
 | `userKey` | The customer key. Reports are filed and searched by it — set it, or you will not find your scans |
 | `appName` | The embedding app's name, shown on the report as its origin |
 | `requestKey` | Deprecated alias for `userKey`, read only when `userKey` is unset |
+| `packageSpeedMbps` | Optional. The customer's subscribed speed in Mbps, so the download speed is rated against what they pay for (below). A value that cannot be a speed is dropped, not sent |
+
+`packageSpeedMbps` lets the report judge a result by the package: Good from 80% of
+it, Moderate from 50%, Poor below. Leave it unset and the download speed is rated on
+fixed bands (Good above 30 Mbps, Moderate 15 to 30, Poor below 15), exactly as for
+an app that never heard of the field. The native SDKs drop zero, negative, `NaN`,
+infinite and above-100,000 values instead of sending them, because the backend
+refuses a report carrying one and the whole scan would be lost. It is read once, at
+`configure()`; call `configure()` again to change it.
 
 > **Before 1.1.11, `userKey` reached Android only.** iOS read `requestKey`
 > instead, and where that was unset the native SDK substituted a built-in
@@ -352,6 +394,14 @@ Every completed scan returns the report **two ways**:
   browser or `WebView` for a zero-effort display.
 - **`result.report`** — the *same data as typed Dart objects* (`ReportData`), so
   you can render it however you like. Null only on backends predating the payload.
+
+**Where the customer's wording lives.** The sentences a customer reads — what a
+speed means, what Good / Moderate / Poor stand for, in English and Arabic — are
+written in the hosted web report (`reportUrl`), not in this SDK. `result.report`
+carries numbers and ratings (`customerInternetSpeed.connectionQuality`,
+`connectionQualityColor`), so an app that draws its own UI has to supply its own
+words; one that opens `reportUrl` gets them, and any change to them, with no SDK
+upgrade.
 
 `result.reportId` and `result.customerId` come alongside, for correlating a scan
 against your own records without parsing the JWT in `reportUrl`. Both are
@@ -456,12 +506,14 @@ and can be compared directly, with the upload caveat noted above.
 
 | Shape | Where | Note |
 |---|---|---|
-| Single-entry map, not a struct | `customerInternetSpeed.connectionQuality` | `{"good": "green"}` — read the first entry |
-| ...but this one **is** a struct | `connectionQualityColor` on devices and DNS results | `{quality, color}` |
+| Single-entry map, not a struct | `customerInternetSpeed.connectionQuality` | `{"good": "green"}` — read the first entry. Rated by the backend, so an SDK upgrade is not needed to get a rule change: Good above 30 Mbps, Moderate 15 to 30, Poor below 15 (was 5 and 7.5), or by share of the package when `ScanConfig.packageSpeedMbps` is set. A report stored earlier keeps its old label |
+| ...but this one **is** a struct | `connectionQualityColor` on devices and DNS results | `{quality, color}`. On a device it is the worse of packet loss and average ping (ping counts only when `numPacketsSent` > 1), decided by the backend: no SDK upgrade is needed to get it. On a DNS result it follows the thresholds the admin configures for that server in the agent portal (packet-loss limits are counts of the 30 packets sent, not percentages), and `layerRanking` is the admin's layer for it (0 router, 1 or 2; 2 when unconfigured), not a local / external flag |
 | Different field names | `alerts` vs `actions` | `alert_*` vs `action_*`; not interchangeable |
+| Not surfaced | `ping_quality`, `packet_loss_quality` on each connection-quality entry | The backend rates the router's and each DNS server's ping and packet loss (excellent / good / moderate / poor, or null when it cannot judge) for the web report. `DnsQuality` is unchanged: it still carries only `connectionQualityColor`, which follows the admin thresholds |
 | Null means "not detected" | `networkTopology.doubleNatDetected` | The key is absent, not false |
 | `"Enabled"` / `"Disabled"` strings | `firewall`, `multicast`, `clientIsolation` | Not booleans |
 | String, not int | `channelCongestion.index` | |
+| UTC, no zone suffix | `sdkDetails.start` | `yyyy-MM-dd HH:mm:ss`, 24-hour; convert before showing it. Reports from earlier SDKs used a 12-hour clock with no AM/PM, so an afternoon scan reads 12 hours early |
 
 Branch on `alert.type` / `action.type`, never on `alertValue` / `actionValue` —
 those are display strings, sometimes templated at runtime, and are not stable
@@ -471,7 +523,7 @@ identifiers. Unrecognised values resolve to `unknown` rather than throwing.
 
 | Artifact | Maven coordinates | Source |
 |----------|-------------------|--------|
-| `tools-1.7.aar` | `org.bitbucket.creativeadvtech:tools:1.7` | `scanmynet-android` `:tools` module |
+| `tools-1.8.aar` | `org.bitbucket.creativeadvtech:tools:1.8` | `scanmynet-android` `:tools` module |
 | `traceroute-1.0.1.aar` | `com.synaptic-tools:traceroute:1.0.1` | rebuilt from upstream sources for 16 KB page alignment |
 
 AARs are served from `android/local-maven-repo/` using standard Maven layout.
@@ -483,7 +535,7 @@ that checksums and `maven-metadata.xml` stay consistent — see
 
 | Artifact | Vendored at | Source |
 |----------|-------------|--------|
-| `ScanMyNet.xcframework` | `ios/ScanMyNet.xcframework` | `scanmynet-ios` `Production` scheme |
+| `ScanMyNet.xcframework` | `ios/ScanMyNet.xcframework` | `scanmynet-ios` `Production` scheme (v1.1.0) |
 
 Rebuilt from the `scanmynet-ios` repo via `xcodebuild archive` (device +
 simulator) and `xcodebuild -create-xcframework`. See
