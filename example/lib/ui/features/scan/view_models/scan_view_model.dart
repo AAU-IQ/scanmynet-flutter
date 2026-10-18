@@ -16,6 +16,13 @@ double? parsePackageSpeed(String text) {
   return value;
 }
 
+/// The package key typed in the field, trimmed, or null for none. The native SDK trims and drops a blank
+/// key as well; this keeps the app's own state honest.
+String? parsePackageKey(String text) {
+  final key = text.trim();
+  return key.isEmpty ? null : key;
+}
+
 /// What the customer is told when a scan is refused for not being on an Al-Watani
 /// network. The SDK's `error.message` is the English; this is the Arabic draft from its README.
 const notAlWataniArabic =
@@ -49,6 +56,7 @@ class ScanViewModel extends ChangeNotifier {
   ScanEnvironment _environment;
   String _customBaseUrl = '';
   double? _packageSpeedMbps;
+  String? _packageKey;
   late final StreamSubscription<ScanEvent> _subscription;
 
   ScanUiState _state = ScanUiState.idle;
@@ -84,6 +92,15 @@ class ScanViewModel extends ChangeNotifier {
   void setPackageSpeed(String text) {
     if (_state.isRunning) return;
     _packageSpeedMbps = parsePackageSpeed(text);
+  }
+
+  /// The package key typed in the field, or null for none.
+  String? get packageKey => _packageKey;
+
+  /// Sets the optional package key from the text field (ignored mid-scan). Does not notify.
+  void setPackageKey(String text) {
+    if (_state.isRunning) return;
+    _packageKey = parsePackageKey(text);
   }
 
   /// Rolling, timestamped feed of native scan events — useful for diagnosing
@@ -149,6 +166,7 @@ class ScanViewModel extends ChangeNotifier {
           environment: _environment,
           customBaseUrl: isCustom ? _customBaseUrl : null,
           packageSpeedMbps: _packageSpeedMbps,
+          packageKey: _packageKey,
         ),
       );
       _log('startScan()');

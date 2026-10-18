@@ -64,6 +64,7 @@ class ScanHostApiImpl(
             .appName(config.appName.orEmpty())
             .environment(environment)
             .packageSpeedMbps(config.packageSpeedMbps)
+            .packageKey(config.packageKey)
             .progressCallback { progress -> onMain { flutterApi.onProgress(progress.toPigeon()) {} } }
             .resultCallback { result -> lastResult = result }
             .debugCallback { report -> onMain { flutterApi.onDataPersisted(ScanReport(report.toJson())) {} } }

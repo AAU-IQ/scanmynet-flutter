@@ -190,6 +190,7 @@ class ScanConfig {
     this.customBaseUrl,
     this.customFrontendUrl,
     this.packageSpeedMbps,
+    this.packageKey,
   });
 
   /// MANDATORY on both. Android `ApiKey.apiKey`; iOS `configuration.apiKey`.
@@ -258,6 +259,15 @@ class ScanConfig {
   /// Android `Build.packageSpeedMbps`, iOS `ScanMyNetConfiguration.packageSpeedMbps`.
   double? packageSpeedMbps;
 
+  /// The provider's code for the customer's subscription package, when the host app knows it. The backend
+  /// looks the package up and rates the download speed with that package's own limits, so the same speed
+  /// can be Good on one package and Poor on another.
+  ///
+  /// Optional. Without a key, or with one the backend does not know, the package speed (if set) and then the
+  /// fixed bands apply. The key is trimmed; a blank key is not sent. Not case sensitive.
+  /// Android `Build.packageKey`, iOS `ScanMyNetConfiguration.packageKey`.
+  String? packageKey;
+
   List<Object?> _toList() {
     return <Object?>[
       apiKey,
@@ -269,6 +279,7 @@ class ScanConfig {
       customBaseUrl,
       customFrontendUrl,
       packageSpeedMbps,
+      packageKey,
     ];
   }
 
@@ -287,6 +298,7 @@ class ScanConfig {
       customBaseUrl: result[6] as String?,
       customFrontendUrl: result[7] as String?,
       packageSpeedMbps: result[8] as double?,
+      packageKey: result[9] as String?,
     );
   }
 
@@ -299,7 +311,7 @@ class ScanConfig {
     if (identical(this, other)) {
       return true;
     }
-    return _deepEquals(apiKey, other.apiKey) && _deepEquals(userKey, other.userKey) && _deepEquals(appName, other.appName) && _deepEquals(requestKey, other.requestKey) && _deepEquals(environment, other.environment) && _deepEquals(schemaVersion, other.schemaVersion) && _deepEquals(customBaseUrl, other.customBaseUrl) && _deepEquals(customFrontendUrl, other.customFrontendUrl) && _deepEquals(packageSpeedMbps, other.packageSpeedMbps);
+    return _deepEquals(apiKey, other.apiKey) && _deepEquals(userKey, other.userKey) && _deepEquals(appName, other.appName) && _deepEquals(requestKey, other.requestKey) && _deepEquals(environment, other.environment) && _deepEquals(schemaVersion, other.schemaVersion) && _deepEquals(customBaseUrl, other.customBaseUrl) && _deepEquals(customFrontendUrl, other.customFrontendUrl) && _deepEquals(packageSpeedMbps, other.packageSpeedMbps) && _deepEquals(packageKey, other.packageKey);
   }
 
   @override

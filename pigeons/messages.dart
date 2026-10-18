@@ -190,6 +190,15 @@ class ScanConfig {
   /// rather than sent, because the backend refuses a report carrying one.
   /// Android `Build.packageSpeedMbps`, iOS `ScanMyNetConfiguration.packageSpeedMbps`.
   double? packageSpeedMbps;
+
+  /// The provider's code for the customer's subscription package, when the host app knows it. The backend
+  /// looks the package up and rates the download speed with that package's own limits, so the same speed
+  /// can be Good on one package and Poor on another.
+  ///
+  /// Optional. Without a key, or with one the backend does not know, the package speed (if set) and then the
+  /// fixed bands apply. The key is trimmed; a blank key is not sent. Not case sensitive.
+  /// Android `Build.packageKey`, iOS `ScanMyNetConfiguration.packageKey`.
+  String? packageKey;
 }
 
 /// Progress payload — superset of both platforms.
