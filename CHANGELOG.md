@@ -1,7 +1,7 @@
 ## 1.3.0
 
 Both platforms. **Pigeon schema 4: rebuild both native binaries together** (the
-bundled Android `tools:1.8` and the iOS xcframework); `configure()` throws on a
+bundled Android `tools:1.9` and the iOS xcframework); `configure()` throws on a
 mismatch.
 
 * **Added (both):** a scan started on the wrong network (on 4G, or on another
@@ -15,11 +15,18 @@ mismatch.
   share of it delivered (Good from 80%, Moderate from 50%) instead of the fixed
   bands. Unset, nothing changes. Values that cannot be a speed are dropped by the
   native SDK rather than sent. It rides the same schema 4 as the network guard,
-  as the last field of `ScanConfig`.
-* **Changed (Android, bundled SDK):** `tools:1.8` (was 1.7), which carries the
-  check above. It calls the backend's new `GET /api/v1/network/check`.
+  as a field of `ScanConfig`.
+* **Added (both):** `ScanConfig.packageKey`, optional. The provider's code for the
+  customer's subscription package: the backend looks the package up and rates the
+  download speed with that package's own limits, and the report names it. Unset, or
+  a key the backend does not know, nothing changes (the package speed, then the fixed
+  bands, apply). The key is trimmed and a blank key is not sent. The last field of
+  `ScanConfig`, on the same schema 4.
+* **Changed (Android, bundled SDK):** `tools:1.9` (was 1.7), which carries the
+  check and the package key above. It calls the backend's new
+  `GET /api/v1/network/check`.
 * **Changed (iOS, bundled SDK):** `ScanMyNet.xcframework` rebuilt from
-  `scanmynet-ios` v1.1.0, with the same check and package speed.
+  `scanmynet-ios` v1.2.0, with the same checks, package speed and package key.
 * **Fixed (both):** `sdkDetails.start`, the scan's start time, went out on a
   12-hour clock with no AM/PM marker, so any scan from 13:00 to 23:59 UTC arrived
   12 hours early and midnight arrived as `12:xx`. It is now UTC on a 24-hour
@@ -36,8 +43,8 @@ mismatch.
   15 to 30 and Poor below 15. It was Good from 7.5 and Poor below 5. Applies to
   reports submitted after the backend is deployed; stored reports keep their old
   label.
-* **Changed:** `sdkDetails.routeThisSDK` now says `v1.8.0` from Android and
-  `v1.1.0` from iOS. Every earlier build said `v1.6.0` (Android) or `v1.0.0`
+* **Changed:** `sdkDetails.routeThisSDK` now says `v1.9.0` from Android and
+  `v1.2.0` from iOS. Every earlier build said `v1.6.0` (Android) or `v1.0.0`
   (iOS), whatever it contained, so those two values mean "before the 24-hour
   `start` fix".
 * **Changed (backend, no SDK upgrade needed):** a connected device's

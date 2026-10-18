@@ -333,6 +333,7 @@ so with the server verdict enforced a VPN user is refused as `notAlWatani`.
 | `appName` | The embedding app's name, shown on the report as its origin |
 | `requestKey` | Deprecated alias for `userKey`, read only when `userKey` is unset |
 | `packageSpeedMbps` | Optional. The customer's subscribed speed in Mbps, so the download speed is rated against what they pay for (below). A value that cannot be a speed is dropped, not sent |
+| `packageKey` | Optional. The provider's code for the customer's subscription package: the backend rates the download speed with that package's own limits (below). A blank key is not sent |
 
 `packageSpeedMbps` lets the report judge a result by the package: Good from 80% of
 it, Moderate from 50%, Poor below. Leave it unset and the download speed is rated on
@@ -341,6 +342,15 @@ an app that never heard of the field. The native SDKs drop zero, negative, `NaN`
 infinite and above-100,000 values instead of sending them, because the backend
 refuses a report carrying one and the whole scan would be lost. It is read once, at
 `configure()`; call `configure()` again to change it.
+
+`packageKey` is the provider's code for the customer's subscription package. The
+backend looks the package up and rates the download speed with that package's own
+limits, so the same speed can be Good on one package and Poor on another, and the
+report names the package. It is optional: without a key, or with one the backend does
+not know, the package speed above is used if set, then the fixed bands. The key must
+match the provider's code exactly, capital letters and symbols included. It is
+trimmed, and a blank key is not sent. Like `packageSpeedMbps` it is read once, at
+`configure()`.
 
 > **Before 1.1.11, `userKey` reached Android only.** iOS read `requestKey`
 > instead, and where that was unset the native SDK substituted a built-in
@@ -523,7 +533,7 @@ identifiers. Unrecognised values resolve to `unknown` rather than throwing.
 
 | Artifact | Maven coordinates | Source |
 |----------|-------------------|--------|
-| `tools-1.8.aar` | `org.bitbucket.creativeadvtech:tools:1.8` | `scanmynet-android` `:tools` module |
+| `tools-1.9.aar` | `org.bitbucket.creativeadvtech:tools:1.9` | `scanmynet-android` `:tools` module |
 | `traceroute-1.0.1.aar` | `com.synaptic-tools:traceroute:1.0.1` | rebuilt from upstream sources for 16 KB page alignment |
 
 AARs are served from `android/local-maven-repo/` using standard Maven layout.
@@ -535,7 +545,7 @@ that checksums and `maven-metadata.xml` stay consistent — see
 
 | Artifact | Vendored at | Source |
 |----------|-------------|--------|
-| `ScanMyNet.xcframework` | `ios/ScanMyNet.xcframework` | `scanmynet-ios` `Production` scheme (v1.1.0) |
+| `ScanMyNet.xcframework` | `ios/ScanMyNet.xcframework` | `scanmynet-ios` `Production` scheme (v1.2.0) |
 
 Rebuilt from the `scanmynet-ios` repo via `xcodebuild archive` (device +
 simulator) and `xcodebuild -create-xcframework`. See

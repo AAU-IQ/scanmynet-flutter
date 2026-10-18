@@ -310,6 +310,14 @@ struct ScanConfig: Hashable {
   /// rather than sent, because the backend refuses a report carrying one.
   /// Android `Build.packageSpeedMbps`, iOS `ScanMyNetConfiguration.packageSpeedMbps`.
   var packageSpeedMbps: Double? = nil
+  /// The provider's code for the customer's subscription package, when the host app knows it. The backend
+  /// looks the package up and rates the download speed with that package's own limits, so the same speed
+  /// can be Good on one package and Poor on another.
+  ///
+  /// Optional. Without a key, or with one the backend does not know, the package speed (if set) and then the
+  /// fixed bands apply. The key is trimmed; a blank key is not sent. Not case sensitive.
+  /// Android `Build.packageKey`, iOS `ScanMyNetConfiguration.packageKey`.
+  var packageKey: String? = nil
 
 
   // swift-format-ignore: AlwaysUseLowerCamelCase
@@ -323,6 +331,7 @@ struct ScanConfig: Hashable {
     let customBaseUrl: String? = nilOrValue(pigeonVar_list[6])
     let customFrontendUrl: String? = nilOrValue(pigeonVar_list[7])
     let packageSpeedMbps: Double? = nilOrValue(pigeonVar_list[8])
+    let packageKey: String? = nilOrValue(pigeonVar_list[9])
 
     return ScanConfig(
       apiKey: apiKey,
@@ -333,7 +342,8 @@ struct ScanConfig: Hashable {
       schemaVersion: schemaVersion,
       customBaseUrl: customBaseUrl,
       customFrontendUrl: customFrontendUrl,
-      packageSpeedMbps: packageSpeedMbps
+      packageSpeedMbps: packageSpeedMbps,
+      packageKey: packageKey
     )
   }
   func toList() -> [Any?] {
@@ -347,13 +357,14 @@ struct ScanConfig: Hashable {
       customBaseUrl,
       customFrontendUrl,
       packageSpeedMbps,
+      packageKey,
     ]
   }
   static func == (lhs: ScanConfig, rhs: ScanConfig) -> Bool {
     if Swift.type(of: lhs) != Swift.type(of: rhs) {
       return false
     }
-    return deepEqualsMessages(lhs.apiKey, rhs.apiKey) && deepEqualsMessages(lhs.userKey, rhs.userKey) && deepEqualsMessages(lhs.appName, rhs.appName) && deepEqualsMessages(lhs.requestKey, rhs.requestKey) && deepEqualsMessages(lhs.environment, rhs.environment) && deepEqualsMessages(lhs.schemaVersion, rhs.schemaVersion) && deepEqualsMessages(lhs.customBaseUrl, rhs.customBaseUrl) && deepEqualsMessages(lhs.customFrontendUrl, rhs.customFrontendUrl) && deepEqualsMessages(lhs.packageSpeedMbps, rhs.packageSpeedMbps)
+    return deepEqualsMessages(lhs.apiKey, rhs.apiKey) && deepEqualsMessages(lhs.userKey, rhs.userKey) && deepEqualsMessages(lhs.appName, rhs.appName) && deepEqualsMessages(lhs.requestKey, rhs.requestKey) && deepEqualsMessages(lhs.environment, rhs.environment) && deepEqualsMessages(lhs.schemaVersion, rhs.schemaVersion) && deepEqualsMessages(lhs.customBaseUrl, rhs.customBaseUrl) && deepEqualsMessages(lhs.customFrontendUrl, rhs.customFrontendUrl) && deepEqualsMessages(lhs.packageSpeedMbps, rhs.packageSpeedMbps) && deepEqualsMessages(lhs.packageKey, rhs.packageKey)
   }
 
   func hash(into hasher: inout Hasher) {
@@ -367,6 +378,7 @@ struct ScanConfig: Hashable {
     deepHashMessages(value: customBaseUrl, hasher: &hasher)
     deepHashMessages(value: customFrontendUrl, hasher: &hasher)
     deepHashMessages(value: packageSpeedMbps, hasher: &hasher)
+    deepHashMessages(value: packageKey, hasher: &hasher)
   }
 }
 

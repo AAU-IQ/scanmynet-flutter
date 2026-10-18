@@ -382,7 +382,17 @@ data class ScanConfig (
    * rather than sent, because the backend refuses a report carrying one.
    * Android `Build.packageSpeedMbps`, iOS `ScanMyNetConfiguration.packageSpeedMbps`.
    */
-  val packageSpeedMbps: Double? = null
+  val packageSpeedMbps: Double? = null,
+  /**
+   * The provider's code for the customer's subscription package, when the host app knows it. The backend
+   * looks the package up and rates the download speed with that package's own limits, so the same speed
+   * can be Good on one package and Poor on another.
+   *
+   * Optional. Without a key, or with one the backend does not know, the package speed (if set) and then the
+   * fixed bands apply. The key is trimmed; a blank key is not sent. Not case sensitive.
+   * Android `Build.packageKey`, iOS `ScanMyNetConfiguration.packageKey`.
+   */
+  val packageKey: String? = null
 )
  {
   companion object {
@@ -396,7 +406,8 @@ data class ScanConfig (
       val customBaseUrl = pigeonVar_list[6] as String?
       val customFrontendUrl = pigeonVar_list[7] as String?
       val packageSpeedMbps = pigeonVar_list[8] as Double?
-      return ScanConfig(apiKey, userKey, appName, requestKey, environment, schemaVersion, customBaseUrl, customFrontendUrl, packageSpeedMbps)
+      val packageKey = pigeonVar_list[9] as String?
+      return ScanConfig(apiKey, userKey, appName, requestKey, environment, schemaVersion, customBaseUrl, customFrontendUrl, packageSpeedMbps, packageKey)
     }
   }
   fun toList(): List<Any?> {
@@ -410,6 +421,7 @@ data class ScanConfig (
       customBaseUrl,
       customFrontendUrl,
       packageSpeedMbps,
+      packageKey,
     )
   }
   override fun equals(other: Any?): Boolean {
@@ -420,7 +432,7 @@ data class ScanConfig (
       return true
     }
     val other = other as ScanConfig
-    return MessagesPigeonUtils.deepEquals(this.apiKey, other.apiKey) && MessagesPigeonUtils.deepEquals(this.userKey, other.userKey) && MessagesPigeonUtils.deepEquals(this.appName, other.appName) && MessagesPigeonUtils.deepEquals(this.requestKey, other.requestKey) && MessagesPigeonUtils.deepEquals(this.environment, other.environment) && MessagesPigeonUtils.deepEquals(this.schemaVersion, other.schemaVersion) && MessagesPigeonUtils.deepEquals(this.customBaseUrl, other.customBaseUrl) && MessagesPigeonUtils.deepEquals(this.customFrontendUrl, other.customFrontendUrl) && MessagesPigeonUtils.deepEquals(this.packageSpeedMbps, other.packageSpeedMbps)
+    return MessagesPigeonUtils.deepEquals(this.apiKey, other.apiKey) && MessagesPigeonUtils.deepEquals(this.userKey, other.userKey) && MessagesPigeonUtils.deepEquals(this.appName, other.appName) && MessagesPigeonUtils.deepEquals(this.requestKey, other.requestKey) && MessagesPigeonUtils.deepEquals(this.environment, other.environment) && MessagesPigeonUtils.deepEquals(this.schemaVersion, other.schemaVersion) && MessagesPigeonUtils.deepEquals(this.customBaseUrl, other.customBaseUrl) && MessagesPigeonUtils.deepEquals(this.customFrontendUrl, other.customFrontendUrl) && MessagesPigeonUtils.deepEquals(this.packageSpeedMbps, other.packageSpeedMbps) && MessagesPigeonUtils.deepEquals(this.packageKey, other.packageKey)
   }
 
   override fun hashCode(): Int {
@@ -434,6 +446,7 @@ data class ScanConfig (
     result = 31 * result + MessagesPigeonUtils.deepHash(this.customBaseUrl)
     result = 31 * result + MessagesPigeonUtils.deepHash(this.customFrontendUrl)
     result = 31 * result + MessagesPigeonUtils.deepHash(this.packageSpeedMbps)
+    result = 31 * result + MessagesPigeonUtils.deepHash(this.packageKey)
     return result
   }
 }

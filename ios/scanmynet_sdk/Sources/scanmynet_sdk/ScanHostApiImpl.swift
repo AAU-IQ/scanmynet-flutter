@@ -50,7 +50,8 @@ final class ScanHostApiImpl: NSObject, ScanHostApi {
       requestKey: Self.customerKey(from: config),
       appName: config.appName,
       environment: try config.toNativeEnvironment(),
-      packageSpeedMbps: config.packageSpeedMbps
+      packageSpeedMbps: config.packageSpeedMbps,
+      packageKey: config.packageKey
     )
     let manager = ScanMyNetManager(configuration: configuration)
     manager.delegate = self
