@@ -9,7 +9,7 @@ backend.
 
 ```yaml
 dependencies:
-  scanmynet_sdk: ^1.3.0
+  scanmynet_sdk: ^1.3.1
 ```
 
 ## Prerequisites
@@ -545,7 +545,7 @@ that checksums and `maven-metadata.xml` stay consistent — see
 
 | Artifact | Vendored at | Source |
 |----------|-------------|--------|
-| `ScanMyNet.xcframework` | `ios/ScanMyNet.xcframework` | `scanmynet-ios` `Production` scheme (v1.2.0) |
+| `ScanMyNet.xcframework` | `ios/ScanMyNet.xcframework` | `scanmynet-ios` `Production` scheme (v1.2.1) |
 
 Rebuilt from the `scanmynet-ios` repo via `xcodebuild archive` (device +
 simulator) and `xcodebuild -create-xcframework`. See
