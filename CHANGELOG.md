@@ -1,3 +1,15 @@
+## 1.3.1
+
+Both platforms. No API change, and the same Pigeon schema 4 as 1.3.0.
+
+* **Fixed (both):** the report link in `ScanResult.reportUrl` no longer carries a `#`. It
+  is `<viewer root>view-report?verification_token=<token>`, where it used to be
+  `<viewer root>#/view-report/?verification_token=<token>`. The portal now routes by path,
+  and a link with a `#` opens its home page and then its login screen instead of the
+  report. Android: this plugin builds the link. iOS: `ScanMyNet.xcframework` is rebuilt from
+  `scanmynet-ios` v1.2.1. Reports opened from this version need the portal release that
+  routes by path; a link from 1.3.0 or earlier needs the earlier one.
+
 ## 1.3.0
 
 Both platforms. **Pigeon schema 4: rebuild both native binaries together** (the

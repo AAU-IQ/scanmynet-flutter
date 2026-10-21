@@ -135,28 +135,13 @@ class ScanHostApiImpl(
     )
 
     private fun ReportResponseDto.toPigeon(result: NetworkScanResult?) = ScanResult(
-        reportUrl = buildReportUrl(data),
+        reportUrl = reportViewerUrl(frontendBaseUrl, data),
         status = result?.status?.toPigeon() ?: ScanResultStatus.SUCCESS,
         totalDurationMs = result?.duration,
         reportId = report_id,
         customerId = customer_id,
         report = report?.toPigeon(),
     )
-
-    /**
-     * Builds the full report-viewer URL Flutter opens as-is. The backend's `data`
-     * is a malformed viewer link (e.g. `…mlview-report?verification_token=…`, no
-     * `/#/`), so we pull the `verification_token` out and re-assemble it against
-     * the environment's [frontendBaseUrl]. `substringAfter` is used instead of
-     * `Uri.getQueryParameter` so the token is found whether it sits in the URL's
-     * query or its `#/` fragment. If no token is present, `data` is passed through.
-     */
-    private fun buildReportUrl(data: String): String {
-        val marker = "verification_token="
-        if (!data.contains(marker)) return data
-        val token = data.substringAfter(marker).substringBefore("&")
-        return "${frontendBaseUrl}#/view-report/?verification_token=$token"
-    }
 
     private fun NetworkScanError.toPigeon() = ScanError(
         kind = ScanErrorKind.PER_STEP,
