@@ -1990,6 +1990,14 @@ data class NetworkCongestion (
  * diagram groups servers by it, and the backend leaves layer 1 out of its "poor connection
  * outside the home" action. It is not a local / external flag.
  *
+ * The status the customer sees, for a screen of your own: [pingQuality] and [packetLossQuality] are
+ * `excellent`, `good`, `moderate` or `poor`, or null when the backend cannot judge (a router that answered
+ * nothing has no ping rating). [pingQualityColor] and [packetLossQualityColor] are the colour of each
+ * (`green` for excellent and good, `yellow` for moderate, `red` for poor, null with no rating). The ping is
+ * rated by the limits the provider sets in its dashboard for that server; packet loss uses fixed bands. Show
+ * them as given; do not recompute them from [averagePingTime]. [connectionQualityColor] is the provider's own
+ * threshold colour and is unchanged. The four are appended last: Pigeon codecs are positional.
+ *
  * Generated class from Pigeon that represents data sent in messages.
  */
 data class DnsQuality (
@@ -2003,7 +2011,11 @@ data class DnsQuality (
   val jitter: Double? = null,
   val averagePingTime: Double? = null,
   val connectionQualityColor: QualityColor? = null,
-  val layerRanking: Long? = null
+  val layerRanking: Long? = null,
+  val pingQuality: String? = null,
+  val packetLossQuality: String? = null,
+  val pingQualityColor: String? = null,
+  val packetLossQualityColor: String? = null
 )
  {
   companion object {
@@ -2018,7 +2030,11 @@ data class DnsQuality (
       val averagePingTime = pigeonVar_list[7] as Double?
       val connectionQualityColor = pigeonVar_list[8] as QualityColor?
       val layerRanking = pigeonVar_list[9] as Long?
-      return DnsQuality(dnsName, dnsIp, packetsDropped, numPacketsSent, pingValues, isSubscriberRouter, jitter, averagePingTime, connectionQualityColor, layerRanking)
+      val pingQuality = pigeonVar_list[10] as String?
+      val packetLossQuality = pigeonVar_list[11] as String?
+      val pingQualityColor = pigeonVar_list[12] as String?
+      val packetLossQualityColor = pigeonVar_list[13] as String?
+      return DnsQuality(dnsName, dnsIp, packetsDropped, numPacketsSent, pingValues, isSubscriberRouter, jitter, averagePingTime, connectionQualityColor, layerRanking, pingQuality, packetLossQuality, pingQualityColor, packetLossQualityColor)
     }
   }
   fun toList(): List<Any?> {
@@ -2033,6 +2049,10 @@ data class DnsQuality (
       averagePingTime,
       connectionQualityColor,
       layerRanking,
+      pingQuality,
+      packetLossQuality,
+      pingQualityColor,
+      packetLossQualityColor,
     )
   }
   override fun equals(other: Any?): Boolean {
@@ -2043,7 +2063,7 @@ data class DnsQuality (
       return true
     }
     val other = other as DnsQuality
-    return MessagesPigeonUtils.deepEquals(this.dnsName, other.dnsName) && MessagesPigeonUtils.deepEquals(this.dnsIp, other.dnsIp) && MessagesPigeonUtils.deepEquals(this.packetsDropped, other.packetsDropped) && MessagesPigeonUtils.deepEquals(this.numPacketsSent, other.numPacketsSent) && MessagesPigeonUtils.deepEquals(this.pingValues, other.pingValues) && MessagesPigeonUtils.deepEquals(this.isSubscriberRouter, other.isSubscriberRouter) && MessagesPigeonUtils.deepEquals(this.jitter, other.jitter) && MessagesPigeonUtils.deepEquals(this.averagePingTime, other.averagePingTime) && MessagesPigeonUtils.deepEquals(this.connectionQualityColor, other.connectionQualityColor) && MessagesPigeonUtils.deepEquals(this.layerRanking, other.layerRanking)
+    return MessagesPigeonUtils.deepEquals(this.dnsName, other.dnsName) && MessagesPigeonUtils.deepEquals(this.dnsIp, other.dnsIp) && MessagesPigeonUtils.deepEquals(this.packetsDropped, other.packetsDropped) && MessagesPigeonUtils.deepEquals(this.numPacketsSent, other.numPacketsSent) && MessagesPigeonUtils.deepEquals(this.pingValues, other.pingValues) && MessagesPigeonUtils.deepEquals(this.isSubscriberRouter, other.isSubscriberRouter) && MessagesPigeonUtils.deepEquals(this.jitter, other.jitter) && MessagesPigeonUtils.deepEquals(this.averagePingTime, other.averagePingTime) && MessagesPigeonUtils.deepEquals(this.connectionQualityColor, other.connectionQualityColor) && MessagesPigeonUtils.deepEquals(this.layerRanking, other.layerRanking) && MessagesPigeonUtils.deepEquals(this.pingQuality, other.pingQuality) && MessagesPigeonUtils.deepEquals(this.packetLossQuality, other.packetLossQuality) && MessagesPigeonUtils.deepEquals(this.pingQualityColor, other.pingQualityColor) && MessagesPigeonUtils.deepEquals(this.packetLossQualityColor, other.packetLossQualityColor)
   }
 
   override fun hashCode(): Int {
@@ -2058,6 +2078,10 @@ data class DnsQuality (
     result = 31 * result + MessagesPigeonUtils.deepHash(this.averagePingTime)
     result = 31 * result + MessagesPigeonUtils.deepHash(this.connectionQualityColor)
     result = 31 * result + MessagesPigeonUtils.deepHash(this.layerRanking)
+    result = 31 * result + MessagesPigeonUtils.deepHash(this.pingQuality)
+    result = 31 * result + MessagesPigeonUtils.deepHash(this.packetLossQuality)
+    result = 31 * result + MessagesPigeonUtils.deepHash(this.pingQualityColor)
+    result = 31 * result + MessagesPigeonUtils.deepHash(this.packetLossQualityColor)
     return result
   }
 }
@@ -2147,6 +2171,70 @@ data class TracerouteEntry (
 }
 
 /**
+ * What the customer is advised to do after a scan: one of the backend's recommended actions.
+ *
+ * [ReportData.recommendedActions] lists them most urgent first (the report page shows the first). Each text
+ * comes in every language the backend has, keyed by language code (`en`, `ar`), so an app picks one and needs
+ * no copy of its own; fall back to `en` when the language it wants is missing. [key] is a stable identifier
+ * (`delay_and_loss`, `weak_wifi_with_loss`, ...): branch on it, never on a text. [priority] is 1 (most urgent)
+ * to 3. [technicalState] is a short English description for support staff, not for the customer.
+ *
+ * Generated class from Pigeon that represents data sent in messages.
+ */
+data class RecommendedAction (
+  val key: String? = null,
+  val priority: Long? = null,
+  val technicalState: String? = null,
+  val title: Map<String, String>? = null,
+  val message: Map<String, String>? = null,
+  val recommendedAction: Map<String, String>? = null
+)
+ {
+  companion object {
+    fun fromList(pigeonVar_list: List<Any?>): RecommendedAction {
+      val key = pigeonVar_list[0] as String?
+      val priority = pigeonVar_list[1] as Long?
+      val technicalState = pigeonVar_list[2] as String?
+      val title = pigeonVar_list[3] as Map<String, String>?
+      val message = pigeonVar_list[4] as Map<String, String>?
+      val recommendedAction = pigeonVar_list[5] as Map<String, String>?
+      return RecommendedAction(key, priority, technicalState, title, message, recommendedAction)
+    }
+  }
+  fun toList(): List<Any?> {
+    return listOf(
+      key,
+      priority,
+      technicalState,
+      title,
+      message,
+      recommendedAction,
+    )
+  }
+  override fun equals(other: Any?): Boolean {
+    if (other == null || other.javaClass != javaClass) {
+      return false
+    }
+    if (this === other) {
+      return true
+    }
+    val other = other as RecommendedAction
+    return MessagesPigeonUtils.deepEquals(this.key, other.key) && MessagesPigeonUtils.deepEquals(this.priority, other.priority) && MessagesPigeonUtils.deepEquals(this.technicalState, other.technicalState) && MessagesPigeonUtils.deepEquals(this.title, other.title) && MessagesPigeonUtils.deepEquals(this.message, other.message) && MessagesPigeonUtils.deepEquals(this.recommendedAction, other.recommendedAction)
+  }
+
+  override fun hashCode(): Int {
+    var result = javaClass.hashCode()
+    result = 31 * result + MessagesPigeonUtils.deepHash(this.key)
+    result = 31 * result + MessagesPigeonUtils.deepHash(this.priority)
+    result = 31 * result + MessagesPigeonUtils.deepHash(this.technicalState)
+    result = 31 * result + MessagesPigeonUtils.deepHash(this.title)
+    result = 31 * result + MessagesPigeonUtils.deepHash(this.message)
+    result = 31 * result + MessagesPigeonUtils.deepHash(this.recommendedAction)
+    return result
+  }
+}
+
+/**
  * The full report payload. Mirrors the FE contract and evolves with it — this
  * is NOT a stable versioned schema.
  *
@@ -2171,7 +2259,17 @@ data class ReportData (
    * True when both `missing_upnp` and `incomplete_speed_test` fired — present
    * the scan as unreliable.
    */
-  val incompleteAnalysis: Boolean? = null
+  val incompleteAnalysis: Boolean? = null,
+  /**
+   * The customer's advice, most urgent first; empty when the scan found nothing to act on. Null from an
+   * older backend.
+   */
+  val recommendedActions: List<RecommendedAction>? = null,
+  /**
+   * "No instructions" by language (`en`, `ar`) when the overall status is Good and there is no action to show,
+   * else null. Show it in place of the advice. An action is never hidden by a Good status.
+   */
+  val noInstructions: Map<String, String>? = null
 )
  {
   companion object {
@@ -2191,7 +2289,9 @@ data class ReportData (
       val alerts = pigeonVar_list[12] as List<ReportAlert>?
       val actions = pigeonVar_list[13] as List<ReportAction>?
       val incompleteAnalysis = pigeonVar_list[14] as Boolean?
-      return ReportData(customerDetails, sdkDetails, routerUsageDuringScan, customerInternetSpeed, basicConnectivity, localConnectedDevices, customerRouterDetails, networkTopology, userWifiNetwork, networkCongestion, connectionQuality, traceroute, alerts, actions, incompleteAnalysis)
+      val recommendedActions = pigeonVar_list[15] as List<RecommendedAction>?
+      val noInstructions = pigeonVar_list[16] as Map<String, String>?
+      return ReportData(customerDetails, sdkDetails, routerUsageDuringScan, customerInternetSpeed, basicConnectivity, localConnectedDevices, customerRouterDetails, networkTopology, userWifiNetwork, networkCongestion, connectionQuality, traceroute, alerts, actions, incompleteAnalysis, recommendedActions, noInstructions)
     }
   }
   fun toList(): List<Any?> {
@@ -2211,6 +2311,8 @@ data class ReportData (
       alerts,
       actions,
       incompleteAnalysis,
+      recommendedActions,
+      noInstructions,
     )
   }
   override fun equals(other: Any?): Boolean {
@@ -2221,7 +2323,7 @@ data class ReportData (
       return true
     }
     val other = other as ReportData
-    return MessagesPigeonUtils.deepEquals(this.customerDetails, other.customerDetails) && MessagesPigeonUtils.deepEquals(this.sdkDetails, other.sdkDetails) && MessagesPigeonUtils.deepEquals(this.routerUsageDuringScan, other.routerUsageDuringScan) && MessagesPigeonUtils.deepEquals(this.customerInternetSpeed, other.customerInternetSpeed) && MessagesPigeonUtils.deepEquals(this.basicConnectivity, other.basicConnectivity) && MessagesPigeonUtils.deepEquals(this.localConnectedDevices, other.localConnectedDevices) && MessagesPigeonUtils.deepEquals(this.customerRouterDetails, other.customerRouterDetails) && MessagesPigeonUtils.deepEquals(this.networkTopology, other.networkTopology) && MessagesPigeonUtils.deepEquals(this.userWifiNetwork, other.userWifiNetwork) && MessagesPigeonUtils.deepEquals(this.networkCongestion, other.networkCongestion) && MessagesPigeonUtils.deepEquals(this.connectionQuality, other.connectionQuality) && MessagesPigeonUtils.deepEquals(this.traceroute, other.traceroute) && MessagesPigeonUtils.deepEquals(this.alerts, other.alerts) && MessagesPigeonUtils.deepEquals(this.actions, other.actions) && MessagesPigeonUtils.deepEquals(this.incompleteAnalysis, other.incompleteAnalysis)
+    return MessagesPigeonUtils.deepEquals(this.customerDetails, other.customerDetails) && MessagesPigeonUtils.deepEquals(this.sdkDetails, other.sdkDetails) && MessagesPigeonUtils.deepEquals(this.routerUsageDuringScan, other.routerUsageDuringScan) && MessagesPigeonUtils.deepEquals(this.customerInternetSpeed, other.customerInternetSpeed) && MessagesPigeonUtils.deepEquals(this.basicConnectivity, other.basicConnectivity) && MessagesPigeonUtils.deepEquals(this.localConnectedDevices, other.localConnectedDevices) && MessagesPigeonUtils.deepEquals(this.customerRouterDetails, other.customerRouterDetails) && MessagesPigeonUtils.deepEquals(this.networkTopology, other.networkTopology) && MessagesPigeonUtils.deepEquals(this.userWifiNetwork, other.userWifiNetwork) && MessagesPigeonUtils.deepEquals(this.networkCongestion, other.networkCongestion) && MessagesPigeonUtils.deepEquals(this.connectionQuality, other.connectionQuality) && MessagesPigeonUtils.deepEquals(this.traceroute, other.traceroute) && MessagesPigeonUtils.deepEquals(this.alerts, other.alerts) && MessagesPigeonUtils.deepEquals(this.actions, other.actions) && MessagesPigeonUtils.deepEquals(this.incompleteAnalysis, other.incompleteAnalysis) && MessagesPigeonUtils.deepEquals(this.recommendedActions, other.recommendedActions) && MessagesPigeonUtils.deepEquals(this.noInstructions, other.noInstructions)
   }
 
   override fun hashCode(): Int {
@@ -2241,6 +2343,8 @@ data class ReportData (
     result = 31 * result + MessagesPigeonUtils.deepHash(this.alerts)
     result = 31 * result + MessagesPigeonUtils.deepHash(this.actions)
     result = 31 * result + MessagesPigeonUtils.deepHash(this.incompleteAnalysis)
+    result = 31 * result + MessagesPigeonUtils.deepHash(this.recommendedActions)
+    result = 31 * result + MessagesPigeonUtils.deepHash(this.noInstructions)
     return result
   }
 }
@@ -2434,6 +2538,11 @@ private open class MessagesPigeonCodec : StandardMessageCodec() {
       }
       166.toByte() -> {
         return (readValue(buffer) as? List<Any?>)?.let {
+          RecommendedAction.fromList(it)
+        }
+      }
+      167.toByte() -> {
+        return (readValue(buffer) as? List<Any?>)?.let {
           ReportData.fromList(it)
         }
       }
@@ -2590,8 +2699,12 @@ private open class MessagesPigeonCodec : StandardMessageCodec() {
         stream.write(165)
         writeValue(stream, value.toList())
       }
-      is ReportData -> {
+      is RecommendedAction -> {
         stream.write(166)
+        writeValue(stream, value.toList())
+      }
+      is ReportData -> {
+        stream.write(167)
         writeValue(stream, value.toList())
       }
       else -> super.writeValue(stream, value)

@@ -2,7 +2,9 @@ package com.creativeadvtech.scanmynet_sdk
 
 import com.creative.tools.rest.dto.response.ChannelCongestionDto
 import com.creative.tools.rest.dto.response.CustomerDetailsDto
+import com.creative.tools.rest.dto.response.DnsQualityDto
 import com.creative.tools.rest.dto.response.InternetSpeedDto
+import com.creative.tools.rest.dto.response.RecommendedActionDto
 import com.creative.tools.rest.dto.response.ReportDto
 import kotlin.test.Test
 import kotlin.test.assertEquals
@@ -54,5 +56,89 @@ class ReportMapperTest {
     fun `channel congestion index stays a string`() {
         val dto = ChannelCongestionDto(index = "6", num_networks = 4)
         assertEquals("6", dto.toPigeon().index)
+    }
+
+    @Test
+    fun `maps the ping status and its colour for each connection quality entry`() {
+        val dto = ReportDto(
+            connection_quality = listOf(
+                DnsQualityDto(
+                    dns_name = "192.168.1.1", is_subscriber_router = true,
+                    ping_quality = "poor", packet_loss_quality = "excellent",
+                    ping_quality_color = "red", packet_loss_quality_color = "green",
+                ),
+            ),
+        )
+
+        val entry = dto.toPigeon().connectionQuality!!.single()
+
+        assertEquals("poor", entry.pingQuality)
+        assertEquals("excellent", entry.packetLossQuality)
+        assertEquals("red", entry.pingQualityColor)
+        assertEquals("green", entry.packetLossQualityColor)
+    }
+
+    @Test
+    fun `a router that answered nothing keeps a null ping rating`() {
+        val entry = DnsQualityDto(dns_name = "router", packet_loss_quality = "poor", packet_loss_quality_color = "red")
+            .toPigeon()
+
+        assertNull(entry.pingQuality)
+        assertNull(entry.pingQualityColor)
+        assertEquals("poor", entry.packetLossQuality)
+    }
+
+    @Test
+    fun `maps recommended actions with their texts by language`() {
+        val dto = ReportDto(
+            recommended_actions = listOf(
+                RecommendedActionDto(
+                    key = "delay_and_loss", priority = 2L, technical_state = "High Ping + Packet Loss",
+                    title = mapOf("en" to "Delay and data loss", "ar" to "تأخير وفقدان في البيانات"),
+                    message = mapOf("en" to "m", "ar" to "ر"),
+                    recommended_action = mapOf("en" to "Run the scan again.", "ar" to "أعد الفحص."),
+                ),
+            ),
+        )
+
+        val action = dto.toPigeon().recommendedActions!!.single()
+
+        assertEquals("delay_and_loss", action.key)
+        assertEquals(2L, action.priority)
+        assertEquals("High Ping + Packet Loss", action.technicalState)
+        assertEquals("Delay and data loss", action.title!!["en"])
+        assertEquals("تأخير وفقدان في البيانات", action.title!!["ar"])
+        assertEquals("أعد الفحص.", action.recommendedAction!!["ar"])
+    }
+
+    @Test
+    fun `maps No instructions through, and an empty list stays empty`() {
+        val pigeon = ReportDto(
+            recommended_actions = emptyList(),
+            no_instructions = mapOf("en" to "No instructions", "ar" to "لا يوجد تعليمات"),
+        ).toPigeon()
+
+        assertEquals(0, pigeon.recommendedActions!!.size)
+        assertEquals("No instructions", pigeon.noInstructions!!["en"])
+        assertEquals("لا يوجد تعليمات", pigeon.noInstructions!!["ar"])
+    }
+
+    @Test
+    fun `an older backend report maps both to null`() {
+        val pigeon = ReportDto().toPigeon()
+
+        assertNull(pigeon.recommendedActions)
+        assertNull(pigeon.noInstructions)
+    }
+
+    @Test
+    fun `a text with a null value is dropped, not sent`() {
+        // Gson can hand back a null inside a Map<String, String>; the channel's map has no null values.
+        @Suppress("UNCHECKED_CAST")
+        val texts = mapOf("en" to "Hello", "ar" to null) as Map<String, String>
+
+        val action = RecommendedActionDto(key = "x", title = texts).toPigeon()
+
+        assertEquals(mapOf("en" to "Hello"), action.title)
     }
 }

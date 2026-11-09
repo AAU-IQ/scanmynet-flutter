@@ -31,7 +31,9 @@ extension SMNReportPayload {
       traceroute: traceroute?.map { $0.toPigeon() },
       alerts: alerts?.map { $0.toPigeon() },
       actions: actions?.map { $0.toPigeon() },
-      incompleteAnalysis: incompleteAnalysis
+      incompleteAnalysis: incompleteAnalysis,
+      recommendedActions: recommendedActions?.map { $0.toPigeon() },
+      noInstructions: noInstructions
     )
   }
 }
@@ -155,6 +157,19 @@ extension SMNReportAlert {
 extension SMNReportAction {
   func toPigeon() -> ReportAction {
     ReportAction(actionType: actionType, actionValue: actionValue)
+  }
+}
+
+extension SMNRecommendedAction {
+  func toPigeon() -> RecommendedAction {
+    RecommendedAction(
+      key: key,
+      priority: priority.map { Int64($0) },
+      technicalState: technicalState,
+      title: title,
+      message: message,
+      recommendedAction: recommendedAction
+    )
   }
 }
 
@@ -299,7 +314,11 @@ extension SMNDNSQuality {
       jitter: jitter,
       averagePingTime: averagePingTime,
       connectionQualityColor: connectionQualityColor?.toPigeon(),
-      layerRanking: layerRanking.map { Int64($0) }
+      layerRanking: layerRanking.map { Int64($0) },
+      pingQuality: pingQuality,
+      packetLossQuality: packetLossQuality,
+      pingQualityColor: pingQualityColor,
+      packetLossQualityColor: packetLossQualityColor
     )
   }
 }

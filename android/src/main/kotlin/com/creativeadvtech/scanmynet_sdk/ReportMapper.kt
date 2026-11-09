@@ -24,6 +24,8 @@ internal fun ReportDto.toPigeon() = ReportData(
     alerts = alerts?.map { it.toPigeon() },
     actions = actions?.map { it.toPigeon() },
     incompleteAnalysis = incomplete_analysis,
+    recommendedActions = recommended_actions?.map { it.toPigeon() },
+    noInstructions = no_instructions?.toTexts(),
 )
 
 internal fun CustomerDetailsDto.toPigeon() = CustomerDetails(
@@ -181,7 +183,22 @@ internal fun DnsQualityDto.toPigeon() = DnsQuality(
     averagePingTime = average_ping_time,
     connectionQualityColor = connection_quality_color?.toPigeon(),
     layerRanking = layer_ranking,
+    pingQuality = ping_quality, packetLossQuality = packet_loss_quality,
+    pingQualityColor = ping_quality_color, packetLossQualityColor = packet_loss_quality_color,
 )
+
+internal fun RecommendedActionDto.toPigeon() = RecommendedAction(
+    key = key,
+    priority = priority,
+    technicalState = technical_state,
+    title = title?.toTexts(),
+    message = message?.toTexts(),
+    recommendedAction = recommended_action?.toTexts(),
+)
+
+/** A text by language code. Pigeon's map is `Map<String, String>`; Gson can hand back a null value. */
+internal fun Map<String, String?>.toTexts(): Map<String, String> =
+    entries.mapNotNull { (language, text) -> text?.let { language to it } }.toMap()
 
 internal fun TracerouteResultDto.toPigeon() = TracerouteEntry(
     dnsDestinationIp = dns_destination_ip,

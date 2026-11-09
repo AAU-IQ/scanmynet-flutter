@@ -458,7 +458,8 @@ defensively with `?.` and treat `null` as "not measured":
 | `networkTopology` | `NetworkTopology?` | other routers, double-NAT detection |
 | `networkCongestion` | `NetworkCongestion?` | channel congestion, surrounding networks |
 | `basicConnectivity` | `BasicConnectivity?` | server / port / DNS checks, firewall |
-| `connectionQuality` | `List<DnsQuality>?` | per-DNS ping / jitter quality |
+| `connectionQuality` | `List<DnsQuality>?` | per-DNS ping / jitter quality, and the status the customer sees with its colour |
+| `recommendedActions` / `noInstructions` | `List<RecommendedAction>?` / `Map<String, String>?` | the customer's advice, most urgent first, and "No instructions" when the overall status is Good and there is none |
 | `traceroute` | `List<TracerouteEntry>?` | hops per destination |
 | `alerts` / `actions` | `List<ReportAlert>?` / `List<ReportAction>?` | issues found + recommended fixes |
 | `customerDetails`, `sdkDetails`, `routerUsageDuringScan`, `incompleteAnalysis` | | metadata + reliability flag |
@@ -519,7 +520,8 @@ and can be compared directly, with the upload caveat noted above.
 | Single-entry map, not a struct | `customerInternetSpeed.connectionQuality` | `{"good": "green"}` — read the first entry. Rated by the backend, so an SDK upgrade is not needed to get a rule change: Good above 30 Mbps, Moderate 15 to 30, Poor below 15 (was 5 and 7.5), or by share of the package when `ScanConfig.packageSpeedMbps` is set. A report stored earlier keeps its old label |
 | ...but this one **is** a struct | `connectionQualityColor` on devices and DNS results | `{quality, color}`. On a device it is the worse of packet loss and average ping (ping counts only when `numPacketsSent` > 1), decided by the backend: no SDK upgrade is needed to get it. On a DNS result it follows the thresholds the admin configures for that server in the agent portal (packet-loss limits are counts of the 30 packets sent, not percentages), and `layerRanking` is the admin's layer for it (0 router, 1 or 2; 2 when unconfigured), not a local / external flag |
 | Different field names | `alerts` vs `actions` | `alert_*` vs `action_*`; not interchangeable |
-| Not surfaced | `ping_quality`, `packet_loss_quality` on each connection-quality entry | The backend rates the router's and each DNS server's ping and packet loss (excellent / good / moderate / poor, or null when it cannot judge) for the web report. `DnsQuality` is unchanged: it still carries only `connectionQualityColor`, which follows the admin thresholds |
+| Status with its colour | `pingQuality`, `packetLossQuality`, `pingQualityColor`, `packetLossQualityColor` on each `DnsQuality` | The status the customer sees, for a screen of your own: `excellent` / `good` / `moderate` / `poor`, or null when the backend cannot judge (a router that answered nothing has no ping rating); the colour is `green` (excellent, good), `yellow` (moderate) or `red` (poor). The ping is rated by the limits the provider sets in its dashboard, so show the rating as given and do not recompute it from `averagePingTime`. `connectionQualityColor` is the provider's own threshold colour and is unchanged |
+| Advice by language | `recommendedActions[].title` / `.message` / `.recommendedAction`, and `noInstructions` | `Map<String, String>` keyed by language code (`en`, `ar`): pick one, fall back to `en`. Branch on `recommendedActions[].key`, never on a text. `noInstructions` is non-null only when the overall status is Good and the list is empty: show it in place of the advice. Both are null from an older backend |
 | Null means "not detected" | `networkTopology.doubleNatDetected` | The key is absent, not false |
 | `"Enabled"` / `"Disabled"` strings | `firewall`, `multicast`, `clientIsolation` | Not booleans |
 | String, not int | `channelCongestion.index` | |
@@ -533,7 +535,7 @@ identifiers. Unrecognised values resolve to `unknown` rather than throwing.
 
 | Artifact | Maven coordinates | Source |
 |----------|-------------------|--------|
-| `tools-1.9.aar` | `org.bitbucket.creativeadvtech:tools:1.9` | `scanmynet-android` `:tools` module |
+| `tools-1.10.aar` | `org.bitbucket.creativeadvtech:tools:1.10` | `scanmynet-android` `:tools` module |
 | `traceroute-1.0.1.aar` | `com.synaptic-tools:traceroute:1.0.1` | rebuilt from upstream sources for 16 KB page alignment |
 
 AARs are served from `android/local-maven-repo/` using standard Maven layout.

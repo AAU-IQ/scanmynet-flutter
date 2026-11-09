@@ -1885,6 +1885,14 @@ struct NetworkCongestion: Hashable {
 /// diagram groups servers by it, and the backend leaves layer 1 out of its "poor connection
 /// outside the home" action. It is not a local / external flag.
 ///
+/// The status the customer sees, for a screen of your own: [pingQuality] and [packetLossQuality] are
+/// `excellent`, `good`, `moderate` or `poor`, or null when the backend cannot judge (a router that answered
+/// nothing has no ping rating). [pingQualityColor] and [packetLossQualityColor] are the colour of each
+/// (`green` for excellent and good, `yellow` for moderate, `red` for poor, null with no rating). The ping is
+/// rated by the limits the provider sets in its dashboard for that server; packet loss uses fixed bands. Show
+/// them as given; do not recompute them from [averagePingTime]. [connectionQualityColor] is the provider's own
+/// threshold colour and is unchanged. The four are appended last: Pigeon codecs are positional.
+///
 /// Generated class from Pigeon that represents data sent in messages.
 struct DnsQuality: Hashable {
   var dnsName: String? = nil
@@ -1898,6 +1906,10 @@ struct DnsQuality: Hashable {
   var averagePingTime: Double? = nil
   var connectionQualityColor: QualityColor? = nil
   var layerRanking: Int64? = nil
+  var pingQuality: String? = nil
+  var packetLossQuality: String? = nil
+  var pingQualityColor: String? = nil
+  var packetLossQualityColor: String? = nil
 
 
   // swift-format-ignore: AlwaysUseLowerCamelCase
@@ -1912,6 +1924,10 @@ struct DnsQuality: Hashable {
     let averagePingTime: Double? = nilOrValue(pigeonVar_list[7])
     let connectionQualityColor: QualityColor? = nilOrValue(pigeonVar_list[8])
     let layerRanking: Int64? = nilOrValue(pigeonVar_list[9])
+    let pingQuality: String? = nilOrValue(pigeonVar_list[10])
+    let packetLossQuality: String? = nilOrValue(pigeonVar_list[11])
+    let pingQualityColor: String? = nilOrValue(pigeonVar_list[12])
+    let packetLossQualityColor: String? = nilOrValue(pigeonVar_list[13])
 
     return DnsQuality(
       dnsName: dnsName,
@@ -1923,7 +1939,11 @@ struct DnsQuality: Hashable {
       jitter: jitter,
       averagePingTime: averagePingTime,
       connectionQualityColor: connectionQualityColor,
-      layerRanking: layerRanking
+      layerRanking: layerRanking,
+      pingQuality: pingQuality,
+      packetLossQuality: packetLossQuality,
+      pingQualityColor: pingQualityColor,
+      packetLossQualityColor: packetLossQualityColor
     )
   }
   func toList() -> [Any?] {
@@ -1938,13 +1958,17 @@ struct DnsQuality: Hashable {
       averagePingTime,
       connectionQualityColor,
       layerRanking,
+      pingQuality,
+      packetLossQuality,
+      pingQualityColor,
+      packetLossQualityColor,
     ]
   }
   static func == (lhs: DnsQuality, rhs: DnsQuality) -> Bool {
     if Swift.type(of: lhs) != Swift.type(of: rhs) {
       return false
     }
-    return deepEqualsMessages(lhs.dnsName, rhs.dnsName) && deepEqualsMessages(lhs.dnsIp, rhs.dnsIp) && deepEqualsMessages(lhs.packetsDropped, rhs.packetsDropped) && deepEqualsMessages(lhs.numPacketsSent, rhs.numPacketsSent) && deepEqualsMessages(lhs.pingValues, rhs.pingValues) && deepEqualsMessages(lhs.isSubscriberRouter, rhs.isSubscriberRouter) && deepEqualsMessages(lhs.jitter, rhs.jitter) && deepEqualsMessages(lhs.averagePingTime, rhs.averagePingTime) && deepEqualsMessages(lhs.connectionQualityColor, rhs.connectionQualityColor) && deepEqualsMessages(lhs.layerRanking, rhs.layerRanking)
+    return deepEqualsMessages(lhs.dnsName, rhs.dnsName) && deepEqualsMessages(lhs.dnsIp, rhs.dnsIp) && deepEqualsMessages(lhs.packetsDropped, rhs.packetsDropped) && deepEqualsMessages(lhs.numPacketsSent, rhs.numPacketsSent) && deepEqualsMessages(lhs.pingValues, rhs.pingValues) && deepEqualsMessages(lhs.isSubscriberRouter, rhs.isSubscriberRouter) && deepEqualsMessages(lhs.jitter, rhs.jitter) && deepEqualsMessages(lhs.averagePingTime, rhs.averagePingTime) && deepEqualsMessages(lhs.connectionQualityColor, rhs.connectionQualityColor) && deepEqualsMessages(lhs.layerRanking, rhs.layerRanking) && deepEqualsMessages(lhs.pingQuality, rhs.pingQuality) && deepEqualsMessages(lhs.packetLossQuality, rhs.packetLossQuality) && deepEqualsMessages(lhs.pingQualityColor, rhs.pingQualityColor) && deepEqualsMessages(lhs.packetLossQualityColor, rhs.packetLossQualityColor)
   }
 
   func hash(into hasher: inout Hasher) {
@@ -1959,6 +1983,10 @@ struct DnsQuality: Hashable {
     deepHashMessages(value: averagePingTime, hasher: &hasher)
     deepHashMessages(value: connectionQualityColor, hasher: &hasher)
     deepHashMessages(value: layerRanking, hasher: &hasher)
+    deepHashMessages(value: pingQuality, hasher: &hasher)
+    deepHashMessages(value: packetLossQuality, hasher: &hasher)
+    deepHashMessages(value: pingQualityColor, hasher: &hasher)
+    deepHashMessages(value: packetLossQualityColor, hasher: &hasher)
   }
 }
 
@@ -2041,6 +2069,70 @@ struct TracerouteEntry: Hashable {
   }
 }
 
+/// What the customer is advised to do after a scan: one of the backend's recommended actions.
+///
+/// [ReportData.recommendedActions] lists them most urgent first (the report page shows the first). Each text
+/// comes in every language the backend has, keyed by language code (`en`, `ar`), so an app picks one and needs
+/// no copy of its own; fall back to `en` when the language it wants is missing. [key] is a stable identifier
+/// (`delay_and_loss`, `weak_wifi_with_loss`, ...): branch on it, never on a text. [priority] is 1 (most urgent)
+/// to 3. [technicalState] is a short English description for support staff, not for the customer.
+///
+/// Generated class from Pigeon that represents data sent in messages.
+struct RecommendedAction: Hashable {
+  var key: String? = nil
+  var priority: Int64? = nil
+  var technicalState: String? = nil
+  var title: [String: String]? = nil
+  var message: [String: String]? = nil
+  var recommendedAction: [String: String]? = nil
+
+
+  // swift-format-ignore: AlwaysUseLowerCamelCase
+  static func fromList(_ pigeonVar_list: [Any?]) -> RecommendedAction? {
+    let key: String? = nilOrValue(pigeonVar_list[0])
+    let priority: Int64? = nilOrValue(pigeonVar_list[1])
+    let technicalState: String? = nilOrValue(pigeonVar_list[2])
+    let title: [String: String]? = nilOrValue(pigeonVar_list[3])
+    let message: [String: String]? = nilOrValue(pigeonVar_list[4])
+    let recommendedAction: [String: String]? = nilOrValue(pigeonVar_list[5])
+
+    return RecommendedAction(
+      key: key,
+      priority: priority,
+      technicalState: technicalState,
+      title: title,
+      message: message,
+      recommendedAction: recommendedAction
+    )
+  }
+  func toList() -> [Any?] {
+    return [
+      key,
+      priority,
+      technicalState,
+      title,
+      message,
+      recommendedAction,
+    ]
+  }
+  static func == (lhs: RecommendedAction, rhs: RecommendedAction) -> Bool {
+    if Swift.type(of: lhs) != Swift.type(of: rhs) {
+      return false
+    }
+    return deepEqualsMessages(lhs.key, rhs.key) && deepEqualsMessages(lhs.priority, rhs.priority) && deepEqualsMessages(lhs.technicalState, rhs.technicalState) && deepEqualsMessages(lhs.title, rhs.title) && deepEqualsMessages(lhs.message, rhs.message) && deepEqualsMessages(lhs.recommendedAction, rhs.recommendedAction)
+  }
+
+  func hash(into hasher: inout Hasher) {
+    hasher.combine("RecommendedAction")
+    deepHashMessages(value: key, hasher: &hasher)
+    deepHashMessages(value: priority, hasher: &hasher)
+    deepHashMessages(value: technicalState, hasher: &hasher)
+    deepHashMessages(value: title, hasher: &hasher)
+    deepHashMessages(value: message, hasher: &hasher)
+    deepHashMessages(value: recommendedAction, hasher: &hasher)
+  }
+}
+
 /// The full report payload. Mirrors the FE contract and evolves with it — this
 /// is NOT a stable versioned schema.
 ///
@@ -2063,6 +2155,12 @@ struct ReportData: Hashable {
   /// True when both `missing_upnp` and `incomplete_speed_test` fired — present
   /// the scan as unreliable.
   var incompleteAnalysis: Bool? = nil
+  /// The customer's advice, most urgent first; empty when the scan found nothing to act on. Null from an
+  /// older backend.
+  var recommendedActions: [RecommendedAction]? = nil
+  /// "No instructions" by language (`en`, `ar`) when the overall status is Good and there is no action to show,
+  /// else null. Show it in place of the advice. An action is never hidden by a Good status.
+  var noInstructions: [String: String]? = nil
 
 
   // swift-format-ignore: AlwaysUseLowerCamelCase
@@ -2082,6 +2180,8 @@ struct ReportData: Hashable {
     let alerts: [ReportAlert]? = nilOrValue(pigeonVar_list[12])
     let actions: [ReportAction]? = nilOrValue(pigeonVar_list[13])
     let incompleteAnalysis: Bool? = nilOrValue(pigeonVar_list[14])
+    let recommendedActions: [RecommendedAction]? = nilOrValue(pigeonVar_list[15])
+    let noInstructions: [String: String]? = nilOrValue(pigeonVar_list[16])
 
     return ReportData(
       customerDetails: customerDetails,
@@ -2098,7 +2198,9 @@ struct ReportData: Hashable {
       traceroute: traceroute,
       alerts: alerts,
       actions: actions,
-      incompleteAnalysis: incompleteAnalysis
+      incompleteAnalysis: incompleteAnalysis,
+      recommendedActions: recommendedActions,
+      noInstructions: noInstructions
     )
   }
   func toList() -> [Any?] {
@@ -2118,13 +2220,15 @@ struct ReportData: Hashable {
       alerts,
       actions,
       incompleteAnalysis,
+      recommendedActions,
+      noInstructions,
     ]
   }
   static func == (lhs: ReportData, rhs: ReportData) -> Bool {
     if Swift.type(of: lhs) != Swift.type(of: rhs) {
       return false
     }
-    return deepEqualsMessages(lhs.customerDetails, rhs.customerDetails) && deepEqualsMessages(lhs.sdkDetails, rhs.sdkDetails) && deepEqualsMessages(lhs.routerUsageDuringScan, rhs.routerUsageDuringScan) && deepEqualsMessages(lhs.customerInternetSpeed, rhs.customerInternetSpeed) && deepEqualsMessages(lhs.basicConnectivity, rhs.basicConnectivity) && deepEqualsMessages(lhs.localConnectedDevices, rhs.localConnectedDevices) && deepEqualsMessages(lhs.customerRouterDetails, rhs.customerRouterDetails) && deepEqualsMessages(lhs.networkTopology, rhs.networkTopology) && deepEqualsMessages(lhs.userWifiNetwork, rhs.userWifiNetwork) && deepEqualsMessages(lhs.networkCongestion, rhs.networkCongestion) && deepEqualsMessages(lhs.connectionQuality, rhs.connectionQuality) && deepEqualsMessages(lhs.traceroute, rhs.traceroute) && deepEqualsMessages(lhs.alerts, rhs.alerts) && deepEqualsMessages(lhs.actions, rhs.actions) && deepEqualsMessages(lhs.incompleteAnalysis, rhs.incompleteAnalysis)
+    return deepEqualsMessages(lhs.customerDetails, rhs.customerDetails) && deepEqualsMessages(lhs.sdkDetails, rhs.sdkDetails) && deepEqualsMessages(lhs.routerUsageDuringScan, rhs.routerUsageDuringScan) && deepEqualsMessages(lhs.customerInternetSpeed, rhs.customerInternetSpeed) && deepEqualsMessages(lhs.basicConnectivity, rhs.basicConnectivity) && deepEqualsMessages(lhs.localConnectedDevices, rhs.localConnectedDevices) && deepEqualsMessages(lhs.customerRouterDetails, rhs.customerRouterDetails) && deepEqualsMessages(lhs.networkTopology, rhs.networkTopology) && deepEqualsMessages(lhs.userWifiNetwork, rhs.userWifiNetwork) && deepEqualsMessages(lhs.networkCongestion, rhs.networkCongestion) && deepEqualsMessages(lhs.connectionQuality, rhs.connectionQuality) && deepEqualsMessages(lhs.traceroute, rhs.traceroute) && deepEqualsMessages(lhs.alerts, rhs.alerts) && deepEqualsMessages(lhs.actions, rhs.actions) && deepEqualsMessages(lhs.incompleteAnalysis, rhs.incompleteAnalysis) && deepEqualsMessages(lhs.recommendedActions, rhs.recommendedActions) && deepEqualsMessages(lhs.noInstructions, rhs.noInstructions)
   }
 
   func hash(into hasher: inout Hasher) {
@@ -2144,6 +2248,8 @@ struct ReportData: Hashable {
     deepHashMessages(value: alerts, hasher: &hasher)
     deepHashMessages(value: actions, hasher: &hasher)
     deepHashMessages(value: incompleteAnalysis, hasher: &hasher)
+    deepHashMessages(value: recommendedActions, hasher: &hasher)
+    deepHashMessages(value: noInstructions, hasher: &hasher)
   }
 }
 
@@ -2241,6 +2347,8 @@ private class MessagesPigeonCodecReader: FlutterStandardReader {
     case 165:
       return TracerouteEntry.fromList(self.readValue() as! [Any?])
     case 166:
+      return RecommendedAction.fromList(self.readValue() as! [Any?])
+    case 167:
       return ReportData.fromList(self.readValue() as! [Any?])
     default:
       return super.readValue(ofType: type)
@@ -2361,8 +2469,11 @@ private class MessagesPigeonCodecWriter: FlutterStandardWriter {
     } else if let value = value as? TracerouteEntry {
       super.writeByte(165)
       super.writeValue(value.toList())
-    } else if let value = value as? ReportData {
+    } else if let value = value as? RecommendedAction {
       super.writeByte(166)
+      super.writeValue(value.toList())
+    } else if let value = value as? ReportData {
+      super.writeByte(167)
       super.writeValue(value.toList())
     } else {
       super.writeValue(value)

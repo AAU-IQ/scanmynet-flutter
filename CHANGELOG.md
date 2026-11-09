@@ -1,3 +1,22 @@
+## 1.4.0
+
+Both platforms. **Pigeon schema 5: rebuild both native binaries together** (the
+bundled Android `tools:1.10` and the iOS xcframework); `configure()` throws on a
+mismatch.
+
+* **Added (both):** the status the customer sees for the ping and packet loss, for an app that
+  draws its own screen: `DnsQuality.pingQuality`, `packetLossQuality`, `pingQualityColor` and
+  `packetLossQualityColor` (`excellent` / `good` / `moderate` / `poor`, or null; the colour is
+  `green`, `yellow` or `red`). The ping is rated by the limits the provider sets in its dashboard,
+  so show the rating as given. `connectionQualityColor` is unchanged.
+* **Added (both):** `ReportData.recommendedActions` (the customer's advice, most urgent first,
+  each text by language) and `ReportData.noInstructions` ("No instructions" by language when the
+  overall status is Good and there is nothing to do). Both are null from an older backend.
+* **Changed (Android, bundled SDK):** `tools:1.10` (was 1.9).
+* **Needs the matching backend** to be filled in; an older backend leaves the new fields null.
+* **Not yet rebuilt:** `ios/ScanMyNet.xcframework` must be rebuilt from `scanmynet-ios` on a Mac
+  before this version is published; until then the iOS Swift mapper does not compile.
+
 ## 1.3.1
 
 Both platforms. No API change, and the same Pigeon schema 4 as 1.3.0.

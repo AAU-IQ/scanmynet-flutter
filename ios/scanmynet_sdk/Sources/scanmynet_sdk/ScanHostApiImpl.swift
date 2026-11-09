@@ -25,7 +25,7 @@ final class ScanHostApiImpl: NSObject, ScanHostApi {
   private var lastPercent: Double = 0
 
   /// Must match `.schemaVersion` in Dart.
-  private static let schemaVersion: Int64 = 4
+  private static let schemaVersion: Int64 = 5
 
   init(flutterApi: ScanFlutterApi) {
     self.flutterApi = flutterApi
