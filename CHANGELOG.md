@@ -13,6 +13,13 @@ mismatch.
   each text by language) and `ReportData.noInstructions` ("No instructions" by language when the
   overall status is Good and there is nothing to do). Both are null from an older backend.
 * **Changed (Android, bundled SDK):** `tools:1.10` (was 1.9).
+* **Fixed (Android, bundled SDK):** the Wi-Fi frequency is sent in GHz from one conversion, and as
+  `null` when Android does not know it. It used to send `-0.001` for the connected network when
+  Android reported `-1`, which the portal read as a band. The backend now also reads a frequency in
+  GHz or MHz the same way, and treats a missing one as unknown (the dashboard no longer says
+  "Connected to a 2.4GHz network" for every scan without a frequency).
+* **Documented:** the units of the Wi-Fi fields (`frequency` GHz, `signalStrength` dBm, `channelWidth`
+  MHz; `null` when not known) in the README. No API change.
 * **Needs the matching backend** to be filled in; an older backend leaves the new fields null.
 * **Not yet rebuilt:** `ios/ScanMyNet.xcframework` must be rebuilt from `scanmynet-ios` on a Mac
   before this version is published; until then the iOS Swift mapper does not compile.

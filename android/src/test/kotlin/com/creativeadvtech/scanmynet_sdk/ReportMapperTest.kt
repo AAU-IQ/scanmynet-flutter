@@ -6,6 +6,8 @@ import com.creative.tools.rest.dto.response.DnsQualityDto
 import com.creative.tools.rest.dto.response.InternetSpeedDto
 import com.creative.tools.rest.dto.response.RecommendedActionDto
 import com.creative.tools.rest.dto.response.ReportDto
+import com.creative.tools.rest.dto.response.UserConnectionDto
+import com.creative.tools.rest.dto.response.WifiNetworkResultDto
 import kotlin.test.Test
 import kotlin.test.assertEquals
 import kotlin.test.assertNull
@@ -140,5 +142,27 @@ class ReportMapperTest {
         val action = RecommendedActionDto(key = "x", title = texts).toPigeon()
 
         assertEquals(mapOf("en" to "Hello"), action.title)
+    }
+
+    @Test
+    fun `wifi frequency stays in GHz and signal in dBm, as the backend sends them`() {
+        val wifi = WifiNetworkResultDto(frequency = 2.437, signal_strength = -45, channel_width = 20).toPigeon()
+
+        // GHz (2.437, 5.18), never MHz (2437): the app that draws its own screen shows the number as it is.
+        assertEquals(2.437, wifi.frequency!!, 0.0)
+        assertEquals(-45L, wifi.signalStrength)
+        assertEquals(5.18, WifiNetworkResultDto(frequency = 5.18).toPigeon().frequency!!, 0.0)
+    }
+
+    @Test
+    fun `an unknown wifi frequency stays null, not 0`() {
+        // iOS sends no frequency and Android sends null when it does not know it.
+        assertNull(WifiNetworkResultDto().toPigeon().frequency)
+        assertNull(UserConnectionDto().toPigeon().phoneWifiFrequency)
+    }
+
+    @Test
+    fun `the phone's wifi frequency in the congestion block is GHz too`() {
+        assertEquals(5.18, UserConnectionDto(phone_wifi_frequency = 5.18).toPigeon().phoneWifiFrequency!!, 0.0)
     }
 }

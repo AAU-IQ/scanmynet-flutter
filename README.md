@@ -458,6 +458,12 @@ defensively with `?.` and treat `null` as "not measured":
 | `networkTopology` | `NetworkTopology?` | other routers, double-NAT detection |
 | `networkCongestion` | `NetworkCongestion?` | channel congestion, surrounding networks |
 | `basicConnectivity` | `BasicConnectivity?` | server / port / DNS checks, firewall |
+
+**Units of the Wi-Fi fields.** `WifiNetworkResult.frequency` and `UserConnection.phoneWifiFrequency` are in
+**GHz** (`2.437`, `5.18`), never MHz. `signalStrength` is in **dBm** and negative (`-45` is strong, `-85` is
+weak). `channelWidth` is in MHz. A value that is not known is `null`, never `0` and never negative; it is always
+`null` on iOS, which cannot read the frequency or the signal. Do not divide or multiply them: show `frequency`
+as `'$frequency GHz'`.
 | `connectionQuality` | `List<DnsQuality>?` | per-DNS ping / jitter quality, and the status the customer sees with its colour |
 | `recommendedActions` / `noInstructions` | `List<RecommendedAction>?` / `Map<String, String>?` | the customer's advice, most urgent first, and "No instructions" when the overall status is Good and there is none |
 | `traceroute` | `List<TracerouteEntry>?` | hops per destination |
