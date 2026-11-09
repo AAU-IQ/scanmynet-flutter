@@ -5864,6 +5864,246 @@
           },
           {
             "kind": "Var",
+            "name": "pingQuality",
+            "printedName": "pingQuality",
+            "children": [
+              {
+                "kind": "TypeNominal",
+                "name": "Optional",
+                "printedName": "Swift.String?",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "String",
+                    "printedName": "Swift.String",
+                    "usr": "s:SS"
+                  }
+                ],
+                "usr": "s:Sq"
+              }
+            ],
+            "declKind": "Var",
+            "usr": "s:9ScanMyNet13SMNDNSQualityV11pingQualitySSSgvp",
+            "mangledName": "$s9ScanMyNet13SMNDNSQualityV11pingQualitySSSgvp",
+            "moduleName": "ScanMyNet",
+            "declAttributes": [
+              "HasStorage",
+              "AccessControl"
+            ],
+            "isLet": true,
+            "hasStorage": true,
+            "accessors": [
+              {
+                "kind": "Accessor",
+                "name": "Get",
+                "printedName": "Get()",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "Optional",
+                    "printedName": "Swift.String?",
+                    "children": [
+                      {
+                        "kind": "TypeNominal",
+                        "name": "String",
+                        "printedName": "Swift.String",
+                        "usr": "s:SS"
+                      }
+                    ],
+                    "usr": "s:Sq"
+                  }
+                ],
+                "declKind": "Accessor",
+                "usr": "s:9ScanMyNet13SMNDNSQualityV11pingQualitySSSgvg",
+                "mangledName": "$s9ScanMyNet13SMNDNSQualityV11pingQualitySSSgvg",
+                "moduleName": "ScanMyNet",
+                "implicit": true,
+                "accessorKind": "get"
+              }
+            ]
+          },
+          {
+            "kind": "Var",
+            "name": "packetLossQuality",
+            "printedName": "packetLossQuality",
+            "children": [
+              {
+                "kind": "TypeNominal",
+                "name": "Optional",
+                "printedName": "Swift.String?",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "String",
+                    "printedName": "Swift.String",
+                    "usr": "s:SS"
+                  }
+                ],
+                "usr": "s:Sq"
+              }
+            ],
+            "declKind": "Var",
+            "usr": "s:9ScanMyNet13SMNDNSQualityV17packetLossQualitySSSgvp",
+            "mangledName": "$s9ScanMyNet13SMNDNSQualityV17packetLossQualitySSSgvp",
+            "moduleName": "ScanMyNet",
+            "declAttributes": [
+              "HasStorage",
+              "AccessControl"
+            ],
+            "isLet": true,
+            "hasStorage": true,
+            "accessors": [
+              {
+                "kind": "Accessor",
+                "name": "Get",
+                "printedName": "Get()",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "Optional",
+                    "printedName": "Swift.String?",
+                    "children": [
+                      {
+                        "kind": "TypeNominal",
+                        "name": "String",
+                        "printedName": "Swift.String",
+                        "usr": "s:SS"
+                      }
+                    ],
+                    "usr": "s:Sq"
+                  }
+                ],
+                "declKind": "Accessor",
+                "usr": "s:9ScanMyNet13SMNDNSQualityV17packetLossQualitySSSgvg",
+                "mangledName": "$s9ScanMyNet13SMNDNSQualityV17packetLossQualitySSSgvg",
+                "moduleName": "ScanMyNet",
+                "implicit": true,
+                "accessorKind": "get"
+              }
+            ]
+          },
+          {
+            "kind": "Var",
+            "name": "pingQualityColor",
+            "printedName": "pingQualityColor",
+            "children": [
+              {
+                "kind": "TypeNominal",
+                "name": "Optional",
+                "printedName": "Swift.String?",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "String",
+                    "printedName": "Swift.String",
+                    "usr": "s:SS"
+                  }
+                ],
+                "usr": "s:Sq"
+              }
+            ],
+            "declKind": "Var",
+            "usr": "s:9ScanMyNet13SMNDNSQualityV16pingQualityColorSSSgvp",
+            "mangledName": "$s9ScanMyNet13SMNDNSQualityV16pingQualityColorSSSgvp",
+            "moduleName": "ScanMyNet",
+            "declAttributes": [
+              "HasStorage",
+              "AccessControl"
+            ],
+            "isLet": true,
+            "hasStorage": true,
+            "accessors": [
+              {
+                "kind": "Accessor",
+                "name": "Get",
+                "printedName": "Get()",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "Optional",
+                    "printedName": "Swift.String?",
+                    "children": [
+                      {
+                        "kind": "TypeNominal",
+                        "name": "String",
+                        "printedName": "Swift.String",
+                        "usr": "s:SS"
+                      }
+                    ],
+                    "usr": "s:Sq"
+                  }
+                ],
+                "declKind": "Accessor",
+                "usr": "s:9ScanMyNet13SMNDNSQualityV16pingQualityColorSSSgvg",
+                "mangledName": "$s9ScanMyNet13SMNDNSQualityV16pingQualityColorSSSgvg",
+                "moduleName": "ScanMyNet",
+                "implicit": true,
+                "accessorKind": "get"
+              }
+            ]
+          },
+          {
+            "kind": "Var",
+            "name": "packetLossQualityColor",
+            "printedName": "packetLossQualityColor",
+            "children": [
+              {
+                "kind": "TypeNominal",
+                "name": "Optional",
+                "printedName": "Swift.String?",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "String",
+                    "printedName": "Swift.String",
+                    "usr": "s:SS"
+                  }
+                ],
+                "usr": "s:Sq"
+              }
+            ],
+            "declKind": "Var",
+            "usr": "s:9ScanMyNet13SMNDNSQualityV22packetLossQualityColorSSSgvp",
+            "mangledName": "$s9ScanMyNet13SMNDNSQualityV22packetLossQualityColorSSSgvp",
+            "moduleName": "ScanMyNet",
+            "declAttributes": [
+              "HasStorage",
+              "AccessControl"
+            ],
+            "isLet": true,
+            "hasStorage": true,
+            "accessors": [
+              {
+                "kind": "Accessor",
+                "name": "Get",
+                "printedName": "Get()",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "Optional",
+                    "printedName": "Swift.String?",
+                    "children": [
+                      {
+                        "kind": "TypeNominal",
+                        "name": "String",
+                        "printedName": "Swift.String",
+                        "usr": "s:SS"
+                      }
+                    ],
+                    "usr": "s:Sq"
+                  }
+                ],
+                "declKind": "Accessor",
+                "usr": "s:9ScanMyNet13SMNDNSQualityV22packetLossQualityColorSSSgvg",
+                "mangledName": "$s9ScanMyNet13SMNDNSQualityV22packetLossQualityColorSSSgvg",
+                "moduleName": "ScanMyNet",
+                "implicit": true,
+                "accessorKind": "get"
+              }
+            ]
+          },
+          {
+            "kind": "Var",
             "name": "layerRanking",
             "printedName": "layerRanking",
             "children": [
@@ -6717,6 +6957,546 @@
         "declKind": "Struct",
         "usr": "s:9ScanMyNet15SMNReportActionV",
         "mangledName": "$s9ScanMyNet15SMNReportActionV",
+        "moduleName": "ScanMyNet",
+        "declAttributes": [
+          "AccessControl",
+          "RawDocComment"
+        ],
+        "conformances": [
+          {
+            "kind": "Conformance",
+            "name": "Copyable",
+            "printedName": "Copyable",
+            "usr": "s:s8CopyableP",
+            "mangledName": "$ss8CopyableP"
+          },
+          {
+            "kind": "Conformance",
+            "name": "Decodable",
+            "printedName": "Decodable",
+            "usr": "s:Se",
+            "mangledName": "$sSe"
+          },
+          {
+            "kind": "Conformance",
+            "name": "Encodable",
+            "printedName": "Encodable",
+            "usr": "s:SE",
+            "mangledName": "$sSE"
+          },
+          {
+            "kind": "Conformance",
+            "name": "Escapable",
+            "printedName": "Escapable",
+            "usr": "s:s9EscapableP",
+            "mangledName": "$ss9EscapableP"
+          }
+        ]
+      },
+      {
+        "kind": "TypeDecl",
+        "name": "SMNRecommendedAction",
+        "printedName": "SMNRecommendedAction",
+        "children": [
+          {
+            "kind": "Var",
+            "name": "key",
+            "printedName": "key",
+            "children": [
+              {
+                "kind": "TypeNominal",
+                "name": "Optional",
+                "printedName": "Swift.String?",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "String",
+                    "printedName": "Swift.String",
+                    "usr": "s:SS"
+                  }
+                ],
+                "usr": "s:Sq"
+              }
+            ],
+            "declKind": "Var",
+            "usr": "s:9ScanMyNet20SMNRecommendedActionV3keySSSgvp",
+            "mangledName": "$s9ScanMyNet20SMNRecommendedActionV3keySSSgvp",
+            "moduleName": "ScanMyNet",
+            "declAttributes": [
+              "HasStorage",
+              "AccessControl"
+            ],
+            "isLet": true,
+            "hasStorage": true,
+            "accessors": [
+              {
+                "kind": "Accessor",
+                "name": "Get",
+                "printedName": "Get()",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "Optional",
+                    "printedName": "Swift.String?",
+                    "children": [
+                      {
+                        "kind": "TypeNominal",
+                        "name": "String",
+                        "printedName": "Swift.String",
+                        "usr": "s:SS"
+                      }
+                    ],
+                    "usr": "s:Sq"
+                  }
+                ],
+                "declKind": "Accessor",
+                "usr": "s:9ScanMyNet20SMNRecommendedActionV3keySSSgvg",
+                "mangledName": "$s9ScanMyNet20SMNRecommendedActionV3keySSSgvg",
+                "moduleName": "ScanMyNet",
+                "implicit": true,
+                "accessorKind": "get"
+              }
+            ]
+          },
+          {
+            "kind": "Var",
+            "name": "priority",
+            "printedName": "priority",
+            "children": [
+              {
+                "kind": "TypeNominal",
+                "name": "Optional",
+                "printedName": "Swift.Int?",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "Int",
+                    "printedName": "Swift.Int",
+                    "usr": "s:Si"
+                  }
+                ],
+                "usr": "s:Sq"
+              }
+            ],
+            "declKind": "Var",
+            "usr": "s:9ScanMyNet20SMNRecommendedActionV8prioritySiSgvp",
+            "mangledName": "$s9ScanMyNet20SMNRecommendedActionV8prioritySiSgvp",
+            "moduleName": "ScanMyNet",
+            "declAttributes": [
+              "HasStorage",
+              "AccessControl"
+            ],
+            "isLet": true,
+            "hasStorage": true,
+            "accessors": [
+              {
+                "kind": "Accessor",
+                "name": "Get",
+                "printedName": "Get()",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "Optional",
+                    "printedName": "Swift.Int?",
+                    "children": [
+                      {
+                        "kind": "TypeNominal",
+                        "name": "Int",
+                        "printedName": "Swift.Int",
+                        "usr": "s:Si"
+                      }
+                    ],
+                    "usr": "s:Sq"
+                  }
+                ],
+                "declKind": "Accessor",
+                "usr": "s:9ScanMyNet20SMNRecommendedActionV8prioritySiSgvg",
+                "mangledName": "$s9ScanMyNet20SMNRecommendedActionV8prioritySiSgvg",
+                "moduleName": "ScanMyNet",
+                "implicit": true,
+                "accessorKind": "get"
+              }
+            ]
+          },
+          {
+            "kind": "Var",
+            "name": "technicalState",
+            "printedName": "technicalState",
+            "children": [
+              {
+                "kind": "TypeNominal",
+                "name": "Optional",
+                "printedName": "Swift.String?",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "String",
+                    "printedName": "Swift.String",
+                    "usr": "s:SS"
+                  }
+                ],
+                "usr": "s:Sq"
+              }
+            ],
+            "declKind": "Var",
+            "usr": "s:9ScanMyNet20SMNRecommendedActionV14technicalStateSSSgvp",
+            "mangledName": "$s9ScanMyNet20SMNRecommendedActionV14technicalStateSSSgvp",
+            "moduleName": "ScanMyNet",
+            "declAttributes": [
+              "HasStorage",
+              "AccessControl"
+            ],
+            "isLet": true,
+            "hasStorage": true,
+            "accessors": [
+              {
+                "kind": "Accessor",
+                "name": "Get",
+                "printedName": "Get()",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "Optional",
+                    "printedName": "Swift.String?",
+                    "children": [
+                      {
+                        "kind": "TypeNominal",
+                        "name": "String",
+                        "printedName": "Swift.String",
+                        "usr": "s:SS"
+                      }
+                    ],
+                    "usr": "s:Sq"
+                  }
+                ],
+                "declKind": "Accessor",
+                "usr": "s:9ScanMyNet20SMNRecommendedActionV14technicalStateSSSgvg",
+                "mangledName": "$s9ScanMyNet20SMNRecommendedActionV14technicalStateSSSgvg",
+                "moduleName": "ScanMyNet",
+                "implicit": true,
+                "accessorKind": "get"
+              }
+            ]
+          },
+          {
+            "kind": "Var",
+            "name": "title",
+            "printedName": "title",
+            "children": [
+              {
+                "kind": "TypeNominal",
+                "name": "Optional",
+                "printedName": "[Swift.String : Swift.String]?",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "Dictionary",
+                    "printedName": "[Swift.String : Swift.String]",
+                    "children": [
+                      {
+                        "kind": "TypeNominal",
+                        "name": "String",
+                        "printedName": "Swift.String",
+                        "usr": "s:SS"
+                      },
+                      {
+                        "kind": "TypeNominal",
+                        "name": "String",
+                        "printedName": "Swift.String",
+                        "usr": "s:SS"
+                      }
+                    ],
+                    "usr": "s:SD"
+                  }
+                ],
+                "usr": "s:Sq"
+              }
+            ],
+            "declKind": "Var",
+            "usr": "s:9ScanMyNet20SMNRecommendedActionV5titleSDyS2SGSgvp",
+            "mangledName": "$s9ScanMyNet20SMNRecommendedActionV5titleSDyS2SGSgvp",
+            "moduleName": "ScanMyNet",
+            "declAttributes": [
+              "HasStorage",
+              "AccessControl"
+            ],
+            "isLet": true,
+            "hasStorage": true,
+            "accessors": [
+              {
+                "kind": "Accessor",
+                "name": "Get",
+                "printedName": "Get()",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "Optional",
+                    "printedName": "[Swift.String : Swift.String]?",
+                    "children": [
+                      {
+                        "kind": "TypeNominal",
+                        "name": "Dictionary",
+                        "printedName": "[Swift.String : Swift.String]",
+                        "children": [
+                          {
+                            "kind": "TypeNominal",
+                            "name": "String",
+                            "printedName": "Swift.String",
+                            "usr": "s:SS"
+                          },
+                          {
+                            "kind": "TypeNominal",
+                            "name": "String",
+                            "printedName": "Swift.String",
+                            "usr": "s:SS"
+                          }
+                        ],
+                        "usr": "s:SD"
+                      }
+                    ],
+                    "usr": "s:Sq"
+                  }
+                ],
+                "declKind": "Accessor",
+                "usr": "s:9ScanMyNet20SMNRecommendedActionV5titleSDyS2SGSgvg",
+                "mangledName": "$s9ScanMyNet20SMNRecommendedActionV5titleSDyS2SGSgvg",
+                "moduleName": "ScanMyNet",
+                "implicit": true,
+                "accessorKind": "get"
+              }
+            ]
+          },
+          {
+            "kind": "Var",
+            "name": "message",
+            "printedName": "message",
+            "children": [
+              {
+                "kind": "TypeNominal",
+                "name": "Optional",
+                "printedName": "[Swift.String : Swift.String]?",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "Dictionary",
+                    "printedName": "[Swift.String : Swift.String]",
+                    "children": [
+                      {
+                        "kind": "TypeNominal",
+                        "name": "String",
+                        "printedName": "Swift.String",
+                        "usr": "s:SS"
+                      },
+                      {
+                        "kind": "TypeNominal",
+                        "name": "String",
+                        "printedName": "Swift.String",
+                        "usr": "s:SS"
+                      }
+                    ],
+                    "usr": "s:SD"
+                  }
+                ],
+                "usr": "s:Sq"
+              }
+            ],
+            "declKind": "Var",
+            "usr": "s:9ScanMyNet20SMNRecommendedActionV7messageSDyS2SGSgvp",
+            "mangledName": "$s9ScanMyNet20SMNRecommendedActionV7messageSDyS2SGSgvp",
+            "moduleName": "ScanMyNet",
+            "declAttributes": [
+              "HasStorage",
+              "AccessControl"
+            ],
+            "isLet": true,
+            "hasStorage": true,
+            "accessors": [
+              {
+                "kind": "Accessor",
+                "name": "Get",
+                "printedName": "Get()",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "Optional",
+                    "printedName": "[Swift.String : Swift.String]?",
+                    "children": [
+                      {
+                        "kind": "TypeNominal",
+                        "name": "Dictionary",
+                        "printedName": "[Swift.String : Swift.String]",
+                        "children": [
+                          {
+                            "kind": "TypeNominal",
+                            "name": "String",
+                            "printedName": "Swift.String",
+                            "usr": "s:SS"
+                          },
+                          {
+                            "kind": "TypeNominal",
+                            "name": "String",
+                            "printedName": "Swift.String",
+                            "usr": "s:SS"
+                          }
+                        ],
+                        "usr": "s:SD"
+                      }
+                    ],
+                    "usr": "s:Sq"
+                  }
+                ],
+                "declKind": "Accessor",
+                "usr": "s:9ScanMyNet20SMNRecommendedActionV7messageSDyS2SGSgvg",
+                "mangledName": "$s9ScanMyNet20SMNRecommendedActionV7messageSDyS2SGSgvg",
+                "moduleName": "ScanMyNet",
+                "implicit": true,
+                "accessorKind": "get"
+              }
+            ]
+          },
+          {
+            "kind": "Var",
+            "name": "recommendedAction",
+            "printedName": "recommendedAction",
+            "children": [
+              {
+                "kind": "TypeNominal",
+                "name": "Optional",
+                "printedName": "[Swift.String : Swift.String]?",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "Dictionary",
+                    "printedName": "[Swift.String : Swift.String]",
+                    "children": [
+                      {
+                        "kind": "TypeNominal",
+                        "name": "String",
+                        "printedName": "Swift.String",
+                        "usr": "s:SS"
+                      },
+                      {
+                        "kind": "TypeNominal",
+                        "name": "String",
+                        "printedName": "Swift.String",
+                        "usr": "s:SS"
+                      }
+                    ],
+                    "usr": "s:SD"
+                  }
+                ],
+                "usr": "s:Sq"
+              }
+            ],
+            "declKind": "Var",
+            "usr": "s:9ScanMyNet20SMNRecommendedActionV011recommendedE0SDyS2SGSgvp",
+            "mangledName": "$s9ScanMyNet20SMNRecommendedActionV011recommendedE0SDyS2SGSgvp",
+            "moduleName": "ScanMyNet",
+            "declAttributes": [
+              "HasStorage",
+              "AccessControl"
+            ],
+            "isLet": true,
+            "hasStorage": true,
+            "accessors": [
+              {
+                "kind": "Accessor",
+                "name": "Get",
+                "printedName": "Get()",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "Optional",
+                    "printedName": "[Swift.String : Swift.String]?",
+                    "children": [
+                      {
+                        "kind": "TypeNominal",
+                        "name": "Dictionary",
+                        "printedName": "[Swift.String : Swift.String]",
+                        "children": [
+                          {
+                            "kind": "TypeNominal",
+                            "name": "String",
+                            "printedName": "Swift.String",
+                            "usr": "s:SS"
+                          },
+                          {
+                            "kind": "TypeNominal",
+                            "name": "String",
+                            "printedName": "Swift.String",
+                            "usr": "s:SS"
+                          }
+                        ],
+                        "usr": "s:SD"
+                      }
+                    ],
+                    "usr": "s:Sq"
+                  }
+                ],
+                "declKind": "Accessor",
+                "usr": "s:9ScanMyNet20SMNRecommendedActionV011recommendedE0SDyS2SGSgvg",
+                "mangledName": "$s9ScanMyNet20SMNRecommendedActionV011recommendedE0SDyS2SGSgvg",
+                "moduleName": "ScanMyNet",
+                "implicit": true,
+                "accessorKind": "get"
+              }
+            ]
+          },
+          {
+            "kind": "Constructor",
+            "name": "init",
+            "printedName": "init(from:)",
+            "children": [
+              {
+                "kind": "TypeNominal",
+                "name": "SMNRecommendedAction",
+                "printedName": "ScanMyNet.SMNRecommendedAction",
+                "usr": "s:9ScanMyNet20SMNRecommendedActionV"
+              },
+              {
+                "kind": "TypeNominal",
+                "name": "Decoder",
+                "printedName": "any Swift.Decoder",
+                "usr": "s:s7DecoderP"
+              }
+            ],
+            "declKind": "Constructor",
+            "usr": "s:9ScanMyNet20SMNRecommendedActionV4fromACs7Decoder_p_tKcfc",
+            "mangledName": "$s9ScanMyNet20SMNRecommendedActionV4fromACs7Decoder_p_tKcfc",
+            "moduleName": "ScanMyNet",
+            "implicit": true,
+            "throwing": true,
+            "init_kind": "Designated"
+          },
+          {
+            "kind": "Function",
+            "name": "encode",
+            "printedName": "encode(to:)",
+            "children": [
+              {
+                "kind": "TypeNominal",
+                "name": "Void",
+                "printedName": "()"
+              },
+              {
+                "kind": "TypeNominal",
+                "name": "Encoder",
+                "printedName": "any Swift.Encoder",
+                "usr": "s:s7EncoderP"
+              }
+            ],
+            "declKind": "Func",
+            "usr": "s:9ScanMyNet20SMNRecommendedActionV6encode2toys7Encoder_p_tKF",
+            "mangledName": "$s9ScanMyNet20SMNRecommendedActionV6encode2toys7Encoder_p_tKF",
+            "moduleName": "ScanMyNet",
+            "implicit": true,
+            "throwing": true,
+            "funcSelfKind": "NonMutating"
+          }
+        ],
+        "declKind": "Struct",
+        "usr": "s:9ScanMyNet20SMNRecommendedActionV",
+        "mangledName": "$s9ScanMyNet20SMNRecommendedActionV",
         "moduleName": "ScanMyNet",
         "declAttributes": [
           "AccessControl",
@@ -7739,6 +8519,172 @@
                 "declKind": "Accessor",
                 "usr": "s:9ScanMyNet16SMNReportPayloadV18incompleteAnalysisSbSgvg",
                 "mangledName": "$s9ScanMyNet16SMNReportPayloadV18incompleteAnalysisSbSgvg",
+                "moduleName": "ScanMyNet",
+                "implicit": true,
+                "accessorKind": "get"
+              }
+            ]
+          },
+          {
+            "kind": "Var",
+            "name": "recommendedActions",
+            "printedName": "recommendedActions",
+            "children": [
+              {
+                "kind": "TypeNominal",
+                "name": "Optional",
+                "printedName": "[ScanMyNet.SMNRecommendedAction]?",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "Array",
+                    "printedName": "[ScanMyNet.SMNRecommendedAction]",
+                    "children": [
+                      {
+                        "kind": "TypeNominal",
+                        "name": "SMNRecommendedAction",
+                        "printedName": "ScanMyNet.SMNRecommendedAction",
+                        "usr": "s:9ScanMyNet20SMNRecommendedActionV"
+                      }
+                    ],
+                    "usr": "s:Sa"
+                  }
+                ],
+                "usr": "s:Sq"
+              }
+            ],
+            "declKind": "Var",
+            "usr": "s:9ScanMyNet16SMNReportPayloadV18recommendedActionsSayAA20SMNRecommendedActionVGSgvp",
+            "mangledName": "$s9ScanMyNet16SMNReportPayloadV18recommendedActionsSayAA20SMNRecommendedActionVGSgvp",
+            "moduleName": "ScanMyNet",
+            "declAttributes": [
+              "HasStorage",
+              "AccessControl",
+              "RawDocComment"
+            ],
+            "isLet": true,
+            "hasStorage": true,
+            "accessors": [
+              {
+                "kind": "Accessor",
+                "name": "Get",
+                "printedName": "Get()",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "Optional",
+                    "printedName": "[ScanMyNet.SMNRecommendedAction]?",
+                    "children": [
+                      {
+                        "kind": "TypeNominal",
+                        "name": "Array",
+                        "printedName": "[ScanMyNet.SMNRecommendedAction]",
+                        "children": [
+                          {
+                            "kind": "TypeNominal",
+                            "name": "SMNRecommendedAction",
+                            "printedName": "ScanMyNet.SMNRecommendedAction",
+                            "usr": "s:9ScanMyNet20SMNRecommendedActionV"
+                          }
+                        ],
+                        "usr": "s:Sa"
+                      }
+                    ],
+                    "usr": "s:Sq"
+                  }
+                ],
+                "declKind": "Accessor",
+                "usr": "s:9ScanMyNet16SMNReportPayloadV18recommendedActionsSayAA20SMNRecommendedActionVGSgvg",
+                "mangledName": "$s9ScanMyNet16SMNReportPayloadV18recommendedActionsSayAA20SMNRecommendedActionVGSgvg",
+                "moduleName": "ScanMyNet",
+                "implicit": true,
+                "accessorKind": "get"
+              }
+            ]
+          },
+          {
+            "kind": "Var",
+            "name": "noInstructions",
+            "printedName": "noInstructions",
+            "children": [
+              {
+                "kind": "TypeNominal",
+                "name": "Optional",
+                "printedName": "[Swift.String : Swift.String]?",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "Dictionary",
+                    "printedName": "[Swift.String : Swift.String]",
+                    "children": [
+                      {
+                        "kind": "TypeNominal",
+                        "name": "String",
+                        "printedName": "Swift.String",
+                        "usr": "s:SS"
+                      },
+                      {
+                        "kind": "TypeNominal",
+                        "name": "String",
+                        "printedName": "Swift.String",
+                        "usr": "s:SS"
+                      }
+                    ],
+                    "usr": "s:SD"
+                  }
+                ],
+                "usr": "s:Sq"
+              }
+            ],
+            "declKind": "Var",
+            "usr": "s:9ScanMyNet16SMNReportPayloadV14noInstructionsSDyS2SGSgvp",
+            "mangledName": "$s9ScanMyNet16SMNReportPayloadV14noInstructionsSDyS2SGSgvp",
+            "moduleName": "ScanMyNet",
+            "declAttributes": [
+              "HasStorage",
+              "AccessControl",
+              "RawDocComment"
+            ],
+            "isLet": true,
+            "hasStorage": true,
+            "accessors": [
+              {
+                "kind": "Accessor",
+                "name": "Get",
+                "printedName": "Get()",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "Optional",
+                    "printedName": "[Swift.String : Swift.String]?",
+                    "children": [
+                      {
+                        "kind": "TypeNominal",
+                        "name": "Dictionary",
+                        "printedName": "[Swift.String : Swift.String]",
+                        "children": [
+                          {
+                            "kind": "TypeNominal",
+                            "name": "String",
+                            "printedName": "Swift.String",
+                            "usr": "s:SS"
+                          },
+                          {
+                            "kind": "TypeNominal",
+                            "name": "String",
+                            "printedName": "Swift.String",
+                            "usr": "s:SS"
+                          }
+                        ],
+                        "usr": "s:SD"
+                      }
+                    ],
+                    "usr": "s:Sq"
+                  }
+                ],
+                "declKind": "Accessor",
+                "usr": "s:9ScanMyNet16SMNReportPayloadV14noInstructionsSDyS2SGSgvg",
+                "mangledName": "$s9ScanMyNet16SMNReportPayloadV14noInstructionsSDyS2SGSgvg",
                 "moduleName": "ScanMyNet",
                 "implicit": true,
                 "accessorKind": "get"
@@ -14856,191 +15802,247 @@
     {
       "filePath": "\/Users\/vagrant\/git\/ScanMyNet\/Models\/Response\/QualityAndAlerts.swift",
       "kind": "StringLiteral",
-      "offset": 1388,
+      "offset": 2299,
       "length": 10,
       "value": "\"dns_name\""
     },
     {
       "filePath": "\/Users\/vagrant\/git\/ScanMyNet\/Models\/Response\/QualityAndAlerts.swift",
       "kind": "StringLiteral",
-      "offset": 1420,
+      "offset": 2331,
       "length": 8,
       "value": "\"dns_ip\""
     },
     {
       "filePath": "\/Users\/vagrant\/git\/ScanMyNet\/Models\/Response\/QualityAndAlerts.swift",
       "kind": "StringLiteral",
-      "offset": 1459,
+      "offset": 2370,
       "length": 17,
       "value": "\"packets_dropped\""
     },
     {
       "filePath": "\/Users\/vagrant\/git\/ScanMyNet\/Models\/Response\/QualityAndAlerts.swift",
       "kind": "StringLiteral",
-      "offset": 1507,
+      "offset": 2418,
       "length": 18,
       "value": "\"num_packets_sent\""
     },
     {
       "filePath": "\/Users\/vagrant\/git\/ScanMyNet\/Models\/Response\/QualityAndAlerts.swift",
       "kind": "StringLiteral",
-      "offset": 1552,
+      "offset": 2463,
       "length": 13,
       "value": "\"ping_values\""
     },
     {
       "filePath": "\/Users\/vagrant\/git\/ScanMyNet\/Models\/Response\/QualityAndAlerts.swift",
       "kind": "StringLiteral",
-      "offset": 1600,
+      "offset": 2511,
       "length": 22,
       "value": "\"is_subscriber_router\""
     },
     {
       "filePath": "\/Users\/vagrant\/git\/ScanMyNet\/Models\/Response\/QualityAndAlerts.swift",
       "kind": "StringLiteral",
-      "offset": 1654,
+      "offset": 2565,
       "length": 19,
       "value": "\"average_ping_time\""
     },
     {
       "filePath": "\/Users\/vagrant\/git\/ScanMyNet\/Models\/Response\/QualityAndAlerts.swift",
       "kind": "StringLiteral",
-      "offset": 1712,
+      "offset": 2623,
       "length": 26,
       "value": "\"connection_quality_color\""
     },
     {
       "filePath": "\/Users\/vagrant\/git\/ScanMyNet\/Models\/Response\/QualityAndAlerts.swift",
       "kind": "StringLiteral",
-      "offset": 1767,
+      "offset": 2677,
+      "length": 14,
+      "value": "\"ping_quality\""
+    },
+    {
+      "filePath": "\/Users\/vagrant\/git\/ScanMyNet\/Models\/Response\/QualityAndAlerts.swift",
+      "kind": "StringLiteral",
+      "offset": 2725,
+      "length": 21,
+      "value": "\"packet_loss_quality\""
+    },
+    {
+      "filePath": "\/Users\/vagrant\/git\/ScanMyNet\/Models\/Response\/QualityAndAlerts.swift",
+      "kind": "StringLiteral",
+      "offset": 2779,
+      "length": 20,
+      "value": "\"ping_quality_color\""
+    },
+    {
+      "filePath": "\/Users\/vagrant\/git\/ScanMyNet\/Models\/Response\/QualityAndAlerts.swift",
+      "kind": "StringLiteral",
+      "offset": 2838,
+      "length": 27,
+      "value": "\"packet_loss_quality_color\""
+    },
+    {
+      "filePath": "\/Users\/vagrant\/git\/ScanMyNet\/Models\/Response\/QualityAndAlerts.swift",
+      "kind": "StringLiteral",
+      "offset": 2894,
       "length": 15,
       "value": "\"layer_ranking\""
     },
     {
       "filePath": "\/Users\/vagrant\/git\/ScanMyNet\/Models\/Response\/QualityAndAlerts.swift",
       "kind": "StringLiteral",
-      "offset": 2080,
+      "offset": 3207,
       "length": 20,
       "value": "\"dns_destination_ip\""
     },
     {
       "filePath": "\/Users\/vagrant\/git\/ScanMyNet\/Models\/Response\/QualityAndAlerts.swift",
       "kind": "StringLiteral",
-      "offset": 2379,
+      "offset": 3506,
       "length": 8,
       "value": "\"dns_ip\""
     },
     {
       "filePath": "\/Users\/vagrant\/git\/ScanMyNet\/Models\/Response\/QualityAndAlerts.swift",
       "kind": "StringLiteral",
-      "offset": 2411,
+      "offset": 3538,
       "length": 10,
       "value": "\"dns_name\""
     },
     {
       "filePath": "\/Users\/vagrant\/git\/ScanMyNet\/Models\/Response\/QualityAndAlerts.swift",
       "kind": "StringLiteral",
-      "offset": 2447,
+      "offset": 3574,
       "length": 12,
       "value": "\"rtt_values\""
     },
     {
       "filePath": "\/Users\/vagrant\/git\/ScanMyNet\/Models\/Response\/QualityAndAlerts.swift",
       "kind": "StringLiteral",
-      "offset": 3098,
+      "offset": 4225,
       "length": 13,
       "value": "\"action_type\""
     },
     {
       "filePath": "\/Users\/vagrant\/git\/ScanMyNet\/Models\/Response\/QualityAndAlerts.swift",
       "kind": "StringLiteral",
-      "offset": 3139,
+      "offset": 4266,
       "length": 14,
       "value": "\"action_value\""
     },
     {
+      "filePath": "\/Users\/vagrant\/git\/ScanMyNet\/Models\/Response\/QualityAndAlerts.swift",
+      "kind": "StringLiteral",
+      "offset": 5339,
+      "length": 17,
+      "value": "\"technical_state\""
+    },
+    {
+      "filePath": "\/Users\/vagrant\/git\/ScanMyNet\/Models\/Response\/QualityAndAlerts.swift",
+      "kind": "StringLiteral",
+      "offset": 5390,
+      "length": 20,
+      "value": "\"recommended_action\""
+    },
+    {
       "filePath": "\/Users\/vagrant\/git\/ScanMyNet\/Models\/Response\/SMNReportPayload.swift",
       "kind": "StringLiteral",
-      "offset": 1333,
+      "offset": 2003,
       "length": 18,
       "value": "\"customer_details\""
     },
     {
       "filePath": "\/Users\/vagrant\/git\/ScanMyNet\/Models\/Response\/SMNReportPayload.swift",
       "kind": "StringLiteral",
-      "offset": 1378,
+      "offset": 2048,
       "length": 13,
       "value": "\"sdk_details\""
     },
     {
       "filePath": "\/Users\/vagrant\/git\/ScanMyNet\/Models\/Response\/SMNReportPayload.swift",
       "kind": "StringLiteral",
-      "offset": 1429,
+      "offset": 2099,
       "length": 26,
       "value": "\"router_usage_during_scan\""
     },
     {
       "filePath": "\/Users\/vagrant\/git\/ScanMyNet\/Models\/Response\/SMNReportPayload.swift",
       "kind": "StringLiteral",
-      "offset": 1493,
+      "offset": 2163,
       "length": 25,
       "value": "\"customer_internet_speed\""
     },
     {
       "filePath": "\/Users\/vagrant\/git\/ScanMyNet\/Models\/Response\/SMNReportPayload.swift",
       "kind": "StringLiteral",
-      "offset": 1552,
+      "offset": 2222,
       "length": 20,
       "value": "\"basic_connectivity\""
     },
     {
       "filePath": "\/Users\/vagrant\/git\/ScanMyNet\/Models\/Response\/SMNReportPayload.swift",
       "kind": "StringLiteral",
-      "offset": 1610,
+      "offset": 2280,
       "length": 25,
       "value": "\"local_connected_devices\""
     },
     {
       "filePath": "\/Users\/vagrant\/git\/ScanMyNet\/Models\/Response\/SMNReportPayload.swift",
       "kind": "StringLiteral",
-      "offset": 1673,
+      "offset": 2343,
       "length": 25,
       "value": "\"customer_router_details\""
     },
     {
       "filePath": "\/Users\/vagrant\/git\/ScanMyNet\/Models\/Response\/SMNReportPayload.swift",
       "kind": "StringLiteral",
-      "offset": 1730,
+      "offset": 2400,
       "length": 18,
       "value": "\"network_topology\""
     },
     {
       "filePath": "\/Users\/vagrant\/git\/ScanMyNet\/Models\/Response\/SMNReportPayload.swift",
       "kind": "StringLiteral",
-      "offset": 1780,
+      "offset": 2450,
       "length": 19,
       "value": "\"user_wifi_network\""
     },
     {
       "filePath": "\/Users\/vagrant\/git\/ScanMyNet\/Models\/Response\/SMNReportPayload.swift",
       "kind": "StringLiteral",
-      "offset": 1833,
+      "offset": 2503,
       "length": 20,
       "value": "\"network_congestion\""
     },
     {
       "filePath": "\/Users\/vagrant\/git\/ScanMyNet\/Models\/Response\/SMNReportPayload.swift",
       "kind": "StringLiteral",
-      "offset": 1887,
+      "offset": 2557,
       "length": 20,
       "value": "\"connection_quality\""
     },
     {
       "filePath": "\/Users\/vagrant\/git\/ScanMyNet\/Models\/Response\/SMNReportPayload.swift",
       "kind": "StringLiteral",
-      "offset": 1942,
+      "offset": 2612,
       "length": 21,
       "value": "\"incomplete_analysis\""
+    },
+    {
+      "filePath": "\/Users\/vagrant\/git\/ScanMyNet\/Models\/Response\/SMNReportPayload.swift",
+      "kind": "StringLiteral",
+      "offset": 2668,
+      "length": 21,
+      "value": "\"recommended_actions\""
+    },
+    {
+      "filePath": "\/Users\/vagrant\/git\/ScanMyNet\/Models\/Response\/SMNReportPayload.swift",
+      "kind": "StringLiteral",
+      "offset": 2720,
+      "length": 17,
+      "value": "\"no_instructions\""
     },
     {
       "filePath": "\/Users\/vagrant\/git\/ScanMyNet\/Models\/Response\/ScalarSections.swift",
@@ -15192,105 +16194,105 @@
     {
       "filePath": "\/Users\/vagrant\/git\/ScanMyNet\/Models\/Response\/TopologyAndCongestion.swift",
       "kind": "StringLiteral",
-      "offset": 2423,
+      "offset": 2663,
       "length": 9,
       "value": "\"ssid_ip\""
     },
     {
       "filePath": "\/Users\/vagrant\/git\/ScanMyNet\/Models\/Response\/TopologyAndCongestion.swift",
       "kind": "StringLiteral",
-      "offset": 2464,
+      "offset": 2704,
       "length": 18,
       "value": "\"wps_availability\""
     },
     {
       "filePath": "\/Users\/vagrant\/git\/ScanMyNet\/Models\/Response\/TopologyAndCongestion.swift",
       "kind": "StringLiteral",
-      "offset": 2513,
+      "offset": 2753,
       "length": 17,
       "value": "\"signal_strength\""
     },
     {
       "filePath": "\/Users\/vagrant\/git\/ScanMyNet\/Models\/Response\/TopologyAndCongestion.swift",
       "kind": "StringLiteral",
-      "offset": 2562,
+      "offset": 2802,
       "length": 19,
       "value": "\"num_wifi_channels\""
     },
     {
       "filePath": "\/Users\/vagrant\/git\/ScanMyNet\/Models\/Response\/TopologyAndCongestion.swift",
       "kind": "StringLiteral",
-      "offset": 2610,
+      "offset": 2850,
       "length": 15,
       "value": "\"channel_width\""
     },
     {
       "filePath": "\/Users\/vagrant\/git\/ScanMyNet\/Models\/Response\/TopologyAndCongestion.swift",
       "kind": "StringLiteral",
-      "offset": 2656,
+      "offset": 2896,
       "length": 17,
       "value": "\"current_channel\""
     },
     {
       "filePath": "\/Users\/vagrant\/git\/ScanMyNet\/Models\/Response\/TopologyAndCongestion.swift",
       "kind": "StringLiteral",
-      "offset": 2706,
+      "offset": 2946,
       "length": 20,
       "value": "\"is_subscriber_ssid\""
     },
     {
       "filePath": "\/Users\/vagrant\/git\/ScanMyNet\/Models\/Response\/TopologyAndCongestion.swift",
       "kind": "StringLiteral",
-      "offset": 3038,
+      "offset": 3278,
       "length": 17,
       "value": "\"user_connection\""
     },
     {
       "filePath": "\/Users\/vagrant\/git\/ScanMyNet\/Models\/Response\/TopologyAndCongestion.swift",
       "kind": "StringLiteral",
-      "offset": 3547,
+      "offset": 3940,
       "length": 22,
       "value": "\"phone_wifi_frequency\""
     },
     {
       "filePath": "\/Users\/vagrant\/git\/ScanMyNet\/Models\/Response\/TopologyAndCongestion.swift",
       "kind": "StringLiteral",
-      "offset": 3605,
+      "offset": 3998,
       "length": 24,
       "value": "\"num_phone_wifi_channel\""
     },
     {
       "filePath": "\/Users\/vagrant\/git\/ScanMyNet\/Models\/Response\/TopologyAndCongestion.swift",
       "kind": "StringLiteral",
-      "offset": 3666,
+      "offset": 4059,
       "length": 25,
       "value": "\"num_networks_on_channel\""
     },
     {
       "filePath": "\/Users\/vagrant\/git\/ScanMyNet\/Models\/Response\/TopologyAndCongestion.swift",
       "kind": "StringLiteral",
-      "offset": 3724,
+      "offset": 4117,
       "length": 20,
       "value": "\"phone_wifi_channel\""
     },
     {
       "filePath": "\/Users\/vagrant\/git\/ScanMyNet\/Models\/Response\/TopologyAndCongestion.swift",
       "kind": "StringLiteral",
-      "offset": 4067,
+      "offset": 4460,
       "length": 20,
       "value": "\"channel_congestion\""
     },
     {
       "filePath": "\/Users\/vagrant\/git\/ScanMyNet\/Models\/Response\/TopologyAndCongestion.swift",
       "kind": "StringLiteral",
-      "offset": 4127,
+      "offset": 4520,
       "length": 27,
       "value": "\"surrounding_wifi_networks\""
     },
     {
       "filePath": "\/Users\/vagrant\/git\/ScanMyNet\/Models\/Response\/TopologyAndCongestion.swift",
       "kind": "StringLiteral",
-      "offset": 4433,
+      "offset": 4826,
       "length": 14,
       "value": "\"num_networks\""
     },
@@ -15731,7 +16733,7 @@
     {
       "filePath": "\/Users\/vagrant\/git\/ScanMyNet\/Models\/SSIDInfo.swift",
       "kind": "StringLiteral",
-      "offset": 861,
+      "offset": 1342,
       "length": 9,
       "value": "\"ssid_ip\""
     },

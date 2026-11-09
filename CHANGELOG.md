@@ -1,8 +1,8 @@
 ## 1.4.0
 
-Both platforms. **Pigeon schema 5: rebuild both native binaries together** (the
-bundled Android `tools:1.10` and the iOS xcframework); `configure()` throws on a
-mismatch.
+Both platforms. **Pigeon schema 5: both native binaries are rebuilt in this release**
+(the bundled Android `tools:1.10` and the iOS `ScanMyNet.xcframework`); `configure()`
+throws on a mismatch.
 
 * **Added (both):** the status the customer sees for the ping and packet loss, for an app that
   draws its own screen: `DnsQuality.pingQuality`, `packetLossQuality`, `pingQualityColor` and
@@ -13,6 +13,10 @@ mismatch.
   each text by language) and `ReportData.noInstructions` ("No instructions" by language when the
   overall status is Good and there is nothing to do). Both are null from an older backend.
 * **Changed (Android, bundled SDK):** `tools:1.10` (was 1.9).
+* **Changed (iOS, bundled SDK):** `ios/ScanMyNet.xcframework` is rebuilt from `scanmynet-ios`. It
+  decodes the new report fields, so the iOS plugin fills `pingQuality`, `packetLossQuality`,
+  `pingQualityColor`, `packetLossQualityColor`, `recommendedActions` and `noInstructions` like
+  Android does.
 * **Fixed (Android, bundled SDK):** the Wi-Fi frequency is sent in GHz from one conversion, and as
   `null` when Android does not know it. It used to send `-0.001` for the connected network when
   Android reported `-1`, which the portal read as a band. The backend now also reads a frequency in
@@ -21,8 +25,6 @@ mismatch.
 * **Documented:** the units of the Wi-Fi fields (`frequency` GHz, `signalStrength` dBm, `channelWidth`
   MHz; `null` when not known) in the README. No API change.
 * **Needs the matching backend** to be filled in; an older backend leaves the new fields null.
-* **Not yet rebuilt:** `ios/ScanMyNet.xcframework` must be rebuilt from `scanmynet-ios` on a Mac
-  before this version is published; until then the iOS Swift mapper does not compile.
 
 ## 1.3.1
 
