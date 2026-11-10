@@ -611,11 +611,20 @@ class NetworkCongestion {
 /// saved without a layer, or before layers were limited to 0-2, can give 3. The agent portal's
 /// diagram groups servers by it, and the backend leaves layer 1 out of its "poor connection
 /// outside the home" action. It is not a local / external flag.
+///
+/// The status the customer sees, for a screen of your own: [pingQuality] and [packetLossQuality] are
+/// `excellent`, `good`, `moderate` or `poor`, or null when the backend cannot judge (a router that answered
+/// nothing has no ping rating). [pingQualityColor] and [packetLossQualityColor] are the colour of each
+/// (`green` for excellent and good, `yellow` for moderate, `red` for poor, null with no rating). The ping is
+/// rated by the limits the provider sets in its dashboard for that server; packet loss uses fixed bands. Show
+/// them as given; do not recompute them from [averagePingTime]. [connectionQualityColor] is the provider's own
+/// threshold colour and is unchanged. The four are appended last: Pigeon codecs are positional.
 class DnsQuality {
   DnsQuality({
     this.dnsName, this.dnsIp, this.packetsDropped, this.numPacketsSent,
     this.pingValues, this.isSubscriberRouter, this.jitter, this.averagePingTime,
     this.connectionQualityColor, this.layerRanking,
+    this.pingQuality, this.packetLossQuality, this.pingQualityColor, this.packetLossQualityColor,
   });
   String? dnsName;
   String? dnsIp;
@@ -628,6 +637,10 @@ class DnsQuality {
   double? averagePingTime;
   QualityColor? connectionQualityColor;
   int? layerRanking;
+  String? pingQuality;
+  String? packetLossQuality;
+  String? pingQualityColor;
+  String? packetLossQualityColor;
 }
 
 /// [rttValues] are integers in milliseconds.
@@ -644,6 +657,25 @@ class TracerouteEntry {
   List<TracerouteHop>? hops;
 }
 
+/// What the customer is advised to do after a scan: one of the backend's recommended actions.
+///
+/// [ReportData.recommendedActions] lists them most urgent first (the report page shows the first). Each text
+/// comes in every language the backend has, keyed by language code (`en`, `ar`), so an app picks one and needs
+/// no copy of its own; fall back to `en` when the language it wants is missing. [key] is a stable identifier
+/// (`delay_and_loss`, `weak_wifi_with_loss`, ...): branch on it, never on a text. [priority] is 1 (most urgent)
+/// to 3. [technicalState] is a short English description for support staff, not for the customer.
+class RecommendedAction {
+  RecommendedAction({
+    this.key, this.priority, this.technicalState, this.title, this.message, this.recommendedAction,
+  });
+  String? key;
+  int? priority;
+  String? technicalState;
+  Map<String, String>? title;
+  Map<String, String>? message;
+  Map<String, String>? recommendedAction;
+}
+
 /// The full report payload. Mirrors the FE contract and evolves with it — this
 /// is NOT a stable versioned schema.
 class ReportData {
@@ -653,6 +685,7 @@ class ReportData {
     this.localConnectedDevices, this.customerRouterDetails, this.networkTopology,
     this.userWifiNetwork, this.networkCongestion, this.connectionQuality,
     this.traceroute, this.alerts, this.actions, this.incompleteAnalysis,
+    this.recommendedActions, this.noInstructions,
   });
   CustomerDetails? customerDetails;
   SdkDetails? sdkDetails;
@@ -671,6 +704,12 @@ class ReportData {
   /// True when both `missing_upnp` and `incomplete_speed_test` fired — present
   /// the scan as unreliable.
   bool? incompleteAnalysis;
+  /// The customer's advice, most urgent first; empty when the scan found nothing to act on. Null from an
+  /// older backend.
+  List<RecommendedAction>? recommendedActions;
+  /// "No instructions" by language (`en`, `ar`) when the overall status is Good and there is no action to show,
+  /// else null. Show it in place of the advice. An action is never hidden by a Good status.
+  Map<String, String>? noInstructions;
 }
 
 // ---------------------------------------------------------------------------

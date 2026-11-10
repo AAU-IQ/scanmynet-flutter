@@ -145,6 +145,10 @@ public struct SMNDNSQuality : Swift.Codable {
   public let jitter: Swift.Double?
   public let averagePingTime: Swift.Double?
   public let connectionQualityColor: ScanMyNet.SMNQualityColor?
+  public let pingQuality: Swift.String?
+  public let packetLossQuality: Swift.String?
+  public let pingQualityColor: Swift.String?
+  public let packetLossQualityColor: Swift.String?
   public let layerRanking: Swift.Int?
   public func encode(to encoder: any Swift.Encoder) throws
   public init(from decoder: any Swift.Decoder) throws
@@ -168,6 +172,16 @@ public struct SMNReportAction : Swift.Codable {
   public func encode(to encoder: any Swift.Encoder) throws
   public init(from decoder: any Swift.Decoder) throws
 }
+public struct SMNRecommendedAction : Swift.Codable {
+  public let key: Swift.String?
+  public let priority: Swift.Int?
+  public let technicalState: Swift.String?
+  public let title: [Swift.String : Swift.String]?
+  public let message: [Swift.String : Swift.String]?
+  public let recommendedAction: [Swift.String : Swift.String]?
+  public func encode(to encoder: any Swift.Encoder) throws
+  public init(from decoder: any Swift.Decoder) throws
+}
 public struct SMNReportPayload : Swift.Codable {
   public let customerDetails: ScanMyNet.SMNCustomerDetails?
   public let sdkDetails: ScanMyNet.SMNSDKDetails?
@@ -184,6 +198,8 @@ public struct SMNReportPayload : Swift.Codable {
   public let alerts: [ScanMyNet.SMNReportAlert]?
   public let actions: [ScanMyNet.SMNReportAction]?
   public let incompleteAnalysis: Swift.Bool?
+  public let recommendedActions: [ScanMyNet.SMNRecommendedAction]?
+  public let noInstructions: [Swift.String : Swift.String]?
   public func encode(to encoder: any Swift.Encoder) throws
   public init(from decoder: any Swift.Decoder) throws
 }

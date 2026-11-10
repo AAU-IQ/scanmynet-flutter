@@ -1,3 +1,31 @@
+## 1.4.0
+
+Both platforms. **Pigeon schema 5: both native binaries are rebuilt in this release**
+(the bundled Android `tools:1.10` and the iOS `ScanMyNet.xcframework`); `configure()`
+throws on a mismatch.
+
+* **Added (both):** the status the customer sees for the ping and packet loss, for an app that
+  draws its own screen: `DnsQuality.pingQuality`, `packetLossQuality`, `pingQualityColor` and
+  `packetLossQualityColor` (`excellent` / `good` / `moderate` / `poor`, or null; the colour is
+  `green`, `yellow` or `red`). The ping is rated by the limits the provider sets in its dashboard,
+  so show the rating as given. `connectionQualityColor` is unchanged.
+* **Added (both):** `ReportData.recommendedActions` (the customer's advice, most urgent first,
+  each text by language) and `ReportData.noInstructions` ("No instructions" by language when the
+  overall status is Good and there is nothing to do). Both are null from an older backend.
+* **Changed (Android, bundled SDK):** `tools:1.10` (was 1.9).
+* **Changed (iOS, bundled SDK):** `ios/ScanMyNet.xcframework` is rebuilt from `scanmynet-ios`. It
+  decodes the new report fields, so the iOS plugin fills `pingQuality`, `packetLossQuality`,
+  `pingQualityColor`, `packetLossQualityColor`, `recommendedActions` and `noInstructions` like
+  Android does.
+* **Fixed (Android, bundled SDK):** the Wi-Fi frequency is sent in GHz from one conversion, and as
+  `null` when Android does not know it. It used to send `-0.001` for the connected network when
+  Android reported `-1`, which the portal read as a band. The backend now also reads a frequency in
+  GHz or MHz the same way, and treats a missing one as unknown (the dashboard no longer says
+  "Connected to a 2.4GHz network" for every scan without a frequency).
+* **Documented:** the units of the Wi-Fi fields (`frequency` GHz, `signalStrength` dBm, `channelWidth`
+  MHz; `null` when not known) in the README. No API change.
+* **Needs the matching backend** to be filled in; an older backend leaves the new fields null.
+
 ## 1.3.1
 
 Both platforms. No API change, and the same Pigeon schema 4 as 1.3.0.

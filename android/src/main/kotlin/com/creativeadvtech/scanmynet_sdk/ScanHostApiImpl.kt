@@ -173,6 +173,6 @@ class ScanHostApiImpl(
 
     companion object {
         /** Must match `.schemaVersion` in Dart. */
-        const val SCHEMA_VERSION = 4L
+        const val SCHEMA_VERSION = 5L
     }
 }

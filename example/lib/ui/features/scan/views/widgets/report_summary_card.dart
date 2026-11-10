@@ -26,6 +26,19 @@ class ReportSummaryCard extends StatelessWidget {
     final routerName =
         [router?.make, router?.model].whereType<String>().join(' ').trim();
 
+    // The status the customer sees for the ping, with its colour, from the subscriber's own router entry.
+    // Show it as given: the backend rates it by the provider's limits, so do not work it out from the
+    // average ping.
+    final routerQuality = report.connectionQuality
+        ?.where((entry) => entry.isSubscriberRouter == true)
+        .firstOrNull;
+
+    // The advice the report page shows, each text by language: pick the phone's language, fall back to English.
+    // (An app that supports a fixed set of languages would use its own resolved locale instead.)
+    final language = View.of(context).platformDispatcher.locale.languageCode;
+    final advice = report.recommendedActions?.firstOrNull;
+    final noInstructions = _text(report.noInstructions, language);
+
     final stats = <_Stat>[
       if (speed?.networkSpeedDown != null)
         _Stat(Icons.download_rounded, 'Download',
@@ -38,6 +51,20 @@ class ReportSummaryCard extends StatelessWidget {
       if (wifi?.ssid != null) _Stat(Icons.wifi_rounded, 'Wi-Fi', wifi!.ssid!),
       if (routerName.isNotEmpty)
         _Stat(Icons.router_rounded, 'Router', routerName),
+      if (routerQuality?.pingQuality != null)
+        _Stat(
+          Icons.network_ping_rounded,
+          'Ping',
+          '${routerQuality!.averagePingTime?.toStringAsFixed(0) ?? '-'} ms · ${routerQuality.pingQuality}',
+          color: _statusColor(routerQuality.pingQualityColor),
+        ),
+      if (routerQuality?.packetLossQuality != null)
+        _Stat(
+          Icons.leak_remove_rounded,
+          'Packet loss',
+          '${routerQuality!.packetLossQuality}',
+          color: _statusColor(routerQuality.packetLossQualityColor),
+        ),
     ];
 
     return Card(
@@ -81,6 +108,28 @@ class ReportSummaryCard extends StatelessWidget {
                 children: [for (final s in stats) _StatChip(stat: s)],
               ),
             ],
+            if (advice != null) ...[
+              const SizedBox(height: 16),
+              Text('Advice', style: theme.textTheme.labelLarge),
+              const SizedBox(height: 4),
+              Text(_text(advice.title, language) ?? advice.key ?? '',
+                  style: theme.textTheme.bodyMedium),
+              if (_text(advice.recommendedAction, language) != null)
+                Text(_text(advice.recommendedAction, language)!,
+                    style: theme.textTheme.bodySmall
+                        ?.copyWith(color: scheme.onSurfaceVariant)),
+            ] else if (noInstructions != null) ...[
+              // A Good overall status with nothing to do: the backend says so, in both languages.
+              const SizedBox(height: 16),
+              Row(
+                children: [
+                  const Icon(Icons.check_circle_rounded,
+                      size: 18, color: Colors.green),
+                  const SizedBox(width: 8),
+                  Text(noInstructions, style: theme.textTheme.bodyMedium),
+                ],
+              ),
+            ],
             if (alerts.isNotEmpty) ...[
               const SizedBox(height: 16),
               Text('Alerts (${alerts.length})',
@@ -111,13 +160,26 @@ class ReportSummaryCard extends StatelessWidget {
   }
 }
 
+/// A text by language code (`en`, `ar`): the language asked for, else English.
+String? _text(Map<String, String>? texts, String language) =>
+    texts?[language] ?? texts?['en'];
+
+/// The colour the backend names for a status (`green`, `yellow`, `red`); null shows the default text colour.
+Color? _statusColor(String? name) => switch (name) {
+      'green' => Colors.green.shade700,
+      'yellow' => Colors.amber.shade800,
+      'red' => Colors.red.shade700,
+      _ => null,
+    };
+
 /// A single labelled metric extracted from the report.
 class _Stat {
-  const _Stat(this.icon, this.label, this.value);
+  const _Stat(this.icon, this.label, this.value, {this.color});
 
   final IconData icon;
   final String label;
   final String value;
+  final Color? color;
 }
 
 class _StatChip extends StatelessWidget {
@@ -149,7 +211,8 @@ class _StatChip extends StatelessWidget {
               Text(stat.label,
                   style: theme.textTheme.labelSmall
                       ?.copyWith(color: scheme.onSurfaceVariant)),
-              Text(stat.value, style: theme.textTheme.bodyMedium),
+              Text(stat.value,
+                  style: theme.textTheme.bodyMedium?.copyWith(color: stat.color)),
             ],
           ),
         ],

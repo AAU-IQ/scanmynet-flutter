@@ -2067,6 +2067,14 @@ class NetworkCongestion {
 /// saved without a layer, or before layers were limited to 0-2, can give 3. The agent portal's
 /// diagram groups servers by it, and the backend leaves layer 1 out of its "poor connection
 /// outside the home" action. It is not a local / external flag.
+///
+/// The status the customer sees, for a screen of your own: [pingQuality] and [packetLossQuality] are
+/// `excellent`, `good`, `moderate` or `poor`, or null when the backend cannot judge (a router that answered
+/// nothing has no ping rating). [pingQualityColor] and [packetLossQualityColor] are the colour of each
+/// (`green` for excellent and good, `yellow` for moderate, `red` for poor, null with no rating). The ping is
+/// rated by the limits the provider sets in its dashboard for that server; packet loss uses fixed bands. Show
+/// them as given; do not recompute them from [averagePingTime]. [connectionQualityColor] is the provider's own
+/// threshold colour and is unchanged. The four are appended last: Pigeon codecs are positional.
 class DnsQuality {
   DnsQuality({
     this.dnsName,
@@ -2079,6 +2087,10 @@ class DnsQuality {
     this.averagePingTime,
     this.connectionQualityColor,
     this.layerRanking,
+    this.pingQuality,
+    this.packetLossQuality,
+    this.pingQualityColor,
+    this.packetLossQualityColor,
   });
 
   String? dnsName;
@@ -2102,6 +2114,14 @@ class DnsQuality {
 
   int? layerRanking;
 
+  String? pingQuality;
+
+  String? packetLossQuality;
+
+  String? pingQualityColor;
+
+  String? packetLossQualityColor;
+
   List<Object?> _toList() {
     return <Object?>[
       dnsName,
@@ -2114,6 +2134,10 @@ class DnsQuality {
       averagePingTime,
       connectionQualityColor,
       layerRanking,
+      pingQuality,
+      packetLossQuality,
+      pingQualityColor,
+      packetLossQualityColor,
     ];
   }
 
@@ -2133,6 +2157,10 @@ class DnsQuality {
       averagePingTime: result[7] as double?,
       connectionQualityColor: result[8] as QualityColor?,
       layerRanking: result[9] as int?,
+      pingQuality: result[10] as String?,
+      packetLossQuality: result[11] as String?,
+      pingQualityColor: result[12] as String?,
+      packetLossQualityColor: result[13] as String?,
     );
   }
 
@@ -2145,7 +2173,7 @@ class DnsQuality {
     if (identical(this, other)) {
       return true;
     }
-    return _deepEquals(dnsName, other.dnsName) && _deepEquals(dnsIp, other.dnsIp) && _deepEquals(packetsDropped, other.packetsDropped) && _deepEquals(numPacketsSent, other.numPacketsSent) && _deepEquals(pingValues, other.pingValues) && _deepEquals(isSubscriberRouter, other.isSubscriberRouter) && _deepEquals(jitter, other.jitter) && _deepEquals(averagePingTime, other.averagePingTime) && _deepEquals(connectionQualityColor, other.connectionQualityColor) && _deepEquals(layerRanking, other.layerRanking);
+    return _deepEquals(dnsName, other.dnsName) && _deepEquals(dnsIp, other.dnsIp) && _deepEquals(packetsDropped, other.packetsDropped) && _deepEquals(numPacketsSent, other.numPacketsSent) && _deepEquals(pingValues, other.pingValues) && _deepEquals(isSubscriberRouter, other.isSubscriberRouter) && _deepEquals(jitter, other.jitter) && _deepEquals(averagePingTime, other.averagePingTime) && _deepEquals(connectionQualityColor, other.connectionQualityColor) && _deepEquals(layerRanking, other.layerRanking) && _deepEquals(pingQuality, other.pingQuality) && _deepEquals(packetLossQuality, other.packetLossQuality) && _deepEquals(pingQualityColor, other.pingQualityColor) && _deepEquals(packetLossQualityColor, other.packetLossQualityColor);
   }
 
   @override
@@ -2249,6 +2277,78 @@ class TracerouteEntry {
   int get hashCode => _deepHash(<Object?>[runtimeType, ..._toList()]);
 }
 
+/// What the customer is advised to do after a scan: one of the backend's recommended actions.
+///
+/// [ReportData.recommendedActions] lists them most urgent first (the report page shows the first). Each text
+/// comes in every language the backend has, keyed by language code (`en`, `ar`), so an app picks one and needs
+/// no copy of its own; fall back to `en` when the language it wants is missing. [key] is a stable identifier
+/// (`delay_and_loss`, `weak_wifi_with_loss`, ...): branch on it, never on a text. [priority] is 1 (most urgent)
+/// to 3. [technicalState] is a short English description for support staff, not for the customer.
+class RecommendedAction {
+  RecommendedAction({
+    this.key,
+    this.priority,
+    this.technicalState,
+    this.title,
+    this.message,
+    this.recommendedAction,
+  });
+
+  String? key;
+
+  int? priority;
+
+  String? technicalState;
+
+  Map<String, String>? title;
+
+  Map<String, String>? message;
+
+  Map<String, String>? recommendedAction;
+
+  List<Object?> _toList() {
+    return <Object?>[
+      key,
+      priority,
+      technicalState,
+      title,
+      message,
+      recommendedAction,
+    ];
+  }
+
+  Object encode() {
+    return _toList();  }
+
+  static RecommendedAction decode(Object result) {
+    result as List<Object?>;
+    return RecommendedAction(
+      key: result[0] as String?,
+      priority: result[1] as int?,
+      technicalState: result[2] as String?,
+      title: (result[3] as Map<Object?, Object?>?)?.cast<String, String>(),
+      message: (result[4] as Map<Object?, Object?>?)?.cast<String, String>(),
+      recommendedAction: (result[5] as Map<Object?, Object?>?)?.cast<String, String>(),
+    );
+  }
+
+  @override
+  // ignore: avoid_equals_and_hash_code_on_mutable_classes
+  bool operator ==(Object other) {
+    if (other is! RecommendedAction || other.runtimeType != runtimeType) {
+      return false;
+    }
+    if (identical(this, other)) {
+      return true;
+    }
+    return _deepEquals(key, other.key) && _deepEquals(priority, other.priority) && _deepEquals(technicalState, other.technicalState) && _deepEquals(title, other.title) && _deepEquals(message, other.message) && _deepEquals(recommendedAction, other.recommendedAction);
+  }
+
+  @override
+  // ignore: avoid_equals_and_hash_code_on_mutable_classes
+  int get hashCode => _deepHash(<Object?>[runtimeType, ..._toList()]);
+}
+
 /// The full report payload. Mirrors the FE contract and evolves with it — this
 /// is NOT a stable versioned schema.
 class ReportData {
@@ -2268,6 +2368,8 @@ class ReportData {
     this.alerts,
     this.actions,
     this.incompleteAnalysis,
+    this.recommendedActions,
+    this.noInstructions,
   });
 
   CustomerDetails? customerDetails;
@@ -2302,6 +2404,14 @@ class ReportData {
   /// the scan as unreliable.
   bool? incompleteAnalysis;
 
+  /// The customer's advice, most urgent first; empty when the scan found nothing to act on. Null from an
+  /// older backend.
+  List<RecommendedAction>? recommendedActions;
+
+  /// "No instructions" by language (`en`, `ar`) when the overall status is Good and there is no action to show,
+  /// else null. Show it in place of the advice. An action is never hidden by a Good status.
+  Map<String, String>? noInstructions;
+
   List<Object?> _toList() {
     return <Object?>[
       customerDetails,
@@ -2319,6 +2429,8 @@ class ReportData {
       alerts,
       actions,
       incompleteAnalysis,
+      recommendedActions,
+      noInstructions,
     ];
   }
 
@@ -2343,6 +2455,8 @@ class ReportData {
       alerts: (result[12] as List<Object?>?)?.cast<ReportAlert>(),
       actions: (result[13] as List<Object?>?)?.cast<ReportAction>(),
       incompleteAnalysis: result[14] as bool?,
+      recommendedActions: (result[15] as List<Object?>?)?.cast<RecommendedAction>(),
+      noInstructions: (result[16] as Map<Object?, Object?>?)?.cast<String, String>(),
     );
   }
 
@@ -2355,7 +2469,7 @@ class ReportData {
     if (identical(this, other)) {
       return true;
     }
-    return _deepEquals(customerDetails, other.customerDetails) && _deepEquals(sdkDetails, other.sdkDetails) && _deepEquals(routerUsageDuringScan, other.routerUsageDuringScan) && _deepEquals(customerInternetSpeed, other.customerInternetSpeed) && _deepEquals(basicConnectivity, other.basicConnectivity) && _deepEquals(localConnectedDevices, other.localConnectedDevices) && _deepEquals(customerRouterDetails, other.customerRouterDetails) && _deepEquals(networkTopology, other.networkTopology) && _deepEquals(userWifiNetwork, other.userWifiNetwork) && _deepEquals(networkCongestion, other.networkCongestion) && _deepEquals(connectionQuality, other.connectionQuality) && _deepEquals(traceroute, other.traceroute) && _deepEquals(alerts, other.alerts) && _deepEquals(actions, other.actions) && _deepEquals(incompleteAnalysis, other.incompleteAnalysis);
+    return _deepEquals(customerDetails, other.customerDetails) && _deepEquals(sdkDetails, other.sdkDetails) && _deepEquals(routerUsageDuringScan, other.routerUsageDuringScan) && _deepEquals(customerInternetSpeed, other.customerInternetSpeed) && _deepEquals(basicConnectivity, other.basicConnectivity) && _deepEquals(localConnectedDevices, other.localConnectedDevices) && _deepEquals(customerRouterDetails, other.customerRouterDetails) && _deepEquals(networkTopology, other.networkTopology) && _deepEquals(userWifiNetwork, other.userWifiNetwork) && _deepEquals(networkCongestion, other.networkCongestion) && _deepEquals(connectionQuality, other.connectionQuality) && _deepEquals(traceroute, other.traceroute) && _deepEquals(alerts, other.alerts) && _deepEquals(actions, other.actions) && _deepEquals(incompleteAnalysis, other.incompleteAnalysis) && _deepEquals(recommendedActions, other.recommendedActions) && _deepEquals(noInstructions, other.noInstructions);
   }
 
   @override
@@ -2482,8 +2596,11 @@ class _PigeonCodec extends StandardMessageCodec {
     }    else if (value is TracerouteEntry) {
       buffer.putUint8(165);
       writeValue(buffer, value.encode());
-    }    else if (value is ReportData) {
+    }    else if (value is RecommendedAction) {
       buffer.putUint8(166);
+      writeValue(buffer, value.encode());
+    }    else if (value is ReportData) {
+      buffer.putUint8(167);
       writeValue(buffer, value.encode());
     } else {
       super.writeValue(buffer, value);
@@ -2572,6 +2689,8 @@ class _PigeonCodec extends StandardMessageCodec {
       case 165:
         return TracerouteEntry.decode(readValue(buffer)!);
       case 166:
+        return RecommendedAction.decode(readValue(buffer)!);
+      case 167:
         return ReportData.decode(readValue(buffer)!);
       default:
         return super.readValueOfType(type, buffer);
