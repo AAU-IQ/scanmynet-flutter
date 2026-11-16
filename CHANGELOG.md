@@ -1,3 +1,21 @@
+## 1.4.1
+
+iOS only.
+
+* **Fixed (iOS, bundled SDK):** the router is now pinged in the connection-quality test, so
+  `ReportData.connectionQuality` has the entry with `isSubscriberRouter == true` on iOS as on
+  Android, and its `averagePingTime`, `packetsDropped`, `numPacketsSent`, `pingQuality` and
+  `packetLossQuality` are filled in. The SDK only pinged a host that answered an HTTPS request, and a
+  home router rarely does, so on iOS the router was left out and an app reading the router's ping and
+  packet loss from that entry got nothing. A router that does not answer the ping now reads as 100%
+  packet loss.
+* **Changed (iOS):** `ios/ScanMyNet.xcframework` is rebuilt from `scanmynet-ios` with Xcode 27
+  (Swift 6.4). **Building an app with this plugin now needs Xcode 27 or later**; Xcode 26 cannot
+  import the framework. No API change.
+* **Fixed (example app):** the example's `Podfile` raises every pod to iOS 15.0, the lowest Xcode 27
+  accepts; pods that still declared 9.0–13.0 failed the build with "Target Integrity". An app of
+  your own may need the same `post_install` lines.
+
 ## 1.4.0
 
 Both platforms. **Pigeon schema 5: both native binaries are rebuilt in this release**

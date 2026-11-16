@@ -4,14 +4,12 @@ PODS:
   - Flutter (1.0.0)
   - integration_test (0.0.1):
     - Flutter
-  - NDT7 (0.0.4)
   - permission_handler_apple (9.4.8):
     - Flutter
-  - scanmynet_sdk (0.0.1):
+  - scanmynet_sdk (1.4.1):
     - Alamofire (= 5.11.1)
     - BlueSocket (= 2.0.4)
     - Flutter
-    - NDT7 (= 0.0.4)
     - XMLCoder (= 0.13.1)
   - url_launcher_ios (0.0.1):
     - Flutter
@@ -28,7 +26,6 @@ SPEC REPOS:
   trunk:
     - Alamofire
     - BlueSocket
-    - NDT7
     - XMLCoder
 
 EXTERNAL SOURCES:
@@ -48,12 +45,11 @@ SPEC CHECKSUMS:
   BlueSocket: cc33e2bded4b680ff14200b4160ed459602b9205
   Flutter: cabc95a1d2626b1b06e7179b784ebcf0c0cde467
   integration_test: 4a889634ef21a45d28d50d622cf412dc6d9f586e
-  NDT7: db6448ebf5648c2f1721bf3b473470ab201f4145
   permission_handler_apple: 92d754bbaa7361d436db2d6c3c1c2a0fdcec462e
-  scanmynet_sdk: c38238632afba7c1d606fc8a030de8645357e1b6
+  scanmynet_sdk: 1b5a4dae246e2d978fac672d56fbc13a5c940c4e
   url_launcher_ios: 7a95fa5b60cc718a708b8f2966718e93db0cef1b
   XMLCoder: bd962586bc6777a9e6a17bc84d97a3c5413a9495
 
-PODFILE CHECKSUM: e2f609193c878ec2bfdf8858d42913290cb2a3da
+PODFILE CHECKSUM: f668b4d1c33238c8720e5af20a84eb88d4b068bf
 
 COCOAPODS: 1.16.2

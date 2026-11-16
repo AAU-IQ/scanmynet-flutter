@@ -9,7 +9,7 @@ backend.
 
 ```yaml
 dependencies:
-  scanmynet_sdk: ^1.4.0
+  scanmynet_sdk: ^1.4.1
 ```
 
 ## Prerequisites
@@ -20,7 +20,7 @@ dependencies:
 | Android SDK | compileSdk 36, minSdk 24 |
 | Java | 17 |
 | iOS / CocoaPods | deployment target ≥ 15.0 |
-| Xcode | 15+ |
+| Xcode | 27+ (the bundled `ScanMyNet.xcframework` is built with Swift 6.4; Xcode 26 cannot import it) |
 | FVM (recommended) | any |
 
 ## Platform setup

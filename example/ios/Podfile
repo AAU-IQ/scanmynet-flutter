@@ -66,6 +66,14 @@ post_install do |installer|
       if SCANMYNET_LIBRARY_EVOLUTION_PODS.include?(target.name)
         config.build_settings['BUILD_LIBRARY_FOR_DISTRIBUTION'] = 'YES'
       end
+
+      # Xcode 27 supports iOS 15.0 and up only, and fails the build ("Target
+      # Integrity") on any pod that still declares an older minimum (9.0-13.0).
+      # Raise those to the app's own target; never lower one that is higher.
+      target_version = config.build_settings['IPHONEOS_DEPLOYMENT_TARGET']
+      if target_version.nil? || Gem::Version.new(target_version) < Gem::Version.new('15.0')
+        config.build_settings['IPHONEOS_DEPLOYMENT_TARGET'] = '15.0'
+      end
     end
   end
 end

@@ -15198,2219 +15198,2226 @@
   },
   "ConstValues": [
     {
-      "filePath": "\/Users\/vagrant\/git\/ScanMyNet\/Services\/LAN Scanner\/LanScanService.swift",
+      "filePath": "\/tmp\/claude-501\/-Users-ahmedraad-Desktop-asl-scanmynet-project-scanmynet-flutter\/00fa4fa4-02c7-4f82-a4af-9492a1289bfc\/scratchpad\/ios-master-build\/ScanMyNet\/Services\/LAN Scanner\/LanScanService.swift",
       "kind": "Array",
       "offset": 180,
       "length": 2,
       "value": "[]"
     },
     {
-      "filePath": "\/Users\/vagrant\/git\/ScanMyNet\/Services\/LAN Scanner\/LanScanService.swift",
+      "filePath": "\/tmp\/claude-501\/-Users-ahmedraad-Desktop-asl-scanmynet-project-scanmynet-flutter\/00fa4fa4-02c7-4f82-a4af-9492a1289bfc\/scratchpad\/ios-master-build\/ScanMyNet\/Services\/LAN Scanner\/LanScanService.swift",
       "kind": "Array",
       "offset": 232,
       "length": 2,
       "value": "[]"
     },
     {
-      "filePath": "\/Users\/vagrant\/git\/ScanMyNet\/Services\/LAN Scanner\/LanScanService.swift",
+      "filePath": "\/tmp\/claude-501\/-Users-ahmedraad-Desktop-asl-scanmynet-project-scanmynet-flutter\/00fa4fa4-02c7-4f82-a4af-9492a1289bfc\/scratchpad\/ios-master-build\/ScanMyNet\/Services\/LAN Scanner\/LanScanService.swift",
       "kind": "Array",
       "offset": 279,
       "length": 2,
       "value": "[]"
     },
     {
-      "filePath": "\/Users\/vagrant\/git\/ScanMyNet\/Services\/LAN Scanner\/LanScanService.swift",
+      "filePath": "\/tmp\/claude-501\/-Users-ahmedraad-Desktop-asl-scanmynet-project-scanmynet-flutter\/00fa4fa4-02c7-4f82-a4af-9492a1289bfc\/scratchpad\/ios-master-build\/ScanMyNet\/Services\/LAN Scanner\/LanScanService.swift",
       "kind": "Dictionary",
       "offset": 328,
       "length": 3,
       "value": "[]"
     },
     {
-      "filePath": "\/Users\/vagrant\/git\/ScanMyNet\/Services\/LAN Scanner\/LanScanService.swift",
+      "filePath": "\/tmp\/claude-501\/-Users-ahmedraad-Desktop-asl-scanmynet-project-scanmynet-flutter\/00fa4fa4-02c7-4f82-a4af-9492a1289bfc\/scratchpad\/ios-master-build\/ScanMyNet\/Services\/LAN Scanner\/LanScanService.swift",
       "kind": "IntegerLiteral",
       "offset": 985,
       "length": 2,
       "value": "90"
     },
     {
-      "filePath": "\/Users\/vagrant\/git\/ScanMyNet\/Services\/LAN Scanner\/LanScanService.swift",
+      "filePath": "\/tmp\/claude-501\/-Users-ahmedraad-Desktop-asl-scanmynet-project-scanmynet-flutter\/00fa4fa4-02c7-4f82-a4af-9492a1289bfc\/scratchpad\/ios-master-build\/ScanMyNet\/Services\/LAN Scanner\/LanScanService.swift",
       "kind": "BooleanLiteral",
       "offset": 1124,
       "length": 5,
       "value": "false"
     },
     {
-      "filePath": "\/Users\/vagrant\/git\/ScanMyNet\/Services\/LAN Scanner\/TcpPresenceScanner.swift",
+      "filePath": "\/tmp\/claude-501\/-Users-ahmedraad-Desktop-asl-scanmynet-project-scanmynet-flutter\/00fa4fa4-02c7-4f82-a4af-9492a1289bfc\/scratchpad\/ios-master-build\/ScanMyNet\/Services\/LAN Scanner\/TcpPresenceScanner.swift",
       "kind": "IntegerLiteral",
       "offset": 1367,
       "length": 3,
       "value": "445"
     },
     {
-      "filePath": "\/Users\/vagrant\/git\/ScanMyNet\/Services\/LAN Scanner\/TcpPresenceScanner.swift",
+      "filePath": "\/tmp\/claude-501\/-Users-ahmedraad-Desktop-asl-scanmynet-project-scanmynet-flutter\/00fa4fa4-02c7-4f82-a4af-9492a1289bfc\/scratchpad\/ios-master-build\/ScanMyNet\/Services\/LAN Scanner\/TcpPresenceScanner.swift",
       "kind": "IntegerLiteral",
       "offset": 1482,
       "length": 1,
       "value": "6"
     },
     {
-      "filePath": "\/Users\/vagrant\/git\/ScanMyNet\/Services\/LAN Scanner\/TcpPresenceScanner.swift",
+      "filePath": "\/tmp\/claude-501\/-Users-ahmedraad-Desktop-asl-scanmynet-project-scanmynet-flutter\/00fa4fa4-02c7-4f82-a4af-9492a1289bfc\/scratchpad\/ios-master-build\/ScanMyNet\/Services\/LAN Scanner\/TcpPresenceScanner.swift",
       "kind": "IntegerLiteral",
       "offset": 1563,
       "length": 2,
       "value": "32"
     },
     {
-      "filePath": "\/Users\/vagrant\/git\/ScanMyNet\/Services\/LAN Scanner\/TcpPresenceScanner.swift",
+      "filePath": "\/tmp\/claude-501\/-Users-ahmedraad-Desktop-asl-scanmynet-project-scanmynet-flutter\/00fa4fa4-02c7-4f82-a4af-9492a1289bfc\/scratchpad\/ios-master-build\/ScanMyNet\/Services\/LAN Scanner\/TcpPresenceScanner.swift",
       "kind": "FloatLiteral",
       "offset": 1664,
       "length": 4,
       "value": "0.10"
     },
     {
-      "filePath": "\/Users\/vagrant\/git\/ScanMyNet\/Services\/LAN Scanner\/MDNSBrowser.swift",
+      "filePath": "\/tmp\/claude-501\/-Users-ahmedraad-Desktop-asl-scanmynet-project-scanmynet-flutter\/00fa4fa4-02c7-4f82-a4af-9492a1289bfc\/scratchpad\/ios-master-build\/ScanMyNet\/Services\/LAN Scanner\/MDNSBrowser.swift",
       "kind": "Array",
       "offset": 1013,
       "length": 769,
       "value": "[\"_workstation._tcp\", \"_companion-link._tcp\", \"_device-info._tcp\", \"_airplay._tcp\", \"_raop._tcp\", \"_homekit._tcp\", \"_hap._tcp\", \"_googlecast._tcp\", \"_ipp._tcp\", \"_printer._tcp\", \"_smb._tcp\", \"_ssh._tcp\", \"_http._tcp\"]"
     },
     {
-      "filePath": "\/Users\/vagrant\/git\/ScanMyNet\/Services\/LAN Scanner\/MDNSBrowser.swift",
+      "filePath": "\/tmp\/claude-501\/-Users-ahmedraad-Desktop-asl-scanmynet-project-scanmynet-flutter\/00fa4fa4-02c7-4f82-a4af-9492a1289bfc\/scratchpad\/ios-master-build\/ScanMyNet\/Services\/LAN Scanner\/MDNSBrowser.swift",
       "kind": "Array",
       "offset": 1832,
       "length": 2,
       "value": "[]"
     },
     {
-      "filePath": "\/Users\/vagrant\/git\/ScanMyNet\/Services\/LAN Scanner\/MDNSBrowser.swift",
+      "filePath": "\/tmp\/claude-501\/-Users-ahmedraad-Desktop-asl-scanmynet-project-scanmynet-flutter\/00fa4fa4-02c7-4f82-a4af-9492a1289bfc\/scratchpad\/ios-master-build\/ScanMyNet\/Services\/LAN Scanner\/MDNSBrowser.swift",
       "kind": "Array",
       "offset": 1877,
       "length": 2,
       "value": "[]"
     },
     {
-      "filePath": "\/Users\/vagrant\/git\/ScanMyNet\/Services\/LAN Scanner\/MDNSBrowser.swift",
+      "filePath": "\/tmp\/claude-501\/-Users-ahmedraad-Desktop-asl-scanmynet-project-scanmynet-flutter\/00fa4fa4-02c7-4f82-a4af-9492a1289bfc\/scratchpad\/ios-master-build\/ScanMyNet\/Services\/LAN Scanner\/MDNSBrowser.swift",
       "kind": "Dictionary",
       "offset": 1926,
       "length": 3,
       "value": "[]"
     },
     {
-      "filePath": "\/Users\/vagrant\/git\/ScanMyNet\/Models\/Port\/PortCheck.swift",
+      "filePath": "\/tmp\/claude-501\/-Users-ahmedraad-Desktop-asl-scanmynet-project-scanmynet-flutter\/00fa4fa4-02c7-4f82-a4af-9492a1289bfc\/scratchpad\/ios-master-build\/ScanMyNet\/Models\/Port\/PortCheck.swift",
       "kind": "StringLiteral",
       "offset": 241,
       "length": 11,
       "value": "\"port_type\""
     },
     {
-      "filePath": "\/Users\/vagrant\/git\/ScanMyNet\/Models\/Port\/PortCheck.swift",
+      "filePath": "\/tmp\/claude-501\/-Users-ahmedraad-Desktop-asl-scanmynet-project-scanmynet-flutter\/00fa4fa4-02c7-4f82-a4af-9492a1289bfc\/scratchpad\/ios-master-build\/ScanMyNet\/Models\/Port\/PortCheck.swift",
       "kind": "StringLiteral",
       "offset": 304,
       "length": 13,
       "value": "\"port_status\""
     },
     {
-      "filePath": "\/Users\/vagrant\/git\/ScanMyNet\/Services\/Server Connectivity\/DNS\/DNSResolver.swift",
+      "filePath": "\/tmp\/claude-501\/-Users-ahmedraad-Desktop-asl-scanmynet-project-scanmynet-flutter\/00fa4fa4-02c7-4f82-a4af-9492a1289bfc\/scratchpad\/ios-master-build\/ScanMyNet\/Services\/Server Connectivity\/DNS\/DNSResolver.swift",
       "kind": "Dictionary",
       "offset": 120,
       "length": 3,
       "value": "[]"
     },
     {
-      "filePath": "\/Users\/vagrant\/git\/ScanMyNet\/Services\/Server Connectivity\/DNS\/DNSResolver.swift",
+      "filePath": "\/tmp\/claude-501\/-Users-ahmedraad-Desktop-asl-scanmynet-project-scanmynet-flutter\/00fa4fa4-02c7-4f82-a4af-9492a1289bfc\/scratchpad\/ios-master-build\/ScanMyNet\/Services\/Server Connectivity\/DNS\/DNSResolver.swift",
       "kind": "IntegerLiteral",
       "offset": 147,
       "length": 1,
       "value": "0"
     },
     {
-      "filePath": "\/Users\/vagrant\/git\/ScanMyNet\/Services\/Server Connectivity\/DNS\/DNSResolver.swift",
+      "filePath": "\/tmp\/claude-501\/-Users-ahmedraad-Desktop-asl-scanmynet-project-scanmynet-flutter\/00fa4fa4-02c7-4f82-a4af-9492a1289bfc\/scratchpad\/ios-master-build\/ScanMyNet\/Services\/Server Connectivity\/DNS\/DNSResolver.swift",
       "kind": "IntegerLiteral",
       "offset": 930,
       "length": 1,
       "value": "1"
     },
     {
-      "filePath": "\/Users\/vagrant\/git\/ScanMyNet\/Services\/Server Connectivity\/DNS\/DNSResolver.swift",
+      "filePath": "\/tmp\/claude-501\/-Users-ahmedraad-Desktop-asl-scanmynet-project-scanmynet-flutter\/00fa4fa4-02c7-4f82-a4af-9492a1289bfc\/scratchpad\/ios-master-build\/ScanMyNet\/Services\/Server Connectivity\/DNS\/DNSResolver.swift",
       "kind": "IntegerLiteral",
       "offset": 940,
       "length": 1,
       "value": "2"
     },
     {
-      "filePath": "\/Users\/vagrant\/git\/ScanMyNet\/Services\/Server Connectivity\/DNS\/DNSResolver.swift",
+      "filePath": "\/tmp\/claude-501\/-Users-ahmedraad-Desktop-asl-scanmynet-project-scanmynet-flutter\/00fa4fa4-02c7-4f82-a4af-9492a1289bfc\/scratchpad\/ios-master-build\/ScanMyNet\/Services\/Server Connectivity\/DNS\/DNSResolver.swift",
       "kind": "IntegerLiteral",
       "offset": 949,
       "length": 1,
       "value": "3"
     },
     {
-      "filePath": "\/Users\/vagrant\/git\/ScanMyNet\/Services\/Server Connectivity\/DNS\/DNSResolver.swift",
+      "filePath": "\/tmp\/claude-501\/-Users-ahmedraad-Desktop-asl-scanmynet-project-scanmynet-flutter\/00fa4fa4-02c7-4f82-a4af-9492a1289bfc\/scratchpad\/ios-master-build\/ScanMyNet\/Services\/Server Connectivity\/DNS\/DNSResolver.swift",
       "kind": "StringLiteral",
       "offset": 1389,
       "length": 15,
       "value": "\"ResolverQueue\""
     },
     {
-      "filePath": "\/Users\/vagrant\/git\/ScanMyNet\/Services\/Server Connectivity\/DNS\/DNSResolver.swift",
+      "filePath": "\/tmp\/claude-501\/-Users-ahmedraad-Desktop-asl-scanmynet-project-scanmynet-flutter\/00fa4fa4-02c7-4f82-a4af-9492a1289bfc\/scratchpad\/ios-master-build\/ScanMyNet\/Services\/Server Connectivity\/DNS\/DNSResolver.swift",
       "kind": "Array",
       "offset": 1629,
       "length": 2,
       "value": "[]"
     },
     {
-      "filePath": "\/Users\/vagrant\/git\/ScanMyNet\/Services\/Server Connectivity\/DNS\/DNSResolver.swift",
+      "filePath": "\/tmp\/claude-501\/-Users-ahmedraad-Desktop-asl-scanmynet-project-scanmynet-flutter\/00fa4fa4-02c7-4f82-a4af-9492a1289bfc\/scratchpad\/ios-master-build\/ScanMyNet\/Services\/Server Connectivity\/DNS\/DNSResolver.swift",
       "kind": "Array",
       "offset": 1663,
       "length": 2,
       "value": "[]"
     },
     {
-      "filePath": "\/Users\/vagrant\/git\/ScanMyNet\/Services\/Server Connectivity\/DNS\/DNSResolver.swift",
+      "filePath": "\/tmp\/claude-501\/-Users-ahmedraad-Desktop-asl-scanmynet-project-scanmynet-flutter\/00fa4fa4-02c7-4f82-a4af-9492a1289bfc\/scratchpad\/ios-master-build\/ScanMyNet\/Services\/Server Connectivity\/DNS\/DNSResolver.swift",
       "kind": "BooleanLiteral",
       "offset": 1763,
       "length": 5,
       "value": "false"
     },
     {
-      "filePath": "\/Users\/vagrant\/git\/ScanMyNet\/Services\/Server Connectivity\/DNS\/DNSResolver.swift",
+      "filePath": "\/tmp\/claude-501\/-Users-ahmedraad-Desktop-asl-scanmynet-project-scanmynet-flutter\/00fa4fa4-02c7-4f82-a4af-9492a1289bfc\/scratchpad\/ios-master-build\/ScanMyNet\/Services\/Server Connectivity\/DNS\/DNSResolver.swift",
       "kind": "BooleanLiteral",
       "offset": 2155,
       "length": 4,
       "value": "true"
     },
     {
-      "filePath": "\/Users\/vagrant\/git\/ScanMyNet\/Services\/Server Connectivity\/DNS\/DNSResolver.swift",
+      "filePath": "\/tmp\/claude-501\/-Users-ahmedraad-Desktop-asl-scanmynet-project-scanmynet-flutter\/00fa4fa4-02c7-4f82-a4af-9492a1289bfc\/scratchpad\/ios-master-build\/ScanMyNet\/Services\/Server Connectivity\/DNS\/DNSResolver.swift",
       "kind": "IntegerLiteral",
       "offset": 2176,
       "length": 1,
       "value": "3"
     },
     {
-      "filePath": "\/Users\/vagrant\/git\/ScanMyNet\/Models\/Report.swift",
+      "filePath": "\/tmp\/claude-501\/-Users-ahmedraad-Desktop-asl-scanmynet-project-scanmynet-flutter\/00fa4fa4-02c7-4f82-a4af-9492a1289bfc\/scratchpad\/ios-master-build\/ScanMyNet\/Models\/Report.swift",
       "kind": "StringLiteral",
       "offset": 951,
       "length": 11,
       "value": "\"report_id\""
     },
     {
-      "filePath": "\/Users\/vagrant\/git\/ScanMyNet\/Models\/Report.swift",
+      "filePath": "\/tmp\/claude-501\/-Users-ahmedraad-Desktop-asl-scanmynet-project-scanmynet-flutter\/00fa4fa4-02c7-4f82-a4af-9492a1289bfc\/scratchpad\/ios-master-build\/ScanMyNet\/Models\/Report.swift",
       "kind": "StringLiteral",
       "offset": 989,
       "length": 13,
       "value": "\"customer_id\""
     },
     {
-      "filePath": "\/Users\/vagrant\/git\/ScanMyNet\/Models\/Report.swift",
+      "filePath": "\/tmp\/claude-501\/-Users-ahmedraad-Desktop-asl-scanmynet-project-scanmynet-flutter\/00fa4fa4-02c7-4f82-a4af-9492a1289bfc\/scratchpad\/ios-master-build\/ScanMyNet\/Models\/Report.swift",
       "kind": "StringLiteral",
       "offset": 9575,
       "length": 22,
       "value": "\"last_known_public_ip\""
     },
     {
-      "filePath": "\/Users\/vagrant\/git\/ScanMyNet\/Models\/Report.swift",
+      "filePath": "\/tmp\/claude-501\/-Users-ahmedraad-Desktop-asl-scanmynet-project-scanmynet-flutter\/00fa4fa4-02c7-4f82-a4af-9492a1289bfc\/scratchpad\/ios-master-build\/ScanMyNet\/Models\/Report.swift",
       "kind": "StringLiteral",
       "offset": 9633,
       "length": 24,
       "value": "\"user_public_up_address\""
     },
     {
-      "filePath": "\/Users\/vagrant\/git\/ScanMyNet\/Models\/Report.swift",
+      "filePath": "\/tmp\/claude-501\/-Users-ahmedraad-Desktop-asl-scanmynet-project-scanmynet-flutter\/00fa4fa4-02c7-4f82-a4af-9492a1289bfc\/scratchpad\/ios-master-build\/ScanMyNet\/Models\/Report.swift",
       "kind": "StringLiteral",
       "offset": 9761,
       "length": 14,
       "value": "\"model_number\""
     },
     {
-      "filePath": "\/Users\/vagrant\/git\/ScanMyNet\/Models\/Report.swift",
+      "filePath": "\/tmp\/claude-501\/-Users-ahmedraad-Desktop-asl-scanmynet-project-scanmynet-flutter\/00fa4fa4-02c7-4f82-a4af-9492a1289bfc\/scratchpad\/ios-master-build\/ScanMyNet\/Models\/Report.swift",
       "kind": "StringLiteral",
       "offset": 9807,
       "length": 19,
       "value": "\"router_ip_address\""
     },
     {
-      "filePath": "\/Users\/vagrant\/git\/ScanMyNet\/Models\/Report.swift",
+      "filePath": "\/tmp\/claude-501\/-Users-ahmedraad-Desktop-asl-scanmynet-project-scanmynet-flutter\/00fa4fa4-02c7-4f82-a4af-9492a1289bfc\/scratchpad\/ios-master-build\/ScanMyNet\/Models\/Report.swift",
       "kind": "StringLiteral",
       "offset": 9859,
       "length": 20,
       "value": "\"router_mac_address\""
     },
     {
-      "filePath": "\/Users\/vagrant\/git\/ScanMyNet\/Models\/Report.swift",
+      "filePath": "\/tmp\/claude-501\/-Users-ahmedraad-Desktop-asl-scanmynet-project-scanmynet-flutter\/00fa4fa4-02c7-4f82-a4af-9492a1289bfc\/scratchpad\/ios-master-build\/ScanMyNet\/Models\/Report.swift",
       "kind": "StringLiteral",
       "offset": 9912,
       "length": 20,
       "value": "\"network_usage_down\""
     },
     {
-      "filePath": "\/Users\/vagrant\/git\/ScanMyNet\/Models\/Report.swift",
+      "filePath": "\/tmp\/claude-501\/-Users-ahmedraad-Desktop-asl-scanmynet-project-scanmynet-flutter\/00fa4fa4-02c7-4f82-a4af-9492a1289bfc\/scratchpad\/ios-master-build\/ScanMyNet\/Models\/Report.swift",
       "kind": "StringLiteral",
       "offset": 9963,
       "length": 18,
       "value": "\"network_usage_up\""
     },
     {
-      "filePath": "\/Users\/vagrant\/git\/ScanMyNet\/Models\/Report.swift",
+      "filePath": "\/tmp\/claude-501\/-Users-ahmedraad-Desktop-asl-scanmynet-project-scanmynet-flutter\/00fa4fa4-02c7-4f82-a4af-9492a1289bfc\/scratchpad\/ios-master-build\/ScanMyNet\/Models\/Report.swift",
       "kind": "StringLiteral",
       "offset": 10062,
       "length": 19,
       "value": "\"model_description\""
     },
     {
-      "filePath": "\/Users\/vagrant\/git\/ScanMyNet\/Models\/Report.swift",
+      "filePath": "\/tmp\/claude-501\/-Users-ahmedraad-Desktop-asl-scanmynet-project-scanmynet-flutter\/00fa4fa4-02c7-4f82-a4af-9492a1289bfc\/scratchpad\/ios-master-build\/ScanMyNet\/Models\/Report.swift",
       "kind": "StringLiteral",
       "offset": 10110,
       "length": 15,
       "value": "\"friendly_name\""
     },
     {
-      "filePath": "\/Users\/vagrant\/git\/ScanMyNet\/Models\/Report.swift",
+      "filePath": "\/tmp\/claude-501\/-Users-ahmedraad-Desktop-asl-scanmynet-project-scanmynet-flutter\/00fa4fa4-02c7-4f82-a4af-9492a1289bfc\/scratchpad\/ios-master-build\/ScanMyNet\/Models\/Report.swift",
       "kind": "StringLiteral",
       "offset": 10152,
       "length": 13,
       "value": "\"device_type\""
     },
     {
-      "filePath": "\/Users\/vagrant\/git\/ScanMyNet\/Models\/Report.swift",
+      "filePath": "\/tmp\/claude-501\/-Users-ahmedraad-Desktop-asl-scanmynet-project-scanmynet-flutter\/00fa4fa4-02c7-4f82-a4af-9492a1289bfc\/scratchpad\/ios-master-build\/ScanMyNet\/Models\/Report.swift",
       "kind": "StringLiteral",
       "offset": 10194,
       "length": 16,
       "value": "\"route_this_sdk\""
     },
     {
-      "filePath": "\/Users\/vagrant\/git\/ScanMyNet\/Models\/Report.swift",
+      "filePath": "\/tmp\/claude-501\/-Users-ahmedraad-Desktop-asl-scanmynet-project-scanmynet-flutter\/00fa4fa4-02c7-4f82-a4af-9492a1289bfc\/scratchpad\/ios-master-build\/ScanMyNet\/Models\/Report.swift",
       "kind": "StringLiteral",
       "offset": 10241,
       "length": 18,
       "value": "\"network_speed_up\""
     },
     {
-      "filePath": "\/Users\/vagrant\/git\/ScanMyNet\/Models\/Report.swift",
+      "filePath": "\/tmp\/claude-501\/-Users-ahmedraad-Desktop-asl-scanmynet-project-scanmynet-flutter\/00fa4fa4-02c7-4f82-a4af-9492a1289bfc\/scratchpad\/ios-master-build\/ScanMyNet\/Models\/Report.swift",
       "kind": "StringLiteral",
       "offset": 10292,
       "length": 20,
       "value": "\"network_speed_down\""
     },
     {
-      "filePath": "\/Users\/vagrant\/git\/ScanMyNet\/Models\/Report.swift",
+      "filePath": "\/tmp\/claude-501\/-Users-ahmedraad-Desktop-asl-scanmynet-project-scanmynet-flutter\/00fa4fa4-02c7-4f82-a4af-9492a1289bfc\/scratchpad\/ios-master-build\/ScanMyNet\/Models\/Report.swift",
       "kind": "StringLiteral",
       "offset": 10345,
       "length": 20,
       "value": "\"package_speed_mbps\""
     },
     {
-      "filePath": "\/Users\/vagrant\/git\/ScanMyNet\/Models\/Report.swift",
+      "filePath": "\/tmp\/claude-501\/-Users-ahmedraad-Desktop-asl-scanmynet-project-scanmynet-flutter\/00fa4fa4-02c7-4f82-a4af-9492a1289bfc\/scratchpad\/ios-master-build\/ScanMyNet\/Models\/Report.swift",
       "kind": "StringLiteral",
       "offset": 10392,
       "length": 13,
       "value": "\"package_key\""
     },
     {
-      "filePath": "\/Users\/vagrant\/git\/ScanMyNet\/Models\/Report.swift",
+      "filePath": "\/tmp\/claude-501\/-Users-ahmedraad-Desktop-asl-scanmynet-project-scanmynet-flutter\/00fa4fa4-02c7-4f82-a4af-9492a1289bfc\/scratchpad\/ios-master-build\/ScanMyNet\/Models\/Report.swift",
       "kind": "StringLiteral",
       "offset": 10433,
       "length": 14,
       "value": "\"gps_latitude\""
     },
     {
-      "filePath": "\/Users\/vagrant\/git\/ScanMyNet\/Models\/Report.swift",
+      "filePath": "\/tmp\/claude-501\/-Users-ahmedraad-Desktop-asl-scanmynet-project-scanmynet-flutter\/00fa4fa4-02c7-4f82-a4af-9492a1289bfc\/scratchpad\/ios-master-build\/ScanMyNet\/Models\/Report.swift",
       "kind": "StringLiteral",
       "offset": 10476,
       "length": 15,
       "value": "\"gps_longitude\""
     },
     {
-      "filePath": "\/Users\/vagrant\/git\/ScanMyNet\/Models\/Report.swift",
+      "filePath": "\/tmp\/claude-501\/-Users-ahmedraad-Desktop-asl-scanmynet-project-scanmynet-flutter\/00fa4fa4-02c7-4f82-a4af-9492a1289bfc\/scratchpad\/ios-master-build\/ScanMyNet\/Models\/Report.swift",
       "kind": "StringLiteral",
       "offset": 10526,
       "length": 21,
       "value": "\"server_connectivity\""
     },
     {
-      "filePath": "\/Users\/vagrant\/git\/ScanMyNet\/Models\/Report.swift",
+      "filePath": "\/tmp\/claude-501\/-Users-ahmedraad-Desktop-asl-scanmynet-project-scanmynet-flutter\/00fa4fa4-02c7-4f82-a4af-9492a1289bfc\/scratchpad\/ios-master-build\/ScanMyNet\/Models\/Report.swift",
       "kind": "StringLiteral",
       "offset": 10586,
       "length": 27,
       "value": "\"network_speed_up_segments\""
     },
     {
-      "filePath": "\/Users\/vagrant\/git\/ScanMyNet\/Models\/Report.swift",
+      "filePath": "\/tmp\/claude-501\/-Users-ahmedraad-Desktop-asl-scanmynet-project-scanmynet-flutter\/00fa4fa4-02c7-4f82-a4af-9492a1289bfc\/scratchpad\/ios-master-build\/ScanMyNet\/Models\/Report.swift",
       "kind": "StringLiteral",
       "offset": 10654,
       "length": 29,
       "value": "\"network_speed_down_segments\""
     },
     {
-      "filePath": "\/Users\/vagrant\/git\/ScanMyNet\/Models\/Report.swift",
+      "filePath": "\/tmp\/claude-501\/-Users-ahmedraad-Desktop-asl-scanmynet-project-scanmynet-flutter\/00fa4fa4-02c7-4f82-a4af-9492a1289bfc\/scratchpad\/ios-master-build\/ScanMyNet\/Models\/Report.swift",
       "kind": "StringLiteral",
       "offset": 10710,
       "length": 13,
       "value": "\"port_checks\""
     },
     {
-      "filePath": "\/Users\/vagrant\/git\/ScanMyNet\/Models\/Report.swift",
+      "filePath": "\/tmp\/claude-501\/-Users-ahmedraad-Desktop-asl-scanmynet-project-scanmynet-flutter\/00fa4fa4-02c7-4f82-a4af-9492a1289bfc\/scratchpad\/ios-master-build\/ScanMyNet\/Models\/Report.swift",
       "kind": "StringLiteral",
       "offset": 10749,
       "length": 12,
       "value": "\"dns_lookup\""
     },
     {
-      "filePath": "\/Users\/vagrant\/git\/ScanMyNet\/Models\/Report.swift",
+      "filePath": "\/tmp\/claude-501\/-Users-ahmedraad-Desktop-asl-scanmynet-project-scanmynet-flutter\/00fa4fa4-02c7-4f82-a4af-9492a1289bfc\/scratchpad\/ios-master-build\/ScanMyNet\/Models\/Report.swift",
       "kind": "StringLiteral",
       "offset": 10790,
       "length": 15,
       "value": "\"local_devices\""
     },
     {
-      "filePath": "\/Users\/vagrant\/git\/ScanMyNet\/Models\/Report.swift",
+      "filePath": "\/tmp\/claude-501\/-Users-ahmedraad-Desktop-asl-scanmynet-project-scanmynet-flutter\/00fa4fa4-02c7-4f82-a4af-9492a1289bfc\/scratchpad\/ios-master-build\/ScanMyNet\/Models\/Report.swift",
       "kind": "StringLiteral",
       "offset": 10839,
       "length": 22,
       "value": "\"dns_raw_ping_results\""
     },
     {
-      "filePath": "\/Users\/vagrant\/git\/ScanMyNet\/Models\/Response\/BasicConnectivity.swift",
+      "filePath": "\/tmp\/claude-501\/-Users-ahmedraad-Desktop-asl-scanmynet-project-scanmynet-flutter\/00fa4fa4-02c7-4f82-a4af-9492a1289bfc\/scratchpad\/ios-master-build\/ScanMyNet\/Models\/Response\/BasicConnectivity.swift",
       "kind": "StringLiteral",
       "offset": 2452,
       "length": 22,
       "value": "\"ip_assigned_via_dhcp\""
     },
     {
-      "filePath": "\/Users\/vagrant\/git\/ScanMyNet\/Models\/Response\/BasicConnectivity.swift",
+      "filePath": "\/tmp\/claude-501\/-Users-ahmedraad-Desktop-asl-scanmynet-project-scanmynet-flutter\/00fa4fa4-02c7-4f82-a4af-9492a1289bfc\/scratchpad\/ios-master-build\/ScanMyNet\/Models\/Response\/BasicConnectivity.swift",
       "kind": "StringLiteral",
       "offset": 2509,
       "length": 21,
       "value": "\"server_connectivity\""
     },
     {
-      "filePath": "\/Users\/vagrant\/git\/ScanMyNet\/Models\/Response\/BasicConnectivity.swift",
+      "filePath": "\/tmp\/claude-501\/-Users-ahmedraad-Desktop-asl-scanmynet-project-scanmynet-flutter\/00fa4fa4-02c7-4f82-a4af-9492a1289bfc\/scratchpad\/ios-master-build\/ScanMyNet\/Models\/Response\/BasicConnectivity.swift",
       "kind": "StringLiteral",
       "offset": 2557,
       "length": 13,
       "value": "\"port_checks\""
     },
     {
-      "filePath": "\/Users\/vagrant\/git\/ScanMyNet\/Models\/Response\/BasicConnectivity.swift",
+      "filePath": "\/tmp\/claude-501\/-Users-ahmedraad-Desktop-asl-scanmynet-project-scanmynet-flutter\/00fa4fa4-02c7-4f82-a4af-9492a1289bfc\/scratchpad\/ios-master-build\/ScanMyNet\/Models\/Response\/BasicConnectivity.swift",
       "kind": "StringLiteral",
       "offset": 2596,
       "length": 12,
       "value": "\"dns_lookup\""
     },
     {
-      "filePath": "\/Users\/vagrant\/git\/ScanMyNet\/Models\/Response\/BasicConnectivity.swift",
+      "filePath": "\/tmp\/claude-501\/-Users-ahmedraad-Desktop-asl-scanmynet-project-scanmynet-flutter\/00fa4fa4-02c7-4f82-a4af-9492a1289bfc\/scratchpad\/ios-master-build\/ScanMyNet\/Models\/Response\/BasicConnectivity.swift",
       "kind": "StringLiteral",
       "offset": 2640,
       "length": 18,
       "value": "\"client_isolation\""
     },
     {
-      "filePath": "\/Users\/vagrant\/git\/ScanMyNet\/Models\/Response\/BasicConnectivity.swift",
+      "filePath": "\/tmp\/claude-501\/-Users-ahmedraad-Desktop-asl-scanmynet-project-scanmynet-flutter\/00fa4fa4-02c7-4f82-a4af-9492a1289bfc\/scratchpad\/ios-master-build\/ScanMyNet\/Models\/Response\/BasicConnectivity.swift",
       "kind": "StringLiteral",
       "offset": 4108,
       "length": 15,
       "value": "\"server_status\""
     },
     {
-      "filePath": "\/Users\/vagrant\/git\/ScanMyNet\/Models\/Response\/BasicConnectivity.swift",
+      "filePath": "\/tmp\/claude-501\/-Users-ahmedraad-Desktop-asl-scanmynet-project-scanmynet-flutter\/00fa4fa4-02c7-4f82-a4af-9492a1289bfc\/scratchpad\/ios-master-build\/ScanMyNet\/Models\/Response\/BasicConnectivity.swift",
       "kind": "StringLiteral",
       "offset": 4474,
       "length": 11,
       "value": "\"port_type\""
     },
     {
-      "filePath": "\/Users\/vagrant\/git\/ScanMyNet\/Models\/Response\/BasicConnectivity.swift",
+      "filePath": "\/tmp\/claude-501\/-Users-ahmedraad-Desktop-asl-scanmynet-project-scanmynet-flutter\/00fa4fa4-02c7-4f82-a4af-9492a1289bfc\/scratchpad\/ios-master-build\/ScanMyNet\/Models\/Response\/BasicConnectivity.swift",
       "kind": "StringLiteral",
       "offset": 4512,
       "length": 13,
       "value": "\"port_status\""
     },
     {
-      "filePath": "\/Users\/vagrant\/git\/ScanMyNet\/Models\/Response\/BasicConnectivity.swift",
+      "filePath": "\/tmp\/claude-501\/-Users-ahmedraad-Desktop-asl-scanmynet-project-scanmynet-flutter\/00fa4fa4-02c7-4f82-a4af-9492a1289bfc\/scratchpad\/ios-master-build\/ScanMyNet\/Models\/Response\/BasicConnectivity.swift",
       "kind": "StringLiteral",
       "offset": 5217,
       "length": 8,
       "value": "\"dns_ip\""
     },
     {
-      "filePath": "\/Users\/vagrant\/git\/ScanMyNet\/Models\/Response\/BasicConnectivity.swift",
+      "filePath": "\/tmp\/claude-501\/-Users-ahmedraad-Desktop-asl-scanmynet-project-scanmynet-flutter\/00fa4fa4-02c7-4f82-a4af-9492a1289bfc\/scratchpad\/ios-master-build\/ScanMyNet\/Models\/Response\/BasicConnectivity.swift",
       "kind": "StringLiteral",
       "offset": 5252,
       "length": 13,
       "value": "\"reverse_dns\""
     },
     {
-      "filePath": "\/Users\/vagrant\/git\/ScanMyNet\/Models\/Response\/BasicConnectivity.swift",
+      "filePath": "\/tmp\/claude-501\/-Users-ahmedraad-Desktop-asl-scanmynet-project-scanmynet-flutter\/00fa4fa4-02c7-4f82-a4af-9492a1289bfc\/scratchpad\/ios-master-build\/ScanMyNet\/Models\/Response\/BasicConnectivity.swift",
       "kind": "StringLiteral",
       "offset": 5745,
       "length": 21,
       "value": "\"server_connectivity\""
     },
     {
-      "filePath": "\/Users\/vagrant\/git\/ScanMyNet\/Models\/Response\/BasicConnectivity.swift",
+      "filePath": "\/tmp\/claude-501\/-Users-ahmedraad-Desktop-asl-scanmynet-project-scanmynet-flutter\/00fa4fa4-02c7-4f82-a4af-9492a1289bfc\/scratchpad\/ios-master-build\/ScanMyNet\/Models\/Response\/BasicConnectivity.swift",
       "kind": "StringLiteral",
       "offset": 5793,
       "length": 13,
       "value": "\"port_checks\""
     },
     {
-      "filePath": "\/Users\/vagrant\/git\/ScanMyNet\/Models\/Response\/BasicConnectivity.swift",
+      "filePath": "\/tmp\/claude-501\/-Users-ahmedraad-Desktop-asl-scanmynet-project-scanmynet-flutter\/00fa4fa4-02c7-4f82-a4af-9492a1289bfc\/scratchpad\/ios-master-build\/ScanMyNet\/Models\/Response\/BasicConnectivity.swift",
       "kind": "StringLiteral",
       "offset": 5832,
       "length": 12,
       "value": "\"dns_lookup\""
     },
     {
-      "filePath": "\/Users\/vagrant\/git\/ScanMyNet\/Models\/Response\/BasicConnectivity.swift",
+      "filePath": "\/tmp\/claude-501\/-Users-ahmedraad-Desktop-asl-scanmynet-project-scanmynet-flutter\/00fa4fa4-02c7-4f82-a4af-9492a1289bfc\/scratchpad\/ios-master-build\/ScanMyNet\/Models\/Response\/BasicConnectivity.swift",
       "kind": "StringLiteral",
       "offset": 7017,
       "length": 12,
       "value": "\"alert_type\""
     },
     {
-      "filePath": "\/Users\/vagrant\/git\/ScanMyNet\/Models\/Response\/BasicConnectivity.swift",
+      "filePath": "\/tmp\/claude-501\/-Users-ahmedraad-Desktop-asl-scanmynet-project-scanmynet-flutter\/00fa4fa4-02c7-4f82-a4af-9492a1289bfc\/scratchpad\/ios-master-build\/ScanMyNet\/Models\/Response\/BasicConnectivity.swift",
       "kind": "StringLiteral",
       "offset": 7056,
       "length": 13,
       "value": "\"alert_value\""
     },
     {
-      "filePath": "\/Users\/vagrant\/git\/ScanMyNet\/Models\/Response\/DevicesAndRouter.swift",
+      "filePath": "\/tmp\/claude-501\/-Users-ahmedraad-Desktop-asl-scanmynet-project-scanmynet-flutter\/00fa4fa4-02c7-4f82-a4af-9492a1289bfc\/scratchpad\/ios-master-build\/ScanMyNet\/Models\/Response\/DevicesAndRouter.swift",
       "kind": "StringLiteral",
       "offset": 2723,
       "length": 13,
       "value": "\"device_name\""
     },
     {
-      "filePath": "\/Users\/vagrant\/git\/ScanMyNet\/Models\/Response\/DevicesAndRouter.swift",
+      "filePath": "\/tmp\/claude-501\/-Users-ahmedraad-Desktop-asl-scanmynet-project-scanmynet-flutter\/00fa4fa4-02c7-4f82-a4af-9492a1289bfc\/scratchpad\/ios-master-build\/ScanMyNet\/Models\/Response\/DevicesAndRouter.swift",
       "kind": "StringLiteral",
       "offset": 2761,
       "length": 11,
       "value": "\"device_ip\""
     },
     {
-      "filePath": "\/Users\/vagrant\/git\/ScanMyNet\/Models\/Response\/DevicesAndRouter.swift",
+      "filePath": "\/tmp\/claude-501\/-Users-ahmedraad-Desktop-asl-scanmynet-project-scanmynet-flutter\/00fa4fa4-02c7-4f82-a4af-9492a1289bfc\/scratchpad\/ios-master-build\/ScanMyNet\/Models\/Response\/DevicesAndRouter.swift",
       "kind": "StringLiteral",
       "offset": 2805,
       "length": 20,
       "value": "\"device_mac_address\""
     },
     {
-      "filePath": "\/Users\/vagrant\/git\/ScanMyNet\/Models\/Response\/DevicesAndRouter.swift",
+      "filePath": "\/tmp\/claude-501\/-Users-ahmedraad-Desktop-asl-scanmynet-project-scanmynet-flutter\/00fa4fa4-02c7-4f82-a4af-9492a1289bfc\/scratchpad\/ios-master-build\/ScanMyNet\/Models\/Response\/DevicesAndRouter.swift",
       "kind": "StringLiteral",
       "offset": 2856,
       "length": 17,
       "value": "\"packets_dropped\""
     },
     {
-      "filePath": "\/Users\/vagrant\/git\/ScanMyNet\/Models\/Response\/DevicesAndRouter.swift",
+      "filePath": "\/tmp\/claude-501\/-Users-ahmedraad-Desktop-asl-scanmynet-project-scanmynet-flutter\/00fa4fa4-02c7-4f82-a4af-9492a1289bfc\/scratchpad\/ios-master-build\/ScanMyNet\/Models\/Response\/DevicesAndRouter.swift",
       "kind": "StringLiteral",
       "offset": 2904,
       "length": 18,
       "value": "\"num_packets_sent\""
     },
     {
-      "filePath": "\/Users\/vagrant\/git\/ScanMyNet\/Models\/Response\/DevicesAndRouter.swift",
+      "filePath": "\/tmp\/claude-501\/-Users-ahmedraad-Desktop-asl-scanmynet-project-scanmynet-flutter\/00fa4fa4-02c7-4f82-a4af-9492a1289bfc\/scratchpad\/ios-master-build\/ScanMyNet\/Models\/Response\/DevicesAndRouter.swift",
       "kind": "StringLiteral",
       "offset": 2949,
       "length": 13,
       "value": "\"ping_values\""
     },
     {
-      "filePath": "\/Users\/vagrant\/git\/ScanMyNet\/Models\/Response\/DevicesAndRouter.swift",
+      "filePath": "\/tmp\/claude-501\/-Users-ahmedraad-Desktop-asl-scanmynet-project-scanmynet-flutter\/00fa4fa4-02c7-4f82-a4af-9492a1289bfc\/scratchpad\/ios-master-build\/ScanMyNet\/Models\/Response\/DevicesAndRouter.swift",
       "kind": "StringLiteral",
       "offset": 2996,
       "length": 21,
       "value": "\"is_subscriber_phone\""
     },
     {
-      "filePath": "\/Users\/vagrant\/git\/ScanMyNet\/Models\/Response\/DevicesAndRouter.swift",
+      "filePath": "\/tmp\/claude-501\/-Users-ahmedraad-Desktop-asl-scanmynet-project-scanmynet-flutter\/00fa4fa4-02c7-4f82-a4af-9492a1289bfc\/scratchpad\/ios-master-build\/ScanMyNet\/Models\/Response\/DevicesAndRouter.swift",
       "kind": "StringLiteral",
       "offset": 3049,
       "length": 19,
       "value": "\"average_ping_time\""
     },
     {
-      "filePath": "\/Users\/vagrant\/git\/ScanMyNet\/Models\/Response\/DevicesAndRouter.swift",
+      "filePath": "\/tmp\/claude-501\/-Users-ahmedraad-Desktop-asl-scanmynet-project-scanmynet-flutter\/00fa4fa4-02c7-4f82-a4af-9492a1289bfc\/scratchpad\/ios-master-build\/ScanMyNet\/Models\/Response\/DevicesAndRouter.swift",
       "kind": "StringLiteral",
       "offset": 3107,
       "length": 26,
       "value": "\"connection_quality_color\""
     },
     {
-      "filePath": "\/Users\/vagrant\/git\/ScanMyNet\/Models\/Response\/DevicesAndRouter.swift",
+      "filePath": "\/tmp\/claude-501\/-Users-ahmedraad-Desktop-asl-scanmynet-project-scanmynet-flutter\/00fa4fa4-02c7-4f82-a4af-9492a1289bfc\/scratchpad\/ios-master-build\/ScanMyNet\/Models\/Response\/DevicesAndRouter.swift",
       "kind": "StringLiteral",
       "offset": 3168,
       "length": 22,
       "value": "\"is_subscriber_router\""
     },
     {
-      "filePath": "\/Users\/vagrant\/git\/ScanMyNet\/Models\/Response\/DevicesAndRouter.swift",
+      "filePath": "\/tmp\/claude-501\/-Users-ahmedraad-Desktop-asl-scanmynet-project-scanmynet-flutter\/00fa4fa4-02c7-4f82-a4af-9492a1289bfc\/scratchpad\/ios-master-build\/ScanMyNet\/Models\/Response\/DevicesAndRouter.swift",
       "kind": "StringLiteral",
       "offset": 3220,
       "length": 16,
       "value": "\"device_details\""
     },
     {
-      "filePath": "\/Users\/vagrant\/git\/ScanMyNet\/Models\/Response\/DevicesAndRouter.swift",
+      "filePath": "\/tmp\/claude-501\/-Users-ahmedraad-Desktop-asl-scanmynet-project-scanmynet-flutter\/00fa4fa4-02c7-4f82-a4af-9492a1289bfc\/scratchpad\/ios-master-build\/ScanMyNet\/Models\/Response\/DevicesAndRouter.swift",
       "kind": "StringLiteral",
       "offset": 4677,
       "length": 19,
       "value": "\"router_ip_address\""
     },
     {
-      "filePath": "\/Users\/vagrant\/git\/ScanMyNet\/Models\/Response\/DevicesAndRouter.swift",
+      "filePath": "\/tmp\/claude-501\/-Users-ahmedraad-Desktop-asl-scanmynet-project-scanmynet-flutter\/00fa4fa4-02c7-4f82-a4af-9492a1289bfc\/scratchpad\/ios-master-build\/ScanMyNet\/Models\/Response\/DevicesAndRouter.swift",
       "kind": "StringLiteral",
       "offset": 4729,
       "length": 20,
       "value": "\"router_mac_address\""
     },
     {
-      "filePath": "\/Users\/vagrant\/git\/ScanMyNet\/Models\/Response\/DevicesAndRouter.swift",
+      "filePath": "\/tmp\/claude-501\/-Users-ahmedraad-Desktop-asl-scanmynet-project-scanmynet-flutter\/00fa4fa4-02c7-4f82-a4af-9492a1289bfc\/scratchpad\/ios-master-build\/ScanMyNet\/Models\/Response\/DevicesAndRouter.swift",
       "kind": "StringLiteral",
       "offset": 4782,
       "length": 19,
       "value": "\"model_description\""
     },
     {
-      "filePath": "\/Users\/vagrant\/git\/ScanMyNet\/Models\/Response\/DevicesAndRouter.swift",
+      "filePath": "\/tmp\/claude-501\/-Users-ahmedraad-Desktop-asl-scanmynet-project-scanmynet-flutter\/00fa4fa4-02c7-4f82-a4af-9492a1289bfc\/scratchpad\/ios-master-build\/ScanMyNet\/Models\/Response\/DevicesAndRouter.swift",
       "kind": "StringLiteral",
       "offset": 4829,
       "length": 14,
       "value": "\"model_number\""
     },
     {
-      "filePath": "\/Users\/vagrant\/git\/ScanMyNet\/Models\/Response\/DevicesAndRouter.swift",
+      "filePath": "\/tmp\/claude-501\/-Users-ahmedraad-Desktop-asl-scanmynet-project-scanmynet-flutter\/00fa4fa4-02c7-4f82-a4af-9492a1289bfc\/scratchpad\/ios-master-build\/ScanMyNet\/Models\/Response\/DevicesAndRouter.swift",
       "kind": "StringLiteral",
       "offset": 4872,
       "length": 15,
       "value": "\"friendly_name\""
     },
     {
-      "filePath": "\/Users\/vagrant\/git\/ScanMyNet\/Models\/Response\/DevicesAndRouter.swift",
+      "filePath": "\/tmp\/claude-501\/-Users-ahmedraad-Desktop-asl-scanmynet-project-scanmynet-flutter\/00fa4fa4-02c7-4f82-a4af-9492a1289bfc\/scratchpad\/ios-master-build\/ScanMyNet\/Models\/Response\/DevicesAndRouter.swift",
       "kind": "StringLiteral",
       "offset": 4914,
       "length": 13,
       "value": "\"device_type\""
     },
     {
-      "filePath": "\/Users\/vagrant\/git\/ScanMyNet\/Models\/Response\/DevicesAndRouter.swift",
+      "filePath": "\/tmp\/claude-501\/-Users-ahmedraad-Desktop-asl-scanmynet-project-scanmynet-flutter\/00fa4fa4-02c7-4f82-a4af-9492a1289bfc\/scratchpad\/ios-master-build\/ScanMyNet\/Models\/Response\/DevicesAndRouter.swift",
       "kind": "StringLiteral",
       "offset": 4957,
       "length": 16,
       "value": "\"router_details\""
     },
     {
-      "filePath": "\/Users\/vagrant\/git\/ScanMyNet\/Models\/Response\/QualityAndAlerts.swift",
+      "filePath": "\/tmp\/claude-501\/-Users-ahmedraad-Desktop-asl-scanmynet-project-scanmynet-flutter\/00fa4fa4-02c7-4f82-a4af-9492a1289bfc\/scratchpad\/ios-master-build\/ScanMyNet\/Models\/Response\/QualityAndAlerts.swift",
       "kind": "StringLiteral",
       "offset": 2299,
       "length": 10,
       "value": "\"dns_name\""
     },
     {
-      "filePath": "\/Users\/vagrant\/git\/ScanMyNet\/Models\/Response\/QualityAndAlerts.swift",
+      "filePath": "\/tmp\/claude-501\/-Users-ahmedraad-Desktop-asl-scanmynet-project-scanmynet-flutter\/00fa4fa4-02c7-4f82-a4af-9492a1289bfc\/scratchpad\/ios-master-build\/ScanMyNet\/Models\/Response\/QualityAndAlerts.swift",
       "kind": "StringLiteral",
       "offset": 2331,
       "length": 8,
       "value": "\"dns_ip\""
     },
     {
-      "filePath": "\/Users\/vagrant\/git\/ScanMyNet\/Models\/Response\/QualityAndAlerts.swift",
+      "filePath": "\/tmp\/claude-501\/-Users-ahmedraad-Desktop-asl-scanmynet-project-scanmynet-flutter\/00fa4fa4-02c7-4f82-a4af-9492a1289bfc\/scratchpad\/ios-master-build\/ScanMyNet\/Models\/Response\/QualityAndAlerts.swift",
       "kind": "StringLiteral",
       "offset": 2370,
       "length": 17,
       "value": "\"packets_dropped\""
     },
     {
-      "filePath": "\/Users\/vagrant\/git\/ScanMyNet\/Models\/Response\/QualityAndAlerts.swift",
+      "filePath": "\/tmp\/claude-501\/-Users-ahmedraad-Desktop-asl-scanmynet-project-scanmynet-flutter\/00fa4fa4-02c7-4f82-a4af-9492a1289bfc\/scratchpad\/ios-master-build\/ScanMyNet\/Models\/Response\/QualityAndAlerts.swift",
       "kind": "StringLiteral",
       "offset": 2418,
       "length": 18,
       "value": "\"num_packets_sent\""
     },
     {
-      "filePath": "\/Users\/vagrant\/git\/ScanMyNet\/Models\/Response\/QualityAndAlerts.swift",
+      "filePath": "\/tmp\/claude-501\/-Users-ahmedraad-Desktop-asl-scanmynet-project-scanmynet-flutter\/00fa4fa4-02c7-4f82-a4af-9492a1289bfc\/scratchpad\/ios-master-build\/ScanMyNet\/Models\/Response\/QualityAndAlerts.swift",
       "kind": "StringLiteral",
       "offset": 2463,
       "length": 13,
       "value": "\"ping_values\""
     },
     {
-      "filePath": "\/Users\/vagrant\/git\/ScanMyNet\/Models\/Response\/QualityAndAlerts.swift",
+      "filePath": "\/tmp\/claude-501\/-Users-ahmedraad-Desktop-asl-scanmynet-project-scanmynet-flutter\/00fa4fa4-02c7-4f82-a4af-9492a1289bfc\/scratchpad\/ios-master-build\/ScanMyNet\/Models\/Response\/QualityAndAlerts.swift",
       "kind": "StringLiteral",
       "offset": 2511,
       "length": 22,
       "value": "\"is_subscriber_router\""
     },
     {
-      "filePath": "\/Users\/vagrant\/git\/ScanMyNet\/Models\/Response\/QualityAndAlerts.swift",
+      "filePath": "\/tmp\/claude-501\/-Users-ahmedraad-Desktop-asl-scanmynet-project-scanmynet-flutter\/00fa4fa4-02c7-4f82-a4af-9492a1289bfc\/scratchpad\/ios-master-build\/ScanMyNet\/Models\/Response\/QualityAndAlerts.swift",
       "kind": "StringLiteral",
       "offset": 2565,
       "length": 19,
       "value": "\"average_ping_time\""
     },
     {
-      "filePath": "\/Users\/vagrant\/git\/ScanMyNet\/Models\/Response\/QualityAndAlerts.swift",
+      "filePath": "\/tmp\/claude-501\/-Users-ahmedraad-Desktop-asl-scanmynet-project-scanmynet-flutter\/00fa4fa4-02c7-4f82-a4af-9492a1289bfc\/scratchpad\/ios-master-build\/ScanMyNet\/Models\/Response\/QualityAndAlerts.swift",
       "kind": "StringLiteral",
       "offset": 2623,
       "length": 26,
       "value": "\"connection_quality_color\""
     },
     {
-      "filePath": "\/Users\/vagrant\/git\/ScanMyNet\/Models\/Response\/QualityAndAlerts.swift",
+      "filePath": "\/tmp\/claude-501\/-Users-ahmedraad-Desktop-asl-scanmynet-project-scanmynet-flutter\/00fa4fa4-02c7-4f82-a4af-9492a1289bfc\/scratchpad\/ios-master-build\/ScanMyNet\/Models\/Response\/QualityAndAlerts.swift",
       "kind": "StringLiteral",
       "offset": 2677,
       "length": 14,
       "value": "\"ping_quality\""
     },
     {
-      "filePath": "\/Users\/vagrant\/git\/ScanMyNet\/Models\/Response\/QualityAndAlerts.swift",
+      "filePath": "\/tmp\/claude-501\/-Users-ahmedraad-Desktop-asl-scanmynet-project-scanmynet-flutter\/00fa4fa4-02c7-4f82-a4af-9492a1289bfc\/scratchpad\/ios-master-build\/ScanMyNet\/Models\/Response\/QualityAndAlerts.swift",
       "kind": "StringLiteral",
       "offset": 2725,
       "length": 21,
       "value": "\"packet_loss_quality\""
     },
     {
-      "filePath": "\/Users\/vagrant\/git\/ScanMyNet\/Models\/Response\/QualityAndAlerts.swift",
+      "filePath": "\/tmp\/claude-501\/-Users-ahmedraad-Desktop-asl-scanmynet-project-scanmynet-flutter\/00fa4fa4-02c7-4f82-a4af-9492a1289bfc\/scratchpad\/ios-master-build\/ScanMyNet\/Models\/Response\/QualityAndAlerts.swift",
       "kind": "StringLiteral",
       "offset": 2779,
       "length": 20,
       "value": "\"ping_quality_color\""
     },
     {
-      "filePath": "\/Users\/vagrant\/git\/ScanMyNet\/Models\/Response\/QualityAndAlerts.swift",
+      "filePath": "\/tmp\/claude-501\/-Users-ahmedraad-Desktop-asl-scanmynet-project-scanmynet-flutter\/00fa4fa4-02c7-4f82-a4af-9492a1289bfc\/scratchpad\/ios-master-build\/ScanMyNet\/Models\/Response\/QualityAndAlerts.swift",
       "kind": "StringLiteral",
       "offset": 2838,
       "length": 27,
       "value": "\"packet_loss_quality_color\""
     },
     {
-      "filePath": "\/Users\/vagrant\/git\/ScanMyNet\/Models\/Response\/QualityAndAlerts.swift",
+      "filePath": "\/tmp\/claude-501\/-Users-ahmedraad-Desktop-asl-scanmynet-project-scanmynet-flutter\/00fa4fa4-02c7-4f82-a4af-9492a1289bfc\/scratchpad\/ios-master-build\/ScanMyNet\/Models\/Response\/QualityAndAlerts.swift",
       "kind": "StringLiteral",
       "offset": 2894,
       "length": 15,
       "value": "\"layer_ranking\""
     },
     {
-      "filePath": "\/Users\/vagrant\/git\/ScanMyNet\/Models\/Response\/QualityAndAlerts.swift",
+      "filePath": "\/tmp\/claude-501\/-Users-ahmedraad-Desktop-asl-scanmynet-project-scanmynet-flutter\/00fa4fa4-02c7-4f82-a4af-9492a1289bfc\/scratchpad\/ios-master-build\/ScanMyNet\/Models\/Response\/QualityAndAlerts.swift",
       "kind": "StringLiteral",
       "offset": 3207,
       "length": 20,
       "value": "\"dns_destination_ip\""
     },
     {
-      "filePath": "\/Users\/vagrant\/git\/ScanMyNet\/Models\/Response\/QualityAndAlerts.swift",
+      "filePath": "\/tmp\/claude-501\/-Users-ahmedraad-Desktop-asl-scanmynet-project-scanmynet-flutter\/00fa4fa4-02c7-4f82-a4af-9492a1289bfc\/scratchpad\/ios-master-build\/ScanMyNet\/Models\/Response\/QualityAndAlerts.swift",
       "kind": "StringLiteral",
       "offset": 3506,
       "length": 8,
       "value": "\"dns_ip\""
     },
     {
-      "filePath": "\/Users\/vagrant\/git\/ScanMyNet\/Models\/Response\/QualityAndAlerts.swift",
+      "filePath": "\/tmp\/claude-501\/-Users-ahmedraad-Desktop-asl-scanmynet-project-scanmynet-flutter\/00fa4fa4-02c7-4f82-a4af-9492a1289bfc\/scratchpad\/ios-master-build\/ScanMyNet\/Models\/Response\/QualityAndAlerts.swift",
       "kind": "StringLiteral",
       "offset": 3538,
       "length": 10,
       "value": "\"dns_name\""
     },
     {
-      "filePath": "\/Users\/vagrant\/git\/ScanMyNet\/Models\/Response\/QualityAndAlerts.swift",
+      "filePath": "\/tmp\/claude-501\/-Users-ahmedraad-Desktop-asl-scanmynet-project-scanmynet-flutter\/00fa4fa4-02c7-4f82-a4af-9492a1289bfc\/scratchpad\/ios-master-build\/ScanMyNet\/Models\/Response\/QualityAndAlerts.swift",
       "kind": "StringLiteral",
       "offset": 3574,
       "length": 12,
       "value": "\"rtt_values\""
     },
     {
-      "filePath": "\/Users\/vagrant\/git\/ScanMyNet\/Models\/Response\/QualityAndAlerts.swift",
+      "filePath": "\/tmp\/claude-501\/-Users-ahmedraad-Desktop-asl-scanmynet-project-scanmynet-flutter\/00fa4fa4-02c7-4f82-a4af-9492a1289bfc\/scratchpad\/ios-master-build\/ScanMyNet\/Models\/Response\/QualityAndAlerts.swift",
       "kind": "StringLiteral",
       "offset": 4225,
       "length": 13,
       "value": "\"action_type\""
     },
     {
-      "filePath": "\/Users\/vagrant\/git\/ScanMyNet\/Models\/Response\/QualityAndAlerts.swift",
+      "filePath": "\/tmp\/claude-501\/-Users-ahmedraad-Desktop-asl-scanmynet-project-scanmynet-flutter\/00fa4fa4-02c7-4f82-a4af-9492a1289bfc\/scratchpad\/ios-master-build\/ScanMyNet\/Models\/Response\/QualityAndAlerts.swift",
       "kind": "StringLiteral",
       "offset": 4266,
       "length": 14,
       "value": "\"action_value\""
     },
     {
-      "filePath": "\/Users\/vagrant\/git\/ScanMyNet\/Models\/Response\/QualityAndAlerts.swift",
+      "filePath": "\/tmp\/claude-501\/-Users-ahmedraad-Desktop-asl-scanmynet-project-scanmynet-flutter\/00fa4fa4-02c7-4f82-a4af-9492a1289bfc\/scratchpad\/ios-master-build\/ScanMyNet\/Models\/Response\/QualityAndAlerts.swift",
       "kind": "StringLiteral",
       "offset": 5339,
       "length": 17,
       "value": "\"technical_state\""
     },
     {
-      "filePath": "\/Users\/vagrant\/git\/ScanMyNet\/Models\/Response\/QualityAndAlerts.swift",
+      "filePath": "\/tmp\/claude-501\/-Users-ahmedraad-Desktop-asl-scanmynet-project-scanmynet-flutter\/00fa4fa4-02c7-4f82-a4af-9492a1289bfc\/scratchpad\/ios-master-build\/ScanMyNet\/Models\/Response\/QualityAndAlerts.swift",
       "kind": "StringLiteral",
       "offset": 5390,
       "length": 20,
       "value": "\"recommended_action\""
     },
     {
-      "filePath": "\/Users\/vagrant\/git\/ScanMyNet\/Models\/Response\/SMNReportPayload.swift",
+      "filePath": "\/tmp\/claude-501\/-Users-ahmedraad-Desktop-asl-scanmynet-project-scanmynet-flutter\/00fa4fa4-02c7-4f82-a4af-9492a1289bfc\/scratchpad\/ios-master-build\/ScanMyNet\/Models\/Response\/SMNReportPayload.swift",
       "kind": "StringLiteral",
       "offset": 2003,
       "length": 18,
       "value": "\"customer_details\""
     },
     {
-      "filePath": "\/Users\/vagrant\/git\/ScanMyNet\/Models\/Response\/SMNReportPayload.swift",
+      "filePath": "\/tmp\/claude-501\/-Users-ahmedraad-Desktop-asl-scanmynet-project-scanmynet-flutter\/00fa4fa4-02c7-4f82-a4af-9492a1289bfc\/scratchpad\/ios-master-build\/ScanMyNet\/Models\/Response\/SMNReportPayload.swift",
       "kind": "StringLiteral",
       "offset": 2048,
       "length": 13,
       "value": "\"sdk_details\""
     },
     {
-      "filePath": "\/Users\/vagrant\/git\/ScanMyNet\/Models\/Response\/SMNReportPayload.swift",
+      "filePath": "\/tmp\/claude-501\/-Users-ahmedraad-Desktop-asl-scanmynet-project-scanmynet-flutter\/00fa4fa4-02c7-4f82-a4af-9492a1289bfc\/scratchpad\/ios-master-build\/ScanMyNet\/Models\/Response\/SMNReportPayload.swift",
       "kind": "StringLiteral",
       "offset": 2099,
       "length": 26,
       "value": "\"router_usage_during_scan\""
     },
     {
-      "filePath": "\/Users\/vagrant\/git\/ScanMyNet\/Models\/Response\/SMNReportPayload.swift",
+      "filePath": "\/tmp\/claude-501\/-Users-ahmedraad-Desktop-asl-scanmynet-project-scanmynet-flutter\/00fa4fa4-02c7-4f82-a4af-9492a1289bfc\/scratchpad\/ios-master-build\/ScanMyNet\/Models\/Response\/SMNReportPayload.swift",
       "kind": "StringLiteral",
       "offset": 2163,
       "length": 25,
       "value": "\"customer_internet_speed\""
     },
     {
-      "filePath": "\/Users\/vagrant\/git\/ScanMyNet\/Models\/Response\/SMNReportPayload.swift",
+      "filePath": "\/tmp\/claude-501\/-Users-ahmedraad-Desktop-asl-scanmynet-project-scanmynet-flutter\/00fa4fa4-02c7-4f82-a4af-9492a1289bfc\/scratchpad\/ios-master-build\/ScanMyNet\/Models\/Response\/SMNReportPayload.swift",
       "kind": "StringLiteral",
       "offset": 2222,
       "length": 20,
       "value": "\"basic_connectivity\""
     },
     {
-      "filePath": "\/Users\/vagrant\/git\/ScanMyNet\/Models\/Response\/SMNReportPayload.swift",
+      "filePath": "\/tmp\/claude-501\/-Users-ahmedraad-Desktop-asl-scanmynet-project-scanmynet-flutter\/00fa4fa4-02c7-4f82-a4af-9492a1289bfc\/scratchpad\/ios-master-build\/ScanMyNet\/Models\/Response\/SMNReportPayload.swift",
       "kind": "StringLiteral",
       "offset": 2280,
       "length": 25,
       "value": "\"local_connected_devices\""
     },
     {
-      "filePath": "\/Users\/vagrant\/git\/ScanMyNet\/Models\/Response\/SMNReportPayload.swift",
+      "filePath": "\/tmp\/claude-501\/-Users-ahmedraad-Desktop-asl-scanmynet-project-scanmynet-flutter\/00fa4fa4-02c7-4f82-a4af-9492a1289bfc\/scratchpad\/ios-master-build\/ScanMyNet\/Models\/Response\/SMNReportPayload.swift",
       "kind": "StringLiteral",
       "offset": 2343,
       "length": 25,
       "value": "\"customer_router_details\""
     },
     {
-      "filePath": "\/Users\/vagrant\/git\/ScanMyNet\/Models\/Response\/SMNReportPayload.swift",
+      "filePath": "\/tmp\/claude-501\/-Users-ahmedraad-Desktop-asl-scanmynet-project-scanmynet-flutter\/00fa4fa4-02c7-4f82-a4af-9492a1289bfc\/scratchpad\/ios-master-build\/ScanMyNet\/Models\/Response\/SMNReportPayload.swift",
       "kind": "StringLiteral",
       "offset": 2400,
       "length": 18,
       "value": "\"network_topology\""
     },
     {
-      "filePath": "\/Users\/vagrant\/git\/ScanMyNet\/Models\/Response\/SMNReportPayload.swift",
+      "filePath": "\/tmp\/claude-501\/-Users-ahmedraad-Desktop-asl-scanmynet-project-scanmynet-flutter\/00fa4fa4-02c7-4f82-a4af-9492a1289bfc\/scratchpad\/ios-master-build\/ScanMyNet\/Models\/Response\/SMNReportPayload.swift",
       "kind": "StringLiteral",
       "offset": 2450,
       "length": 19,
       "value": "\"user_wifi_network\""
     },
     {
-      "filePath": "\/Users\/vagrant\/git\/ScanMyNet\/Models\/Response\/SMNReportPayload.swift",
+      "filePath": "\/tmp\/claude-501\/-Users-ahmedraad-Desktop-asl-scanmynet-project-scanmynet-flutter\/00fa4fa4-02c7-4f82-a4af-9492a1289bfc\/scratchpad\/ios-master-build\/ScanMyNet\/Models\/Response\/SMNReportPayload.swift",
       "kind": "StringLiteral",
       "offset": 2503,
       "length": 20,
       "value": "\"network_congestion\""
     },
     {
-      "filePath": "\/Users\/vagrant\/git\/ScanMyNet\/Models\/Response\/SMNReportPayload.swift",
+      "filePath": "\/tmp\/claude-501\/-Users-ahmedraad-Desktop-asl-scanmynet-project-scanmynet-flutter\/00fa4fa4-02c7-4f82-a4af-9492a1289bfc\/scratchpad\/ios-master-build\/ScanMyNet\/Models\/Response\/SMNReportPayload.swift",
       "kind": "StringLiteral",
       "offset": 2557,
       "length": 20,
       "value": "\"connection_quality\""
     },
     {
-      "filePath": "\/Users\/vagrant\/git\/ScanMyNet\/Models\/Response\/SMNReportPayload.swift",
+      "filePath": "\/tmp\/claude-501\/-Users-ahmedraad-Desktop-asl-scanmynet-project-scanmynet-flutter\/00fa4fa4-02c7-4f82-a4af-9492a1289bfc\/scratchpad\/ios-master-build\/ScanMyNet\/Models\/Response\/SMNReportPayload.swift",
       "kind": "StringLiteral",
       "offset": 2612,
       "length": 21,
       "value": "\"incomplete_analysis\""
     },
     {
-      "filePath": "\/Users\/vagrant\/git\/ScanMyNet\/Models\/Response\/SMNReportPayload.swift",
+      "filePath": "\/tmp\/claude-501\/-Users-ahmedraad-Desktop-asl-scanmynet-project-scanmynet-flutter\/00fa4fa4-02c7-4f82-a4af-9492a1289bfc\/scratchpad\/ios-master-build\/ScanMyNet\/Models\/Response\/SMNReportPayload.swift",
       "kind": "StringLiteral",
       "offset": 2668,
       "length": 21,
       "value": "\"recommended_actions\""
     },
     {
-      "filePath": "\/Users\/vagrant\/git\/ScanMyNet\/Models\/Response\/SMNReportPayload.swift",
+      "filePath": "\/tmp\/claude-501\/-Users-ahmedraad-Desktop-asl-scanmynet-project-scanmynet-flutter\/00fa4fa4-02c7-4f82-a4af-9492a1289bfc\/scratchpad\/ios-master-build\/ScanMyNet\/Models\/Response\/SMNReportPayload.swift",
       "kind": "StringLiteral",
       "offset": 2720,
       "length": 17,
       "value": "\"no_instructions\""
     },
     {
-      "filePath": "\/Users\/vagrant\/git\/ScanMyNet\/Models\/Response\/ScalarSections.swift",
+      "filePath": "\/tmp\/claude-501\/-Users-ahmedraad-Desktop-asl-scanmynet-project-scanmynet-flutter\/00fa4fa4-02c7-4f82-a4af-9492a1289bfc\/scratchpad\/ios-master-build\/ScanMyNet\/Models\/Response\/ScalarSections.swift",
       "kind": "StringLiteral",
       "offset": 736,
       "length": 22,
       "value": "\"last_known_public_ip\""
     },
     {
-      "filePath": "\/Users\/vagrant\/git\/ScanMyNet\/Models\/Response\/ScalarSections.swift",
+      "filePath": "\/tmp\/claude-501\/-Users-ahmedraad-Desktop-asl-scanmynet-project-scanmynet-flutter\/00fa4fa4-02c7-4f82-a4af-9492a1289bfc\/scratchpad\/ios-master-build\/ScanMyNet\/Models\/Response\/ScalarSections.swift",
       "kind": "StringLiteral",
       "offset": 799,
       "length": 30,
       "value": "\"last_known_public_ip_details\""
     },
     {
-      "filePath": "\/Users\/vagrant\/git\/ScanMyNet\/Models\/Response\/ScalarSections.swift",
+      "filePath": "\/tmp\/claude-501\/-Users-ahmedraad-Desktop-asl-scanmynet-project-scanmynet-flutter\/00fa4fa4-02c7-4f82-a4af-9492a1289bfc\/scratchpad\/ios-master-build\/ScanMyNet\/Models\/Response\/ScalarSections.swift",
       "kind": "StringLiteral",
       "offset": 1399,
       "length": 16,
       "value": "\"route_this_sdk\""
     },
     {
-      "filePath": "\/Users\/vagrant\/git\/ScanMyNet\/Models\/Response\/ScalarSections.swift",
+      "filePath": "\/tmp\/claude-501\/-Users-ahmedraad-Desktop-asl-scanmynet-project-scanmynet-flutter\/00fa4fa4-02c7-4f82-a4af-9492a1289bfc\/scratchpad\/ios-master-build\/ScanMyNet\/Models\/Response\/ScalarSections.swift",
       "kind": "StringLiteral",
       "offset": 1451,
       "length": 24,
       "value": "\"user_public_up_address\""
     },
     {
-      "filePath": "\/Users\/vagrant\/git\/ScanMyNet\/Models\/Response\/ScalarSections.swift",
+      "filePath": "\/tmp\/claude-501\/-Users-ahmedraad-Desktop-asl-scanmynet-project-scanmynet-flutter\/00fa4fa4-02c7-4f82-a4af-9492a1289bfc\/scratchpad\/ios-master-build\/ScanMyNet\/Models\/Response\/ScalarSections.swift",
       "kind": "StringLiteral",
       "offset": 1503,
       "length": 14,
       "value": "\"gps_latitude\""
     },
     {
-      "filePath": "\/Users\/vagrant\/git\/ScanMyNet\/Models\/Response\/ScalarSections.swift",
+      "filePath": "\/tmp\/claude-501\/-Users-ahmedraad-Desktop-asl-scanmynet-project-scanmynet-flutter\/00fa4fa4-02c7-4f82-a4af-9492a1289bfc\/scratchpad\/ios-master-build\/ScanMyNet\/Models\/Response\/ScalarSections.swift",
       "kind": "StringLiteral",
       "offset": 1546,
       "length": 15,
       "value": "\"gps_longitude\""
     },
     {
-      "filePath": "\/Users\/vagrant\/git\/ScanMyNet\/Models\/Response\/ScalarSections.swift",
+      "filePath": "\/tmp\/claude-501\/-Users-ahmedraad-Desktop-asl-scanmynet-project-scanmynet-flutter\/00fa4fa4-02c7-4f82-a4af-9492a1289bfc\/scratchpad\/ios-master-build\/ScanMyNet\/Models\/Response\/ScalarSections.swift",
       "kind": "StringLiteral",
       "offset": 1826,
       "length": 20,
       "value": "\"network_usage_down\""
     },
     {
-      "filePath": "\/Users\/vagrant\/git\/ScanMyNet\/Models\/Response\/ScalarSections.swift",
+      "filePath": "\/tmp\/claude-501\/-Users-ahmedraad-Desktop-asl-scanmynet-project-scanmynet-flutter\/00fa4fa4-02c7-4f82-a4af-9492a1289bfc\/scratchpad\/ios-master-build\/ScanMyNet\/Models\/Response\/ScalarSections.swift",
       "kind": "StringLiteral",
       "offset": 1877,
       "length": 18,
       "value": "\"network_usage_up\""
     },
     {
-      "filePath": "\/Users\/vagrant\/git\/ScanMyNet\/Models\/Response\/ScalarSections.swift",
+      "filePath": "\/tmp\/claude-501\/-Users-ahmedraad-Desktop-asl-scanmynet-project-scanmynet-flutter\/00fa4fa4-02c7-4f82-a4af-9492a1289bfc\/scratchpad\/ios-master-build\/ScanMyNet\/Models\/Response\/ScalarSections.swift",
       "kind": "StringLiteral",
       "offset": 2972,
       "length": 20,
       "value": "\"network_speed_down\""
     },
     {
-      "filePath": "\/Users\/vagrant\/git\/ScanMyNet\/Models\/Response\/ScalarSections.swift",
+      "filePath": "\/tmp\/claude-501\/-Users-ahmedraad-Desktop-asl-scanmynet-project-scanmynet-flutter\/00fa4fa4-02c7-4f82-a4af-9492a1289bfc\/scratchpad\/ios-master-build\/ScanMyNet\/Models\/Response\/ScalarSections.swift",
       "kind": "StringLiteral",
       "offset": 3023,
       "length": 18,
       "value": "\"network_speed_up\""
     },
     {
-      "filePath": "\/Users\/vagrant\/git\/ScanMyNet\/Models\/Response\/ScalarSections.swift",
+      "filePath": "\/tmp\/claude-501\/-Users-ahmedraad-Desktop-asl-scanmynet-project-scanmynet-flutter\/00fa4fa4-02c7-4f82-a4af-9492a1289bfc\/scratchpad\/ios-master-build\/ScanMyNet\/Models\/Response\/ScalarSections.swift",
       "kind": "StringLiteral",
       "offset": 3084,
       "length": 31,
       "value": "\"current_negotiated_link_speed\""
     },
     {
-      "filePath": "\/Users\/vagrant\/git\/ScanMyNet\/Models\/Response\/ScalarSections.swift",
+      "filePath": "\/tmp\/claude-501\/-Users-ahmedraad-Desktop-asl-scanmynet-project-scanmynet-flutter\/00fa4fa4-02c7-4f82-a4af-9492a1289bfc\/scratchpad\/ios-master-build\/ScanMyNet\/Models\/Response\/ScalarSections.swift",
       "kind": "StringLiteral",
       "offset": 3159,
       "length": 33,
       "value": "\"maximum_link_supported_by_phone\""
     },
     {
-      "filePath": "\/Users\/vagrant\/git\/ScanMyNet\/Models\/Response\/ScalarSections.swift",
+      "filePath": "\/tmp\/claude-501\/-Users-ahmedraad-Desktop-asl-scanmynet-project-scanmynet-flutter\/00fa4fa4-02c7-4f82-a4af-9492a1289bfc\/scratchpad\/ios-master-build\/ScanMyNet\/Models\/Response\/ScalarSections.swift",
       "kind": "StringLiteral",
       "offset": 3231,
       "length": 27,
       "value": "\"network_speed_up_segments\""
     },
     {
-      "filePath": "\/Users\/vagrant\/git\/ScanMyNet\/Models\/Response\/ScalarSections.swift",
+      "filePath": "\/tmp\/claude-501\/-Users-ahmedraad-Desktop-asl-scanmynet-project-scanmynet-flutter\/00fa4fa4-02c7-4f82-a4af-9492a1289bfc\/scratchpad\/ios-master-build\/ScanMyNet\/Models\/Response\/ScalarSections.swift",
       "kind": "StringLiteral",
       "offset": 3299,
       "length": 29,
       "value": "\"network_speed_down_segments\""
     },
     {
-      "filePath": "\/Users\/vagrant\/git\/ScanMyNet\/Models\/Response\/ScalarSections.swift",
+      "filePath": "\/tmp\/claude-501\/-Users-ahmedraad-Desktop-asl-scanmynet-project-scanmynet-flutter\/00fa4fa4-02c7-4f82-a4af-9492a1289bfc\/scratchpad\/ios-master-build\/ScanMyNet\/Models\/Response\/ScalarSections.swift",
       "kind": "StringLiteral",
       "offset": 3362,
       "length": 20,
       "value": "\"connection_quality\""
     },
     {
-      "filePath": "\/Users\/vagrant\/git\/ScanMyNet\/Models\/Response\/TopologyAndCongestion.swift",
+      "filePath": "\/tmp\/claude-501\/-Users-ahmedraad-Desktop-asl-scanmynet-project-scanmynet-flutter\/00fa4fa4-02c7-4f82-a4af-9492a1289bfc\/scratchpad\/ios-master-build\/ScanMyNet\/Models\/Response\/TopologyAndCongestion.swift",
       "kind": "StringLiteral",
       "offset": 600,
       "length": 19,
       "value": "\"router_ip_address\""
     },
     {
-      "filePath": "\/Users\/vagrant\/git\/ScanMyNet\/Models\/Response\/TopologyAndCongestion.swift",
+      "filePath": "\/tmp\/claude-501\/-Users-ahmedraad-Desktop-asl-scanmynet-project-scanmynet-flutter\/00fa4fa4-02c7-4f82-a4af-9492a1289bfc\/scratchpad\/ios-master-build\/ScanMyNet\/Models\/Response\/TopologyAndCongestion.swift",
       "kind": "StringLiteral",
       "offset": 648,
       "length": 15,
       "value": "\"other_routers\""
     },
     {
-      "filePath": "\/Users\/vagrant\/git\/ScanMyNet\/Models\/Response\/TopologyAndCongestion.swift",
+      "filePath": "\/tmp\/claude-501\/-Users-ahmedraad-Desktop-asl-scanmynet-project-scanmynet-flutter\/00fa4fa4-02c7-4f82-a4af-9492a1289bfc\/scratchpad\/ios-master-build\/ScanMyNet\/Models\/Response\/TopologyAndCongestion.swift",
       "kind": "StringLiteral",
       "offset": 699,
       "length": 23,
       "value": "\"other_routers_details\""
     },
     {
-      "filePath": "\/Users\/vagrant\/git\/ScanMyNet\/Models\/Response\/TopologyAndCongestion.swift",
+      "filePath": "\/tmp\/claude-501\/-Users-ahmedraad-Desktop-asl-scanmynet-project-scanmynet-flutter\/00fa4fa4-02c7-4f82-a4af-9492a1289bfc\/scratchpad\/ios-master-build\/ScanMyNet\/Models\/Response\/TopologyAndCongestion.swift",
       "kind": "StringLiteral",
       "offset": 756,
       "length": 21,
       "value": "\"double_nat_detected\""
     },
     {
-      "filePath": "\/Users\/vagrant\/git\/ScanMyNet\/Models\/Response\/TopologyAndCongestion.swift",
+      "filePath": "\/tmp\/claude-501\/-Users-ahmedraad-Desktop-asl-scanmynet-project-scanmynet-flutter\/00fa4fa4-02c7-4f82-a4af-9492a1289bfc\/scratchpad\/ios-master-build\/ScanMyNet\/Models\/Response\/TopologyAndCongestion.swift",
       "kind": "StringLiteral",
       "offset": 1494,
       "length": 15,
       "value": "\"is_double_nat\""
     },
     {
-      "filePath": "\/Users\/vagrant\/git\/ScanMyNet\/Models\/Response\/TopologyAndCongestion.swift",
+      "filePath": "\/tmp\/claude-501\/-Users-ahmedraad-Desktop-asl-scanmynet-project-scanmynet-flutter\/00fa4fa4-02c7-4f82-a4af-9492a1289bfc\/scratchpad\/ios-master-build\/ScanMyNet\/Models\/Response\/TopologyAndCongestion.swift",
       "kind": "StringLiteral",
       "offset": 1538,
       "length": 16,
       "value": "\"double_nat_hop\""
     },
     {
-      "filePath": "\/Users\/vagrant\/git\/ScanMyNet\/Models\/Response\/TopologyAndCongestion.swift",
+      "filePath": "\/tmp\/claude-501\/-Users-ahmedraad-Desktop-asl-scanmynet-project-scanmynet-flutter\/00fa4fa4-02c7-4f82-a4af-9492a1289bfc\/scratchpad\/ios-master-build\/ScanMyNet\/Models\/Response\/TopologyAndCongestion.swift",
       "kind": "StringLiteral",
       "offset": 2663,
       "length": 9,
       "value": "\"ssid_ip\""
     },
     {
-      "filePath": "\/Users\/vagrant\/git\/ScanMyNet\/Models\/Response\/TopologyAndCongestion.swift",
+      "filePath": "\/tmp\/claude-501\/-Users-ahmedraad-Desktop-asl-scanmynet-project-scanmynet-flutter\/00fa4fa4-02c7-4f82-a4af-9492a1289bfc\/scratchpad\/ios-master-build\/ScanMyNet\/Models\/Response\/TopologyAndCongestion.swift",
       "kind": "StringLiteral",
       "offset": 2704,
       "length": 18,
       "value": "\"wps_availability\""
     },
     {
-      "filePath": "\/Users\/vagrant\/git\/ScanMyNet\/Models\/Response\/TopologyAndCongestion.swift",
+      "filePath": "\/tmp\/claude-501\/-Users-ahmedraad-Desktop-asl-scanmynet-project-scanmynet-flutter\/00fa4fa4-02c7-4f82-a4af-9492a1289bfc\/scratchpad\/ios-master-build\/ScanMyNet\/Models\/Response\/TopologyAndCongestion.swift",
       "kind": "StringLiteral",
       "offset": 2753,
       "length": 17,
       "value": "\"signal_strength\""
     },
     {
-      "filePath": "\/Users\/vagrant\/git\/ScanMyNet\/Models\/Response\/TopologyAndCongestion.swift",
+      "filePath": "\/tmp\/claude-501\/-Users-ahmedraad-Desktop-asl-scanmynet-project-scanmynet-flutter\/00fa4fa4-02c7-4f82-a4af-9492a1289bfc\/scratchpad\/ios-master-build\/ScanMyNet\/Models\/Response\/TopologyAndCongestion.swift",
       "kind": "StringLiteral",
       "offset": 2802,
       "length": 19,
       "value": "\"num_wifi_channels\""
     },
     {
-      "filePath": "\/Users\/vagrant\/git\/ScanMyNet\/Models\/Response\/TopologyAndCongestion.swift",
+      "filePath": "\/tmp\/claude-501\/-Users-ahmedraad-Desktop-asl-scanmynet-project-scanmynet-flutter\/00fa4fa4-02c7-4f82-a4af-9492a1289bfc\/scratchpad\/ios-master-build\/ScanMyNet\/Models\/Response\/TopologyAndCongestion.swift",
       "kind": "StringLiteral",
       "offset": 2850,
       "length": 15,
       "value": "\"channel_width\""
     },
     {
-      "filePath": "\/Users\/vagrant\/git\/ScanMyNet\/Models\/Response\/TopologyAndCongestion.swift",
+      "filePath": "\/tmp\/claude-501\/-Users-ahmedraad-Desktop-asl-scanmynet-project-scanmynet-flutter\/00fa4fa4-02c7-4f82-a4af-9492a1289bfc\/scratchpad\/ios-master-build\/ScanMyNet\/Models\/Response\/TopologyAndCongestion.swift",
       "kind": "StringLiteral",
       "offset": 2896,
       "length": 17,
       "value": "\"current_channel\""
     },
     {
-      "filePath": "\/Users\/vagrant\/git\/ScanMyNet\/Models\/Response\/TopologyAndCongestion.swift",
+      "filePath": "\/tmp\/claude-501\/-Users-ahmedraad-Desktop-asl-scanmynet-project-scanmynet-flutter\/00fa4fa4-02c7-4f82-a4af-9492a1289bfc\/scratchpad\/ios-master-build\/ScanMyNet\/Models\/Response\/TopologyAndCongestion.swift",
       "kind": "StringLiteral",
       "offset": 2946,
       "length": 20,
       "value": "\"is_subscriber_ssid\""
     },
     {
-      "filePath": "\/Users\/vagrant\/git\/ScanMyNet\/Models\/Response\/TopologyAndCongestion.swift",
+      "filePath": "\/tmp\/claude-501\/-Users-ahmedraad-Desktop-asl-scanmynet-project-scanmynet-flutter\/00fa4fa4-02c7-4f82-a4af-9492a1289bfc\/scratchpad\/ios-master-build\/ScanMyNet\/Models\/Response\/TopologyAndCongestion.swift",
       "kind": "StringLiteral",
       "offset": 3278,
       "length": 17,
       "value": "\"user_connection\""
     },
     {
-      "filePath": "\/Users\/vagrant\/git\/ScanMyNet\/Models\/Response\/TopologyAndCongestion.swift",
+      "filePath": "\/tmp\/claude-501\/-Users-ahmedraad-Desktop-asl-scanmynet-project-scanmynet-flutter\/00fa4fa4-02c7-4f82-a4af-9492a1289bfc\/scratchpad\/ios-master-build\/ScanMyNet\/Models\/Response\/TopologyAndCongestion.swift",
       "kind": "StringLiteral",
       "offset": 3940,
       "length": 22,
       "value": "\"phone_wifi_frequency\""
     },
     {
-      "filePath": "\/Users\/vagrant\/git\/ScanMyNet\/Models\/Response\/TopologyAndCongestion.swift",
+      "filePath": "\/tmp\/claude-501\/-Users-ahmedraad-Desktop-asl-scanmynet-project-scanmynet-flutter\/00fa4fa4-02c7-4f82-a4af-9492a1289bfc\/scratchpad\/ios-master-build\/ScanMyNet\/Models\/Response\/TopologyAndCongestion.swift",
       "kind": "StringLiteral",
       "offset": 3998,
       "length": 24,
       "value": "\"num_phone_wifi_channel\""
     },
     {
-      "filePath": "\/Users\/vagrant\/git\/ScanMyNet\/Models\/Response\/TopologyAndCongestion.swift",
+      "filePath": "\/tmp\/claude-501\/-Users-ahmedraad-Desktop-asl-scanmynet-project-scanmynet-flutter\/00fa4fa4-02c7-4f82-a4af-9492a1289bfc\/scratchpad\/ios-master-build\/ScanMyNet\/Models\/Response\/TopologyAndCongestion.swift",
       "kind": "StringLiteral",
       "offset": 4059,
       "length": 25,
       "value": "\"num_networks_on_channel\""
     },
     {
-      "filePath": "\/Users\/vagrant\/git\/ScanMyNet\/Models\/Response\/TopologyAndCongestion.swift",
+      "filePath": "\/tmp\/claude-501\/-Users-ahmedraad-Desktop-asl-scanmynet-project-scanmynet-flutter\/00fa4fa4-02c7-4f82-a4af-9492a1289bfc\/scratchpad\/ios-master-build\/ScanMyNet\/Models\/Response\/TopologyAndCongestion.swift",
       "kind": "StringLiteral",
       "offset": 4117,
       "length": 20,
       "value": "\"phone_wifi_channel\""
     },
     {
-      "filePath": "\/Users\/vagrant\/git\/ScanMyNet\/Models\/Response\/TopologyAndCongestion.swift",
+      "filePath": "\/tmp\/claude-501\/-Users-ahmedraad-Desktop-asl-scanmynet-project-scanmynet-flutter\/00fa4fa4-02c7-4f82-a4af-9492a1289bfc\/scratchpad\/ios-master-build\/ScanMyNet\/Models\/Response\/TopologyAndCongestion.swift",
       "kind": "StringLiteral",
       "offset": 4460,
       "length": 20,
       "value": "\"channel_congestion\""
     },
     {
-      "filePath": "\/Users\/vagrant\/git\/ScanMyNet\/Models\/Response\/TopologyAndCongestion.swift",
+      "filePath": "\/tmp\/claude-501\/-Users-ahmedraad-Desktop-asl-scanmynet-project-scanmynet-flutter\/00fa4fa4-02c7-4f82-a4af-9492a1289bfc\/scratchpad\/ios-master-build\/ScanMyNet\/Models\/Response\/TopologyAndCongestion.swift",
       "kind": "StringLiteral",
       "offset": 4520,
       "length": 27,
       "value": "\"surrounding_wifi_networks\""
     },
     {
-      "filePath": "\/Users\/vagrant\/git\/ScanMyNet\/Models\/Response\/TopologyAndCongestion.swift",
+      "filePath": "\/tmp\/claude-501\/-Users-ahmedraad-Desktop-asl-scanmynet-project-scanmynet-flutter\/00fa4fa4-02c7-4f82-a4af-9492a1289bfc\/scratchpad\/ios-master-build\/ScanMyNet\/Models\/Response\/TopologyAndCongestion.swift",
       "kind": "StringLiteral",
       "offset": 4826,
       "length": 14,
       "value": "\"num_networks\""
     },
     {
-      "filePath": "\/Users\/vagrant\/git\/ScanMyNet\/Services\/Network\/NetworkLayer.swift",
+      "filePath": "\/tmp\/claude-501\/-Users-ahmedraad-Desktop-asl-scanmynet-project-scanmynet-flutter\/00fa4fa4-02c7-4f82-a4af-9492a1289bfc\/scratchpad\/ios-master-build\/ScanMyNet\/Services\/Network\/NetworkLayer.swift",
       "kind": "IntegerLiteral",
       "offset": 217,
       "length": 2,
       "value": "10"
     },
     {
-      "filePath": "\/Users\/vagrant\/git\/ScanMyNet\/Services\/Network\/NetworkLayer.swift",
+      "filePath": "\/tmp\/claude-501\/-Users-ahmedraad-Desktop-asl-scanmynet-project-scanmynet-flutter\/00fa4fa4-02c7-4f82-a4af-9492a1289bfc\/scratchpad\/ios-master-build\/ScanMyNet\/Services\/Network\/NetworkLayer.swift",
       "kind": "IntegerLiteral",
       "offset": 2319,
       "length": 1,
       "value": "5"
     },
     {
-      "filePath": "\/Users\/vagrant\/git\/ScanMyNet\/Services\/Network\/NetworkLayer.swift",
+      "filePath": "\/tmp\/claude-501\/-Users-ahmedraad-Desktop-asl-scanmynet-project-scanmynet-flutter\/00fa4fa4-02c7-4f82-a4af-9492a1289bfc\/scratchpad\/ios-master-build\/ScanMyNet\/Services\/Network\/NetworkLayer.swift",
       "kind": "BooleanLiteral",
       "offset": 6182,
       "length": 5,
       "value": "false"
     },
     {
-      "filePath": "\/Users\/vagrant\/git\/ScanMyNet\/Models\/Trace.swift",
+      "filePath": "\/tmp\/claude-501\/-Users-ahmedraad-Desktop-asl-scanmynet-project-scanmynet-flutter\/00fa4fa4-02c7-4f82-a4af-9492a1289bfc\/scratchpad\/ios-master-build\/ScanMyNet\/Models\/Trace.swift",
       "kind": "StringLiteral",
       "offset": 191,
       "length": 8,
       "value": "\"dns_ip\""
     },
     {
-      "filePath": "\/Users\/vagrant\/git\/ScanMyNet\/Models\/Trace.swift",
+      "filePath": "\/tmp\/claude-501\/-Users-ahmedraad-Desktop-asl-scanmynet-project-scanmynet-flutter\/00fa4fa4-02c7-4f82-a4af-9492a1289bfc\/scratchpad\/ios-master-build\/ScanMyNet\/Models\/Trace.swift",
       "kind": "StringLiteral",
       "offset": 223,
       "length": 10,
       "value": "\"dns_name\""
     },
     {
-      "filePath": "\/Users\/vagrant\/git\/ScanMyNet\/Models\/Trace.swift",
+      "filePath": "\/tmp\/claude-501\/-Users-ahmedraad-Desktop-asl-scanmynet-project-scanmynet-flutter\/00fa4fa4-02c7-4f82-a4af-9492a1289bfc\/scratchpad\/ios-master-build\/ScanMyNet\/Models\/Trace.swift",
       "kind": "StringLiteral",
       "offset": 259,
       "length": 12,
       "value": "\"rtt_values\""
     },
     {
-      "filePath": "\/Users\/vagrant\/git\/ScanMyNet\/Models\/Trace.swift",
+      "filePath": "\/tmp\/claude-501\/-Users-ahmedraad-Desktop-asl-scanmynet-project-scanmynet-flutter\/00fa4fa4-02c7-4f82-a4af-9492a1289bfc\/scratchpad\/ios-master-build\/ScanMyNet\/Models\/Trace.swift",
       "kind": "StringLiteral",
       "offset": 449,
       "length": 20,
       "value": "\"dns_destination_ip\""
     },
     {
-      "filePath": "\/Users\/vagrant\/git\/ScanMyNet\/ReportManager.swift",
+      "filePath": "\/tmp\/claude-501\/-Users-ahmedraad-Desktop-asl-scanmynet-project-scanmynet-flutter\/00fa4fa4-02c7-4f82-a4af-9492a1289bfc\/scratchpad\/ios-master-build\/ScanMyNet\/ReportManager.swift",
       "kind": "StringLiteral",
       "offset": 3881,
       "length": 2,
       "value": "\"\""
     },
     {
-      "filePath": "\/Users\/vagrant\/git\/ScanMyNet\/ReportManager.swift",
+      "filePath": "\/tmp\/claude-501\/-Users-ahmedraad-Desktop-asl-scanmynet-project-scanmynet-flutter\/00fa4fa4-02c7-4f82-a4af-9492a1289bfc\/scratchpad\/ios-master-build\/ScanMyNet\/ReportManager.swift",
       "kind": "IntegerLiteral",
       "offset": 3973,
       "length": 1,
       "value": "0"
     },
     {
-      "filePath": "\/Users\/vagrant\/git\/ScanMyNet\/ReportManager.swift",
+      "filePath": "\/tmp\/claude-501\/-Users-ahmedraad-Desktop-asl-scanmynet-project-scanmynet-flutter\/00fa4fa4-02c7-4f82-a4af-9492a1289bfc\/scratchpad\/ios-master-build\/ScanMyNet\/ReportManager.swift",
       "kind": "BooleanLiteral",
       "offset": 4880,
       "length": 5,
       "value": "false"
     },
     {
-      "filePath": "\/Users\/vagrant\/git\/ScanMyNet\/ReportManager.swift",
+      "filePath": "\/tmp\/claude-501\/-Users-ahmedraad-Desktop-asl-scanmynet-project-scanmynet-flutter\/00fa4fa4-02c7-4f82-a4af-9492a1289bfc\/scratchpad\/ios-master-build\/ScanMyNet\/ReportManager.swift",
       "kind": "BooleanLiteral",
       "offset": 4916,
       "length": 5,
       "value": "false"
     },
     {
-      "filePath": "\/Users\/vagrant\/git\/ScanMyNet\/ReportManager.swift",
+      "filePath": "\/tmp\/claude-501\/-Users-ahmedraad-Desktop-asl-scanmynet-project-scanmynet-flutter\/00fa4fa4-02c7-4f82-a4af-9492a1289bfc\/scratchpad\/ios-master-build\/ScanMyNet\/ReportManager.swift",
       "kind": "BooleanLiteral",
       "offset": 4944,
       "length": 5,
       "value": "false"
     },
     {
-      "filePath": "\/Users\/vagrant\/git\/ScanMyNet\/ReportManager.swift",
+      "filePath": "\/tmp\/claude-501\/-Users-ahmedraad-Desktop-asl-scanmynet-project-scanmynet-flutter\/00fa4fa4-02c7-4f82-a4af-9492a1289bfc\/scratchpad\/ios-master-build\/ScanMyNet\/ReportManager.swift",
       "kind": "BooleanLiteral",
       "offset": 4966,
       "length": 5,
       "value": "false"
     },
     {
-      "filePath": "\/Users\/vagrant\/git\/ScanMyNet\/ReportManager.swift",
+      "filePath": "\/tmp\/claude-501\/-Users-ahmedraad-Desktop-asl-scanmynet-project-scanmynet-flutter\/00fa4fa4-02c7-4f82-a4af-9492a1289bfc\/scratchpad\/ios-master-build\/ScanMyNet\/ReportManager.swift",
       "kind": "BooleanLiteral",
       "offset": 4992,
       "length": 5,
       "value": "false"
     },
     {
-      "filePath": "\/Users\/vagrant\/git\/ScanMyNet\/ReportManager.swift",
+      "filePath": "\/tmp\/claude-501\/-Users-ahmedraad-Desktop-asl-scanmynet-project-scanmynet-flutter\/00fa4fa4-02c7-4f82-a4af-9492a1289bfc\/scratchpad\/ios-master-build\/ScanMyNet\/ReportManager.swift",
       "kind": "BooleanLiteral",
       "offset": 5027,
       "length": 5,
       "value": "false"
     },
     {
-      "filePath": "\/Users\/vagrant\/git\/ScanMyNet\/ReportManager.swift",
+      "filePath": "\/tmp\/claude-501\/-Users-ahmedraad-Desktop-asl-scanmynet-project-scanmynet-flutter\/00fa4fa4-02c7-4f82-a4af-9492a1289bfc\/scratchpad\/ios-master-build\/ScanMyNet\/ReportManager.swift",
       "kind": "BooleanLiteral",
       "offset": 5057,
       "length": 5,
       "value": "false"
     },
     {
-      "filePath": "\/Users\/vagrant\/git\/ScanMyNet\/ReportManager.swift",
+      "filePath": "\/tmp\/claude-501\/-Users-ahmedraad-Desktop-asl-scanmynet-project-scanmynet-flutter\/00fa4fa4-02c7-4f82-a4af-9492a1289bfc\/scratchpad\/ios-master-build\/ScanMyNet\/ReportManager.swift",
       "kind": "BooleanLiteral",
       "offset": 5089,
       "length": 5,
       "value": "false"
     },
     {
-      "filePath": "\/Users\/vagrant\/git\/ScanMyNet\/Models\/Port\/Port.swift",
+      "filePath": "\/tmp\/claude-501\/-Users-ahmedraad-Desktop-asl-scanmynet-project-scanmynet-flutter\/00fa4fa4-02c7-4f82-a4af-9492a1289bfc\/scratchpad\/ios-master-build\/ScanMyNet\/Models\/Port\/Port.swift",
       "kind": "BooleanLiteral",
       "offset": 153,
       "length": 5,
       "value": "false"
     },
     {
-      "filePath": "\/Users\/vagrant\/git\/ScanMyNet\/Services\/Traceroute\/TracerouteService.swift",
+      "filePath": "\/tmp\/claude-501\/-Users-ahmedraad-Desktop-asl-scanmynet-project-scanmynet-flutter\/00fa4fa4-02c7-4f82-a4af-9492a1289bfc\/scratchpad\/ios-master-build\/ScanMyNet\/Services\/Traceroute\/TracerouteService.swift",
       "kind": "Array",
       "offset": 238,
       "length": 152,
       "value": "[\"admin.earthlink.iq\", \"109.224.14.2\", \"8.8.8.8\", \"facebook.com\", \"youtube.com\", \"admin.ftth.iq\"]"
     },
     {
-      "filePath": "\/Users\/vagrant\/git\/ScanMyNet\/Services\/Traceroute\/TracerouteService.swift",
+      "filePath": "\/tmp\/claude-501\/-Users-ahmedraad-Desktop-asl-scanmynet-project-scanmynet-flutter\/00fa4fa4-02c7-4f82-a4af-9492a1289bfc\/scratchpad\/ios-master-build\/ScanMyNet\/Services\/Traceroute\/TracerouteService.swift",
       "kind": "Dictionary",
       "offset": 1047,
       "length": 3,
       "value": "[]"
     },
     {
-      "filePath": "\/Users\/vagrant\/git\/ScanMyNet\/Services\/Traceroute\/TracerouteService.swift",
+      "filePath": "\/tmp\/claude-501\/-Users-ahmedraad-Desktop-asl-scanmynet-project-scanmynet-flutter\/00fa4fa4-02c7-4f82-a4af-9492a1289bfc\/scratchpad\/ios-master-build\/ScanMyNet\/Services\/Traceroute\/TracerouteService.swift",
       "kind": "Array",
       "offset": 1097,
       "length": 2,
       "value": "[]"
     },
     {
-      "filePath": "\/Users\/vagrant\/git\/ScanMyNet\/Services\/Traceroute\/TracerouteService.swift",
+      "filePath": "\/tmp\/claude-501\/-Users-ahmedraad-Desktop-asl-scanmynet-project-scanmynet-flutter\/00fa4fa4-02c7-4f82-a4af-9492a1289bfc\/scratchpad\/ios-master-build\/ScanMyNet\/Services\/Traceroute\/TracerouteService.swift",
       "kind": "Dictionary",
       "offset": 1160,
       "length": 3,
       "value": "[]"
     },
     {
-      "filePath": "\/Users\/vagrant\/git\/ScanMyNet\/Services\/Traceroute\/TracerouteService.swift",
+      "filePath": "\/tmp\/claude-501\/-Users-ahmedraad-Desktop-asl-scanmynet-project-scanmynet-flutter\/00fa4fa4-02c7-4f82-a4af-9492a1289bfc\/scratchpad\/ios-master-build\/ScanMyNet\/Services\/Traceroute\/TracerouteService.swift",
       "kind": "Dictionary",
       "offset": 1235,
       "length": 3,
       "value": "[]"
     },
     {
-      "filePath": "\/Users\/vagrant\/git\/ScanMyNet\/Services\/Traceroute\/TracerouteService.swift",
+      "filePath": "\/tmp\/claude-501\/-Users-ahmedraad-Desktop-asl-scanmynet-project-scanmynet-flutter\/00fa4fa4-02c7-4f82-a4af-9492a1289bfc\/scratchpad\/ios-master-build\/ScanMyNet\/Services\/Traceroute\/TracerouteService.swift",
       "kind": "IntegerLiteral",
       "offset": 1270,
       "length": 1,
       "value": "0"
     },
     {
-      "filePath": "\/Users\/vagrant\/git\/ScanMyNet\/Services\/Traceroute\/TracerouteService.swift",
+      "filePath": "\/tmp\/claude-501\/-Users-ahmedraad-Desktop-asl-scanmynet-project-scanmynet-flutter\/00fa4fa4-02c7-4f82-a4af-9492a1289bfc\/scratchpad\/ios-master-build\/ScanMyNet\/Services\/Traceroute\/TracerouteService.swift",
       "kind": "IntegerLiteral",
       "offset": 1655,
       "length": 2,
       "value": "20"
     },
     {
-      "filePath": "\/Users\/vagrant\/git\/ScanMyNet\/Services\/Traceroute\/TracerouteService.swift",
+      "filePath": "\/tmp\/claude-501\/-Users-ahmedraad-Desktop-asl-scanmynet-project-scanmynet-flutter\/00fa4fa4-02c7-4f82-a4af-9492a1289bfc\/scratchpad\/ios-master-build\/ScanMyNet\/Services\/Traceroute\/TracerouteService.swift",
       "kind": "BooleanLiteral",
       "offset": 1801,
       "length": 5,
       "value": "false"
     },
     {
-      "filePath": "\/Users\/vagrant\/git\/ScanMyNet\/Services\/Traceroute\/TracerouteService.swift",
+      "filePath": "\/tmp\/claude-501\/-Users-ahmedraad-Desktop-asl-scanmynet-project-scanmynet-flutter\/00fa4fa4-02c7-4f82-a4af-9492a1289bfc\/scratchpad\/ios-master-build\/ScanMyNet\/Services\/Traceroute\/TracerouteService.swift",
       "kind": "Array",
       "offset": 2157,
       "length": 2,
       "value": "[]"
     },
     {
-      "filePath": "\/Users\/vagrant\/git\/ScanMyNet\/Services\/SSDP\/SSDPService.swift",
+      "filePath": "\/tmp\/claude-501\/-Users-ahmedraad-Desktop-asl-scanmynet-project-scanmynet-flutter\/00fa4fa4-02c7-4f82-a4af-9492a1289bfc\/scratchpad\/ios-master-build\/ScanMyNet\/Services\/SSDP\/SSDPService.swift",
       "kind": "Array",
       "offset": 522,
       "length": 2,
       "value": "[]"
     },
     {
-      "filePath": "\/Users\/vagrant\/git\/ScanMyNet\/Services\/SSDP\/SSDPService.swift",
+      "filePath": "\/tmp\/claude-501\/-Users-ahmedraad-Desktop-asl-scanmynet-project-scanmynet-flutter\/00fa4fa4-02c7-4f82-a4af-9492a1289bfc\/scratchpad\/ios-master-build\/ScanMyNet\/Services\/SSDP\/SSDPService.swift",
       "kind": "BooleanLiteral",
       "offset": 924,
       "length": 5,
       "value": "false"
     },
     {
-      "filePath": "\/Users\/vagrant\/git\/ScanMyNet\/Services\/SSDP\/SSDPService.swift",
+      "filePath": "\/tmp\/claude-501\/-Users-ahmedraad-Desktop-asl-scanmynet-project-scanmynet-flutter\/00fa4fa4-02c7-4f82-a4af-9492a1289bfc\/scratchpad\/ios-master-build\/ScanMyNet\/Services\/SSDP\/SSDPService.swift",
       "kind": "BooleanLiteral",
       "offset": 1163,
       "length": 5,
       "value": "false"
     },
     {
-      "filePath": "\/Users\/vagrant\/git\/ScanMyNet\/Models\/Server.swift",
+      "filePath": "\/tmp\/claude-501\/-Users-ahmedraad-Desktop-asl-scanmynet-project-scanmynet-flutter\/00fa4fa4-02c7-4f82-a4af-9492a1289bfc\/scratchpad\/ios-master-build\/ScanMyNet\/Models\/Server.swift",
       "kind": "StringLiteral",
       "offset": 79,
       "length": 2,
       "value": "\"\""
     },
     {
-      "filePath": "\/Users\/vagrant\/git\/ScanMyNet\/Models\/Server.swift",
+      "filePath": "\/tmp\/claude-501\/-Users-ahmedraad-Desktop-asl-scanmynet-project-scanmynet-flutter\/00fa4fa4-02c7-4f82-a4af-9492a1289bfc\/scratchpad\/ios-master-build\/ScanMyNet\/Models\/Server.swift",
       "kind": "StringLiteral",
       "offset": 104,
       "length": 2,
       "value": "\"\""
     },
     {
-      "filePath": "\/Users\/vagrant\/git\/ScanMyNet\/Models\/Server.swift",
+      "filePath": "\/tmp\/claude-501\/-Users-ahmedraad-Desktop-asl-scanmynet-project-scanmynet-flutter\/00fa4fa4-02c7-4f82-a4af-9492a1289bfc\/scratchpad\/ios-master-build\/ScanMyNet\/Models\/Server.swift",
       "kind": "BooleanLiteral",
       "offset": 133,
       "length": 5,
       "value": "false"
     },
     {
-      "filePath": "\/Users\/vagrant\/git\/ScanMyNet\/Models\/Server.swift",
+      "filePath": "\/tmp\/claude-501\/-Users-ahmedraad-Desktop-asl-scanmynet-project-scanmynet-flutter\/00fa4fa4-02c7-4f82-a4af-9492a1289bfc\/scratchpad\/ios-master-build\/ScanMyNet\/Models\/Server.swift",
       "kind": "IntegerLiteral",
       "offset": 160,
       "length": 1,
       "value": "0"
     },
     {
-      "filePath": "\/Users\/vagrant\/git\/ScanMyNet\/Models\/Server.swift",
+      "filePath": "\/tmp\/claude-501\/-Users-ahmedraad-Desktop-asl-scanmynet-project-scanmynet-flutter\/00fa4fa4-02c7-4f82-a4af-9492a1289bfc\/scratchpad\/ios-master-build\/ScanMyNet\/Models\/Server.swift",
       "kind": "IntegerLiteral",
       "offset": 292,
       "length": 1,
       "value": "5"
     },
     {
-      "filePath": "\/Users\/vagrant\/git\/ScanMyNet\/Models\/QualityResult.swift",
+      "filePath": "\/tmp\/claude-501\/-Users-ahmedraad-Desktop-asl-scanmynet-project-scanmynet-flutter\/00fa4fa4-02c7-4f82-a4af-9492a1289bfc\/scratchpad\/ios-master-build\/ScanMyNet\/Models\/QualityResult.swift",
       "kind": "StringLiteral",
       "offset": 269,
       "length": 10,
       "value": "\"dns_name\""
     },
     {
-      "filePath": "\/Users\/vagrant\/git\/ScanMyNet\/Models\/QualityResult.swift",
+      "filePath": "\/tmp\/claude-501\/-Users-ahmedraad-Desktop-asl-scanmynet-project-scanmynet-flutter\/00fa4fa4-02c7-4f82-a4af-9492a1289bfc\/scratchpad\/ios-master-build\/ScanMyNet\/Models\/QualityResult.swift",
       "kind": "StringLiteral",
       "offset": 301,
       "length": 8,
       "value": "\"dns_ip\""
     },
     {
-      "filePath": "\/Users\/vagrant\/git\/ScanMyNet\/Models\/QualityResult.swift",
+      "filePath": "\/tmp\/claude-501\/-Users-ahmedraad-Desktop-asl-scanmynet-project-scanmynet-flutter\/00fa4fa4-02c7-4f82-a4af-9492a1289bfc\/scratchpad\/ios-master-build\/ScanMyNet\/Models\/QualityResult.swift",
       "kind": "StringLiteral",
       "offset": 340,
       "length": 17,
       "value": "\"packets_dropped\""
     },
     {
-      "filePath": "\/Users\/vagrant\/git\/ScanMyNet\/Models\/QualityResult.swift",
+      "filePath": "\/tmp\/claude-501\/-Users-ahmedraad-Desktop-asl-scanmynet-project-scanmynet-flutter\/00fa4fa4-02c7-4f82-a4af-9492a1289bfc\/scratchpad\/ios-master-build\/ScanMyNet\/Models\/QualityResult.swift",
       "kind": "StringLiteral",
       "offset": 388,
       "length": 18,
       "value": "\"num_packets_sent\""
     },
     {
-      "filePath": "\/Users\/vagrant\/git\/ScanMyNet\/Models\/QualityResult.swift",
+      "filePath": "\/tmp\/claude-501\/-Users-ahmedraad-Desktop-asl-scanmynet-project-scanmynet-flutter\/00fa4fa4-02c7-4f82-a4af-9492a1289bfc\/scratchpad\/ios-master-build\/ScanMyNet\/Models\/QualityResult.swift",
       "kind": "StringLiteral",
       "offset": 433,
       "length": 13,
       "value": "\"ping_values\""
     },
     {
-      "filePath": "\/Users\/vagrant\/git\/ScanMyNet\/Models\/QualityResult.swift",
+      "filePath": "\/tmp\/claude-501\/-Users-ahmedraad-Desktop-asl-scanmynet-project-scanmynet-flutter\/00fa4fa4-02c7-4f82-a4af-9492a1289bfc\/scratchpad\/ios-master-build\/ScanMyNet\/Models\/QualityResult.swift",
       "kind": "BooleanLiteral",
       "offset": 1204,
       "length": 5,
       "value": "false"
     },
     {
-      "filePath": "\/Users\/vagrant\/git\/ScanMyNet\/Models\/QualityResult.swift",
+      "filePath": "\/tmp\/claude-501\/-Users-ahmedraad-Desktop-asl-scanmynet-project-scanmynet-flutter\/00fa4fa4-02c7-4f82-a4af-9492a1289bfc\/scratchpad\/ios-master-build\/ScanMyNet\/Models\/QualityResult.swift",
       "kind": "StringLiteral",
       "offset": 1234,
       "length": 9,
       "value": "\"Unknown\""
     },
     {
-      "filePath": "\/Users\/vagrant\/git\/ScanMyNet\/Models\/QualityResult.swift",
+      "filePath": "\/tmp\/claude-501\/-Users-ahmedraad-Desktop-asl-scanmynet-project-scanmynet-flutter\/00fa4fa4-02c7-4f82-a4af-9492a1289bfc\/scratchpad\/ios-master-build\/ScanMyNet\/Models\/QualityResult.swift",
       "kind": "BooleanLiteral",
       "offset": 1324,
       "length": 5,
       "value": "false"
     },
     {
-      "filePath": "\/Users\/vagrant\/git\/ScanMyNet\/Models\/QualityResult.swift",
+      "filePath": "\/tmp\/claude-501\/-Users-ahmedraad-Desktop-asl-scanmynet-project-scanmynet-flutter\/00fa4fa4-02c7-4f82-a4af-9492a1289bfc\/scratchpad\/ios-master-build\/ScanMyNet\/Models\/QualityResult.swift",
       "kind": "Array",
       "offset": 1786,
       "length": 2,
       "value": "[]"
     },
     {
-      "filePath": "\/Users\/vagrant\/git\/ScanMyNet\/Models\/QualityResult.swift",
+      "filePath": "\/tmp\/claude-501\/-Users-ahmedraad-Desktop-asl-scanmynet-project-scanmynet-flutter\/00fa4fa4-02c7-4f82-a4af-9492a1289bfc\/scratchpad\/ios-master-build\/ScanMyNet\/Models\/QualityResult.swift",
       "kind": "Dictionary",
       "offset": 1833,
       "length": 3,
       "value": "[]"
     },
     {
-      "filePath": "\/Users\/vagrant\/git\/ScanMyNet\/Models\/QualityResult.swift",
+      "filePath": "\/tmp\/claude-501\/-Users-ahmedraad-Desktop-asl-scanmynet-project-scanmynet-flutter\/00fa4fa4-02c7-4f82-a4af-9492a1289bfc\/scratchpad\/ios-master-build\/ScanMyNet\/Models\/QualityResult.swift",
       "kind": "Dictionary",
       "offset": 1882,
       "length": 3,
       "value": "[]"
     },
     {
-      "filePath": "\/Users\/vagrant\/git\/ScanMyNet\/Models\/QualityResult.swift",
+      "filePath": "\/tmp\/claude-501\/-Users-ahmedraad-Desktop-asl-scanmynet-project-scanmynet-flutter\/00fa4fa4-02c7-4f82-a4af-9492a1289bfc\/scratchpad\/ios-master-build\/ScanMyNet\/Models\/QualityResult.swift",
       "kind": "IntegerLiteral",
       "offset": 2231,
       "length": 2,
       "value": "30"
     },
     {
-      "filePath": "\/Users\/vagrant\/git\/ScanMyNet\/Models\/QualityResult.swift",
+      "filePath": "\/tmp\/claude-501\/-Users-ahmedraad-Desktop-asl-scanmynet-project-scanmynet-flutter\/00fa4fa4-02c7-4f82-a4af-9492a1289bfc\/scratchpad\/ios-master-build\/ScanMyNet\/Models\/QualityResult.swift",
       "kind": "IntegerLiteral",
       "offset": 2466,
       "length": 1,
       "value": "8"
     },
     {
-      "filePath": "\/Users\/vagrant\/git\/ScanMyNet\/Models\/QualityResult.swift",
+      "filePath": "\/tmp\/claude-501\/-Users-ahmedraad-Desktop-asl-scanmynet-project-scanmynet-flutter\/00fa4fa4-02c7-4f82-a4af-9492a1289bfc\/scratchpad\/ios-master-build\/ScanMyNet\/Models\/QualityResult.swift",
       "kind": "StringLiteral",
-      "offset": 2611,
+      "offset": 3391,
       "length": 7,
       "value": "\"https\""
     },
     {
-      "filePath": "\/Users\/vagrant\/git\/ScanMyNet\/frameworks\/SSDP Client\/SSDPDiscovery.swift",
+      "filePath": "\/tmp\/claude-501\/-Users-ahmedraad-Desktop-asl-scanmynet-project-scanmynet-flutter\/00fa4fa4-02c7-4f82-a4af-9492a1289bfc\/scratchpad\/ios-master-build\/ScanMyNet\/Models\/QualityResult.swift",
+      "kind": "BooleanLiteral",
+      "offset": 3431,
+      "length": 5,
+      "value": "false"
+    },
+    {
+      "filePath": "\/tmp\/claude-501\/-Users-ahmedraad-Desktop-asl-scanmynet-project-scanmynet-flutter\/00fa4fa4-02c7-4f82-a4af-9492a1289bfc\/scratchpad\/ios-master-build\/ScanMyNet\/frameworks\/SSDP Client\/SSDPDiscovery.swift",
       "kind": "BooleanLiteral",
       "offset": 1559,
       "length": 5,
       "value": "false"
     },
     {
-      "filePath": "\/Users\/vagrant\/git\/ScanMyNet\/frameworks\/SSDP Client\/SSDPDiscovery.swift",
+      "filePath": "\/tmp\/claude-501\/-Users-ahmedraad-Desktop-asl-scanmynet-project-scanmynet-flutter\/00fa4fa4-02c7-4f82-a4af-9492a1289bfc\/scratchpad\/ios-master-build\/ScanMyNet\/frameworks\/SSDP Client\/SSDPDiscovery.swift",
       "kind": "IntegerLiteral",
       "offset": 4487,
       "length": 2,
       "value": "10"
     },
     {
-      "filePath": "\/Users\/vagrant\/git\/ScanMyNet\/frameworks\/SSDP Client\/SSDPDiscovery.swift",
+      "filePath": "\/tmp\/claude-501\/-Users-ahmedraad-Desktop-asl-scanmynet-project-scanmynet-flutter\/00fa4fa4-02c7-4f82-a4af-9492a1289bfc\/scratchpad\/ios-master-build\/ScanMyNet\/frameworks\/SSDP Client\/SSDPDiscovery.swift",
       "kind": "StringLiteral",
       "offset": 4514,
       "length": 10,
       "value": "\"ssdp:all\""
     },
     {
-      "filePath": "\/Users\/vagrant\/git\/ScanMyNet\/frameworks\/SSDP Client\/SSDPDiscovery.swift",
+      "filePath": "\/tmp\/claude-501\/-Users-ahmedraad-Desktop-asl-scanmynet-project-scanmynet-flutter\/00fa4fa4-02c7-4f82-a4af-9492a1289bfc\/scratchpad\/ios-master-build\/ScanMyNet\/frameworks\/SSDP Client\/SSDPDiscovery.swift",
       "kind": "IntegerLiteral",
       "offset": 4540,
       "length": 4,
       "value": "1900"
     },
     {
-      "filePath": "\/Users\/vagrant\/git\/ScanMyNet\/Models\/DNS.swift",
+      "filePath": "\/tmp\/claude-501\/-Users-ahmedraad-Desktop-asl-scanmynet-project-scanmynet-flutter\/00fa4fa4-02c7-4f82-a4af-9492a1289bfc\/scratchpad\/ios-master-build\/ScanMyNet\/Models\/DNS.swift",
       "kind": "StringLiteral",
       "offset": 192,
       "length": 8,
       "value": "\"dns_ip\""
     },
     {
-      "filePath": "\/Users\/vagrant\/git\/ScanMyNet\/Models\/DNS.swift",
+      "filePath": "\/tmp\/claude-501\/-Users-ahmedraad-Desktop-asl-scanmynet-project-scanmynet-flutter\/00fa4fa4-02c7-4f82-a4af-9492a1289bfc\/scratchpad\/ios-master-build\/ScanMyNet\/Models\/DNS.swift",
       "kind": "StringLiteral",
       "offset": 246,
       "length": 13,
       "value": "\"reverse_dns\""
     },
     {
-      "filePath": "\/Users\/vagrant\/git\/ScanMyNet\/Models\/LocalDevice.swift",
+      "filePath": "\/tmp\/claude-501\/-Users-ahmedraad-Desktop-asl-scanmynet-project-scanmynet-flutter\/00fa4fa4-02c7-4f82-a4af-9492a1289bfc\/scratchpad\/ios-master-build\/ScanMyNet\/Models\/LocalDevice.swift",
       "kind": "StringLiteral",
       "offset": 366,
       "length": 13,
       "value": "\"device_name\""
     },
     {
-      "filePath": "\/Users\/vagrant\/git\/ScanMyNet\/Models\/LocalDevice.swift",
+      "filePath": "\/tmp\/claude-501\/-Users-ahmedraad-Desktop-asl-scanmynet-project-scanmynet-flutter\/00fa4fa4-02c7-4f82-a4af-9492a1289bfc\/scratchpad\/ios-master-build\/ScanMyNet\/Models\/LocalDevice.swift",
       "kind": "StringLiteral",
       "offset": 404,
       "length": 11,
       "value": "\"device_ip\""
     },
     {
-      "filePath": "\/Users\/vagrant\/git\/ScanMyNet\/Models\/LocalDevice.swift",
+      "filePath": "\/tmp\/claude-501\/-Users-ahmedraad-Desktop-asl-scanmynet-project-scanmynet-flutter\/00fa4fa4-02c7-4f82-a4af-9492a1289bfc\/scratchpad\/ios-master-build\/ScanMyNet\/Models\/LocalDevice.swift",
       "kind": "StringLiteral",
       "offset": 448,
       "length": 20,
       "value": "\"device_mac_address\""
     },
     {
-      "filePath": "\/Users\/vagrant\/git\/ScanMyNet\/Models\/LocalDevice.swift",
+      "filePath": "\/tmp\/claude-501\/-Users-ahmedraad-Desktop-asl-scanmynet-project-scanmynet-flutter\/00fa4fa4-02c7-4f82-a4af-9492a1289bfc\/scratchpad\/ios-master-build\/ScanMyNet\/Models\/LocalDevice.swift",
       "kind": "StringLiteral",
       "offset": 525,
       "length": 17,
       "value": "\"packets_dropped\""
     },
     {
-      "filePath": "\/Users\/vagrant\/git\/ScanMyNet\/Models\/LocalDevice.swift",
+      "filePath": "\/tmp\/claude-501\/-Users-ahmedraad-Desktop-asl-scanmynet-project-scanmynet-flutter\/00fa4fa4-02c7-4f82-a4af-9492a1289bfc\/scratchpad\/ios-master-build\/ScanMyNet\/Models\/LocalDevice.swift",
       "kind": "StringLiteral",
       "offset": 573,
       "length": 18,
       "value": "\"num_packets_sent\""
     },
     {
-      "filePath": "\/Users\/vagrant\/git\/ScanMyNet\/Models\/LocalDevice.swift",
+      "filePath": "\/tmp\/claude-501\/-Users-ahmedraad-Desktop-asl-scanmynet-project-scanmynet-flutter\/00fa4fa4-02c7-4f82-a4af-9492a1289bfc\/scratchpad\/ios-master-build\/ScanMyNet\/Models\/LocalDevice.swift",
       "kind": "StringLiteral",
       "offset": 618,
       "length": 13,
       "value": "\"ping_values\""
     },
     {
-      "filePath": "\/Users\/vagrant\/git\/ScanMyNet\/Models\/LocalDevice.swift",
+      "filePath": "\/tmp\/claude-501\/-Users-ahmedraad-Desktop-asl-scanmynet-project-scanmynet-flutter\/00fa4fa4-02c7-4f82-a4af-9492a1289bfc\/scratchpad\/ios-master-build\/ScanMyNet\/Models\/LocalDevice.swift",
       "kind": "StringLiteral",
       "offset": 665,
       "length": 21,
       "value": "\"is_subscriber_phone\""
     },
     {
-      "filePath": "\/Users\/vagrant\/git\/ScanMyNet\/Models\/SSIDInfo.swift",
+      "filePath": "\/tmp\/claude-501\/-Users-ahmedraad-Desktop-asl-scanmynet-project-scanmynet-flutter\/00fa4fa4-02c7-4f82-a4af-9492a1289bfc\/scratchpad\/ios-master-build\/ScanMyNet\/Models\/SSIDInfo.swift",
       "kind": "StringLiteral",
       "offset": 1342,
       "length": 9,
       "value": "\"ssid_ip\""
     },
     {
-      "filePath": "\/Users\/vagrant\/git\/ScanMyNet\/Models\/ServerConnectivity.swift",
+      "filePath": "\/tmp\/claude-501\/-Users-ahmedraad-Desktop-asl-scanmynet-project-scanmynet-flutter\/00fa4fa4-02c7-4f82-a4af-9492a1289bfc\/scratchpad\/ios-master-build\/ScanMyNet\/Models\/ServerConnectivity.swift",
       "kind": "StringLiteral",
       "offset": 203,
       "length": 15,
       "value": "\"server_status\""
     },
     {
-      "filePath": "\/Users\/vagrant\/git\/ScanMyNet\/ScanMyNetConfiguration.swift",
+      "filePath": "\/tmp\/claude-501\/-Users-ahmedraad-Desktop-asl-scanmynet-project-scanmynet-flutter\/00fa4fa4-02c7-4f82-a4af-9492a1289bfc\/scratchpad\/ios-master-build\/ScanMyNet\/ScanMyNetConfiguration.swift",
       "kind": "FloatLiteral",
       "offset": 2448,
       "length": 9,
       "value": "100000.0"
     },
     {
-      "filePath": "\/Users\/vagrant\/git\/ScanMyNet\/ScanMyNetConfiguration.swift",
+      "filePath": "\/tmp\/claude-501\/-Users-ahmedraad-Desktop-asl-scanmynet-project-scanmynet-flutter\/00fa4fa4-02c7-4f82-a4af-9492a1289bfc\/scratchpad\/ios-master-build\/ScanMyNet\/ScanMyNetConfiguration.swift",
       "kind": "IntegerLiteral",
       "offset": 3266,
       "length": 3,
       "value": "100"
     },
     {
-      "filePath": "\/Users\/vagrant\/git\/ScanMyNet\/Services\/LAN Scanner\/LANDevice.swift",
+      "filePath": "\/tmp\/claude-501\/-Users-ahmedraad-Desktop-asl-scanmynet-project-scanmynet-flutter\/00fa4fa4-02c7-4f82-a4af-9492a1289bfc\/scratchpad\/ios-master-build\/ScanMyNet\/Services\/LAN Scanner\/LANDevice.swift",
       "kind": "Array",
       "offset": 564,
       "length": 2,
       "value": "[]"
     },
     {
-      "filePath": "\/Users\/vagrant\/git\/ScanMyNet\/Services\/LAN Scanner\/LANDevice.swift",
+      "filePath": "\/tmp\/claude-501\/-Users-ahmedraad-Desktop-asl-scanmynet-project-scanmynet-flutter\/00fa4fa4-02c7-4f82-a4af-9492a1289bfc\/scratchpad\/ios-master-build\/ScanMyNet\/Services\/LAN Scanner\/LANDevice.swift",
       "kind": "Dictionary",
       "offset": 611,
       "length": 3,
       "value": "[]"
     },
     {
-      "filePath": "\/Users\/vagrant\/git\/ScanMyNet\/Services\/LAN Scanner\/LANDevice.swift",
+      "filePath": "\/tmp\/claude-501\/-Users-ahmedraad-Desktop-asl-scanmynet-project-scanmynet-flutter\/00fa4fa4-02c7-4f82-a4af-9492a1289bfc\/scratchpad\/ios-master-build\/ScanMyNet\/Services\/LAN Scanner\/LANDevice.swift",
       "kind": "Dictionary",
       "offset": 660,
       "length": 3,
       "value": "[]"
     },
     {
-      "filePath": "\/Users\/vagrant\/git\/ScanMyNet\/Services\/LAN Scanner\/LANDevice.swift",
+      "filePath": "\/tmp\/claude-501\/-Users-ahmedraad-Desktop-asl-scanmynet-project-scanmynet-flutter\/00fa4fa4-02c7-4f82-a4af-9492a1289bfc\/scratchpad\/ios-master-build\/ScanMyNet\/Services\/LAN Scanner\/LANDevice.swift",
       "kind": "IntegerLiteral",
       "offset": 1083,
       "length": 2,
       "value": "30"
     },
     {
-      "filePath": "\/Users\/vagrant\/git\/ScanMyNet\/Services\/Server Connectivity\/ServerConnectivityService.swift",
+      "filePath": "\/tmp\/claude-501\/-Users-ahmedraad-Desktop-asl-scanmynet-project-scanmynet-flutter\/00fa4fa4-02c7-4f82-a4af-9492a1289bfc\/scratchpad\/ios-master-build\/ScanMyNet\/Services\/Server Connectivity\/ServerConnectivityService.swift",
       "kind": "Array",
       "offset": 200,
       "length": 2,
       "value": "[]"
     },
     {
-      "filePath": "\/Users\/vagrant\/git\/ScanMyNet\/Services\/Server Connectivity\/ServerConnectivityService.swift",
+      "filePath": "\/tmp\/claude-501\/-Users-ahmedraad-Desktop-asl-scanmynet-project-scanmynet-flutter\/00fa4fa4-02c7-4f82-a4af-9492a1289bfc\/scratchpad\/ios-master-build\/ScanMyNet\/Services\/Server Connectivity\/ServerConnectivityService.swift",
       "kind": "Array",
       "offset": 245,
       "length": 2,
       "value": "[]"
     },
     {
-      "filePath": "\/Users\/vagrant\/git\/ScanMyNet\/Services\/Server Connectivity\/ServerConnectivityService.swift",
+      "filePath": "\/tmp\/claude-501\/-Users-ahmedraad-Desktop-asl-scanmynet-project-scanmynet-flutter\/00fa4fa4-02c7-4f82-a4af-9492a1289bfc\/scratchpad\/ios-master-build\/ScanMyNet\/Services\/Server Connectivity\/ServerConnectivityService.swift",
       "kind": "Array",
       "offset": 283,
       "length": 2,
       "value": "[]"
     },
     {
-      "filePath": "\/Users\/vagrant\/git\/ScanMyNet\/Services\/Server Connectivity\/ServerConnectivityService.swift",
+      "filePath": "\/tmp\/claude-501\/-Users-ahmedraad-Desktop-asl-scanmynet-project-scanmynet-flutter\/00fa4fa4-02c7-4f82-a4af-9492a1289bfc\/scratchpad\/ios-master-build\/ScanMyNet\/Services\/Server Connectivity\/ServerConnectivityService.swift",
       "kind": "Array",
       "offset": 328,
       "length": 2,
       "value": "[]"
     },
     {
-      "filePath": "\/Users\/vagrant\/git\/ScanMyNet\/Services\/Server Connectivity\/ServerConnectivityService.swift",
+      "filePath": "\/tmp\/claude-501\/-Users-ahmedraad-Desktop-asl-scanmynet-project-scanmynet-flutter\/00fa4fa4-02c7-4f82-a4af-9492a1289bfc\/scratchpad\/ios-master-build\/ScanMyNet\/Services\/Server Connectivity\/ServerConnectivityService.swift",
       "kind": "BooleanLiteral",
       "offset": 555,
       "length": 5,
       "value": "false"
     },
     {
-      "filePath": "\/Users\/vagrant\/git\/ScanMyNet\/Services\/Server Connectivity\/ServerConnectivityService.swift",
+      "filePath": "\/tmp\/claude-501\/-Users-ahmedraad-Desktop-asl-scanmynet-project-scanmynet-flutter\/00fa4fa4-02c7-4f82-a4af-9492a1289bfc\/scratchpad\/ios-master-build\/ScanMyNet\/Services\/Server Connectivity\/ServerConnectivityService.swift",
       "kind": "StringLiteral",
       "offset": 588,
       "length": 35,
       "value": "\"com.creativeadvtech.scanmynet-ios\""
     },
     {
-      "filePath": "\/Users\/vagrant\/git\/ScanMyNet\/Services\/SpeedCheck\/SpeedCheck.swift",
+      "filePath": "\/tmp\/claude-501\/-Users-ahmedraad-Desktop-asl-scanmynet-project-scanmynet-flutter\/00fa4fa4-02c7-4f82-a4af-9492a1289bfc\/scratchpad\/ios-master-build\/ScanMyNet\/Services\/SpeedCheck\/SpeedCheck.swift",
       "kind": "StringLiteral",
       "offset": 1388,
       "length": 30,
       "value": "\"https:\/\/speed.cloudflare.com\""
     },
     {
-      "filePath": "\/Users\/vagrant\/git\/ScanMyNet\/Services\/SpeedCheck\/SpeedCheck.swift",
+      "filePath": "\/tmp\/claude-501\/-Users-ahmedraad-Desktop-asl-scanmynet-project-scanmynet-flutter\/00fa4fa4-02c7-4f82-a4af-9492a1289bfc\/scratchpad\/ios-master-build\/ScanMyNet\/Services\/SpeedCheck\/SpeedCheck.swift",
       "kind": "IntegerLiteral",
       "offset": 1713,
       "length": 7,
       "value": "100000"
     },
     {
-      "filePath": "\/Users\/vagrant\/git\/ScanMyNet\/Services\/SpeedCheck\/SpeedCheck.swift",
+      "filePath": "\/tmp\/claude-501\/-Users-ahmedraad-Desktop-asl-scanmynet-project-scanmynet-flutter\/00fa4fa4-02c7-4f82-a4af-9492a1289bfc\/scratchpad\/ios-master-build\/ScanMyNet\/Services\/SpeedCheck\/SpeedCheck.swift",
       "kind": "IntegerLiteral",
       "offset": 1729,
       "length": 1,
       "value": "4"
     },
     {
-      "filePath": "\/Users\/vagrant\/git\/ScanMyNet\/Services\/SpeedCheck\/SpeedCheck.swift",
+      "filePath": "\/tmp\/claude-501\/-Users-ahmedraad-Desktop-asl-scanmynet-project-scanmynet-flutter\/00fa4fa4-02c7-4f82-a4af-9492a1289bfc\/scratchpad\/ios-master-build\/ScanMyNet\/Services\/SpeedCheck\/SpeedCheck.swift",
       "kind": "IntegerLiteral",
       "offset": 1745,
       "length": 9,
       "value": "1000000"
     },
     {
-      "filePath": "\/Users\/vagrant\/git\/ScanMyNet\/Services\/SpeedCheck\/SpeedCheck.swift",
+      "filePath": "\/tmp\/claude-501\/-Users-ahmedraad-Desktop-asl-scanmynet-project-scanmynet-flutter\/00fa4fa4-02c7-4f82-a4af-9492a1289bfc\/scratchpad\/ios-master-build\/ScanMyNet\/Services\/SpeedCheck\/SpeedCheck.swift",
       "kind": "IntegerLiteral",
       "offset": 1763,
       "length": 1,
       "value": "4"
     },
     {
-      "filePath": "\/Users\/vagrant\/git\/ScanMyNet\/Services\/SpeedCheck\/SpeedCheck.swift",
+      "filePath": "\/tmp\/claude-501\/-Users-ahmedraad-Desktop-asl-scanmynet-project-scanmynet-flutter\/00fa4fa4-02c7-4f82-a4af-9492a1289bfc\/scratchpad\/ios-master-build\/ScanMyNet\/Services\/SpeedCheck\/SpeedCheck.swift",
       "kind": "IntegerLiteral",
       "offset": 1779,
       "length": 10,
       "value": "10000000"
     },
     {
-      "filePath": "\/Users\/vagrant\/git\/ScanMyNet\/Services\/SpeedCheck\/SpeedCheck.swift",
+      "filePath": "\/tmp\/claude-501\/-Users-ahmedraad-Desktop-asl-scanmynet-project-scanmynet-flutter\/00fa4fa4-02c7-4f82-a4af-9492a1289bfc\/scratchpad\/ios-master-build\/ScanMyNet\/Services\/SpeedCheck\/SpeedCheck.swift",
       "kind": "IntegerLiteral",
       "offset": 1798,
       "length": 1,
       "value": "3"
     },
     {
-      "filePath": "\/Users\/vagrant\/git\/ScanMyNet\/Services\/SpeedCheck\/SpeedCheck.swift",
+      "filePath": "\/tmp\/claude-501\/-Users-ahmedraad-Desktop-asl-scanmynet-project-scanmynet-flutter\/00fa4fa4-02c7-4f82-a4af-9492a1289bfc\/scratchpad\/ios-master-build\/ScanMyNet\/Services\/SpeedCheck\/SpeedCheck.swift",
       "kind": "IntegerLiteral",
       "offset": 1822,
       "length": 10,
       "value": "25000000"
     },
     {
-      "filePath": "\/Users\/vagrant\/git\/ScanMyNet\/Services\/SpeedCheck\/SpeedCheck.swift",
+      "filePath": "\/tmp\/claude-501\/-Users-ahmedraad-Desktop-asl-scanmynet-project-scanmynet-flutter\/00fa4fa4-02c7-4f82-a4af-9492a1289bfc\/scratchpad\/ios-master-build\/ScanMyNet\/Services\/SpeedCheck\/SpeedCheck.swift",
       "kind": "IntegerLiteral",
       "offset": 1841,
       "length": 1,
       "value": "2"
     },
     {
-      "filePath": "\/Users\/vagrant\/git\/ScanMyNet\/Services\/SpeedCheck\/SpeedCheck.swift",
+      "filePath": "\/tmp\/claude-501\/-Users-ahmedraad-Desktop-asl-scanmynet-project-scanmynet-flutter\/00fa4fa4-02c7-4f82-a4af-9492a1289bfc\/scratchpad\/ios-master-build\/ScanMyNet\/Services\/SpeedCheck\/SpeedCheck.swift",
       "kind": "IntegerLiteral",
       "offset": 1857,
       "length": 11,
       "value": "100000000"
     },
     {
-      "filePath": "\/Users\/vagrant\/git\/ScanMyNet\/Services\/SpeedCheck\/SpeedCheck.swift",
+      "filePath": "\/tmp\/claude-501\/-Users-ahmedraad-Desktop-asl-scanmynet-project-scanmynet-flutter\/00fa4fa4-02c7-4f82-a4af-9492a1289bfc\/scratchpad\/ios-master-build\/ScanMyNet\/Services\/SpeedCheck\/SpeedCheck.swift",
       "kind": "IntegerLiteral",
       "offset": 1877,
       "length": 1,
       "value": "2"
     },
     {
-      "filePath": "\/Users\/vagrant\/git\/ScanMyNet\/Services\/SpeedCheck\/SpeedCheck.swift",
+      "filePath": "\/tmp\/claude-501\/-Users-ahmedraad-Desktop-asl-scanmynet-project-scanmynet-flutter\/00fa4fa4-02c7-4f82-a4af-9492a1289bfc\/scratchpad\/ios-master-build\/ScanMyNet\/Services\/SpeedCheck\/SpeedCheck.swift",
       "kind": "IntegerLiteral",
       "offset": 1938,
       "length": 7,
       "value": "100000"
     },
     {
-      "filePath": "\/Users\/vagrant\/git\/ScanMyNet\/Services\/SpeedCheck\/SpeedCheck.swift",
+      "filePath": "\/tmp\/claude-501\/-Users-ahmedraad-Desktop-asl-scanmynet-project-scanmynet-flutter\/00fa4fa4-02c7-4f82-a4af-9492a1289bfc\/scratchpad\/ios-master-build\/ScanMyNet\/Services\/SpeedCheck\/SpeedCheck.swift",
       "kind": "IntegerLiteral",
       "offset": 1954,
       "length": 1,
       "value": "4"
     },
     {
-      "filePath": "\/Users\/vagrant\/git\/ScanMyNet\/Services\/SpeedCheck\/SpeedCheck.swift",
+      "filePath": "\/tmp\/claude-501\/-Users-ahmedraad-Desktop-asl-scanmynet-project-scanmynet-flutter\/00fa4fa4-02c7-4f82-a4af-9492a1289bfc\/scratchpad\/ios-master-build\/ScanMyNet\/Services\/SpeedCheck\/SpeedCheck.swift",
       "kind": "IntegerLiteral",
       "offset": 1970,
       "length": 9,
       "value": "1000000"
     },
     {
-      "filePath": "\/Users\/vagrant\/git\/ScanMyNet\/Services\/SpeedCheck\/SpeedCheck.swift",
+      "filePath": "\/tmp\/claude-501\/-Users-ahmedraad-Desktop-asl-scanmynet-project-scanmynet-flutter\/00fa4fa4-02c7-4f82-a4af-9492a1289bfc\/scratchpad\/ios-master-build\/ScanMyNet\/Services\/SpeedCheck\/SpeedCheck.swift",
       "kind": "IntegerLiteral",
       "offset": 1988,
       "length": 1,
       "value": "4"
     },
     {
-      "filePath": "\/Users\/vagrant\/git\/ScanMyNet\/Services\/SpeedCheck\/SpeedCheck.swift",
+      "filePath": "\/tmp\/claude-501\/-Users-ahmedraad-Desktop-asl-scanmynet-project-scanmynet-flutter\/00fa4fa4-02c7-4f82-a4af-9492a1289bfc\/scratchpad\/ios-master-build\/ScanMyNet\/Services\/SpeedCheck\/SpeedCheck.swift",
       "kind": "IntegerLiteral",
       "offset": 2012,
       "length": 10,
       "value": "10000000"
     },
     {
-      "filePath": "\/Users\/vagrant\/git\/ScanMyNet\/Services\/SpeedCheck\/SpeedCheck.swift",
+      "filePath": "\/tmp\/claude-501\/-Users-ahmedraad-Desktop-asl-scanmynet-project-scanmynet-flutter\/00fa4fa4-02c7-4f82-a4af-9492a1289bfc\/scratchpad\/ios-master-build\/ScanMyNet\/Services\/SpeedCheck\/SpeedCheck.swift",
       "kind": "IntegerLiteral",
       "offset": 2031,
       "length": 1,
       "value": "2"
     },
     {
-      "filePath": "\/Users\/vagrant\/git\/ScanMyNet\/Services\/SpeedCheck\/SpeedCheck.swift",
+      "filePath": "\/tmp\/claude-501\/-Users-ahmedraad-Desktop-asl-scanmynet-project-scanmynet-flutter\/00fa4fa4-02c7-4f82-a4af-9492a1289bfc\/scratchpad\/ios-master-build\/ScanMyNet\/Services\/SpeedCheck\/SpeedCheck.swift",
       "kind": "IntegerLiteral",
       "offset": 2047,
       "length": 10,
       "value": "25000000"
     },
     {
-      "filePath": "\/Users\/vagrant\/git\/ScanMyNet\/Services\/SpeedCheck\/SpeedCheck.swift",
+      "filePath": "\/tmp\/claude-501\/-Users-ahmedraad-Desktop-asl-scanmynet-project-scanmynet-flutter\/00fa4fa4-02c7-4f82-a4af-9492a1289bfc\/scratchpad\/ios-master-build\/ScanMyNet\/Services\/SpeedCheck\/SpeedCheck.swift",
       "kind": "IntegerLiteral",
       "offset": 2066,
       "length": 1,
       "value": "2"
     },
     {
-      "filePath": "\/Users\/vagrant\/git\/ScanMyNet\/Services\/SpeedCheck\/SpeedCheck.swift",
+      "filePath": "\/tmp\/claude-501\/-Users-ahmedraad-Desktop-asl-scanmynet-project-scanmynet-flutter\/00fa4fa4-02c7-4f82-a4af-9492a1289bfc\/scratchpad\/ios-master-build\/ScanMyNet\/Services\/SpeedCheck\/SpeedCheck.swift",
       "kind": "IntegerLiteral",
       "offset": 2109,
       "length": 2,
       "value": "20"
     },
     {
-      "filePath": "\/Users\/vagrant\/git\/ScanMyNet\/Services\/SpeedCheck\/SpeedCheck.swift",
+      "filePath": "\/tmp\/claude-501\/-Users-ahmedraad-Desktop-asl-scanmynet-project-scanmynet-flutter\/00fa4fa4-02c7-4f82-a4af-9492a1289bfc\/scratchpad\/ios-master-build\/ScanMyNet\/Services\/SpeedCheck\/SpeedCheck.swift",
       "kind": "FloatLiteral",
       "offset": 2225,
       "length": 4,
       "value": "10.0"
     },
     {
-      "filePath": "\/Users\/vagrant\/git\/ScanMyNet\/Services\/SpeedCheck\/SpeedCheck.swift",
+      "filePath": "\/tmp\/claude-501\/-Users-ahmedraad-Desktop-asl-scanmynet-project-scanmynet-flutter\/00fa4fa4-02c7-4f82-a4af-9492a1289bfc\/scratchpad\/ios-master-build\/ScanMyNet\/Services\/SpeedCheck\/SpeedCheck.swift",
       "kind": "FloatLiteral",
       "offset": 2362,
       "length": 7,
       "value": "1000.0"
     },
     {
-      "filePath": "\/Users\/vagrant\/git\/ScanMyNet\/Services\/SpeedCheck\/SpeedCheck.swift",
+      "filePath": "\/tmp\/claude-501\/-Users-ahmedraad-Desktop-asl-scanmynet-project-scanmynet-flutter\/00fa4fa4-02c7-4f82-a4af-9492a1289bfc\/scratchpad\/ios-master-build\/ScanMyNet\/Services\/SpeedCheck\/SpeedCheck.swift",
       "kind": "IntegerLiteral",
       "offset": 2488,
       "length": 11,
       "value": "150000000"
     },
     {
-      "filePath": "\/Users\/vagrant\/git\/ScanMyNet\/Services\/SpeedCheck\/SpeedCheck.swift",
+      "filePath": "\/tmp\/claude-501\/-Users-ahmedraad-Desktop-asl-scanmynet-project-scanmynet-flutter\/00fa4fa4-02c7-4f82-a4af-9492a1289bfc\/scratchpad\/ios-master-build\/ScanMyNet\/Services\/SpeedCheck\/SpeedCheck.swift",
       "kind": "IntegerLiteral",
       "offset": 2620,
       "length": 2,
       "value": "45"
     },
     {
-      "filePath": "\/Users\/vagrant\/git\/ScanMyNet\/Services\/SpeedCheck\/SpeedCheck.swift",
+      "filePath": "\/tmp\/claude-501\/-Users-ahmedraad-Desktop-asl-scanmynet-project-scanmynet-flutter\/00fa4fa4-02c7-4f82-a4af-9492a1289bfc\/scratchpad\/ios-master-build\/ScanMyNet\/Services\/SpeedCheck\/SpeedCheck.swift",
       "kind": "IntegerLiteral",
       "offset": 2670,
       "length": 2,
       "value": "20"
     },
     {
-      "filePath": "\/Users\/vagrant\/git\/ScanMyNet\/Services\/SpeedCheck\/SpeedCheck.swift",
+      "filePath": "\/tmp\/claude-501\/-Users-ahmedraad-Desktop-asl-scanmynet-project-scanmynet-flutter\/00fa4fa4-02c7-4f82-a4af-9492a1289bfc\/scratchpad\/ios-master-build\/ScanMyNet\/Services\/SpeedCheck\/SpeedCheck.swift",
       "kind": "FloatLiteral",
       "offset": 2711,
       "length": 3,
       "value": "0.9"
     },
     {
-      "filePath": "\/Users\/vagrant\/git\/ScanMyNet\/Services\/SpeedCheck\/SpeedCheck.swift",
+      "filePath": "\/tmp\/claude-501\/-Users-ahmedraad-Desktop-asl-scanmynet-project-scanmynet-flutter\/00fa4fa4-02c7-4f82-a4af-9492a1289bfc\/scratchpad\/ios-master-build\/ScanMyNet\/Services\/SpeedCheck\/SpeedCheck.swift",
       "kind": "FloatLiteral",
       "offset": 2750,
       "length": 3,
       "value": "0.5"
     },
     {
-      "filePath": "\/Users\/vagrant\/git\/ScanMyNet\/Services\/SpeedCheck\/SpeedCheck.swift",
+      "filePath": "\/tmp\/claude-501\/-Users-ahmedraad-Desktop-asl-scanmynet-project-scanmynet-flutter\/00fa4fa4-02c7-4f82-a4af-9492a1289bfc\/scratchpad\/ios-master-build\/ScanMyNet\/Services\/SpeedCheck\/SpeedCheck.swift",
       "kind": "IntegerLiteral",
       "offset": 2838,
       "length": 2,
       "value": "25"
     },
     {
-      "filePath": "\/Users\/vagrant\/git\/ScanMyNet\/Services\/SpeedCheck\/SpeedCheck.swift",
+      "filePath": "\/tmp\/claude-501\/-Users-ahmedraad-Desktop-asl-scanmynet-project-scanmynet-flutter\/00fa4fa4-02c7-4f82-a4af-9492a1289bfc\/scratchpad\/ios-master-build\/ScanMyNet\/Services\/SpeedCheck\/SpeedCheck.swift",
       "kind": "StringLiteral",
       "offset": 3182,
       "length": 42,
       "value": "\"com.creativeadvtech.scanmynet.speedcheck\""
     },
     {
-      "filePath": "\/Users\/vagrant\/git\/ScanMyNet\/Services\/SpeedCheck\/SpeedCheck.swift",
+      "filePath": "\/tmp\/claude-501\/-Users-ahmedraad-Desktop-asl-scanmynet-project-scanmynet-flutter\/00fa4fa4-02c7-4f82-a4af-9492a1289bfc\/scratchpad\/ios-master-build\/ScanMyNet\/Services\/SpeedCheck\/SpeedCheck.swift",
       "kind": "IntegerLiteral",
       "offset": 3463,
       "length": 1,
       "value": "0"
     },
     {
-      "filePath": "\/Users\/vagrant\/git\/ScanMyNet\/Services\/SpeedCheck\/SpeedCheck.swift",
+      "filePath": "\/tmp\/claude-501\/-Users-ahmedraad-Desktop-asl-scanmynet-project-scanmynet-flutter\/00fa4fa4-02c7-4f82-a4af-9492a1289bfc\/scratchpad\/ios-master-build\/ScanMyNet\/Services\/SpeedCheck\/SpeedCheck.swift",
       "kind": "BooleanLiteral",
       "offset": 3583,
       "length": 4,
       "value": "true"
     },
     {
-      "filePath": "\/Users\/vagrant\/git\/ScanMyNet\/Services\/SpeedCheck\/SpeedCheck.swift",
+      "filePath": "\/tmp\/claude-501\/-Users-ahmedraad-Desktop-asl-scanmynet-project-scanmynet-flutter\/00fa4fa4-02c7-4f82-a4af-9492a1289bfc\/scratchpad\/ios-master-build\/ScanMyNet\/Services\/SpeedCheck\/SpeedCheck.swift",
       "kind": "Array",
       "offset": 3670,
       "length": 2,
       "value": "[]"
     },
     {
-      "filePath": "\/Users\/vagrant\/git\/ScanMyNet\/Services\/SpeedCheck\/SpeedCheck.swift",
+      "filePath": "\/tmp\/claude-501\/-Users-ahmedraad-Desktop-asl-scanmynet-project-scanmynet-flutter\/00fa4fa4-02c7-4f82-a4af-9492a1289bfc\/scratchpad\/ios-master-build\/ScanMyNet\/Services\/SpeedCheck\/SpeedCheck.swift",
       "kind": "Array",
       "offset": 3717,
       "length": 2,
       "value": "[]"
     },
     {
-      "filePath": "\/Users\/vagrant\/git\/ScanMyNet\/Services\/SpeedCheck\/SpeedCheck.swift",
+      "filePath": "\/tmp\/claude-501\/-Users-ahmedraad-Desktop-asl-scanmynet-project-scanmynet-flutter\/00fa4fa4-02c7-4f82-a4af-9492a1289bfc\/scratchpad\/ios-master-build\/ScanMyNet\/Services\/SpeedCheck\/SpeedCheck.swift",
       "kind": "Array",
       "offset": 3762,
       "length": 2,
       "value": "[]"
     },
     {
-      "filePath": "\/Users\/vagrant\/git\/ScanMyNet\/Services\/SpeedCheck\/SpeedCheck.swift",
+      "filePath": "\/tmp\/claude-501\/-Users-ahmedraad-Desktop-asl-scanmynet-project-scanmynet-flutter\/00fa4fa4-02c7-4f82-a4af-9492a1289bfc\/scratchpad\/ios-master-build\/ScanMyNet\/Services\/SpeedCheck\/SpeedCheck.swift",
       "kind": "Array",
       "offset": 3805,
       "length": 2,
       "value": "[]"
     },
     {
-      "filePath": "\/Users\/vagrant\/git\/ScanMyNet\/Services\/SpeedCheck\/SpeedCheck.swift",
+      "filePath": "\/tmp\/claude-501\/-Users-ahmedraad-Desktop-asl-scanmynet-project-scanmynet-flutter\/00fa4fa4-02c7-4f82-a4af-9492a1289bfc\/scratchpad\/ios-master-build\/ScanMyNet\/Services\/SpeedCheck\/SpeedCheck.swift",
       "kind": "IntegerLiteral",
       "offset": 3937,
       "length": 1,
       "value": "0"
     },
     {
-      "filePath": "\/Users\/vagrant\/git\/ScanMyNet\/Services\/SpeedCheck\/SpeedCheck.swift",
+      "filePath": "\/tmp\/claude-501\/-Users-ahmedraad-Desktop-asl-scanmynet-project-scanmynet-flutter\/00fa4fa4-02c7-4f82-a4af-9492a1289bfc\/scratchpad\/ios-master-build\/ScanMyNet\/Services\/SpeedCheck\/SpeedCheck.swift",
       "kind": "IntegerLiteral",
       "offset": 18726,
       "length": 1,
       "value": "0"
     },
     {
-      "filePath": "\/Users\/vagrant\/git\/ScanMyNet\/Services\/SpeedCheck\/SpeedCheck.swift",
+      "filePath": "\/tmp\/claude-501\/-Users-ahmedraad-Desktop-asl-scanmynet-project-scanmynet-flutter\/00fa4fa4-02c7-4f82-a4af-9492a1289bfc\/scratchpad\/ios-master-build\/ScanMyNet\/Services\/SpeedCheck\/SpeedCheck.swift",
       "kind": "IntegerLiteral",
       "offset": 18757,
       "length": 1,
       "value": "0"
     },
     {
-      "filePath": "\/Users\/vagrant\/git\/ScanMyNet\/Services\/SpeedCheck\/SpeedCheck.swift",
+      "filePath": "\/tmp\/claude-501\/-Users-ahmedraad-Desktop-asl-scanmynet-project-scanmynet-flutter\/00fa4fa4-02c7-4f82-a4af-9492a1289bfc\/scratchpad\/ios-master-build\/ScanMyNet\/Services\/SpeedCheck\/SpeedCheck.swift",
       "kind": "BooleanLiteral",
       "offset": 18791,
       "length": 5,
       "value": "false"
     },
     {
-      "filePath": "\/Users\/vagrant\/git\/ScanMyNet\/Services\/SpeedCheck\/SpeedCheck.swift",
+      "filePath": "\/tmp\/claude-501\/-Users-ahmedraad-Desktop-asl-scanmynet-project-scanmynet-flutter\/00fa4fa4-02c7-4f82-a4af-9492a1289bfc\/scratchpad\/ios-master-build\/ScanMyNet\/Services\/SpeedCheck\/SpeedCheck.swift",
       "kind": "Array",
       "offset": 18964,
       "length": 2,
       "value": "[]"
     },
     {
-      "filePath": "\/Users\/vagrant\/git\/ScanMyNet\/Services\/SpeedCheck\/SpeedCheck.swift",
+      "filePath": "\/tmp\/claude-501\/-Users-ahmedraad-Desktop-asl-scanmynet-project-scanmynet-flutter\/00fa4fa4-02c7-4f82-a4af-9492a1289bfc\/scratchpad\/ios-master-build\/ScanMyNet\/Services\/SpeedCheck\/SpeedCheck.swift",
       "kind": "IntegerLiteral",
       "offset": 21984,
       "length": 2,
       "value": "64"
     },
     {
-      "filePath": "\/Users\/vagrant\/git\/ScanMyNet\/Services\/SpeedCheck\/SpeedCheck.swift",
+      "filePath": "\/tmp\/claude-501\/-Users-ahmedraad-Desktop-asl-scanmynet-project-scanmynet-flutter\/00fa4fa4-02c7-4f82-a4af-9492a1289bfc\/scratchpad\/ios-master-build\/ScanMyNet\/Services\/SpeedCheck\/SpeedCheck.swift",
       "kind": "IntegerLiteral",
       "offset": 21989,
       "length": 4,
       "value": "1024"
     },
     {
-      "filePath": "\/Users\/vagrant\/git\/ScanMyNet\/Services\/SpeedCheck\/SpeedCheck.swift",
+      "filePath": "\/tmp\/claude-501\/-Users-ahmedraad-Desktop-asl-scanmynet-project-scanmynet-flutter\/00fa4fa4-02c7-4f82-a4af-9492a1289bfc\/scratchpad\/ios-master-build\/ScanMyNet\/Services\/SpeedCheck\/SpeedCheck.swift",
       "kind": "IntegerLiteral",
       "offset": 22124,
       "length": 1,
       "value": "0"
     },
     {
-      "filePath": "\/Users\/vagrant\/git\/ScanMyNet\/Services\/SpeedCheck\/SpeedCheck.swift",
+      "filePath": "\/tmp\/claude-501\/-Users-ahmedraad-Desktop-asl-scanmynet-project-scanmynet-flutter\/00fa4fa4-02c7-4f82-a4af-9492a1289bfc\/scratchpad\/ios-master-build\/ScanMyNet\/Services\/SpeedCheck\/SpeedCheck.swift",
       "kind": "StringLiteral",
       "offset": 22245,
       "length": 10,
       "value": "\"\r\n\r\n\""
     },
     {
-      "filePath": "\/Users\/vagrant\/git\/ScanMyNet\/Services\/SpeedCheck\/SpeedCheck.swift",
+      "filePath": "\/tmp\/claude-501\/-Users-ahmedraad-Desktop-asl-scanmynet-project-scanmynet-flutter\/00fa4fa4-02c7-4f82-a4af-9492a1289bfc\/scratchpad\/ios-master-build\/ScanMyNet\/Services\/SpeedCheck\/SpeedCheck.swift",
       "kind": "StringLiteral",
       "offset": 22403,
       "length": 38,
       "value": "\"com.creativeadvtech.scanmynet.upload\""
     },
     {
-      "filePath": "\/Users\/vagrant\/git\/ScanMyNet\/Services\/SpeedCheck\/SpeedCheck.swift",
+      "filePath": "\/tmp\/claude-501\/-Users-ahmedraad-Desktop-asl-scanmynet-project-scanmynet-flutter\/00fa4fa4-02c7-4f82-a4af-9492a1289bfc\/scratchpad\/ios-master-build\/ScanMyNet\/Services\/SpeedCheck\/SpeedCheck.swift",
       "kind": "IntegerLiteral",
       "offset": 22561,
       "length": 1,
       "value": "0"
     },
     {
-      "filePath": "\/Users\/vagrant\/git\/ScanMyNet\/Services\/SpeedCheck\/SpeedCheck.swift",
+      "filePath": "\/tmp\/claude-501\/-Users-ahmedraad-Desktop-asl-scanmynet-project-scanmynet-flutter\/00fa4fa4-02c7-4f82-a4af-9492a1289bfc\/scratchpad\/ios-master-build\/ScanMyNet\/Services\/SpeedCheck\/SpeedCheck.swift",
       "kind": "BooleanLiteral",
       "offset": 22671,
       "length": 5,
       "value": "false"
     },
     {
-      "filePath": "\/Users\/vagrant\/git\/ScanMyNet\/ScanMyNet.swift",
+      "filePath": "\/tmp\/claude-501\/-Users-ahmedraad-Desktop-asl-scanmynet-project-scanmynet-flutter\/00fa4fa4-02c7-4f82-a4af-9492a1289bfc\/scratchpad\/ios-master-build\/ScanMyNet\/ScanMyNet.swift",
       "kind": "IntegerLiteral",
       "offset": 2754,
       "length": 1,
       "value": "0"
     },
     {
-      "filePath": "\/Users\/vagrant\/git\/ScanMyNet\/ScanMyNet.swift",
+      "filePath": "\/tmp\/claude-501\/-Users-ahmedraad-Desktop-asl-scanmynet-project-scanmynet-flutter\/00fa4fa4-02c7-4f82-a4af-9492a1289bfc\/scratchpad\/ios-master-build\/ScanMyNet\/ScanMyNet.swift",
       "kind": "IntegerLiteral",
       "offset": 2790,
       "length": 1,
       "value": "0"
     },
     {
-      "filePath": "\/Users\/vagrant\/git\/ScanMyNet\/ScanMyNet.swift",
+      "filePath": "\/tmp\/claude-501\/-Users-ahmedraad-Desktop-asl-scanmynet-project-scanmynet-flutter\/00fa4fa4-02c7-4f82-a4af-9492a1289bfc\/scratchpad\/ios-master-build\/ScanMyNet\/ScanMyNet.swift",
       "kind": "BooleanLiteral",
       "offset": 2834,
       "length": 5,
       "value": "false"
     },
     {
-      "filePath": "\/Users\/vagrant\/git\/ScanMyNet\/ScanMyNet.swift",
+      "filePath": "\/tmp\/claude-501\/-Users-ahmedraad-Desktop-asl-scanmynet-project-scanmynet-flutter\/00fa4fa4-02c7-4f82-a4af-9492a1289bfc\/scratchpad\/ios-master-build\/ScanMyNet\/ScanMyNet.swift",
       "kind": "IntegerLiteral",
       "offset": 3783,
       "length": 1,
       "value": "0"
     },
     {
-      "filePath": "\/Users\/vagrant\/git\/ScanMyNet\/ScanMyNet.swift",
+      "filePath": "\/tmp\/claude-501\/-Users-ahmedraad-Desktop-asl-scanmynet-project-scanmynet-flutter\/00fa4fa4-02c7-4f82-a4af-9492a1289bfc\/scratchpad\/ios-master-build\/ScanMyNet\/ScanMyNet.swift",
       "kind": "BooleanLiteral",
       "offset": 3891,
       "length": 5,
       "value": "false"
     },
     {
-      "filePath": "\/Users\/vagrant\/git\/ScanMyNet\/ScanMyNet.swift",
+      "filePath": "\/tmp\/claude-501\/-Users-ahmedraad-Desktop-asl-scanmynet-project-scanmynet-flutter\/00fa4fa4-02c7-4f82-a4af-9492a1289bfc\/scratchpad\/ios-master-build\/ScanMyNet\/ScanMyNet.swift",
       "kind": "BooleanLiteral",
       "offset": 3927,
       "length": 5,
       "value": "false"
     },
     {
-      "filePath": "\/Users\/vagrant\/git\/ScanMyNet\/ScanMyNet.swift",
+      "filePath": "\/tmp\/claude-501\/-Users-ahmedraad-Desktop-asl-scanmynet-project-scanmynet-flutter\/00fa4fa4-02c7-4f82-a4af-9492a1289bfc\/scratchpad\/ios-master-build\/ScanMyNet\/ScanMyNet.swift",
       "kind": "BooleanLiteral",
       "offset": 3955,
       "length": 5,
       "value": "false"
     },
     {
-      "filePath": "\/Users\/vagrant\/git\/ScanMyNet\/ScanMyNet.swift",
+      "filePath": "\/tmp\/claude-501\/-Users-ahmedraad-Desktop-asl-scanmynet-project-scanmynet-flutter\/00fa4fa4-02c7-4f82-a4af-9492a1289bfc\/scratchpad\/ios-master-build\/ScanMyNet\/ScanMyNet.swift",
       "kind": "BooleanLiteral",
       "offset": 3977,
       "length": 5,
       "value": "false"
     },
     {
-      "filePath": "\/Users\/vagrant\/git\/ScanMyNet\/ScanMyNet.swift",
+      "filePath": "\/tmp\/claude-501\/-Users-ahmedraad-Desktop-asl-scanmynet-project-scanmynet-flutter\/00fa4fa4-02c7-4f82-a4af-9492a1289bfc\/scratchpad\/ios-master-build\/ScanMyNet\/ScanMyNet.swift",
       "kind": "BooleanLiteral",
       "offset": 4003,
       "length": 5,
       "value": "false"
     },
     {
-      "filePath": "\/Users\/vagrant\/git\/ScanMyNet\/ScanMyNet.swift",
+      "filePath": "\/tmp\/claude-501\/-Users-ahmedraad-Desktop-asl-scanmynet-project-scanmynet-flutter\/00fa4fa4-02c7-4f82-a4af-9492a1289bfc\/scratchpad\/ios-master-build\/ScanMyNet\/ScanMyNet.swift",
       "kind": "BooleanLiteral",
       "offset": 4038,
       "length": 5,
       "value": "false"
     },
     {
-      "filePath": "\/Users\/vagrant\/git\/ScanMyNet\/ScanMyNet.swift",
+      "filePath": "\/tmp\/claude-501\/-Users-ahmedraad-Desktop-asl-scanmynet-project-scanmynet-flutter\/00fa4fa4-02c7-4f82-a4af-9492a1289bfc\/scratchpad\/ios-master-build\/ScanMyNet\/ScanMyNet.swift",
       "kind": "BooleanLiteral",
       "offset": 4068,
       "length": 5,
       "value": "false"
     },
     {
-      "filePath": "\/Users\/vagrant\/git\/ScanMyNet\/ScanMyNet.swift",
+      "filePath": "\/tmp\/claude-501\/-Users-ahmedraad-Desktop-asl-scanmynet-project-scanmynet-flutter\/00fa4fa4-02c7-4f82-a4af-9492a1289bfc\/scratchpad\/ios-master-build\/ScanMyNet\/ScanMyNet.swift",
       "kind": "BooleanLiteral",
       "offset": 4100,
       "length": 5,
       "value": "false"
     },
     {
-      "filePath": "\/Users\/vagrant\/git\/ScanMyNet\/Services\/Additional Data\/SSIDService.swift",
+      "filePath": "\/tmp\/claude-501\/-Users-ahmedraad-Desktop-asl-scanmynet-project-scanmynet-flutter\/00fa4fa4-02c7-4f82-a4af-9492a1289bfc\/scratchpad\/ios-master-build\/ScanMyNet\/Services\/Additional Data\/SSIDService.swift",
       "kind": "Array",
       "offset": 348,
       "length": 7,
       "value": "[\"en0\"]"
     },
     {
-      "filePath": "\/Users\/vagrant\/git\/ScanMyNet\/Services\/Additional Data\/SSIDService.swift",
+      "filePath": "\/tmp\/claude-501\/-Users-ahmedraad-Desktop-asl-scanmynet-project-scanmynet-flutter\/00fa4fa4-02c7-4f82-a4af-9492a1289bfc\/scratchpad\/ios-master-build\/ScanMyNet\/Services\/Additional Data\/SSIDService.swift",
       "kind": "Array",
       "offset": 386,
       "length": 41,
       "value": "[\"pdp_ip0\", \"pdp_ip1\", \"pdp_ip2\", \"pdp_ip3\"]"
     },
     {
-      "filePath": "\/Users\/vagrant\/git\/ScanMyNet\/Services\/Additional Data\/InterfaceCounters.swift",
+      "filePath": "\/tmp\/claude-501\/-Users-ahmedraad-Desktop-asl-scanmynet-project-scanmynet-flutter\/00fa4fa4-02c7-4f82-a4af-9492a1289bfc\/scratchpad\/ios-master-build\/ScanMyNet\/Services\/Additional Data\/InterfaceCounters.swift",
       "kind": "IntegerLiteral",
       "offset": 519,
       "length": 1,
       "value": "0"
     },
     {
-      "filePath": "\/Users\/vagrant\/git\/ScanMyNet\/Services\/Additional Data\/InterfaceCounters.swift",
+      "filePath": "\/tmp\/claude-501\/-Users-ahmedraad-Desktop-asl-scanmynet-project-scanmynet-flutter\/00fa4fa4-02c7-4f82-a4af-9492a1289bfc\/scratchpad\/ios-master-build\/ScanMyNet\/Services\/Additional Data\/InterfaceCounters.swift",
       "kind": "IntegerLiteral",
       "offset": 548,
       "length": 1,
       "value": "0"
     },
     {
-      "filePath": "\/Users\/vagrant\/git\/ScanMyNet\/Services\/Connection Quality\/ConnectionQualityService.swift",
+      "filePath": "\/tmp\/claude-501\/-Users-ahmedraad-Desktop-asl-scanmynet-project-scanmynet-flutter\/00fa4fa4-02c7-4f82-a4af-9492a1289bfc\/scratchpad\/ios-master-build\/ScanMyNet\/Services\/Connection Quality\/ConnectionQualityService.swift",
       "kind": "StringLiteral",
       "offset": 612,
       "length": 20,
       "value": "\"admin.earthlink.iq\""
     },
     {
-      "filePath": "\/Users\/vagrant\/git\/ScanMyNet\/Services\/Connection Quality\/ConnectionQualityService.swift",
+      "filePath": "\/tmp\/claude-501\/-Users-ahmedraad-Desktop-asl-scanmynet-project-scanmynet-flutter\/00fa4fa4-02c7-4f82-a4af-9492a1289bfc\/scratchpad\/ios-master-build\/ScanMyNet\/Services\/Connection Quality\/ConnectionQualityService.swift",
       "kind": "StringLiteral",
       "offset": 640,
       "length": 17,
       "value": "\"Earthlink Admin\""
     },
     {
-      "filePath": "\/Users\/vagrant\/git\/ScanMyNet\/Services\/Connection Quality\/ConnectionQualityService.swift",
+      "filePath": "\/tmp\/claude-501\/-Users-ahmedraad-Desktop-asl-scanmynet-project-scanmynet-flutter\/00fa4fa4-02c7-4f82-a4af-9492a1289bfc\/scratchpad\/ios-master-build\/ScanMyNet\/Services\/Connection Quality\/ConnectionQualityService.swift",
       "kind": "StringLiteral",
       "offset": 686,
       "length": 14,
       "value": "\"109.224.14.2\""
     },
     {
-      "filePath": "\/Users\/vagrant\/git\/ScanMyNet\/Services\/Connection Quality\/ConnectionQualityService.swift",
+      "filePath": "\/tmp\/claude-501\/-Users-ahmedraad-Desktop-asl-scanmynet-project-scanmynet-flutter\/00fa4fa4-02c7-4f82-a4af-9492a1289bfc\/scratchpad\/ios-master-build\/ScanMyNet\/Services\/Connection Quality\/ConnectionQualityService.swift",
       "kind": "StringLiteral",
       "offset": 708,
       "length": 15,
       "value": "\"Earthlink DNS\""
     },
     {
-      "filePath": "\/Users\/vagrant\/git\/ScanMyNet\/Services\/Connection Quality\/ConnectionQualityService.swift",
+      "filePath": "\/tmp\/claude-501\/-Users-ahmedraad-Desktop-asl-scanmynet-project-scanmynet-flutter\/00fa4fa4-02c7-4f82-a4af-9492a1289bfc\/scratchpad\/ios-master-build\/ScanMyNet\/Services\/Connection Quality\/ConnectionQualityService.swift",
       "kind": "StringLiteral",
       "offset": 733,
       "length": 6,
       "value": "\"http\""
     },
     {
-      "filePath": "\/Users\/vagrant\/git\/ScanMyNet\/Services\/Connection Quality\/ConnectionQualityService.swift",
+      "filePath": "\/tmp\/claude-501\/-Users-ahmedraad-Desktop-asl-scanmynet-project-scanmynet-flutter\/00fa4fa4-02c7-4f82-a4af-9492a1289bfc\/scratchpad\/ios-master-build\/ScanMyNet\/Services\/Connection Quality\/ConnectionQualityService.swift",
       "kind": "StringLiteral",
       "offset": 768,
       "length": 9,
       "value": "\"8.8.8.8\""
     },
     {
-      "filePath": "\/Users\/vagrant\/git\/ScanMyNet\/Services\/Connection Quality\/ConnectionQualityService.swift",
+      "filePath": "\/tmp\/claude-501\/-Users-ahmedraad-Desktop-asl-scanmynet-project-scanmynet-flutter\/00fa4fa4-02c7-4f82-a4af-9492a1289bfc\/scratchpad\/ios-master-build\/ScanMyNet\/Services\/Connection Quality\/ConnectionQualityService.swift",
       "kind": "StringLiteral",
       "offset": 785,
       "length": 12,
       "value": "\"Google DNS\""
     },
     {
-      "filePath": "\/Users\/vagrant\/git\/ScanMyNet\/Services\/Connection Quality\/ConnectionQualityService.swift",
+      "filePath": "\/tmp\/claude-501\/-Users-ahmedraad-Desktop-asl-scanmynet-project-scanmynet-flutter\/00fa4fa4-02c7-4f82-a4af-9492a1289bfc\/scratchpad\/ios-master-build\/ScanMyNet\/Services\/Connection Quality\/ConnectionQualityService.swift",
       "kind": "StringLiteral",
       "offset": 826,
       "length": 14,
       "value": "\"facebook.com\""
     },
     {
-      "filePath": "\/Users\/vagrant\/git\/ScanMyNet\/Services\/Connection Quality\/ConnectionQualityService.swift",
+      "filePath": "\/tmp\/claude-501\/-Users-ahmedraad-Desktop-asl-scanmynet-project-scanmynet-flutter\/00fa4fa4-02c7-4f82-a4af-9492a1289bfc\/scratchpad\/ios-master-build\/ScanMyNet\/Services\/Connection Quality\/ConnectionQualityService.swift",
       "kind": "StringLiteral",
       "offset": 848,
       "length": 10,
       "value": "\"Facebook\""
     },
     {
-      "filePath": "\/Users\/vagrant\/git\/ScanMyNet\/Services\/Connection Quality\/ConnectionQualityService.swift",
+      "filePath": "\/tmp\/claude-501\/-Users-ahmedraad-Desktop-asl-scanmynet-project-scanmynet-flutter\/00fa4fa4-02c7-4f82-a4af-9492a1289bfc\/scratchpad\/ios-master-build\/ScanMyNet\/Services\/Connection Quality\/ConnectionQualityService.swift",
       "kind": "StringLiteral",
       "offset": 887,
       "length": 13,
       "value": "\"youtube.com\""
     },
     {
-      "filePath": "\/Users\/vagrant\/git\/ScanMyNet\/Services\/Connection Quality\/ConnectionQualityService.swift",
+      "filePath": "\/tmp\/claude-501\/-Users-ahmedraad-Desktop-asl-scanmynet-project-scanmynet-flutter\/00fa4fa4-02c7-4f82-a4af-9492a1289bfc\/scratchpad\/ios-master-build\/ScanMyNet\/Services\/Connection Quality\/ConnectionQualityService.swift",
       "kind": "StringLiteral",
       "offset": 908,
       "length": 9,
       "value": "\"Youtube\""
     },
     {
-      "filePath": "\/Users\/vagrant\/git\/ScanMyNet\/Services\/Connection Quality\/ConnectionQualityService.swift",
+      "filePath": "\/tmp\/claude-501\/-Users-ahmedraad-Desktop-asl-scanmynet-project-scanmynet-flutter\/00fa4fa4-02c7-4f82-a4af-9492a1289bfc\/scratchpad\/ios-master-build\/ScanMyNet\/Services\/Connection Quality\/ConnectionQualityService.swift",
       "kind": "StringLiteral",
       "offset": 946,
       "length": 15,
       "value": "\"admin.ftth.iq\""
     },
     {
-      "filePath": "\/Users\/vagrant\/git\/ScanMyNet\/Services\/Connection Quality\/ConnectionQualityService.swift",
+      "filePath": "\/tmp\/claude-501\/-Users-ahmedraad-Desktop-asl-scanmynet-project-scanmynet-flutter\/00fa4fa4-02c7-4f82-a4af-9492a1289bfc\/scratchpad\/ios-master-build\/ScanMyNet\/Services\/Connection Quality\/ConnectionQualityService.swift",
       "kind": "StringLiteral",
       "offset": 969,
       "length": 12,
       "value": "\"FTTH Admin\""
     },
     {
-      "filePath": "\/Users\/vagrant\/git\/ScanMyNet\/Services\/Connection Quality\/ConnectionQualityService.swift",
+      "filePath": "\/tmp\/claude-501\/-Users-ahmedraad-Desktop-asl-scanmynet-project-scanmynet-flutter\/00fa4fa4-02c7-4f82-a4af-9492a1289bfc\/scratchpad\/ios-master-build\/ScanMyNet\/Services\/Connection Quality\/ConnectionQualityService.swift",
       "kind": "Array",
       "offset": 1029,
       "length": 2,
       "value": "[]"
     },
     {
-      "filePath": "\/Users\/vagrant\/git\/ScanMyNet\/Services\/Connection Quality\/ConnectionQualityService.swift",
+      "filePath": "\/tmp\/claude-501\/-Users-ahmedraad-Desktop-asl-scanmynet-project-scanmynet-flutter\/00fa4fa4-02c7-4f82-a4af-9492a1289bfc\/scratchpad\/ios-master-build\/ScanMyNet\/Services\/Connection Quality\/ConnectionQualityService.swift",
       "kind": "Array",
       "offset": 1077,
       "length": 2,
       "value": "[]"
     },
     {
-      "filePath": "\/Users\/vagrant\/git\/ScanMyNet\/Services\/Connection Quality\/ConnectionQualityService.swift",
+      "filePath": "\/tmp\/claude-501\/-Users-ahmedraad-Desktop-asl-scanmynet-project-scanmynet-flutter\/00fa4fa4-02c7-4f82-a4af-9492a1289bfc\/scratchpad\/ios-master-build\/ScanMyNet\/Services\/Connection Quality\/ConnectionQualityService.swift",
       "kind": "StringLiteral",
       "offset": 1114,
       "length": 2,
       "value": "\"\""
     },
     {
-      "filePath": "\/Users\/vagrant\/git\/ScanMyNet\/Services\/Connection Quality\/ConnectionQualityService.swift",
+      "filePath": "\/tmp\/claude-501\/-Users-ahmedraad-Desktop-asl-scanmynet-project-scanmynet-flutter\/00fa4fa4-02c7-4f82-a4af-9492a1289bfc\/scratchpad\/ios-master-build\/ScanMyNet\/Services\/Connection Quality\/ConnectionQualityService.swift",
       "kind": "Array",
       "offset": 1242,
       "length": 2,
       "value": "[]"
     },
     {
-      "filePath": "\/Users\/vagrant\/git\/ScanMyNet\/Services\/Connection Quality\/ConnectionQualityService.swift",
+      "filePath": "\/tmp\/claude-501\/-Users-ahmedraad-Desktop-asl-scanmynet-project-scanmynet-flutter\/00fa4fa4-02c7-4f82-a4af-9492a1289bfc\/scratchpad\/ios-master-build\/ScanMyNet\/Services\/Connection Quality\/ConnectionQualityService.swift",
       "kind": "Array",
       "offset": 1284,
       "length": 2,
       "value": "[]"
     },
     {
-      "filePath": "\/Users\/vagrant\/git\/ScanMyNet\/Services\/Connection Quality\/ConnectionQualityService.swift",
+      "filePath": "\/tmp\/claude-501\/-Users-ahmedraad-Desktop-asl-scanmynet-project-scanmynet-flutter\/00fa4fa4-02c7-4f82-a4af-9492a1289bfc\/scratchpad\/ios-master-build\/ScanMyNet\/Services\/Connection Quality\/ConnectionQualityService.swift",
       "kind": "BooleanLiteral",
       "offset": 1313,
       "length": 5,
       "value": "false"
     },
     {
-      "filePath": "\/Users\/vagrant\/git\/ScanMyNet\/Services\/Connection Quality\/ConnectionQualityService.swift",
+      "filePath": "\/tmp\/claude-501\/-Users-ahmedraad-Desktop-asl-scanmynet-project-scanmynet-flutter\/00fa4fa4-02c7-4f82-a4af-9492a1289bfc\/scratchpad\/ios-master-build\/ScanMyNet\/Services\/Connection Quality\/ConnectionQualityService.swift",
       "kind": "IntegerLiteral",
       "offset": 1828,
       "length": 2,
       "value": "90"
     },
     {
-      "filePath": "\/Users\/vagrant\/git\/ScanMyNet\/Services\/Connection Quality\/ConnectionQualityService.swift",
+      "filePath": "\/tmp\/claude-501\/-Users-ahmedraad-Desktop-asl-scanmynet-project-scanmynet-flutter\/00fa4fa4-02c7-4f82-a4af-9492a1289bfc\/scratchpad\/ios-master-build\/ScanMyNet\/Services\/Connection Quality\/ConnectionQualityService.swift",
       "kind": "BooleanLiteral",
       "offset": 1967,
       "length": 5,
